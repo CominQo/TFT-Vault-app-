@@ -20,11 +20,11 @@ func main() {
 		Height:           800,
 		MinWidth:         900,
 		MinHeight:        600,
-		Frameless:        true, // custom title bar is drawn in frontend/index.html
-		BackgroundColour: &options.RGBA{R: 14, G: 17, B: 22, A: 1},
+		Frameless:        true,                                  // custom title bar is drawn in frontend/index.html
+		BackgroundColour: &options.RGBA{R: 0, G: 0, B: 0, A: 0}, // transparent: the HTML draws the rounded window
 		AssetServer:      &assetserver.Options{Assets: assets},
 		Bind:             []interface{}{app},
-		Windows:          &windows.Options{Theme: windows.Dark},
+		Windows:          &windows.Options{Theme: windows.Dark, WebviewIsTransparent: true},
 	})
 	if err != nil {
 		println("error:", err.Error())
