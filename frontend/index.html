@@ -110,7 +110,7 @@ header p{color:var(--muted);font-size:14px}
 #navHome svg path{fill:transparent;stroke:var(--gold);stroke-width:3.4;stroke-linejoin:round;transition:fill .2s var(--ease)}
 #navHome:hover svg path,#navHome:focus-visible svg path{fill:var(--gold)}
 
-#logo{position:absolute;z-index:5;left:124px;top:22px;width:148px;height:auto;filter:drop-shadow(0 6px 18px rgba(0,0,0,.55));pointer-events:none;user-select:none}
+#logo{position:absolute;top:46px;left:50%;transform:translateX(-50%);width:60px;height:auto;filter:drop-shadow(0 4px 10px rgba(0,0,0,.5));pointer-events:none;user-select:none}
 
 #profile{position:absolute;z-index:6;top:50px;right:28px}
 #pbtn{width:46px;height:46px;border-radius:50%;border:1px solid rgba(255,255,255,.18);background:rgba(10,13,18,.65);backdrop-filter:blur(10px);color:var(--text);font:inherit;font-weight:700;font-size:17px;cursor:pointer;display:grid;place-items:center;transition:border-color .2s,transform .2s var(--ease)}
@@ -136,7 +136,7 @@ header p{color:var(--muted);font-size:14px}
 .qcard:hover,.qcard:focus-visible{transform:translateY(-4px);border-color:var(--a);outline:none}
 .qcard b{font-size:34px;letter-spacing:-.02em;line-height:1}
 .qcard span{color:#c5cad3;font-size:14px;margin-top:4px}
-#sets{padding:176px 40px 48px}
+#sets{padding:64px 40px 48px}
 #sets header{padding:0 0 4px}
 #toast{position:absolute;z-index:200;left:50%;bottom:28px;transform:translate(-50%,20px);background:rgba(14,17,22,.95);border:1px solid var(--line);border-radius:14px;padding:12px 20px;font-size:14px;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s var(--ease)}
 #toast.on{opacity:1;transform:translate(-50%,0)}
@@ -155,10 +155,10 @@ header p{color:var(--muted);font-size:14px}
   <button id="wClose" class="x" aria-label="Close"><svg viewBox="0 0 10 10"><path d="M0 0l10 10M10 0L0 10"/></svg></button>
 </div>
 <nav id="side">
+  <img id="logo" src="img/logo.png" alt="TFT Vault">
   <button id="navHome" class="on" aria-label="Home" title="Home"><svg viewBox="0 0 24 24"><path d="M12 2.6 20.3 7.3v9.4L12 21.4 3.7 16.7V7.3z"/></svg></button>
   <button id="navSets" aria-label="All sets" title="All sets"><svg viewBox="0 0 24 24"><path d="M3 3h8v8H3zm10 0h8v8h-8zM3 13h8v8H3zm10 0h8v8h-8z"/></svg></button>
 </nav>
-<img id="logo" src="img/logo.png" alt="TFT Vault">
 <div id="profile">
   <button id="pbtn" aria-label="Profile" aria-expanded="false">S</button>
   <div id="pmenu" hidden>
@@ -373,7 +373,7 @@ function renderHero(sets) {
   if (!s.info) return;
   [['champions', 'Champions', 'Browse every unit'], ['traits', 'Traits', 'All breakpoints']].forEach(([t, l, d]) => {
     const c = document.createElement('button'); c.className = 'qcard';
-    c.innerHTML = `<b data-n>·</b><span>${l} — ${d.toLowerCase()}</span>`;
+    c.innerHTML = `<b data-n>·</b><span>${l}</span>`;
     c.onclick = () => openDetail(s, t); q.append(c);
   });
   fetch(s.info).then(r => r.json()).then(D => {
