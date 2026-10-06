@@ -12,6 +12,7 @@ type Set struct {
 	Accent string `json:"accent"`
 	Poster string `json:"poster"`
 	Video  string `json:"video"`
+	Info   string `json:"info"` // optional: path to a detail JSON (e.g. data/set18.json)
 	Pbe    string `json:"pbe"`
 	Live   string `json:"live"`
 	Blurb  string `json:"blurb"`

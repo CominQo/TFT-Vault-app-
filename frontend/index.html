@@ -48,6 +48,53 @@ header p{color:var(--muted);font-size:14px}
 .chips button:hover,.chips button:focus-visible{border-color:var(--a);outline:none}
 #back{position:absolute;z-index:2;top:56px;left:28px;background:rgba(23,27,34,.85);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:8px 16px;font:inherit;cursor:pointer;opacity:0;transition:opacity .3s .3s}
 #ov.open #back{opacity:1}
+
+/* ---- Set detail view ---- */
+#detail{position:fixed;z-index:20;top:40px;left:0;right:0;bottom:0;overflow-y:auto;background:rgba(14,17,22,.84);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);opacity:0;transform:translateY(12px);transition:opacity .25s,transform .25s var(--ease)}
+#detail[hidden]{display:none}
+#detail.on{opacity:1;transform:none}
+.dwrap{max-width:1180px;margin:0 auto;padding:28px 40px 64px}
+.dhead{display:flex;align-items:center;gap:20px}
+.dhead h2{font-size:clamp(28px,4vw,44px);font-weight:800;letter-spacing:-.03em;line-height:1.05}
+.dhead p{color:var(--muted);font-size:14px;margin-top:4px}
+.btn{background:rgba(23,27,34,.85);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:8px 16px;font:inherit;cursor:pointer;transition:border-color .2s}
+.btn:hover,.btn:focus-visible{border-color:var(--a);outline:none}
+.tabs{position:sticky;top:-1px;z-index:2;display:flex;gap:6px;margin:24px 0 22px;padding:10px 0;background:rgb(14,17,22);border-bottom:1px solid var(--line)}
+.tabs button{background:none;border:0;color:var(--muted);font:inherit;font-weight:600;padding:8px 16px;border-radius:8px;cursor:pointer}
+.tabs button:hover{color:var(--text)}
+.tabs button.on{color:var(--text);background:rgba(255,255,255,.08);box-shadow:inset 0 -2px 0 var(--a)}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-bottom:28px}
+.stat{background:rgba(23,27,34,.7);border:1px solid var(--line);border-radius:10px;padding:16px 18px}
+.stat b{display:block;font-size:30px;letter-spacing:-.02em;color:var(--a)}
+.stat span{color:var(--muted);font-size:13px}
+.h3{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:30px 0 14px}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px}
+.info{background:rgba(23,27,34,.7);border:1px solid var(--line);border-radius:10px;padding:16px 18px}
+.info b{display:block;margin-bottom:6px}
+.info p{color:#c5cad3;font-size:14px;line-height:1.55}
+.patch{display:grid;grid-template-columns:64px 76px 1fr;gap:14px;align-items:baseline;padding:14px 0;border-bottom:1px solid var(--line);font-size:14px;line-height:1.5}
+.patch b{color:var(--a)}.patch span{color:var(--muted)}
+.bar{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:18px;align-items:center}
+.bar input{flex:1;min-width:200px;max-width:320px;background:rgba(23,27,34,.85);border:1px solid var(--line);border-radius:8px;padding:9px 14px;color:var(--text);font:inherit}
+.bar input:focus{outline:none;border-color:var(--a)}
+.pill{background:rgba(23,27,34,.85);border:1px solid var(--line);color:var(--muted);border-radius:99px;padding:6px 14px;font:inherit;font-size:13px;cursor:pointer}
+.pill:hover{color:var(--text)}.pill.on{color:var(--text);border-color:var(--a);background:rgba(255,255,255,.08)}
+.champs{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+.ch{position:relative;background:rgba(23,27,34,.75);border:1px solid var(--line);border-left:3px solid var(--c);border-radius:10px;padding:12px 14px}
+.ch b{display:flex;justify-content:space-between;gap:8px;font-size:15px}
+.ch b i{font-style:normal;color:var(--c);font-size:13px;font-weight:600;white-space:nowrap}
+.tg{display:flex;flex-wrap:wrap;gap:5px;margin-top:9px}
+.tg button{background:rgba(255,255,255,.06);border:0;color:#c5cad3;border-radius:5px;padding:3px 8px;font:inherit;font-size:12px;cursor:pointer}
+.tg button:hover{background:rgba(255,255,255,.14);color:var(--text)}
+.trait{background:rgba(23,27,34,.75);border:1px solid var(--line);border-radius:10px;padding:16px 18px;margin-bottom:12px;scroll-margin-top:90px}
+.trait.hl{border-color:var(--a)}
+.trait header{display:flex;flex-wrap:wrap;align-items:center;gap:12px;padding:0}
+.trait h4{font-size:17px}
+.bp{display:flex;gap:5px}.bp span{min-width:24px;text-align:center;background:var(--a);color:#07110b;font-weight:700;font-size:12px;padding:2px 7px;border-radius:5px}
+.trait>p{color:#c5cad3;font-size:14px;line-height:1.55;margin:10px 0 12px;max-width:80ch}
+.trait .tg button{border-left:2px solid var(--c)}
+.empty{color:var(--muted);padding:30px 0}
+.foot{color:var(--muted);font-size:12px;margin-top:36px;max-width:80ch;line-height:1.5}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}#bg{display:none}}
 </style>
 </head>
@@ -68,6 +115,15 @@ header p{color:var(--muted);font-size:14px}
   <video muted loop playsinline></video>
   <button id="back">Back to sets</button>
   <div class="in"></div>
+</section>
+<section id="detail" hidden>
+  <div class="dwrap">
+    <div class="dhead"><button class="btn" id="dback">&larr; Back</button><div><h2 id="dtitle"></h2><p id="dsub"></p></div></div>
+    <nav class="tabs" id="tabs">
+      <button data-t="overview">Overview</button><button data-t="champions">Champions</button><button data-t="traits">Traits</button>
+    </nav>
+    <div id="dbody"></div>
+  </div>
 </section>
 <script>
 const grid = document.getElementById('grid'), ov = document.getElementById('ov');
@@ -104,7 +160,8 @@ function open(s, card) {
   ov.style.setProperty('--a', s.accent);
   const dates = [s.pbe && 'PBE ' + s.pbe, s.live && 'Live ' + s.live].filter(Boolean).join(' · ');
   inner.innerHTML = `<h2>${s.name}</h2>${dates ? `<div class="d">${dates}</div>` : ''}${s.blurb ? `<p>${s.blurb}</p>` : ''}
-    <div class="chips"><button>Traits</button><button>Champions</button><button>Augments</button><button>Items</button></div>`;
+    <div class="chips">${s.info ? '<button data-t="overview">Overview</button><button data-t="champions">Champions</button><button data-t="traits">Traits</button>' : '<button>Traits</button><button>Champions</button><button>Augments</button><button>Items</button>'}</div>`;
+  if (s.info) inner.querySelectorAll('[data-t]').forEach(b => b.onclick = () => openDetail(s, b.dataset.t));
   vid.onerror = () => vid.style.display = 'none';
   vid.style.display = ''; vid.src = s.video; vid.play().catch(() => {});
   place(card.getBoundingClientRect());
@@ -122,7 +179,7 @@ function close() {
   setTimeout(() => { ov.hidden = true; vid.pause(); }, 500);
 }
 document.getElementById('back').onclick = close;
-addEventListener('keydown', e => e.key === 'Escape' && close());
+addEventListener('keydown', e => { if (e.key !== 'Escape') return; if (!dt.hidden) closeDetail(); else close(); });
 loadSets().then(render);
 
 // Custom title bar controls (Wails runtime; no-ops in a plain browser preview)
@@ -136,6 +193,87 @@ const bg = document.getElementById('bg');
 bg.play().catch(() => {});
 document.addEventListener('visibilitychange', () => { if (!document.hidden) bg.play().catch(() => {}); });
 bg.onerror = () => bg.style.display = 'none';
+
+// ---------- Set detail view ----------
+const dt = document.getElementById('detail'), dbody = document.getElementById('dbody');
+const COST = {1:'#9aa4b2',2:'#3ecf8e',3:'#4ea1ff',4:'#b06cff',5:'#f5b942'};
+const cache = {}; let D = null, tab = 'overview', costF = 0, kindF = 'all', q = '', hl = '';
+
+async function openDetail(s, t) {
+  try { D = cache[s.info] ||= await (await fetch(s.info)).json(); } catch { return; }
+  dt.style.setProperty('--a', s.accent);
+  document.getElementById('dtitle').textContent = D.title;
+  document.getElementById('dsub').textContent = D.sub;
+  tab = t; costF = 0; kindF = 'all'; q = ''; hl = '';
+  dt.hidden = false; requestAnimationFrame(() => dt.classList.add('on'));
+  renderTab();
+}
+function closeDetail() { dt.classList.remove('on'); setTimeout(() => dt.hidden = true, 250); }
+document.getElementById('dback').onclick = closeDetail;
+document.getElementById('tabs').onclick = e => { const t = e.target.dataset.t; if (t) { tab = t; q = ''; hl = ''; renderTab(); } };
+
+function renderTab() {
+  document.querySelectorAll('#tabs button').forEach(b => b.classList.toggle('on', b.dataset.t === tab));
+  ({ overview: renderOverview, champions: renderChamps, traits: renderTraits })[tab]();
+  dt.scrollTop = 0;
+}
+
+const byTrait = () => { const m = {}; D.champions.forEach(c => c.traits.forEach(t => (m[t] ||= []).push(c))); return m; };
+const traitBtns = c => c.traits.map(t => `<button data-trait="${t}">${t}</button>`).join('');
+function wireTraitLinks(root) {
+  root.querySelectorAll('[data-trait]').forEach(b => b.onclick = () => { tab = 'traits'; q = ''; hl = b.dataset.trait; kindF = 'all'; renderTab(); const el = document.getElementById('tr-' + hl.replace(/\W/g, '')); el && el.scrollIntoView({ block: 'start' }); });
+}
+
+function renderOverview() {
+  dbody.innerHTML =
+    `<div class="stats">${D.stats.map(x => `<div class="stat"><b>${x.v}</b><span>${x.l}</span></div>`).join('')}</div>
+     <div class="h3">What's new</div>
+     <div class="cards">${D.mechanics.map(m => `<div class="info"><b>${m.t}</b><p>${m.d}</p></div>`).join('')}</div>
+     <div class="h3">Patch timeline</div>
+     <div>${D.patches.map(p => `<div class="patch"><b>${p.p}</b><span>${p.d}</span><div>${p.n}</div></div>`).join('')}</div>
+     <p class="foot">${D.timeline}<br>${D.source}</p>`;
+}
+
+function renderChamps() {
+  dbody.innerHTML = `<div class="bar"><input id="qs" placeholder="Search champions or traits…" value="${q}">
+    ${[0,1,2,3,4,5].map(c => `<button class="pill${c === costF ? ' on' : ''}" data-c="${c}">${c ? c + ' gold' : 'All'}</button>`).join('')}</div>
+    <div class="champs" id="cl"></div><p class="foot">${D.source}</p>`;
+  const paint = () => {
+    const k = q.trim().toLowerCase();
+    const list = D.champions.filter(c => (!costF || c.cost === costF) && (!k || c.name.toLowerCase().includes(k) || c.traits.some(t => t.toLowerCase().includes(k))));
+    const el = document.getElementById('cl');
+    el.innerHTML = list.length ? list.map(c => `<div class="ch" style="--c:${COST[c.cost]}"><b>${c.name}<i>${c.cost} gold</i></b><div class="tg">${traitBtns(c)}</div></div>`).join('') : '<div class="empty">No champions match.</div>';
+    wireTraitLinks(el);
+  };
+  document.getElementById('qs').oninput = e => { q = e.target.value; paint(); };
+  dbody.querySelectorAll('[data-c]').forEach(b => b.onclick = () => { costF = +b.dataset.c; dbody.querySelectorAll('[data-c]').forEach(x => x.classList.toggle('on', x === b)); paint(); });
+  paint();
+}
+
+function renderTraits() {
+  const kinds = [['all','All'],['shared','Shared'],['single','Single-champion'],['hidden','Hidden']];
+  dbody.innerHTML = `<div class="bar"><input id="qs" placeholder="Search traits or champions…" value="${q}">
+    ${kinds.map(([k, l]) => `<button class="pill${k === kindF ? ' on' : ''}" data-k="${k}">${l}</button>`).join('')}</div>
+    <div id="tl"></div><p class="foot">${D.source}</p>`;
+  const map = byTrait();
+  const paint = () => {
+    const k = q.trim().toLowerCase();
+    const list = D.traits.filter(t => (kindF === 'all' || t.kind === kindF) &&
+      (!k || t.name.toLowerCase().includes(k) || (map[t.name] || []).some(c => c.name.toLowerCase().includes(k))));
+    const el = document.getElementById('tl');
+    el.innerHTML = list.length ? list.map(t => {
+      const cs = (map[t.name] || []).slice().sort((a, b) => a.cost - b.cost);
+      const bp = t.kind === 'single' ? '' : t.kind === 'hidden' ? '<div class="bp"><span style="padding:2px 10px">3 Solar + 3 Lunar</span></div>' : `<div class="bp">${t.bp.map(n => `<span>${n}</span>`).join('')}</div>`;
+      return `<div class="trait${t.name === hl ? ' hl' : ''}" id="tr-${t.name.replace(/\W/g, '')}"><header><h4>${t.name}</h4>${bp}</header><p>${t.desc}</p>
+        <div class="tg">${cs.map(c => `<button data-trait="${c.name}" style="--c:${COST[c.cost]}" data-champ="1">${c.name} · ${c.cost}</button>`).join('')}</div></div>`;
+    }).join('') : '<div class="empty">No traits match.</div>';
+    // champion chips here search by champion name instead of jumping
+    el.querySelectorAll('[data-champ]').forEach(b => b.onclick = () => { tab = 'champions'; q = b.dataset.trait; costF = 0; renderTab(); });
+  };
+  document.getElementById('qs').oninput = e => { q = e.target.value; paint(); };
+  dbody.querySelectorAll('[data-k]').forEach(b => b.onclick = () => { kindF = b.dataset.k; dbody.querySelectorAll('[data-k]').forEach(x => x.classList.toggle('on', x === b)); paint(); });
+  paint();
+}
 </script>
 </body>
 </html>

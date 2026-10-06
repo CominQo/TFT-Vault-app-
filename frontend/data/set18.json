@@ -1,0 +1,940 @@
+{
+ "title": "Enchanted Wilds",
+ "sub": "Set 18 · data as of patch 18.3",
+ "stats": [
+  {
+   "v": "65",
+   "l": "Champions"
+  },
+  {
+   "v": "35",
+   "l": "Traits"
+  },
+  {
+   "v": "Aug 26",
+   "l": "Live · 2026"
+  },
+  {
+   "v": "18.3",
+   "l": "Current patch"
+  }
+ ],
+ "mechanics": [
+  {
+   "t": "Wisps",
+   "d": "Single-use boosts that appear in the rightmost slot of every other shop. You can buy one per round, and after stage 5 every other Wisp is a Combat Wisp. They range from combat power to gold, XP, items, champions and risky deals. Wisps are an updated take on Set 12's Charms."
+  },
+  {
+   "t": "Lux, the Avatar",
+   "d": "A 5-cost who can represent one of nine Origins: Blackthorn, Blossom, Coven, Elderwood, Fae, Inferno, Lunar, Primal or Solar. Her chosen trait counts twice."
+  },
+  {
+   "t": "Riftbeasts & the Elder Dragon",
+   "d": "Riftbeast is the largest trait with 10 champions. The Elder Dragon takes two team slots and adds 2 to your Riftbeast count."
+  },
+  {
+   "t": "Hidden Eclipse",
+   "d": "Field 3 Solar and 3 Lunar champions to unlock a hidden trait that executes the lowest-Health enemy on a timer."
+  },
+  {
+   "t": "Carousel returns",
+   "d": "Set 17 replaced the Carousel with the Realm of the Gods. Enchanted Wilds brings the classic Carousel back."
+  },
+  {
+   "t": "No retargeting after CC",
+   "d": "Units no longer pick a new target when they come out of crowd control (patch 18.1)."
+  }
+ ],
+ "patches": [
+  {
+   "p": "18.1",
+   "d": "Aug 26",
+   "n": "Launch patch: Wisps, the Carousel's return, no retargeting after crowd control."
+  },
+  {
+   "p": "18.2",
+   "d": "Sep 10",
+   "n": "First main patch, mostly buffs: cheaper Combat Wisps, less XP for levels 8–10 (partly reverted Sep 14), buffs to Blackthorn, Coven, Fae, Hunter and Inferno; Rapidfire and Solar toned down."
+  },
+  {
+   "p": "18.3",
+   "d": "Sep 23",
+   "n": "Focused patch: Coven buffed; Defender, Hunter, Inferno and Invoker nerfed; Blossom's Wisp values and several Wisps retuned."
+  }
+ ],
+ "timeline": "PBE opened July 28, 2026 · Live August 26, 2026",
+ "champions": [
+  {
+   "name": "Akali",
+   "cost": 1,
+   "traits": [
+    "Inferno",
+    "Adaptor",
+    "Ravager"
+   ]
+  },
+  {
+   "name": "Camille",
+   "cost": 1,
+   "traits": [
+    "Coven",
+    "Ravager"
+   ]
+  },
+  {
+   "name": "Cinderling",
+   "cost": 1,
+   "traits": [
+    "Riftbeast",
+    "Hunter"
+   ]
+  },
+  {
+   "name": "Karma",
+   "cost": 1,
+   "traits": [
+    "Blossom",
+    "Spellweaver"
+   ]
+  },
+  {
+   "name": "Kobuko",
+   "cost": 1,
+   "traits": [
+    "Sprykin",
+    "Brawler"
+   ]
+  },
+  {
+   "name": "Leona",
+   "cost": 1,
+   "traits": [
+    "Solar",
+    "Defender"
+   ]
+  },
+  {
+   "name": "Ornn",
+   "cost": 1,
+   "traits": [
+    "Elderwood",
+    "Defender"
+   ]
+  },
+  {
+   "name": "Pebbles",
+   "cost": 1,
+   "traits": [
+    "Riftbeast",
+    "Invoker"
+   ]
+  },
+  {
+   "name": "Rakan",
+   "cost": 1,
+   "traits": [
+    "Fae",
+    "Juggernaut",
+    "Vanguard"
+   ]
+  },
+  {
+   "name": "Rek'Sai",
+   "cost": 1,
+   "traits": [
+    "Blackthorn",
+    "Brawler"
+   ]
+  },
+  {
+   "name": "Varus",
+   "cost": 1,
+   "traits": [
+    "Inferno",
+    "Rapidfire"
+   ]
+  },
+  {
+   "name": "Veigar",
+   "cost": 1,
+   "traits": [
+    "Blackthorn",
+    "Sprykin",
+    "Spellweaver"
+   ]
+  },
+  {
+   "name": "Xayah",
+   "cost": 1,
+   "traits": [
+    "Elderwood",
+    "Fae",
+    "Rapidfire"
+   ]
+  },
+  {
+   "name": "Yorick",
+   "cost": 1,
+   "traits": [
+    "Blossom",
+    "Juggernaut",
+    "Summoner"
+   ]
+  },
+  {
+   "name": "Alistar",
+   "cost": 2,
+   "traits": [
+    "Elderwood",
+    "Brawler"
+   ]
+  },
+  {
+   "name": "Caitlyn",
+   "cost": 2,
+   "traits": [
+    "Coven",
+    "Hunter"
+   ]
+  },
+  {
+   "name": "Elise",
+   "cost": 2,
+   "traits": [
+    "Coven",
+    "Vanguard"
+   ]
+  },
+  {
+   "name": "Gromp",
+   "cost": 2,
+   "traits": [
+    "Riftbeast",
+    "Adaptor"
+   ]
+  },
+  {
+   "name": "Kayle",
+   "cost": 2,
+   "traits": [
+    "Solar",
+    "Rapidfire"
+   ]
+  },
+  {
+   "name": "LeBlanc",
+   "cost": 2,
+   "traits": [
+    "Elderwood",
+    "Spellweaver"
+   ]
+  },
+  {
+   "name": "Murkwolf",
+   "cost": 2,
+   "traits": [
+    "Riftbeast",
+    "Ravager"
+   ]
+  },
+  {
+   "name": "Scuttlecrab",
+   "cost": 2,
+   "traits": [
+    "Riftbeast",
+    "Juggernaut"
+   ]
+  },
+  {
+   "name": "Sejuani",
+   "cost": 2,
+   "traits": [
+    "Solar",
+    "Juggernaut"
+   ]
+  },
+  {
+   "name": "Shen",
+   "cost": 2,
+   "traits": [
+    "Inferno",
+    "Defender"
+   ]
+  },
+  {
+   "name": "Teemo",
+   "cost": 2,
+   "traits": [
+    "Sprykin",
+    "Invoker"
+   ]
+  },
+  {
+   "name": "Warwick",
+   "cost": 2,
+   "traits": [
+    "Blackthorn",
+    "Ravager"
+   ]
+  },
+  {
+   "name": "Yunara",
+   "cost": 2,
+   "traits": [
+    "Blossom",
+    "Executioner"
+   ]
+  },
+  {
+   "name": "Azir",
+   "cost": 3,
+   "traits": [
+    "Blackthorn",
+    "Executioner",
+    "Summoner"
+   ]
+  },
+  {
+   "name": "Cassiopeia",
+   "cost": 3,
+   "traits": [
+    "Coven",
+    "Spellweaver"
+   ]
+  },
+  {
+   "name": "Diana",
+   "cost": 3,
+   "traits": [
+    "Lunar",
+    "Ravager",
+    "Vanguard"
+   ]
+  },
+  {
+   "name": "Fiddlesticks",
+   "cost": 3,
+   "traits": [
+    "Flora Fatalis",
+    "Defender",
+    "Spellweaver"
+   ]
+  },
+  {
+   "name": "Hecarim",
+   "cost": 3,
+   "traits": [
+    "Elderwood",
+    "Vanguard"
+   ]
+  },
+  {
+   "name": "Kha'Zix",
+   "cost": 3,
+   "traits": [
+    "Rival"
+   ]
+  },
+  {
+   "name": "Kog'Maw",
+   "cost": 3,
+   "traits": [
+    "Caustic",
+    "Adaptor",
+    "Invoker"
+   ]
+  },
+  {
+   "name": "Krug",
+   "cost": 3,
+   "traits": [
+    "Riftbeast",
+    "Brawler"
+   ]
+  },
+  {
+   "name": "Mama Beak",
+   "cost": 3,
+   "traits": [
+    "Riftbeast",
+    "Summoner",
+    "Rapidfire"
+   ]
+  },
+  {
+   "name": "Master Yi",
+   "cost": 3,
+   "traits": [
+    "Blossom",
+    "Adaptor"
+   ]
+  },
+  {
+   "name": "Rammus",
+   "cost": 3,
+   "traits": [
+    "Sprykin",
+    "Defender"
+   ]
+  },
+  {
+   "name": "Rengar",
+   "cost": 3,
+   "traits": [
+    "Rival"
+   ]
+  },
+  {
+   "name": "Tristana",
+   "cost": 3,
+   "traits": [
+    "Fae",
+    "Sprykin",
+    "Hunter"
+   ]
+  },
+  {
+   "name": "Vi",
+   "cost": 3,
+   "traits": [
+    "Primal",
+    "Juggernaut"
+   ]
+  },
+  {
+   "name": "Ahri",
+   "cost": 4,
+   "traits": [
+    "Blossom",
+    "Spellweaver"
+   ]
+  },
+  {
+   "name": "Amumu",
+   "cost": 4,
+   "traits": [
+    "Inferno",
+    "Juggernaut"
+   ]
+  },
+  {
+   "name": "Aphelios",
+   "cost": 4,
+   "traits": [
+    "Lunar",
+    "Rapidfire"
+   ]
+  },
+  {
+   "name": "Brambleback",
+   "cost": 4,
+   "traits": [
+    "Riftbeast",
+    "Ravager"
+   ]
+  },
+  {
+   "name": "Ezreal",
+   "cost": 4,
+   "traits": [
+    "Elderwood",
+    "Executioner"
+   ]
+  },
+  {
+   "name": "Lillia",
+   "cost": 4,
+   "traits": [
+    "Fae",
+    "Defender"
+   ]
+  },
+  {
+   "name": "Malphite",
+   "cost": 4,
+   "traits": [
+    "Blackthorn",
+    "Monolith"
+   ]
+  },
+  {
+   "name": "Morgana",
+   "cost": 4,
+   "traits": [
+    "Coven",
+    "Invoker"
+   ]
+  },
+  {
+   "name": "Nidalee",
+   "cost": 4,
+   "traits": [
+    "Primal",
+    "Adaptor"
+   ]
+  },
+  {
+   "name": "Sentinel",
+   "cost": 4,
+   "traits": [
+    "Riftbeast",
+    "Vanguard",
+    "Invoker"
+   ]
+  },
+  {
+   "name": "Sett",
+   "cost": 4,
+   "traits": [
+    "Blossom",
+    "Brawler"
+   ]
+  },
+  {
+   "name": "Sivir",
+   "cost": 4,
+   "traits": [
+    "Primal",
+    "Hunter"
+   ]
+  },
+  {
+   "name": "Soraka",
+   "cost": 4,
+   "traits": [
+    "Flora Fatalis",
+    "Executioner"
+   ]
+  },
+  {
+   "name": "Zyra",
+   "cost": 4,
+   "traits": [
+    "Thornmaiden",
+    "Summoner"
+   ]
+  },
+  {
+   "name": "Alune",
+   "cost": 5,
+   "traits": [
+    "Attuned",
+    "Lunar",
+    "Spellweaver"
+   ]
+  },
+  {
+   "name": "Ashe",
+   "cost": 5,
+   "traits": [
+    "Blossom",
+    "Hunter"
+   ]
+  },
+  {
+   "name": "Draven",
+   "cost": 5,
+   "traits": [
+    "Bounty Seeker"
+   ]
+  },
+  {
+   "name": "Elder Dragon",
+   "cost": 5,
+   "traits": [
+    "Apex Predator",
+    "Riftbeast"
+   ]
+  },
+  {
+   "name": "Gnar",
+   "cost": 5,
+   "traits": [
+    "Elderwood",
+    "Sprykin",
+    "Brawler"
+   ]
+  },
+  {
+   "name": "Ivern",
+   "cost": 5,
+   "traits": [
+    "Greenfather"
+   ]
+  },
+  {
+   "name": "Kennen",
+   "cost": 5,
+   "traits": [
+    "Inferno",
+    "Executioner"
+   ]
+  },
+  {
+   "name": "Lux",
+   "cost": 5,
+   "traits": [
+    "Avatar"
+   ]
+  },
+  {
+   "name": "Maokai",
+   "cost": 5,
+   "traits": [
+    "Old Growth",
+    "Juggernaut"
+   ]
+  },
+  {
+   "name": "Taric",
+   "cost": 5,
+   "traits": [
+    "Emerald Aspect",
+    "Vanguard"
+   ]
+  }
+ ],
+ "traits": [
+  {
+   "name": "Adaptor",
+   "bp": [
+    2,
+    3,
+    4
+   ],
+   "desc": "Abilities change depending on whether the unit's Attack Damage or Ability Power is higher, and the trait boosts whichever is higher.",
+   "kind": "shared"
+  },
+  {
+   "name": "Blackthorn",
+   "bp": [
+    2,
+    4,
+    6
+   ],
+   "desc": "The ally on the Blackthorn hex is sacrificed before combat. Your team gains Health, and Blackthorn units gain extra stats based on the sacrificed unit's role, star level and cost.",
+   "kind": "shared"
+  },
+  {
+   "name": "Blossom",
+   "bp": [
+    3,
+    5,
+    7,
+    9,
+    11
+   ],
+   "desc": "Wisps are empowered after combat and Blossom units gain AD, AP and max Health. Higher tiers upgrade Wisps, stock one in every shop, pay gold when you buy one, allow two buys per round, then overflow them with power.",
+   "kind": "shared"
+  },
+  {
+   "name": "Brawler",
+   "bp": [
+    2,
+    4,
+    6
+   ],
+   "desc": "Your team gains max Health, and Brawlers gain more.",
+   "kind": "shared"
+  },
+  {
+   "name": "Coven",
+   "bp": [
+    3,
+    4,
+    5,
+    7
+   ],
+   "desc": "High risk, high reward. Earn Essence from kills and from losing combats, then cash it in for rewards or keep stacking for bigger ones.",
+   "kind": "shared"
+  },
+  {
+   "name": "Defender",
+   "bp": [
+    2,
+    4,
+    6
+   ],
+   "desc": "Your team gains Armor and Magic Resist, and Defenders gain more.",
+   "kind": "shared"
+  },
+  {
+   "name": "Elderwood",
+   "bp": [
+    3,
+    5,
+    7,
+    9,
+    11
+   ],
+   "desc": "Unlock placeable plants: Stonebark Trees, a Lifebloom and finally the Deepwood Protector. At the top two tiers the plants star up.",
+   "kind": "shared"
+  },
+  {
+   "name": "Executioner",
+   "bp": [
+    2,
+    3,
+    4
+   ],
+   "desc": "Gain Precision and Critical Strike Chance. From 3, enemies also bleed true damage, and 4 raises the bleed.",
+   "kind": "shared"
+  },
+  {
+   "name": "Fae",
+   "bp": [
+    2,
+    4
+   ],
+   "desc": "Your team's damage, healing and shielding attract Pixies that buff Fae units. At 4, Golden Pixies appear and grant gold.",
+   "kind": "shared"
+  },
+  {
+   "name": "Flora Fatalis",
+   "bp": [
+    1,
+    2
+   ],
+   "desc": "Harvest enemies on takedown for Mana. At 2, each harvest also heals your lowest-Health ally.",
+   "kind": "shared"
+  },
+  {
+   "name": "Hunter",
+   "bp": [
+    2,
+    3,
+    4,
+    5
+   ],
+   "desc": "Hunters gain Attack Damage, plus Damage Amp while they stay on the same target.",
+   "kind": "shared"
+  },
+  {
+   "name": "Inferno",
+   "bp": [
+    2,
+    3,
+    5,
+    7
+   ],
+   "desc": "Inferno damage Burns and Wounds. From 3, after combat a shop slot without an Inferno champion ignites and rolls a higher-cost champion.",
+   "kind": "shared"
+  },
+  {
+   "name": "Invoker",
+   "bp": [
+    2,
+    3,
+    4,
+    5
+   ],
+   "desc": "Your team gains Mana Regen, and Invokers gain more.",
+   "kind": "shared"
+  },
+  {
+   "name": "Juggernaut",
+   "bp": [
+    2,
+    4,
+    6
+   ],
+   "desc": "Your team gains Durability, and Juggernauts gain more.",
+   "kind": "shared"
+  },
+  {
+   "name": "Lunar",
+   "bp": [
+    2,
+    3,
+    4,
+    5
+   ],
+   "desc": "Lunar units and the allies next to them gain Attack Speed and Ability Power, with Lunar units gaining more.",
+   "kind": "shared"
+  },
+  {
+   "name": "Primal",
+   "bp": [
+    2,
+    4
+   ],
+   "desc": "Choose one of four Primal Blessings at 2, and a second at 4.",
+   "kind": "shared"
+  },
+  {
+   "name": "Rapidfire",
+   "bp": [
+    2,
+    3,
+    4,
+    5
+   ],
+   "desc": "Your team gains Attack Speed. Rapidfire units gain more on every attack, up to a stack cap.",
+   "kind": "shared"
+  },
+  {
+   "name": "Ravager",
+   "bp": [
+    2,
+    4,
+    6
+   ],
+   "desc": "Gain Omnivamp and bonus damage, doubled against low-Health enemies.",
+   "kind": "shared"
+  },
+  {
+   "name": "Riftbeast",
+   "bp": [
+    3,
+    5,
+    7,
+    10
+   ],
+   "desc": "At 3, use the Alpha Mark to give one Riftbeast a unique buff. At 5, every few combats your next shop is overrun with Riftbeasts. At 7, Riftbeasts grow at combat start and over time. At 10, +2 max team size.",
+   "kind": "shared"
+  },
+  {
+   "name": "Rival",
+   "bp": [
+    1,
+    2
+   ],
+   "desc": "Rivals collect takedowns, with extra credit for beating the other Rival. At 1 only one can be fielded; at 2 both play together and their abilities buff each other.",
+   "kind": "shared"
+  },
+  {
+   "name": "Solar",
+   "bp": [
+    3
+   ],
+   "desc": "Your team gains a max Health shield and bonus magic damage. Each unique 3-star champion adds more, and with enough of them part of the damage turns true and a 3-star ascends to 4-star mid-combat.",
+   "kind": "shared"
+  },
+  {
+   "name": "Spellweaver",
+   "bp": [
+    2,
+    4,
+    6
+   ],
+   "desc": "Your team gains Ability Power, Spellweavers gain more, plus extra AP each time one casts.",
+   "kind": "shared"
+  },
+  {
+   "name": "Sprykin",
+   "bp": [
+    3,
+    5,
+    7
+   ],
+   "desc": "Gain the Big Furry Friend and drop a Sprykin on it to choose its Rider. Higher tiers raise the bonuses and share the Friend's ability with your Sprykin.",
+   "kind": "shared"
+  },
+  {
+   "name": "Summoner",
+   "bp": [
+    2,
+    3
+   ],
+   "desc": "Summoners empower their summons, each in its own way. At 3 every effect improves.",
+   "kind": "shared"
+  },
+  {
+   "name": "Vanguard",
+   "bp": [
+    2,
+    4,
+    6
+   ],
+   "desc": "At combat start and when dropping below half Health, Vanguards gain a max Health shield. At 6 they also gain Durability while shielded.",
+   "kind": "shared"
+  },
+  {
+   "name": "Apex Predator",
+   "bp": [
+    1
+   ],
+   "desc": "The Elder Dragon takes two team slots and adds 2 to your Riftbeast count.",
+   "kind": "single"
+  },
+  {
+   "name": "Attuned",
+   "bp": [
+    1
+   ],
+   "desc": "Your strongest Alune moves to a new moon phase after each cast. At or below half moon your team gains Durability; above it, Damage Amp.",
+   "kind": "single"
+  },
+  {
+   "name": "Avatar",
+   "bp": [
+    1
+   ],
+   "desc": "An Avatar on your bench or board turns other Avatars in your shop into its own trait, and its chosen trait counts twice.",
+   "kind": "single"
+  },
+  {
+   "name": "Bounty Seeker",
+   "bp": [
+    1
+   ],
+   "desc": "Choose a bounty. Your strongest Draven progresses it to earn a reward (champions, gold, items, rerolls or XP), then you pick another.",
+   "kind": "single"
+  },
+  {
+   "name": "Caustic",
+   "bp": [
+    1
+   ],
+   "desc": "Caustic damage Shreds and Sunders enemies, lowering their Magic Resist and Armor for a few seconds.",
+   "kind": "single"
+  },
+  {
+   "name": "Emerald Aspect",
+   "bp": [
+    1
+   ],
+   "desc": "Drag an ally onto your strongest Taric to pair them. The ally gains bonuses from Taric's ability.",
+   "kind": "single"
+  },
+  {
+   "name": "Greenfather",
+   "bp": [
+    1
+   ],
+   "desc": "Ivern gains seeds on cast and every combat, and spends them to grow a hex on your board that buffs its occupant.",
+   "kind": "single"
+  },
+  {
+   "name": "Monolith",
+   "bp": [
+    1
+   ],
+   "desc": "Malphite gains Armor and Magic Resist for each enemy targeting him.",
+   "kind": "single"
+  },
+  {
+   "name": "Old Growth",
+   "bp": [
+    1
+   ],
+   "desc": "When an enemy dies near Maokai he gains permanent max Health.",
+   "kind": "single"
+  },
+  {
+   "name": "Thornmaiden",
+   "bp": [
+    1
+   ],
+   "desc": "Your team gains Durability, more while enough Zyra plants are alive.",
+   "kind": "single"
+  },
+  {
+   "name": "Eclipse",
+   "bp": [],
+   "desc": "Hidden trait. Activates with 3 Solar and 3 Lunar champions on the board. After a set time in combat it kills the lowest-Health enemy, then repeats on a timer.",
+   "kind": "hidden"
+  }
+ ],
+ "source": "Compiled from public Set 18 guides and Riot's patch notes (patch 18.3, Sept 2026). Ability values are left out because they change nearly every patch. Not affiliated with Riot Games."
+}
