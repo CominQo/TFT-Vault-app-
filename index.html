@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TFT Collection</title>
+<style>
+:root{--bg:#0e1116;--surface:#171b22;--line:#262c36;--text:#ece9e1;--muted:#8d95a3;--ease:cubic-bezier(.2,.8,.2,1)}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%}
+body{background:var(--bg);color:var(--text);font-family:"Segoe UI Variable Display","Segoe UI",system-ui,sans-serif;overflow-x:hidden}
+header{display:flex;align-items:baseline;gap:16px;padding:28px 40px 8px}
+header h1{font-size:28px;font-weight:700;letter-spacing:-.02em}
+header p{color:var(--muted);font-size:14px}
+#grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:22px;padding:24px 40px 48px}
+.card{position:relative;aspect-ratio:2/3;border:1px solid var(--line);border-radius:10px;overflow:hidden;cursor:pointer;background:var(--surface) center/cover;padding:0;color:inherit;text-align:left;transition:transform .25s var(--ease),border-color .25s}
+.card::before{content:"";position:absolute;inset:0;background:linear-gradient(160deg,var(--a),transparent 70%);opacity:.55}
+.card::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.85),transparent 55%)}
+.card:hover,.card:focus-visible{transform:translateY(-4px);border-color:var(--a);outline:none}
+.card .t{position:absolute;left:14px;right:14px;bottom:14px;z-index:1}
+.card .t b{display:block;font-size:19px;letter-spacing:-.01em}
+.card .t span{color:var(--muted);font-size:13px}
+.badge{position:absolute;top:12px;right:12px;z-index:1;background:var(--a);color:#07110b;font-size:12px;font-weight:700;padding:3px 8px;border-radius:5px}
+#ov{position:fixed;z-index:10;overflow:hidden;background:var(--bg);border-radius:10px;transition:top .5s var(--ease),left .5s var(--ease),width .5s var(--ease),height .5s var(--ease),border-radius .5s}
+#ov[hidden]{display:none}
+#ov.open{border-radius:0}
+#ov video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.55}
+#ov::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,var(--bg) 8%,transparent 60%),linear-gradient(to right,rgba(14,17,22,.8),transparent 70%)}
+.in{position:absolute;z-index:1;inset:0;padding:40px 56px;display:flex;flex-direction:column;justify-content:flex-end;gap:14px;opacity:0;transition:opacity .35s .25s}
+#ov.open .in{opacity:1}
+.in h2{font-size:clamp(40px,7vw,84px);font-weight:800;letter-spacing:-.03em;line-height:1}
+.in .d{color:var(--muted);font-size:15px}
+.in p{max-width:60ch;font-size:16px;line-height:1.55}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
+.chips button{background:rgba(23,27,34,.85);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:10px 18px;font:inherit;cursor:pointer}
+.chips button:hover,.chips button:focus-visible{border-color:var(--a);outline:none}
+#back{position:absolute;z-index:2;top:24px;left:28px;background:rgba(23,27,34,.85);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:8px 16px;font:inherit;cursor:pointer;opacity:0;transition:opacity .3s .3s}
+#ov.open #back{opacity:1}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header><h1>Teamfight Tactics</h1><p>Pick a set</p></header>
+<main id="grid"></main>
+<section id="ov" hidden>
+  <video muted loop playsinline></video>
+  <button id="back">Back to sets</button>
+  <div class="in"></div>
+</section>
+<script>
+const grid = document.getElementById('grid'), ov = document.getElementById('ov');
+const vid = ov.querySelector('video'), inner = ov.querySelector('.in');
+let from = null;
+
+async function loadSets() {
+  try { return await window.go.main.App.GetSets(); }          // inside the Windows app
+  catch { return (await fetch('sets.json')).json(); }          // plain browser preview
+}
+
+function setLabel(s) { return s.name.startsWith('Set ') ? s.name : 'Set ' + s.id; }
+
+function render(sets) {
+  grid.innerHTML = '';
+  sets.forEach(s => {
+    const c = document.createElement('button');
+    c.className = 'card';
+    c.style.setProperty('--a', s.accent);
+    if (s.poster) c.style.backgroundImage = `url(${s.poster})`;
+    c.innerHTML = (s.new ? '<i class="badge">NEW</i>' : '') +
+      `<div class="t"><b>${s.name.startsWith('Set ') ? s.name : s.name}</b><span>${s.name.startsWith('Set ') ? '' : 'Set ' + s.id}</span></div>`;
+    c.onclick = () => open(s, c);
+    grid.append(c);
+  });
+}
+
+function place(r) {
+  Object.assign(ov.style, { top: r.top + 'px', left: r.left + 'px', width: r.width + 'px', height: r.height + 'px' });
+}
+
+function open(s, card) {
+  from = card;
+  ov.style.setProperty('--a', s.accent);
+  const dates = [s.pbe && 'PBE ' + s.pbe, s.live && 'Live ' + s.live].filter(Boolean).join(' · ');
+  inner.innerHTML = `<h2>${s.name}</h2>${dates ? `<div class="d">${dates}</div>` : ''}${s.blurb ? `<p>${s.blurb}</p>` : ''}
+    <div class="chips"><button>Traits</button><button>Champions</button><button>Augments</button><button>Items</button></div>`;
+  vid.onerror = () => vid.style.display = 'none';
+  vid.style.display = ''; vid.src = s.video; vid.play().catch(() => {});
+  place(card.getBoundingClientRect());
+  ov.hidden = false;
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    ov.classList.add('open');
+    place({ top: 0, left: 0, width: innerWidth, height: innerHeight });
+  }));
+}
+
+function close() {
+  if (ov.hidden) return;
+  ov.classList.remove('open');
+  place(from.getBoundingClientRect());
+  setTimeout(() => { ov.hidden = true; vid.pause(); }, 500);
+}
+document.getElementById('back').onclick = close;
+addEventListener('keydown', e => e.key === 'Escape' && close());
+loadSets().then(render);
+</script>
+</body>
+</html>
