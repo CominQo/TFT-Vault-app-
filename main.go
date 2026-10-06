@@ -20,6 +20,7 @@ func main() {
 		Height:           800,
 		MinWidth:         900,
 		MinHeight:        600,
+		Frameless:        true, // custom title bar is drawn in frontend/index.html
 		BackgroundColour: &options.RGBA{R: 14, G: 17, B: 22, A: 1},
 		AssetServer:      &assetserver.Options{Assets: assets},
 		Bind:             []interface{}{app},
