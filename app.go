@@ -7,16 +7,17 @@ import (
 
 // Set is one TFT season shown as a card.
 type Set struct {
-	ID     int    `json:"id"`
-	Name   string `json:"name"`
-	Accent string `json:"accent"`
-	Poster string `json:"poster"`
-	Video  string `json:"video"`
-	Info   string `json:"info"` // optional: path to a detail JSON (e.g. data/set18.json)
-	Pbe    string `json:"pbe"`
-	Live   string `json:"live"`
-	Blurb  string `json:"blurb"`
-	New    bool   `json:"new"`
+	ID      int    `json:"id"`
+	Name    string `json:"name"`
+	Accent  string `json:"accent"`
+	Poster  string `json:"poster"`
+	Video   string `json:"video"`
+	Trailer string `json:"trailer"` // optional: YouTube video id shown on the home screen
+	Info    string `json:"info"`    // optional: path to a detail JSON (e.g. data/set18.json)
+	Pbe     string `json:"pbe"`
+	Live    string `json:"live"`
+	Blurb   string `json:"blurb"`
+	New     bool   `json:"new"`
 }
 
 type App struct{ fs embed.FS }

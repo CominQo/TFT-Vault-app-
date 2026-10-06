@@ -7,12 +7,12 @@
 <style>
 :root{--bg:#0e1116;--surface:#171b22;--line:#262c36;--text:#ece9e1;--muted:#8d95a3;--ease:cubic-bezier(.2,.8,.2,1)}
 *{box-sizing:border-box;margin:0}
-html{background:#05070a}html.wails{background:transparent}
+html{background:#070a0f}
 html,body{height:100%}
 #bg{position:absolute;inset:0;z-index:0;width:100%;height:100%;object-fit:cover;pointer-events:none}
 #bgshade{position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(to bottom,rgba(14,17,22,.55),rgba(14,17,22,.25) 40%,rgba(14,17,22,.6))}
 
-body{background:transparent;color:var(--text);font-family:"Segoe UI Variable Display","Segoe UI",system-ui,sans-serif;overflow-x:hidden}
+body{background:#070a0f;color:var(--text);font-family:"Segoe UI Variable Display","Segoe UI",system-ui,sans-serif;overflow-x:hidden}
 header{display:flex;align-items:baseline;gap:16px}
 header h1{font-size:28px;font-weight:700;letter-spacing:-.02em}
 header p{color:var(--muted);font-size:14px}
@@ -89,8 +89,8 @@ header p{color:var(--muted);font-size:14px}
 .foot{color:var(--muted);font-size:12px;margin-top:36px;max-width:80ch;line-height:1.5}
 
 /* ---- Window shell (rounded, drawn by the page) ---- */
-:root{--r:26px;--gold:#f8a900}
-#app{position:fixed;inset:0;border-radius:var(--r);overflow:hidden;transform:translateZ(0);background:#070a0f;box-shadow:inset 0 0 0 1px rgba(255,255,255,.1)}
+:root{--r:0px;--gold:#f8a900}
+#app{position:fixed;inset:0;border-radius:var(--r);overflow:hidden;transform:translateZ(0);background:#070a0f;}
 #app.max{border-radius:0}
 #drag{position:absolute;z-index:50;top:0;left:0;right:150px;height:34px;--wails-draggable:drag}
 #winctl{position:absolute;z-index:100;top:0;right:0;display:flex;height:34px;border-radius:0 var(--r) 0 14px;overflow:hidden;background:rgba(10,13,18,.55);backdrop-filter:blur(10px);--wails-draggable:no-drag}
@@ -131,16 +131,31 @@ header p{color:var(--muted);font-size:14px}
 .hero p{color:#cdd3de;font-size:16px;line-height:1.55;max-width:48ch}
 .cta{align-self:flex-start;margin-top:8px;background:#fff;color:#0e1116;border:0;border-radius:999px;padding:14px 30px;font:inherit;font-weight:700;font-size:15px;cursor:pointer;transition:transform .2s var(--ease),box-shadow .2s}
 .cta:hover,.cta:focus-visible{transform:translateY(-2px);box-shadow:0 10px 26px rgba(0,0,0,.4);outline:none}
-.quick{position:absolute;right:36px;bottom:44px;display:flex;gap:18px}
-.qcard{position:relative;width:236px;height:132px;border:1px solid rgba(255,255,255,.12);border-radius:20px;overflow:hidden;cursor:pointer;color:var(--text);font:inherit;text-align:left;padding:16px 18px;display:flex;flex-direction:column;justify-content:flex-end;background:linear-gradient(150deg,color-mix(in srgb,var(--a) 55%,#0b0e13),#0b0e13 80%);transition:transform .25s var(--ease),border-color .25s}
-.qcard:hover,.qcard:focus-visible{transform:translateY(-4px);border-color:var(--a);outline:none}
-.qcard b{font-size:34px;letter-spacing:-.02em;line-height:1}
-.qcard span{color:#c5cad3;font-size:14px;margin-top:4px}
 #sets{padding:64px 40px 48px}
 #sets header{padding:0 0 4px}
 #toast{position:absolute;z-index:200;left:50%;bottom:28px;transform:translate(-50%,20px);background:rgba(14,17,22,.95);border:1px solid var(--line);border-radius:14px;padding:12px 20px;font-size:14px;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s var(--ease)}
 #toast.on{opacity:1;transform:translate(-50%,0)}
-@media (max-width:1100px){.quick{display:none}}
+
+.tcard{position:absolute;right:36px;bottom:40px;width:min(340px,34vw);aspect-ratio:16/9;border:1px solid rgba(255,255,255,.14);border-radius:22px;overflow:hidden;cursor:pointer;padding:0;color:var(--text);font:inherit;text-align:left;background:#0b0e13 center/cover;box-shadow:0 14px 36px rgba(0,0,0,.45);transition:transform .25s var(--ease),border-color .25s}
+.tcard[hidden]{display:none}
+.tcard::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.82),transparent 62%)}
+.tcard:hover,.tcard:focus-visible{transform:translateY(-4px);border-color:var(--gold);outline:none}
+.tcard .pl{position:absolute;z-index:1;left:50%;top:44%;width:58px;height:58px;margin:-29px 0 0 -29px;border-radius:50%;background:rgba(10,13,18,.62);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.35);display:grid;place-items:center;transition:background .2s,transform .2s var(--ease)}
+.tcard .pl svg{width:22px;height:22px;fill:#fff;margin-left:3px}
+.tcard:hover .pl,.tcard:focus-visible .pl{background:var(--gold);transform:scale(1.08)}
+.tcard:hover .pl svg,.tcard:focus-visible .pl svg{fill:#1c1300}
+.tcard .tt{position:absolute;z-index:1;left:16px;right:16px;bottom:13px}
+.tcard .tt i{display:block;font-style:normal;color:var(--gold);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
+.tcard .tt b{display:block;font-size:15px;margin-top:2px}
+#tmodal{position:absolute;z-index:90;inset:0;display:grid;place-items:center;background:rgba(3,5,9,.78);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);opacity:0;transition:opacity .25s}
+#tmodal[hidden]{display:none}
+#tmodal.on{opacity:1}
+.tbox{width:min(960px,86%);display:flex;flex-direction:column;gap:14px}
+.tframe{position:relative;aspect-ratio:16/9;border-radius:22px;overflow:hidden;background:#000;box-shadow:0 24px 60px rgba(0,0,0,.6)}
+.tframe iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.tbar{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.tbar b{font-size:15px}
+.tbar div{display:flex;gap:10px}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}#bg{display:none}}
 </style>
 </head>
@@ -175,13 +190,22 @@ header p{color:var(--muted);font-size:14px}
       <p id="hText"></p>
       <button class="cta" id="hView">View set</button>
     </div>
-    <div class="quick" id="quick"></div>
+    <button class="tcard" id="tcard" hidden aria-label="Play trailer">
+      <span class="pl"><svg viewBox="0 0 24 24"><path d="M6 4v16l14-8z"/></svg></span>
+      <span class="tt"><i>Launch trailer</i><b>Enchanted Wilds | Set Trailer</b></span>
+    </button>
   </section>
   <section id="sets" class="view" hidden>
     <header><h1>Teamfight Tactics</h1><p>Pick a set</p></header>
     <div id="grid"></div>
   </section>
 </main>
+<div id="tmodal" hidden>
+  <div class="tbox">
+    <div class="tframe" id="tframe"></div>
+    <div class="tbar"><b id="ttitle"></b><div><button class="btn" id="tyt">Watch on YouTube</button><button class="btn" id="tclose">Close</button></div></div>
+  </div>
+</div>
 <div id="toast"></div>
 <section id="ov" hidden>
   <video muted loop playsinline></video>
@@ -252,7 +276,7 @@ function close() {
   setTimeout(() => { ov.hidden = true; vid.pause(); }, 500);
 }
 document.getElementById('back').onclick = close;
-addEventListener('keydown', e => { if (e.key !== 'Escape') return; if (!dt.hidden) closeDetail(); else close(); });
+addEventListener('keydown', e => { if (e.key !== 'Escape') return; if (!tm.hidden) return closeTrailer(); if (!dt.hidden) closeDetail(); else close(); });
 loadSets().then(sets => { render(sets); renderHero(sets); });
 
 // Custom title bar controls (Wails runtime; no-ops in a plain browser preview)
@@ -350,7 +374,6 @@ function renderTraits() {
 
 // ---------- Home screen ----------
 const $ = id => document.getElementById(id);
-if (window.runtime) document.documentElement.classList.add('wails');
 
 function toast(msg) { const t = $('toast'); t.textContent = msg; t.classList.add('on'); clearTimeout(toast.t); toast.t = setTimeout(() => t.classList.remove('on'), 3200); }
 
@@ -369,18 +392,25 @@ function renderHero(sets) {
   $('hTitle').textContent = s.name;
   $('hText').textContent = s.blurb || '';
   $('hView').onclick = () => open(s, $('hView'));
-  const q = $('quick'); q.innerHTML = '';
-  if (!s.info) return;
-  [['champions', 'Champions', 'Browse every unit'], ['traits', 'Traits', 'All breakpoints']].forEach(([t, l, d]) => {
-    const c = document.createElement('button'); c.className = 'qcard';
-    c.innerHTML = `<b data-n>·</b><span>${l}</span>`;
-    c.onclick = () => openDetail(s, t); q.append(c);
-  });
-  fetch(s.info).then(r => r.json()).then(D => {
-    const n = { champions: D.champions.length, traits: D.traits.filter(x => x.kind !== 'hidden').length };
-    q.querySelectorAll('.qcard').forEach((c, i) => c.querySelector('[data-n]').textContent = [n.champions, n.traits][i]);
-  }).catch(() => {});
+  const tc = $('tcard'); tc.hidden = !s.trailer;
+  if (s.trailer) {
+    const id = s.trailer;
+    tc.style.backgroundImage = `url(https://i.ytimg.com/vi/${id}/maxresdefault.jpg), url(https://i.ytimg.com/vi/${id}/hqdefault.jpg)`;
+    tc.onclick = () => openTrailer(id, s.name + ' | Set Trailer');
+  }
 }
+
+// ---------- Trailer player ----------
+const tm = $('tmodal');
+function openTrailer(id, title) {
+  $('ttitle').textContent = title;
+  $('tframe').innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&modestbranding=1" title="${title}" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>`;
+  $('tyt').onclick = () => { const u = 'https://www.youtube.com/watch?v=' + id; try { window.runtime.BrowserOpenURL(u); } catch { window.open(u, '_blank'); } };
+  tm.hidden = false; requestAnimationFrame(() => tm.classList.add('on'));
+}
+function closeTrailer() { tm.classList.remove('on'); $('tframe').innerHTML = ''; setTimeout(() => tm.hidden = true, 250); }
+$('tclose').onclick = closeTrailer;
+tm.onclick = e => { if (e.target === tm) closeTrailer(); };
 
 // Profile
 const pbtn = $('pbtn'), pmenu = $('pmenu'), pname = $('pname');
