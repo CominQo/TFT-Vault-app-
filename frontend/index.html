@@ -232,6 +232,16 @@ header p{color:var(--muted);font-size:14px}
 </div>
 <main id="main">
   <section id="home" class="view">
+    <div class="hero">
+      <div class="eyebrow" id="hEye">New set</div>
+      <h1 id="hTitle">Teamfight Tactics</h1>
+      <p id="hText"></p>
+      <button class="cta" id="hView" data-i18n="view">View set</button>
+    </div>
+    <button class="tcard" id="tcard" hidden aria-label="Play trailer">
+      <span class="pl"><svg viewBox="0 0 24 24"><path d="M6 4v16l14-8z"/></svg></span>
+      <span class="tt"><i>Launch trailer</i><b>Enchanted Wilds | Set Trailer</b></span>
+    </button>
   </section>
   <section id="compb" class="view" hidden>
     <header><h1 data-i18n="comp">Comp Builder</h1><p data-i18n="compSub">Plan your team comps</p></header>
@@ -432,6 +442,16 @@ $('navColl').onclick = () => showView('sets');
 function renderHero(sets) {
   const s = sets.find(x => x.new) || sets[0]; if (!s) return;
   $('home').style.setProperty('--a', s.accent);
+  $('hEye').textContent = s.new ? 'New set · Set ' + s.id : 'Set ' + s.id;
+  $('hTitle').textContent = s.name;
+  $('hText').textContent = s.blurb || '';
+  $('hView').onclick = () => open(s, $('hView'));
+  const tc = $('tcard'); tc.hidden = !s.trailer;
+  if (s.trailer) {
+    const id = s.trailer;
+    tc.style.backgroundImage = `url(https://i.ytimg.com/vi/${id}/maxresdefault.jpg), url(https://i.ytimg.com/vi/${id}/hqdefault.jpg)`;
+    tc.onclick = () => openTrailer(id, s.name + ' | Set Trailer');
+  }
 }
 
 // ---------- Trailer player ----------
