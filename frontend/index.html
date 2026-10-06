@@ -106,6 +106,9 @@ header p{color:var(--muted);font-size:14px}
 #side button.on{background:rgba(255,255,255,.14);color:var(--gold)}
 #side button.on::before{content:"";position:absolute;left:-22px;top:12px;bottom:12px;width:4px;border-radius:0 4px 4px 0;background:var(--gold)}
 #side svg{width:26px;height:26px;fill:currentColor}
+#navHome svg{width:34px;height:34px}
+#navHome svg path{fill:transparent;stroke:var(--gold);stroke-width:3.4;stroke-linejoin:round;transition:fill .2s var(--ease)}
+#navHome:hover svg path,#navHome:focus-visible svg path{fill:var(--gold)}
 
 #logo{position:absolute;z-index:5;left:124px;top:22px;width:148px;height:auto;filter:drop-shadow(0 6px 18px rgba(0,0,0,.55));pointer-events:none;user-select:none}
 
@@ -128,10 +131,6 @@ header p{color:var(--muted);font-size:14px}
 .hero p{color:#cdd3de;font-size:16px;line-height:1.55;max-width:48ch}
 .cta{align-self:flex-start;margin-top:8px;background:#fff;color:#0e1116;border:0;border-radius:999px;padding:14px 30px;font:inherit;font-weight:700;font-size:15px;cursor:pointer;transition:transform .2s var(--ease),box-shadow .2s}
 .cta:hover,.cta:focus-visible{transform:translateY(-2px);box-shadow:0 10px 26px rgba(0,0,0,.4);outline:none}
-#play{position:absolute;left:56px;bottom:44px;display:flex;align-items:center;gap:14px;height:68px;padding:0 38px 0 28px;border:0;border-radius:20px;background:linear-gradient(180deg,#ffbe2e,#e29400);color:#1c1300;font:inherit;font-weight:800;font-size:24px;letter-spacing:.01em;cursor:pointer;box-shadow:0 10px 30px rgba(248,169,0,.3);transition:transform .2s var(--ease),box-shadow .2s,filter .2s}
-#play svg{width:26px;height:26px;fill:currentColor}
-#play:hover,#play:focus-visible{transform:translateY(-3px);box-shadow:0 16px 38px rgba(248,169,0,.42);filter:brightness(1.06);outline:none}
-#play:active{transform:translateY(0)}
 .quick{position:absolute;right:36px;bottom:44px;display:flex;gap:18px}
 .qcard{position:relative;width:236px;height:132px;border:1px solid rgba(255,255,255,.12);border-radius:20px;overflow:hidden;cursor:pointer;color:var(--text);font:inherit;text-align:left;padding:16px 18px;display:flex;flex-direction:column;justify-content:flex-end;background:linear-gradient(150deg,color-mix(in srgb,var(--a) 55%,#0b0e13),#0b0e13 80%);transition:transform .25s var(--ease),border-color .25s}
 .qcard:hover,.qcard:focus-visible{transform:translateY(-4px);border-color:var(--a);outline:none}
@@ -156,7 +155,7 @@ header p{color:var(--muted);font-size:14px}
   <button id="wClose" class="x" aria-label="Close"><svg viewBox="0 0 10 10"><path d="M0 0l10 10M10 0L0 10"/></svg></button>
 </div>
 <nav id="side">
-  <button id="navHome" class="on" aria-label="Home" title="Home"><svg viewBox="0 0 24 24"><path d="M12 3 2 12h3v8h5v-5h4v5h5v-8h3z"/></svg></button>
+  <button id="navHome" class="on" aria-label="Home" title="Home"><svg viewBox="0 0 24 24"><path d="M12 2.6 20.3 7.3v9.4L12 21.4 3.7 16.7V7.3z"/></svg></button>
   <button id="navSets" aria-label="All sets" title="All sets"><svg viewBox="0 0 24 24"><path d="M3 3h8v8H3zm10 0h8v8h-8zM3 13h8v8H3zm10 0h8v8h-8z"/></svg></button>
 </nav>
 <img id="logo" src="img/logo.png" alt="TFT Vault">
@@ -176,7 +175,6 @@ header p{color:var(--muted);font-size:14px}
       <p id="hText"></p>
       <button class="cta" id="hView">View set</button>
     </div>
-    <button id="play"><svg viewBox="0 0 24 24"><path d="M6 4v16l14-8z"/></svg>Play</button>
     <div class="quick" id="quick"></div>
   </section>
   <section id="sets" class="view" hidden>
@@ -383,12 +381,6 @@ function renderHero(sets) {
     q.querySelectorAll('.qcard').forEach((c, i) => c.querySelector('[data-n]').textContent = [n.champions, n.traits][i]);
   }).catch(() => {});
 }
-
-// Play: starts the Riot Client (desktop app only)
-$('play').onclick = async () => {
-  try { await window.go.main.App.PlayGame(); toast('Launching the Riot Client…'); }
-  catch (e) { toast(window.go ? String(e) : 'Play only works in the desktop app.'); }
-};
 
 // Profile
 const pbtn = $('pbtn'), pmenu = $('pmenu'), pname = $('pname');

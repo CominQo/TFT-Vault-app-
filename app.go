@@ -3,10 +3,6 @@ package main
 import (
 	"embed"
 	"encoding/json"
-	"errors"
-	"os"
-	"os/exec"
-	"path/filepath"
 )
 
 // Set is one TFT season shown as a card.
@@ -36,40 +32,4 @@ func (a *App) GetSets() ([]Set, error) {
 	}
 	var sets []Set
 	return sets, json.Unmarshal(b, &sets)
-}
-
-// PlayGame starts the Riot Client straight into League of Legends (TFT is a mode inside it).
-// Called from the UI: window.go.main.App.PlayGame()
-func (a *App) PlayGame() error {
-	path := riotClientPath()
-	if path == "" {
-		return errors.New("Riot Client not found. Is it installed?")
-	}
-	return exec.Command(path, "--launch-product=league_of_legends", "--launch-patchline=live").Start()
-}
-
-// riotClientPath asks Riot's own install registry first, then falls back to the default folder.
-func riotClientPath() string {
-	var candidates []string
-	if pd := os.Getenv("ProgramData"); pd != "" {
-		if b, err := os.ReadFile(filepath.Join(pd, "Riot Games", "RiotClientInstalls.json")); err == nil {
-			var j struct {
-				Default string `json:"rc_default"`
-				Live    string `json:"rc_live"`
-			}
-			if json.Unmarshal(b, &j) == nil {
-				candidates = append(candidates, j.Default, j.Live)
-			}
-		}
-	}
-	candidates = append(candidates, `C:\Riot Games\Riot Client\RiotClientServices.exe`)
-	for _, c := range candidates {
-		if c == "" {
-			continue
-		}
-		if _, err := os.Stat(c); err == nil {
-			return c
-		}
-	}
-	return ""
 }
