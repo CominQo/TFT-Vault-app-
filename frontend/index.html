@@ -462,6 +462,7 @@ background:linear-gradient(160deg,#ffffff1c,#ffffff08);border:1.5px solid color-
 .cos::after{content:"";position:absolute;top:12px;right:12px;width:16px;height:16px;border-radius:50%;border:1.5px solid var(--muted)}
 .cos.own{background:rgba(248,169,0,.1);border-color:var(--gold)}
 .cos.own::after{background:var(--gold) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4 8.4l2.6 2.6L12 5.6' fill='none' stroke='%2310141b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/100% no-repeat;border-color:var(--gold)}
+.cimg{width:100%;aspect-ratio:1;object-fit:cover;border-radius:12px;margin-bottom:6px;background:rgba(255,255,255,.05)}
 </style>
 </head>
 <body>
@@ -1248,7 +1249,7 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
     const k = sq.trim().toLowerCase();
     const list = cur.items.filter(i => (rar === 'All' || i.rarity === rar) && (ty === 'All' || i.type === ty || !cur.items.some(x => x.type === ty)) && (!k || i.name.toLowerCase().includes(k)));
     g('slist').innerHTML = list.length ? list.map(i => `<button class="cos${owned.has(i.id) ? ' own' : ''}" style="--c:${RC[i.rarity] || '#9aa4b2'}" data-id="${esc(i.id)}" aria-pressed="${owned.has(i.id)}">
-      <i>${esc(i.rarity)}</i><b>${esc(i.name)}</b><small>${esc(i.type || '')}</small></button>`).join('') : '<div class="empty">Nothing matches.</div>';
+      ${i.img ? `<img class="cimg" loading="lazy" referrerpolicy="no-referrer" src="${esc(i.img)}" alt="" onerror="this.remove()">` : ''}<i>${esc(i.rarity)}</i><b>${esc(i.name)}</b><small>${esc(i.type || '')}${i.source ? ' · ' + esc(i.source) : ''}</small></button>`).join('') : '<div class="empty">Nothing matches.</div>';
     stat();
   }
   function stat() {
