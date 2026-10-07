@@ -432,6 +432,36 @@ background:linear-gradient(160deg,#ffffff1c,#ffffff08);border:1.5px solid color-
 .cb-p{position:relative;width:54px;height:54px;border:2px solid var(--c);border-radius:11px;background:#10131c center/cover;display:grid;place-items:center;font:700 9px/1.1 var(--body);text-align:center;cursor:grab;transition:transform .15s}
 .cb-p:hover{transform:translateY(-3px) scale(1.07)}.cb-p.used{opacity:.3}
 .cb-p small{position:absolute;right:2px;bottom:1px;color:var(--c);font-size:9px}
+
+/* ---- Cosmetic collections (inside Collections page) ---- */
+#cswitch{display:flex;gap:8px;margin:18px 0 4px}
+#colx{padding-top:18px}
+#colx[hidden]{display:none}
+#colgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px;margin-top:6px}
+.scard{position:relative;text-align:left;padding:18px;border:1px solid var(--line);border-radius:18px;background:rgba(23,27,34,.75);color:var(--text);font:inherit;cursor:pointer;display:flex;flex-direction:column;gap:10px;transition:transform .25s var(--ease),border-color .2s}
+.scard:hover,.scard:focus-visible{transform:translateY(-4px);border-color:var(--gold);outline:none}
+.scard b{font-size:18px;letter-spacing:-.01em}
+.scard span{color:var(--muted);font-size:13px}
+.scard.done{border-color:var(--gold)}
+.prog{height:5px;border-radius:9px;background:rgba(255,255,255,.1);overflow:hidden}
+.prog i{display:block;height:100%;width:0;border-radius:9px;background:var(--gold);transition:width .5s var(--ease)}
+.rdots{display:flex;gap:6px}
+.rdots em{font-style:normal;font-size:12px;font-weight:600}
+#sdetail{position:fixed;z-index:20;inset:0;overflow-y:auto;background:rgba(14,17,22,.88);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);opacity:0;transform:translateY(12px);transition:opacity .25s,transform .25s}
+#sdetail[hidden]{display:none}
+#sdetail.on{opacity:1;transform:none}
+#sdetail .sbar{position:sticky;top:-1px;z-index:2;padding:12px 0;background:rgb(14,17,22);border-bottom:1px solid var(--line);margin:22px 0 18px}
+.sprog{display:flex;align-items:center;gap:14px;margin-top:18px;max-width:420px}
+.sprog .prog{flex:1;height:7px}
+.sprog span{color:var(--muted);font-size:13px;white-space:nowrap}
+.cos{position:relative;text-align:left;font:inherit;color:var(--text);cursor:pointer;background:rgba(23,27,34,.75);border:1px solid var(--line);border-left:3px solid var(--c);border-radius:18px;padding:12px 14px;display:flex;flex-direction:column;gap:4px;transition:border-color .2s,background .2s}
+.cos:hover,.cos:focus-visible{border-color:var(--c);outline:none}
+.cos i{font-style:normal;color:var(--c);font-size:12px;font-weight:700}
+.cos b{font-size:15px;padding-right:22px}
+.cos small{color:var(--muted);font-size:12px}
+.cos::after{content:"";position:absolute;top:12px;right:12px;width:16px;height:16px;border-radius:50%;border:1.5px solid var(--muted)}
+.cos.own{background:rgba(248,169,0,.1);border-color:var(--gold)}
+.cos.own::after{background:var(--gold) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4 8.4l2.6 2.6L12 5.6' fill='none' stroke='%2310141b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/100% no-repeat;border-color:var(--gold)}
 </style>
 </head>
 <body>
@@ -527,7 +557,12 @@ background:linear-gradient(160deg,#ffffff1c,#ffffff08);border:1.5px solid color-
   </section>
   <section id="sets" class="view" hidden>
     <header><h1>Teamfight Tactics</h1><p data-i18n="pick">Pick a set</p></header>
+    <div id="cswitch"><button class="pill on" data-m="sets">Sets</button><button class="pill" data-m="cols">Collections</button></div>
     <div id="grid"></div>
+    <div id="colx" hidden>
+      <div class="bar"><input id="colq" placeholder="Search collections…" autocomplete="off"><span id="colsum" style="color:var(--muted);font-size:13px"></span></div>
+      <div id="colgrid"></div>
+    </div>
   </section>
 </main>
 <div id="tmodal" hidden>
@@ -551,6 +586,14 @@ background:linear-gradient(160deg,#ffffff1c,#ffffff08);border:1.5px solid color-
   <video muted loop playsinline></video>
   <button id="back" data-i18n="back">&larr; Back</button>
   <div class="in"></div>
+</section>
+<section id="sdetail" hidden>
+  <div class="dwrap">
+    <div class="dhead"><button class="btn" id="sback">&larr; Back</button><div><h2 id="stitle"></h2><p id="ssub"></p></div></div>
+    <div class="sprog"><div class="prog"><i id="sfill"></i></div><span id="scount"></span></div>
+    <div class="sbar bar"><input id="sq" placeholder="Search in this collection…" autocomplete="off"><span id="srar" style="display:contents"></span><button class="btn" id="sall">Mark all owned</button><button class="btn" id="snone">Clear</button></div>
+    <div class="champs" id="slist"></div>
+  </div>
 </section>
 <section id="detail" hidden>
   <div class="dwrap">
@@ -1128,6 +1171,92 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
   }
   $('navComp').addEventListener('click', init);
   if (showView.cur === 'comp') init();
+})();
+
+// ---------- Cosmetic collections (Collections page -> series -> cosmetics) ----------
+(() => {
+  const RC = { Legendary: '#f5b942', Mythic: '#b06cff', Prestige: '#ff8fb8' };
+  const KEY = 'tftvault.owned.v1';
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  let owned = new Set();
+  try { owned = new Set(JSON.parse(localStorage.getItem(KEY) || '[]')); } catch {}
+  const save = () => { try { localStorage.setItem(KEY, JSON.stringify([...owned])); } catch {} };
+  let COLS = null, cur = null, cq = '', sq = '', rar = 'All';
+  const g = id => document.getElementById(id);
+  const ownedIn = c => c.items.filter(i => owned.has(i.id)).length;
+  const pct = c => c.items.length ? Math.round(100 * ownedIn(c) / c.items.length) : 0;
+
+  async function load() {
+    if (COLS) return COLS;
+    try { COLS = (await (await fetch('collections.json')).json()).collections; }
+    catch { COLS = []; toast('collections.json not found'); }
+    return COLS;
+  }
+
+  function mode(m) {
+    document.querySelectorAll('#cswitch .pill').forEach(b => b.classList.toggle('on', b.dataset.m === m));
+    g('grid').hidden = m !== 'sets'; g('colx').hidden = m !== 'cols';
+    if (m === 'cols') paintList();
+  }
+  g('cswitch').onclick = e => { const m = e.target.dataset.m; if (m) mode(m); };
+
+  async function paintList() {
+    await load();
+    const k = cq.trim().toLowerCase();
+    const list = COLS.filter(c => !k || c.name.toLowerCase().includes(k));
+    const tot = COLS.reduce((n, c) => n + c.items.length, 0), got = COLS.reduce((n, c) => n + ownedIn(c), 0);
+    g('colsum').textContent = `${COLS.length} collections · ${got} / ${tot} owned`;
+    g('colgrid').innerHTML = list.length ? list.map(c => {
+      const counts = {}; c.items.forEach(i => counts[i.rarity] = (counts[i.rarity] || 0) + 1);
+      const dots = Object.keys(RC).filter(r => counts[r]).map(r => `<em style="color:${RC[r]}">${counts[r]} ${r}</em>`).join('');
+      return `<button class="scard${pct(c) === 100 ? ' done' : ''}" data-id="${esc(c.id)}">
+        <b>${esc(c.name)}</b><span>${ownedIn(c)} / ${c.items.length} owned</span>
+        <div class="prog"><i style="width:${pct(c)}%"></i></div><div class="rdots">${dots}</div></button>`;
+    }).join('') : '<div class="empty">No collection matches.</div>';
+  }
+  g('colq').oninput = e => { cq = e.target.value; paintList(); };
+  g('colgrid').onclick = e => {
+    const b = e.target.closest('.scard'); if (!b) return;
+    cur = COLS.find(c => c.id === b.dataset.id); sq = ''; rar = 'All'; openCol();
+  };
+
+  function openCol() {
+    const d = g('sdetail');
+    g('stitle').textContent = cur.name; g('ssub').textContent = cur.blurb || '';
+    g('sq').value = '';
+    const rs = ['All', ...new Set(cur.items.map(i => i.rarity))];
+    g('srar').innerHTML = rs.map(r => `<button class="pill${r === rar ? ' on' : ''}" data-r="${esc(r)}">${esc(r)}</button>`).join('');
+    d.hidden = false; requestAnimationFrame(() => d.classList.add('on'));
+    paintItems();
+  }
+  function closeCol() {
+    const d = g('sdetail'); if (d.hidden) return;
+    d.classList.remove('on'); setTimeout(() => d.hidden = true, 250); paintList();
+  }
+  function paintItems() {
+    const k = sq.trim().toLowerCase();
+    const list = cur.items.filter(i => (rar === 'All' || i.rarity === rar) && (!k || i.name.toLowerCase().includes(k)));
+    g('slist').innerHTML = list.length ? list.map(i => `<button class="cos${owned.has(i.id) ? ' own' : ''}" style="--c:${RC[i.rarity] || '#9aa4b2'}" data-id="${esc(i.id)}" aria-pressed="${owned.has(i.id)}">
+      <i>${esc(i.rarity)}</i><b>${esc(i.name)}</b><small>${esc(i.type || '')}</small></button>`).join('') : '<div class="empty">Nothing matches.</div>';
+    g('sfill').style.width = pct(cur) + '%';
+    g('scount').textContent = `${ownedIn(cur)} / ${cur.items.length} owned (${pct(cur)}%)`;
+  }
+  g('slist').onclick = e => {
+    const b = e.target.closest('.cos'); if (!b) return;
+    owned.has(b.dataset.id) ? owned.delete(b.dataset.id) : owned.add(b.dataset.id);
+    save(); b.classList.toggle('own'); b.setAttribute('aria-pressed', owned.has(b.dataset.id));
+    g('sfill').style.width = pct(cur) + '%';
+    g('scount').textContent = `${ownedIn(cur)} / ${cur.items.length} owned (${pct(cur)}%)`;
+  };
+  g('sq').oninput = e => { sq = e.target.value; paintItems(); };
+  g('srar').onclick = e => {
+    const r = e.target.dataset.r; if (!r) return; rar = r;
+    g('srar').querySelectorAll('.pill').forEach(b => b.classList.toggle('on', b.dataset.r === r)); paintItems();
+  };
+  g('sall').onclick = () => { cur.items.forEach(i => owned.add(i.id)); save(); paintItems(); };
+  g('snone').onclick = () => { cur.items.forEach(i => owned.delete(i.id)); save(); paintItems(); };
+  g('sback').onclick = closeCol;
+  addEventListener('keydown', e => { if (e.key === 'Escape' && !g('sdetail').hidden) closeCol(); });
 })();
 </script>
 </body>
