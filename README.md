@@ -1,5 +1,11 @@
 # TFT Collection (Go + Wails, native Windows) - TFT Vault
 
+
+
+https://github.com/user-attachments/assets/84c6e350-caec-43fd-bb50-e87ba3f7a9d4
+
+
+
 [TFT Vault](https://img.shields.io/badge/TFT-Set%2018%20Enchanted%20Wilds-3ab66f) [Go](https://img.shields.io/badge/Go-1.22%2B-blue) [Wails](https://img.shields.io/badge/Wails-v2-red)
 
 Requires: Go 1.22+, Wails v2 (`go install github.com/wailsapp/wails/v2/cmd/wails@latest`), WebView2 (ships with Windows 10/11).
