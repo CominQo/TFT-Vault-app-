@@ -1,0 +1,413 @@
+{
+ "collections": [
+  {
+   "id": "chibi",
+   "name": "Chibi",
+   "blurb": "Every cosmetic released as part of the Chibi line.",
+   "items": [
+    {
+     "id": "chibi-aatrox",
+     "name": "Chibi Aatrox",
+     "rarity": "Legendary",
+     "type": "Little Legend"
+    },
+    {
+     "id": "chibi-ahri",
+     "name": "Chibi Ahri",
+     "rarity": "Legendary",
+     "type": "Little Legend"
+    },
+    {
+     "id": "chibi-akali",
+     "name": "Chibi Akali",
+     "rarity": "Legendary",
+     "type": "Little Legend"
+    },
+    {
+     "id": "chibi-amumu",
+     "name": "Chibi Amumu",
+     "rarity": "Legendary",
+     "type": "Little Legend"
+    },
+    {
+     "id": "chibi-annie",
+     "name": "Chibi Annie",
+     "rarity": "Legendary",
+     "type": "Little Legend"
+    },
+    {
+     "id": "chibi-arcade-caitlyn",
+     "name": "Chibi Arcade Caitlyn",
+     "rarity": "Mythic",
+     "type": "Little Legend"
+    },
+    {
+     "id": "chibi-arcane-caitlyn",
+     "name": "Chibi Arcane Caitlyn",
+     "rarity": "Mythic",
+     "type": "Little Legend"
+    },
+    {
+     "id": "prestige-chibi-arcane-superfan-annie",
+     "name": "Prestige Chibi Arcane Superfan Annie",
+     "rarity": "Prestige",
+     "type": "Little Legend"
+    },
+    {
+     "id": "chibi-ashe",
+     "name": "Chibi Ashe",
+     "rarity": "Legendary",
+     "type": "Little Legend"
+    },
+    {
+     "id": "chibi-battle-academia-ezreal",
+     "name": "Chibi Battle Academia Ezreal",
+     "rarity": "Mythic",
+     "type": "Little Legend"
+    },
+    {
+     "id": "chibi-blitzcrank",
+     "name": "Chibi Blitzcrank",
+     "rarity": "Legendary",
+     "type": "Little Legend"
+    },
+    {
+     "id": "chibi-blood-moon-aatrox",
+     "name": "Chibi Blood Moon Aatrox",
+     "rarity": "Mythic",
+     "type": "Little Legend"
+    },
+    {
+     "id": "chibi-blood-moon-briar",
+     "name": "Chibi Blood Moon Briar",
+     "rarity": "Mythic",
+     "type": "Little Legend"
+    },
+    {
+     "id": "chibi-blood-moon-jhin",
+     "name": "Chibi Blood Moon Jhin",
+     "rarity": "Mythic",
+     "type": "Little Legend"
+    },
+    {
+     "id": "chibi-briar",
+     "name": "Chibi Briar",
+     "rarity": "Legendary",
+     "type": "Little Legend"
+    },
+    {
+     "id": "chibi-cafe-cuties-annie",
+     "name": "Chibi Cafe Cuties Annie",
+     "rarity": "Mythic",
+     "type": "Little Legend"
+    },
+    {
+     "id": "prestige-chibi-cafe-cuties-gwen",
+     "name": "Prestige Chibi Cafe Cuties Gwen",
+     "rarity": "Prestige",
+     "type": "Little Legend"
+    },
+    {
+     "id": "chibi-caitlyn",
+     "name": "Chibi Caitlyn",
+     "rarity": "Legendary",
+     "type": "Little Legend"
+    },
+    {
+     "id": "chibi-cosmic-queen-ashe",
+     "name": "Chibi Cosmic Queen Ashe",
+     "rarity": "Mythic",
+     "type": "Little Legend"
+    },
+    {
+     "id": "chibi-crystal-rose-gwen",
+     "name": "Chibi Crystal Rose Gwen",
+     "rarity": "Mythic",
+     "type": "Little Legend"
+    },
+    {
+     "id": "chibi-drx-aatrox",
+     "name": "Chibi DRX Aatrox",
+     "rarity": "Mythic",
+     "type": "Little Legend"
+    },
+    {
+     "id": "chibi-divine-sword-irelia",
+     "name": "Chibi Divine Sword Irelia",
+     "rarity": "Mythic",
+     "type": "Little Legend"
+    },
+    {
+     "id": "chibi-dragonmancer-ashe",
+     "name": "Chibi Dragonmancer Ashe",
+     "rarity": "Mythic",
+     "type": "Little Legend"
+    },
+    {
+     "id": "chibi-ekko",
+     "name": "Chibi Ekko",
+     "rarity": "Legendary",
+     "type": "Little Legend"
+    },
+    {
+     "id": "chibi-ezreal",
+     "name": "Chibi Ezreal",
+     "rarity": "Legendary",
+     "type": "Little Legend"
+    },
+    {
+     "id": "chibi-firecracker-jinx",
+     "name": "Chibi Firecracker Jinx",
+     "rarity": "Mythic",
+     "type": "Little Legend"
+    },
+    {
+     "id": "chibi-firelight-ekko",
+     "name": "Chibi Firelight Ekko",
+     "rarity": "Mythic",
+     "type": "Little Legend"
+    },
+    {
+     "id": "chibi-forecast-janna",
+     "name": "Chibi Forecast Janna",
+     "rarity": "Mythic",
+     "type": "Little Legend"
+    },
+    {
+     "id": "chibi-gwen",
+     "name": "Chibi Gwen",
+     "rarity": "Legendary",
+     "type": "Little Legend"
+    },
+    {
+     "id": "chibi-high-noon-ashe",
+     "name": "Chibi High Noon Ashe",
+     "rarity": "Mythic",
+     "type": "Little Legend"
+    },
+    {
+     "id": "chibi-irelia",
+     "name": "Chibi Irelia",
+     "rarity": "Legendary",
+     "type": "Little Legend"
+    },
+    {
+     "id": "chibi-janna",
+     "name": "Chibi Janna",
+     "rarity": "Legendary",
+     "type": "Little Legend"
+    },
+    {
+     "id": "chibi-jhin",
+     "name": "Chibi Jhin",
+     "rarity": "Legendary",
+     "type": "Little Legend"
+    },
+    {
+     "id": "chibi-jinx",
+     "name": "Chibi Jinx",
+     "rarity": "Legendary",
+     "type": "Little Legend"
+    },
+    {
+     "id": "chibi-k-da-all-out-akali",
+     "name": "Chibi K/DA ALL OUT Akali",
+     "rarity": "Mythic",
+     "type": "Little Legend"
+    },
+    {
+     "id": "chibi-office-aatrox",
+     "name": "Chibi Office Aatrox",
+     "rarity": "Mythic",
+     "type": "Little Legend"
+    },
+    {
+     "id": "chibi-panda-annie",
+     "name": "Chibi Panda Annie",
+     "rarity": "Mythic",
+     "type": "Little Legend"
+    },
+    {
+     "id": "prestige-chibi-porcelain-ezreal",
+     "name": "Prestige Chibi Porcelain Ezreal",
+     "rarity": "Prestige",
+     "type": "Little Legend"
+    },
+    {
+     "id": "chibi-porcelain-irelia",
+     "name": "Chibi Porcelain Irelia",
+     "rarity": "Mythic",
+     "type": "Little Legend"
+    },
+    {
+     "id": "chibi-shork-cosplay-briar",
+     "name": "Chibi Shork Cosplay Briar",
+     "rarity": "Mythic",
+     "type": "Little Legend"
+    },
+    {
+     "id": "chibi-soul-fighter-gwen",
+     "name": "Chibi Soul Fighter Gwen",
+     "rarity": "Mythic",
+     "type": "Little Legend"
+    },
+    {
+     "id": "chibi-space-groove-blitzcrank",
+     "name": "Chibi Space Groove Blitzcrank",
+     "rarity": "Mythic",
+     "type": "Little Legend"
+    },
+    {
+     "id": "chibi-spirit-blossom-ahri",
+     "name": "Chibi Spirit Blossom Ahri",
+     "rarity": "Mythic",
+     "type": "Little Legend"
+    },
+    {
+     "id": "prestige-chibi-spirit-blossom-ahri",
+     "name": "Prestige Chibi Spirit Blossom Ahri",
+     "rarity": "Prestige",
+     "type": "Little Legend"
+    },
+    {
+     "id": "chibi-star-guardian-ahri",
+     "name": "Chibi Star Guardian Ahri",
+     "rarity": "Mythic",
+     "type": "Little Legend"
+    },
+    {
+     "id": "chibi-star-guardian-akali",
+     "name": "Chibi Star Guardian Akali",
+     "rarity": "Mythic",
+     "type": "Little Legend"
+    },
+    {
+     "id": "chibi-surprise-party-amumu",
+     "name": "Chibi Surprise Party Amumu",
+     "rarity": "Mythic",
+     "type": "Little Legend"
+    },
+    {
+     "id": "chibi-iblitzcrank",
+     "name": "Chibi iBlitzcrank",
+     "rarity": "Mythic",
+     "type": "Little Legend"
+    }
+   ]
+  },
+  {
+   "id": "chibi-blood-moon",
+   "name": "Chibi Blood Moon",
+   "items": [
+    {
+     "id": "chibi-blood-moon-aatrox",
+     "name": "Chibi Blood Moon Aatrox",
+     "rarity": "Mythic",
+     "type": "Little Legend"
+    },
+    {
+     "id": "chibi-blood-moon-briar",
+     "name": "Chibi Blood Moon Briar",
+     "rarity": "Mythic",
+     "type": "Little Legend"
+    },
+    {
+     "id": "chibi-blood-moon-jhin",
+     "name": "Chibi Blood Moon Jhin",
+     "rarity": "Mythic",
+     "type": "Little Legend"
+    }
+   ],
+   "blurb": "Chibi Blood Moon companions."
+  },
+  {
+   "id": "chibi-spirit-blossom",
+   "name": "Chibi Spirit Blossom",
+   "items": [
+    {
+     "id": "chibi-spirit-blossom-ahri",
+     "name": "Chibi Spirit Blossom Ahri",
+     "rarity": "Mythic",
+     "type": "Little Legend"
+    },
+    {
+     "id": "prestige-chibi-spirit-blossom-ahri",
+     "name": "Prestige Chibi Spirit Blossom Ahri",
+     "rarity": "Prestige",
+     "type": "Little Legend"
+    }
+   ],
+   "blurb": "Chibi Spirit Blossom companions."
+  },
+  {
+   "id": "chibi-star-guardian",
+   "name": "Chibi Star Guardian",
+   "items": [
+    {
+     "id": "chibi-star-guardian-ahri",
+     "name": "Chibi Star Guardian Ahri",
+     "rarity": "Mythic",
+     "type": "Little Legend"
+    },
+    {
+     "id": "chibi-star-guardian-akali",
+     "name": "Chibi Star Guardian Akali",
+     "rarity": "Mythic",
+     "type": "Little Legend"
+    }
+   ],
+   "blurb": "Chibi Star Guardian companions."
+  },
+  {
+   "id": "chibi-dragonmancer",
+   "name": "Chibi Dragonmancer",
+   "items": [
+    {
+     "id": "chibi-dragonmancer-ashe",
+     "name": "Chibi Dragonmancer Ashe",
+     "rarity": "Mythic",
+     "type": "Little Legend"
+    }
+   ],
+   "blurb": "Chibi Dragonmancer companions."
+  },
+  {
+   "id": "chibi-porcelain",
+   "name": "Chibi Porcelain",
+   "items": [
+    {
+     "id": "prestige-chibi-porcelain-ezreal",
+     "name": "Prestige Chibi Porcelain Ezreal",
+     "rarity": "Prestige",
+     "type": "Little Legend"
+    },
+    {
+     "id": "chibi-porcelain-irelia",
+     "name": "Chibi Porcelain Irelia",
+     "rarity": "Mythic",
+     "type": "Little Legend"
+    }
+   ],
+   "blurb": "Chibi Porcelain companions."
+  },
+  {
+   "id": "chibi-cafe-cuties",
+   "name": "Chibi Cafe Cuties",
+   "items": [
+    {
+     "id": "chibi-cafe-cuties-annie",
+     "name": "Chibi Cafe Cuties Annie",
+     "rarity": "Mythic",
+     "type": "Little Legend"
+    },
+    {
+     "id": "prestige-chibi-cafe-cuties-gwen",
+     "name": "Prestige Chibi Cafe Cuties Gwen",
+     "rarity": "Prestige",
+     "type": "Little Legend"
+    }
+   ],
+   "blurb": "Chibi Cafe Cuties companions."
+  }
+ ]
+}
