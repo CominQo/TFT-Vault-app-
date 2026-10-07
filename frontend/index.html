@@ -561,6 +561,7 @@ background:linear-gradient(160deg,#ffffff1c,#ffffff08);border:1.5px solid color-
     <div id="grid"></div>
     <div id="colx" hidden>
       <div class="bar"><input id="colq" placeholder="Search collections…" autocomplete="off"><span id="colsum" style="color:var(--muted);font-size:13px"></span></div>
+      <div id="tyrow" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:14px"></div>
       <div id="colgrid"></div>
     </div>
   </section>
@@ -1181,7 +1182,7 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
   let owned = new Set();
   try { owned = new Set(JSON.parse(localStorage.getItem(KEY) || '[]')); } catch {}
   const save = () => { try { localStorage.setItem(KEY, JSON.stringify([...owned])); } catch {} };
-  let COLS = null, cur = null, cq = '', sq = '', rar = 'All';
+  let COLS = null, cur = null, cq = '', sq = '', rar = 'All', ty = 'All';
   const g = id => document.getElementById(id);
   const ownedIn = c => c.items.filter(i => owned.has(i.id)).length;
   const pct = c => c.items.length ? Math.round(100 * ownedIn(c) / c.items.length) : 0;
@@ -1200,20 +1201,28 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
   }
   g('cswitch').onclick = e => { const m = e.target.dataset.m; if (m) mode(m); };
 
+  const ofType = c => ty === 'All' ? c.items : c.items.filter(i => i.type === ty);
+  const ownedT = c => ofType(c).filter(i => owned.has(i.id)).length;
+  const pctT = c => ofType(c).length ? Math.round(100 * ownedT(c) / ofType(c).length) : 0;
+
   async function paintList() {
     await load();
+    const types = ['All', ...new Set(COLS.flatMap(c => c.items.map(i => i.type)))];
+    g('tyrow').innerHTML = types.map(t => `<button class="pill${t === ty ? ' on' : ''}" data-t="${esc(t)}">${esc(t === 'All' ? 'All types' : t)}</button>`).join('');
     const k = cq.trim().toLowerCase();
-    const list = COLS.filter(c => !k || c.name.toLowerCase().includes(k));
-    const tot = COLS.reduce((n, c) => n + c.items.length, 0), got = COLS.reduce((n, c) => n + ownedIn(c), 0);
-    g('colsum').textContent = `${COLS.length} collections · ${got} / ${tot} owned`;
+    const list = COLS.filter(c => ofType(c).length && (!k || c.name.toLowerCase().includes(k)));
+    const all = new Map(); COLS.forEach(c => c.items.forEach(i => all.set(i.id, i)));
+    const pool = [...all.values()].filter(i => ty === 'All' || i.type === ty);
+    g('colsum').textContent = `${list.length} collections · ${pool.filter(i => owned.has(i.id)).length} / ${pool.length} owned`;
     g('colgrid').innerHTML = list.length ? list.map(c => {
-      const counts = {}; c.items.forEach(i => counts[i.rarity] = (counts[i.rarity] || 0) + 1);
+      const its = ofType(c), counts = {}; its.forEach(i => counts[i.rarity] = (counts[i.rarity] || 0) + 1);
       const dots = Object.keys(RC).filter(r => counts[r]).map(r => `<em style="color:${RC[r]}">${counts[r]} ${r}</em>`).join('');
-      return `<button class="scard${pct(c) === 100 ? ' done' : ''}" data-id="${esc(c.id)}">
-        <b>${esc(c.name)}</b><span>${ownedIn(c)} / ${c.items.length} owned</span>
-        <div class="prog"><i style="width:${pct(c)}%"></i></div><div class="rdots">${dots}</div></button>`;
+      return `<button class="scard${pctT(c) === 100 ? ' done' : ''}" data-id="${esc(c.id)}">
+        <b>${esc(c.name)}</b><span>${ownedT(c)} / ${its.length} owned</span>
+        <div class="prog"><i style="width:${pctT(c)}%"></i></div><div class="rdots">${dots}</div></button>`;
     }).join('') : '<div class="empty">No collection matches.</div>';
   }
+  g('tyrow').onclick = e => { const t = e.target.dataset.t; if (t) { ty = t; paintList(); } };
   g('colq').oninput = e => { cq = e.target.value; paintList(); };
   g('colgrid').onclick = e => {
     const b = e.target.closest('.scard'); if (!b) return;
@@ -1225,7 +1234,9 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
     g('stitle').textContent = cur.name; g('ssub').textContent = cur.blurb || '';
     g('sq').value = '';
     const rs = ['All', ...new Set(cur.items.map(i => i.rarity))];
-    g('srar').innerHTML = rs.map(r => `<button class="pill${r === rar ? ' on' : ''}" data-r="${esc(r)}">${esc(r)}</button>`).join('');
+    const ts = [...new Set(cur.items.map(i => i.type))];
+    g('srar').innerHTML = rs.map(r => `<button class="pill${r === rar ? ' on' : ''}" data-r="${esc(r)}">${esc(r)}</button>`).join('')
+      + (ts.length > 1 ? ts.map(t => `<button class="pill${t === ty ? ' on' : ''}" data-t="${esc(t)}">${esc(t)}</button>`).join('') : '');
     d.hidden = false; requestAnimationFrame(() => d.classList.add('on'));
     paintItems();
   }
@@ -1235,23 +1246,27 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
   }
   function paintItems() {
     const k = sq.trim().toLowerCase();
-    const list = cur.items.filter(i => (rar === 'All' || i.rarity === rar) && (!k || i.name.toLowerCase().includes(k)));
+    const list = cur.items.filter(i => (rar === 'All' || i.rarity === rar) && (ty === 'All' || i.type === ty || !cur.items.some(x => x.type === ty)) && (!k || i.name.toLowerCase().includes(k)));
     g('slist').innerHTML = list.length ? list.map(i => `<button class="cos${owned.has(i.id) ? ' own' : ''}" style="--c:${RC[i.rarity] || '#9aa4b2'}" data-id="${esc(i.id)}" aria-pressed="${owned.has(i.id)}">
       <i>${esc(i.rarity)}</i><b>${esc(i.name)}</b><small>${esc(i.type || '')}</small></button>`).join('') : '<div class="empty">Nothing matches.</div>';
-    g('sfill').style.width = pct(cur) + '%';
-    g('scount').textContent = `${ownedIn(cur)} / ${cur.items.length} owned (${pct(cur)}%)`;
+    stat();
+  }
+  function stat() {
+    const its = cur.items.filter(i => ty === 'All' || i.type === ty || !cur.items.some(x => x.type === ty));
+    const o = its.filter(i => owned.has(i.id)).length, p = its.length ? Math.round(100 * o / its.length) : 0;
+    g('sfill').style.width = p + '%'; g('scount').textContent = `${o} / ${its.length} owned (${p}%)`;
   }
   g('slist').onclick = e => {
     const b = e.target.closest('.cos'); if (!b) return;
     owned.has(b.dataset.id) ? owned.delete(b.dataset.id) : owned.add(b.dataset.id);
     save(); b.classList.toggle('own'); b.setAttribute('aria-pressed', owned.has(b.dataset.id));
-    g('sfill').style.width = pct(cur) + '%';
-    g('scount').textContent = `${ownedIn(cur)} / ${cur.items.length} owned (${pct(cur)}%)`;
+    stat();
   };
   g('sq').oninput = e => { sq = e.target.value; paintItems(); };
   g('srar').onclick = e => {
-    const r = e.target.dataset.r; if (!r) return; rar = r;
-    g('srar').querySelectorAll('.pill').forEach(b => b.classList.toggle('on', b.dataset.r === r)); paintItems();
+    const r = e.target.dataset.r, t = e.target.dataset.t;
+    if (t) ty = ty === t ? 'All' : t; else if (r) rar = r; else return;
+    g('srar').querySelectorAll('.pill').forEach(b => b.classList.toggle('on', b.dataset.r ? b.dataset.r === rar : b.dataset.t === ty)); paintItems();
   };
   g('sall').onclick = () => { cur.items.forEach(i => owned.add(i.id)); save(); paintItems(); };
   g('snone').onclick = () => { cur.items.forEach(i => owned.delete(i.id)); save(); paintItems(); };

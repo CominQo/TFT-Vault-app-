@@ -408,6 +408,79 @@
     }
    ],
    "blurb": "Chibi Cafe Cuties companions."
+  },
+  {
+   "id": "starter-arenas-booms-legends",
+   "name": "Arenas, Booms & Little Legends (starter)",
+   "blurb": "Example entries for non-Chibi cosmetics. Run tools/build_collections.py to fill the full list.",
+   "items": [
+    {
+     "id": "black-hole-arena",
+     "name": "Black Hole Arena",
+     "rarity": "Legendary",
+     "type": "Arena"
+    },
+    {
+     "id": "jinx-s-explody-fun-land",
+     "name": "Jinx's Explody-Fun-Land",
+     "rarity": "Legendary",
+     "type": "Arena"
+    },
+    {
+     "id": "heaven-s-celestial-court",
+     "name": "Heaven's Celestial Court",
+     "rarity": "Mythic",
+     "type": "Arena"
+    },
+    {
+     "id": "down-to-the-last-drop",
+     "name": "Down to The Last Drop",
+     "rarity": "Mythic",
+     "type": "Arena"
+    },
+    {
+     "id": "project-edgefall-arena",
+     "name": "Project Edgefall Arena",
+     "rarity": "Legendary",
+     "type": "Arena"
+    },
+    {
+     "id": "cybercity-arena",
+     "name": "Cybercity Arena",
+     "rarity": "Legendary",
+     "type": "Arena"
+    },
+    {
+     "id": "rocket-grab",
+     "name": "Rocket Grab",
+     "rarity": "Legendary",
+     "type": "Boom"
+    },
+    {
+     "id": "death-mark",
+     "name": "Death Mark",
+     "rarity": "Legendary",
+     "type": "Boom"
+    },
+    {
+     "id": "codebreak-boom",
+     "name": "Codebreak Boom",
+     "rarity": "Legendary",
+     "type": "Boom"
+    },
+    {
+     "id": "doughcat",
+     "name": "DoughCat",
+     "rarity": "Legendary",
+     "type": "Little Legend"
+    },
+    {
+     "id": "knifepup",
+     "name": "KnifePup",
+     "rarity": "Legendary",
+     "type": "Little Legend"
+    }
+   ]
   }
  ]
 }
