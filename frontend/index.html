@@ -408,6 +408,30 @@ background:linear-gradient(160deg,#ffffff1c,#ffffff08);border:1.5px solid color-
 .pt-bpx i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--pt-teal),var(--pt-mint));transition:width 1.2s var(--ease)}
 #bpass .pt-hint{display:none;margin-left:auto;color:var(--gold);font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
 #bpass.pt-live .pt-hint{display:block}
+
+/* ===== Comp Builder (Set 18) ===== */
+:root{--cb-hx:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%)}
+#cbx{display:grid;gap:18px;margin-top:18px}
+.cb-top{display:flex;gap:10px;align-items:center}.cb-top span{margin-left:auto;color:var(--muted);font-size:13px}
+.cb-main{display:grid;grid-template-columns:230px 1fr;gap:20px;align-items:start}
+.cb-traits{display:grid;gap:8px;max-height:318px;overflow:auto;padding-right:4px;align-content:start}
+.cb-traits:empty:before{content:"Drag champions onto the board";color:var(--muted);font-size:13px}
+.cb-t{display:flex;gap:10px;align-items:center;padding:7px 10px;border-radius:12px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);opacity:.55;transition:.25s}
+.cb-t.on{opacity:1;border-color:rgba(248,169,0,.5);background:rgba(248,169,0,.08)}
+.cb-t i{flex:none;font-style:normal;width:28px;height:31px;display:grid;place-items:center;font:800 13px var(--head);background:var(--gold);color:#1c1300;clip-path:var(--cb-hx)}
+.cb-t b{display:block;font-size:13px}.cb-t u{text-decoration:none;font-size:11px;color:var(--muted)}.cb-t u.a{color:var(--gold);font-weight:800}
+.cb-row{display:flex;margin-top:-22px}.cb-row:first-child{margin-top:0}.cb-row.o{margin-left:40px}
+.cb-hex{position:relative;width:80px;height:92px;flex:none;background:rgba(255,255,255,.07);clip-path:var(--cb-hx);transition:background .15s}
+.cb-hex.over{background:rgba(248,169,0,.45)}
+.cb-u{position:absolute;inset:0;background:var(--c);clip-path:var(--cb-hx);cursor:grab;animation:cbPop .35s var(--ease)}
+.cb-u b{position:absolute;inset:3px;clip-path:var(--cb-hx);background:#10131c center/cover;display:grid;place-items:center;font:700 10px/1.1 var(--body);text-align:center;padding:6px;word-break:break-word}
+@keyframes cbPop{from{transform:scale(.4);opacity:0}}
+.cb-bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+.cb-bar input{flex:1;min-width:180px}
+.cb-grid{display:flex;flex-wrap:wrap;gap:8px}
+.cb-p{position:relative;width:54px;height:54px;border:2px solid var(--c);border-radius:11px;background:#10131c center/cover;display:grid;place-items:center;font:700 9px/1.1 var(--body);text-align:center;cursor:grab;transition:transform .15s}
+.cb-p:hover{transform:translateY(-3px) scale(1.07)}.cb-p.used{opacity:.3}
+.cb-p small{position:absolute;right:2px;bottom:1px;color:var(--c);font-size:9px}
 </style>
 </head>
 <body>
@@ -499,7 +523,7 @@ background:linear-gradient(160deg,#ffffff1c,#ffffff08);border:1.5px solid color-
   </section>
   <section id="compb" class="view" hidden>
     <header><h1 data-i18n="comp">Comp Builder</h1><p data-i18n="compSub">Plan your team comps</p></header>
-    <div class="empty" data-i18n="compEmpty">Nothing here yet. The comp builder is coming soon.</div>
+    <div id="cbx"></div>
   </section>
   <section id="sets" class="view" hidden>
     <header><h1>Teamfight Tactics</h1><p data-i18n="pick">Pick a set</p></header>
@@ -1019,6 +1043,91 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
     setTimeout(() => paint(false), 600);
     setTimeout(replay, 1700);
   })();
+})();
+
+/* ================= COMP BUILDER (Set 18) ================= */
+(() => {
+  const N = 28, KEY = 'tft.comp18';
+  const root = $('cbx');
+  let D = null, board = Array(N).fill(null), hist = [], costF = 0, q = '', drag = null, started = false;
+  const champ = n => D.champions.find(c => c.name === n);
+  const img = c => c.icon || c.img || c.image || c.portrait || '';
+  const push = () => { hist.push(board.slice()); if (hist.length > 50) hist.shift(); };
+  const save = () => store.set(KEY, JSON.stringify(board));
+
+  function shell() {
+    root.innerHTML = `<div class="cb-top"><button class="pill" id="cb-undo">Undo</button><button class="pill" id="cb-clear">Clear</button><span id="cb-count"></span></div>
+      <div class="cb-main"><div class="cb-traits" id="cb-tr"></div><div id="cb-bd"></div></div>
+      <div><div class="cb-bar"><input id="cb-q" placeholder="Search champions or traits">${[0,1,2,3,4,5].map(c => `<button class="pill${c === costF ? ' on' : ''}" data-c="${c}">${c ? c + ' gold' : 'All'}</button>`).join('')}</div><div class="cb-grid" id="cb-pl"></div></div>`;
+    $('cb-bd').innerHTML = [0,1,2,3].map(r => `<div class="cb-row${r % 2 ? ' o' : ''}">${Array.from({ length: 7 }, (_, k) => `<div class="cb-hex" data-i="${r * 7 + k}"></div>`).join('')}</div>`).join('');
+  }
+  function unit(c, i) {
+    const bg = img(c) ? `background-image:url(${img(c)})` : '';
+    return `<div class="cb-u" draggable="true" data-i="${i}" data-n="${c.name}" style="--c:${COST[c.cost]}"><b style="${bg}">${img(c) ? '' : c.name}</b></div>`;
+  }
+  function paintBoard() {
+    document.querySelectorAll('.cb-hex').forEach(h => { const n = board[+h.dataset.i]; h.innerHTML = n && champ(n) ? unit(champ(n), h.dataset.i) : ''; });
+    const used = new Set(board.filter(Boolean));
+    document.querySelectorAll('.cb-p').forEach(p => p.classList.toggle('used', used.has(p.dataset.n)));
+    const cs = D.champions.filter(c => used.has(c.name));
+    $('cb-count').textContent = `${cs.length} units · ${cs.reduce((a, c) => a + c.cost, 0)} gold`;
+    const cnt = {}; cs.forEach(c => c.traits.forEach(t => cnt[t] = (cnt[t] || 0) + 1));
+    const rows = D.traits.filter(t => cnt[t.name] && t.kind !== 'hidden').map(t => {
+      const bp = (t.kind === 'single' || !t.bp || !t.bp.length ? [1] : t.bp.map(x => parseInt(x))).filter(x => x > 0);
+      return { t, n: cnt[t.name], bp, tier: bp.filter(b => b <= cnt[t.name]).length };
+    }).sort((a, b) => (b.tier > 0) - (a.tier > 0) || b.tier - a.tier || b.n - a.n);
+    $('cb-tr').innerHTML = rows.map(r => `<div class="cb-t${r.tier ? ' on' : ''}"><i>${r.n}</i><div><b>${r.t.name}</b>${r.bp.map((b, i) => `<u class="${i < r.tier ? 'a' : ''}">${b}</u>`).join(' › ')}</div></div>`).join('');
+    save();
+  }
+  function paintPool() {
+    const k = q.trim().toLowerCase();
+    const list = D.champions.filter(c => (!costF || c.cost === costF) && (!k || c.name.toLowerCase().includes(k) || c.traits.some(t => t.toLowerCase().includes(k))));
+    $('cb-pl').innerHTML = list.map(c => `<div class="cb-p" draggable="true" data-n="${c.name}" title="${c.name} · ${c.traits.join(', ')}" style="--c:${COST[c.cost]};${img(c) ? `background-image:url(${img(c)})` : ''}">${img(c) ? '' : c.name}<small>${c.cost}</small></div>`).join('');
+    paintBoard();
+  }
+  function place(name, to, from) {
+    push();
+    if (from != null) { const a = board[to]; board[to] = name; board[from] = a; }
+    else { const old = board.indexOf(name); if (old >= 0) board[old] = null; board[to] = name; }
+    paintBoard();
+  }
+  function wire() {
+    root.addEventListener('dragstart', e => {
+      const el = e.target.closest('[draggable]'); if (!el) return;
+      drag = { name: el.dataset.n, from: el.classList.contains('cb-u') ? +el.dataset.i : null };
+      e.dataTransfer.setData('text/plain', drag.name); e.dataTransfer.effectAllowed = 'move';
+    });
+    root.addEventListener('dragover', e => { e.preventDefault(); const h = e.target.closest('.cb-hex'); document.querySelectorAll('.cb-hex.over').forEach(x => x !== h && x.classList.remove('over')); if (h) h.classList.add('over'); });
+    root.addEventListener('dragend', () => { drag = null; document.querySelectorAll('.cb-hex.over').forEach(x => x.classList.remove('over')); });
+    root.addEventListener('drop', e => {
+      e.preventDefault(); if (!drag) return;
+      document.querySelectorAll('.cb-hex.over').forEach(x => x.classList.remove('over'));
+      const h = e.target.closest('.cb-hex');
+      if (h) place(drag.name, +h.dataset.i, drag.from);
+      else if (drag.from != null) { push(); board[drag.from] = null; paintBoard(); }   // dropped outside the board = remove
+      drag = null;
+    });
+    root.addEventListener('click', e => {
+      const u = e.target.closest('.cb-u'), p = e.target.closest('.cb-p'), c = e.target.closest('[data-c]');
+      if (u) { push(); board[+u.dataset.i] = null; paintBoard(); }
+      else if (p) { const i = board.indexOf(null); if (i >= 0 && !board.includes(p.dataset.n)) place(p.dataset.n, i, null); }
+      else if (c) { costF = +c.dataset.c; root.querySelectorAll('[data-c]').forEach(x => x.classList.toggle('on', x === c)); paintPool(); }
+      else if (e.target.id === 'cb-undo' && hist.length) { board = hist.pop(); paintBoard(); }
+      else if (e.target.id === 'cb-clear') { push(); board = Array(N).fill(null); paintBoard(); }
+    });
+    root.addEventListener('input', e => { if (e.target.id === 'cb-q') { q = e.target.value; paintPool(); } });
+  }
+  async function init() {
+    if (started) return; started = true;
+    try {
+      const s = (await loadSets()).find(x => String(x.id) === '18');
+      D = cache[s.info] ||= await (await fetch(s.info)).json();
+    } catch { root.innerHTML = '<div class="empty">Set 18 data not found.</div>'; started = false; return; }
+    try { const b = JSON.parse(store.get(KEY) || '[]'); if (Array.isArray(b) && b.length === N) board = b.map(n => n && champ(n) ? n : null); } catch {}
+    shell(); wire(); paintPool();
+  }
+  $('navComp').addEventListener('click', init);
+  if (showView.cur === 'comp') init();
 })();
 </script>
 </body>
