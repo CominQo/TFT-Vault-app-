@@ -9,3 +9,5 @@ Requires: Go 1.22+, Wails v2 (`go install github.com/wailsapp/wails/v2/cmd/wails
 - Add a season: new entry in `frontend/sets.json`. Add `"info": "data/setNN.json"` to give it an Overview / Champions / Traits page (see `frontend/data/set18.json` for the format).
 - Put the Pengu clip at `frontend/video/pengu.mp4`.
 - Card art: set `"poster"` to an image path inside `frontend/`.
+
+<img width="1270" height="791" alt="alpha" src="https://github.com/user-attachments/assets/71bf9ea4-dd82-4ac4-96a5-57a7624f1058" />
