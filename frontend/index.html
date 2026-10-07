@@ -319,6 +319,95 @@ header p{color:var(--muted);font-size:14px}
 #lmenu li.on{background:rgba(248,169,0,.14);color:var(--gold)}
 #lmenu li.on em{color:var(--gold)}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}.tcard,.tcard::before,.tcard .pl::before{animation:none!important}#bg{display:none}}
+:root{--pt-accent:var(--gold);--pt-mint:#4ade80;--pt-teal:#2dd4bf;--pt-glass:rgba(9,13,42,.38);--pt-stroke:rgba(255,255,255,.13);--pt-free:#6aa8ff}
+/* ===== DOCK: bottom-left, above the logo/EN/Donate row, clear of the trailer card ===== */
+.pt-dock{position:absolute;z-index:6;left:84px;bottom:84px;right:calc(min(340px,34vw) + 64px);
+background:none;border:0;padding:0;text-shadow:0 1px 8px #000a;
+opacity:1;transform:none;transform-origin:100% 0;transition:opacity .45s,transform .55s cubic-bezier(.2,.9,.2,1);animation:pt-up .8s cubic-bezier(.2,.9,.2,1) .15s backwards}
+@keyframes pt-up{from{opacity:0;transform:translateY(40px)}}
+.pt-dock.pt-closed{opacity:0;transform:translate(40vw,-60vh) scale(.2);pointer-events:none}
+.pt-head{display:flex;align-items:center;gap:12px}
+.pt-hex{position:relative;width:42px;height:46px;display:grid;place-items:center;font-family:var(--head);font-size:16px;color:var(--pt-accent);
+background:var(--pt-accent);clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);animation:pt-glow 2.6s ease-in-out infinite}
+.pt-hex:before{content:"";position:absolute;inset:3px;background:#0c1238;clip-path:inherit}
+.pt-hex span{position:relative}
+@keyframes pt-glow{50%{filter:drop-shadow(0 0 9px #f5a800aa)}}
+.pt-meta{flex:1;min-width:0}
+.pt-eyebrow{font-size:10px;letter-spacing:.18em;color:var(--muted);font-weight:700;text-transform:uppercase}
+.pt-lv{font-family:var(--head);font-size:20px;letter-spacing:.01em;line-height:1.1}
+.pt-lv em{font-style:normal;color:var(--pt-accent)}
+.pt-xp{height:6px;margin-top:6px;border-radius:9px;background:#ffffff1a;overflow:hidden}
+.pt-xp i{display:block;height:100%;width:0;border-radius:9px;background:linear-gradient(90deg,var(--pt-teal),var(--pt-mint));transition:width 1.4s cubic-bezier(.2,.8,.2,1)}
+.pt-xpt{font-size:11px;color:var(--muted);margin-top:4px}
+.pt-btn{border:0;cursor:pointer;font:700 12px var(--body);padding:8px 14px;border-radius:99px;background:#fff;color:#0a0e2a;transition:.2s}
+.pt-btn:hover{transform:translateY(-1px);box-shadow:0 6px 16px #0006}
+.pt-btn.pt-ghost{background:#ffffff14;color:var(--text);border:1px solid var(--pt-stroke);padding:8px 11px}
+.pt-scroll{overflow-x:auto;scroll-behavior:smooth;scrollbar-width:none;margin-top:-8px;padding:36px 0 2px;mask-image:linear-gradient(90deg,transparent,#000 24px,#000 calc(100% - 24px),transparent)}
+.pt-scroll::-webkit-scrollbar{display:none}
+.pt-track{position:relative;display:flex;gap:10px;width:max-content;padding:0 22px}
+.pt-line{position:absolute;left:55px;right:55px;bottom:9px;height:3px;border-radius:3px;background:#ffffff1f}
+.pt-line i{display:block;height:100%;width:0;border-radius:3px;background:linear-gradient(90deg,var(--pt-teal),var(--pt-mint));box-shadow:0 0 10px var(--pt-teal);transition:width 1.6s cubic-bezier(.3,.7,.2,1)}
+.pt-node{width:66px;display:flex;flex-direction:column;align-items:center;gap:10px;opacity:0;transform:translateY(20px) scale(.88);animation:pt-pop .5s cubic-bezier(.2,1.2,.3,1) forwards;animation-delay:calc(.5s + var(--i)*40ms)}
+@keyframes pt-pop{to{opacity:1;transform:none}}
+.pt-tile{position:relative;width:62px;height:68px;display:grid;place-items:center;border-radius:14px;cursor:pointer;
+background:linear-gradient(160deg,#ffffff1c,#ffffff08);border:1.5px solid color-mix(in srgb,var(--pt-free) 55%,transparent);transition:transform .25s,box-shadow .25s}
+.pt-node.pt-prem .pt-tile{border-color:var(--pt-accent);background:linear-gradient(160deg,#f5a8002e,#ffffff06)}
+.pt-node.pt-lock .pt-tile{filter:grayscale(.7) brightness(.7)}
+.pt-tile:hover{transform:translateY(-4px) scale(1.07);box-shadow:0 10px 24px #0007}
+.pt-node.pt-cur .pt-tile{animation:pt-cur 1.7s ease-in-out infinite}
+@keyframes pt-cur{50%{box-shadow:0 0 0 2px var(--pt-accent),0 0 22px #f5a80088}}
+.pt-ico{width:30px;height:30px;display:block}
+.pt-orb{border-radius:50%;background:radial-gradient(circle,#05081c 28%,#2f7dff 30%,#7fd3ff 52%,transparent 72%);animation:pt-spin 6s linear infinite;box-shadow:0 0 12px #3f8dff}
+@keyframes pt-spin{to{transform:rotate(360deg)}}
+.pt-shard{background:linear-gradient(135deg,#ffd0e1,#ff6f9d 55%,#8c1f4d);clip-path:polygon(50% 0,100% 35%,75% 100%,25% 100%,0 35%);animation:pt-flo 3s ease-in-out infinite}
+@keyframes pt-flo{50%{transform:translateY(-3px) scale(1.06)}}
+.pt-icon{border-radius:50%;background:radial-gradient(circle at 35% 30%,#ffe6b0,#c97b4d 60%,#4a2a3b);border:2px solid #fff6}
+.pt-arena{border-radius:5px;background:linear-gradient(135deg,#3b2a7a,#1a1040);border:2px solid var(--pt-accent);transform:perspective(60px) rotateX(35deg)}
+.pt-legend{border-radius:50% 50% 40% 40%;background:radial-gradient(circle at 50% 35%,#ffd6f1,#b04fd0 55%,#3a1760)}
+.pt-egg{border-radius:50%/60% 60% 40% 40%;background:linear-gradient(135deg,#2da38c,#0e4a52);border:2px solid var(--pt-accent)}
+.pt-boom{border-radius:50%;background:radial-gradient(circle,#fff6a0,#ff8a2b 55%,#7a1d1d)}
+.pt-amt{position:absolute;right:5px;bottom:3px;font-family:var(--head);font-size:12px;text-shadow:0 1px 3px #000,0 0 6px #000}
+.pt-free{position:absolute;top:4px;left:0;right:0;text-align:center;font-size:7.5px;font-weight:800;letter-spacing:.14em;color:var(--pt-mint)}
+.pt-chk{position:absolute;top:-6px;right:-6px;width:19px;height:19px;border-radius:50%;background:var(--pt-mint);color:#04210f;display:none;place-items:center;font-size:11px;font-weight:900}
+.pt-node.pt-claimed .pt-chk{display:grid;animation:pt-pop .4s}
+.pt-node.pt-claimed .pt-tile{opacity:.65}
+.pt-pill{z-index:1;width:22px;height:22px;display:grid;place-items:center;font-size:10px;font-weight:800;border-radius:50%;background:#1a2260;border:1.5px solid #ffffff33;transition:.4s}
+.pt-node.pt-done .pt-pill{background:var(--pt-teal);color:#032a2a;border-color:#8ff}
+.pt-node.pt-cur .pt-pill{background:var(--pt-accent);color:#2a1700;border-color:#ffe2a0;transform:scale(1.3)}
+.pt-spark{position:fixed;width:7px;height:7px;border-radius:50%;pointer-events:none;background:var(--pt-accent);box-shadow:0 0 10px var(--pt-accent);z-index:9}
+/* ===== NAV ARROWS ===== */
+.pt-nav{width:38px;height:38px;padding:0;border-radius:50%;display:grid;place-items:center;flex:none;color:var(--text);cursor:pointer;background:#ffffff14;border:1px solid var(--pt-stroke);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);transition:.25s}
+.pt-nav svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2.8;stroke-linecap:round;stroke-linejoin:round;transition:transform .25s}
+.pt-nav{position:relative}
+.pt-nav svg{position:relative;z-index:1}
+.pt-nav:before{content:"";position:absolute;inset:3px;background:linear-gradient(135deg,#ffd27a,var(--pt-accent));clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);transform:scale(.3) rotate(-90deg);opacity:0;transition:transform .45s cubic-bezier(.2,1.5,.3,1),opacity .25s}
+.pt-nav:hover{background:transparent;border-color:transparent;color:#2a1700;filter:drop-shadow(0 0 8px #f5a800aa);transform:scale(1)}
+.pt-nav:hover:before{transform:scale(1) rotate(0);opacity:1}
+#pt-prev:hover svg{transform:translateX(-3px)}#pt-next:hover svg{transform:translateX(3px)}
+.pt-nav:active{transform:scale(.92)}
+.pt-nav:disabled{opacity:.28;pointer-events:none}
+/* ===== EXTRA EFFECTS ===== */
+.pt-node.pt-prem .pt-tile:after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:linear-gradient(115deg,transparent 35%,#ffffff66 50%,transparent 65%);background-size:250% 100%;animation:pt-shine 3.4s linear infinite;animation-delay:calc(var(--i)*-.3s)}
+@keyframes pt-shine{from{background-position:150% 0}to{background-position:-100% 0}}
+.pt-line i{position:relative}
+.pt-line i:after{content:"";position:absolute;right:-7px;top:50%;width:14px;height:14px;margin-top:-7px;border-radius:50%;background:#fff;box-shadow:0 0 14px 6px var(--pt-mint);animation:pt-beat 1s ease-in-out infinite}
+@keyframes pt-beat{50%{transform:scale(1.45)}}
+.pt-hex.pt-up{animation:pt-bump .7s cubic-bezier(.2,1.4,.3,1)}
+@keyframes pt-bump{40%{transform:scale(1.4) rotate(10deg);filter:brightness(1.7) drop-shadow(0 0 20px #f5a800)}}
+.pt-tile{transition:transform .15s,box-shadow .25s;will-change:transform}
+.pt-ember{position:absolute;bottom:60%;width:4px;height:4px;border-radius:50%;background:var(--pt-accent);box-shadow:0 0 8px 2px var(--pt-accent);pointer-events:none}
+.pt-ring{position:fixed;width:20px;height:20px;margin:-10px 0 0 -10px;border-radius:50%;border:3px solid var(--pt-accent);pointer-events:none;z-index:9}
+
+/* ---- Battlepass card becomes the tracker toggle ---- */
+#bpass.pt-live{opacity:1;filter:none;cursor:pointer;transition:border-color .25s,transform .25s,box-shadow .25s}
+#bpass.pt-live:hover{transform:translateY(-2px);border-color:var(--gold);box-shadow:0 10px 28px rgba(0,0,0,.45)}
+#bpass.pt-live.pt-on{border-color:rgba(248,169,0,.55)}
+#bpass.pt-live .bs{font-family:var(--head);font-size:15px;letter-spacing:.04em}
+#bpass .pt-bpx{display:none;height:4px;margin-top:9px;border-radius:9px;background:rgba(255,255,255,.12);overflow:hidden}
+#bpass.pt-live .pt-bpx{display:block}
+.pt-bpx i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--pt-teal),var(--pt-mint));transition:width 1.2s var(--ease)}
+#bpass .pt-hint{display:none;margin-left:auto;color:var(--gold);font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+#bpass.pt-live .pt-hint{display:block}
 </style>
 </head>
 <body>
@@ -357,8 +446,8 @@ header p{color:var(--muted);font-size:14px}
   <a id="patchNotes" href="#" data-i18n="patch">Patch Notes 18.4 ↗</a>
 </nav>
 <div id="bpass" aria-disabled="true" title="">
-  <div class="bt"><svg viewBox="0 0 24 24"><path d="M4 5l9-2v16l-9 2zm10 0l6 2v16l-6-2z"/></svg><span data-i18n="bp">BATTLEPASS</span></div>
-  <div class="bs" data-i18n="bpOff">PASS DISABLED</div>
+  <div class="bt"><svg viewBox="0 0 24 24"><path d="M4 5l9-2v16l-9 2zm10 0l6 2v16l-6-2z"/></svg><span data-i18n="bp">BATTLEPASS</span><span class="pt-hint" id="pt-hint"></span></div>
+  <div class="bs" id="pt-bpl" data-i18n="bpOff">PASS DISABLED</div><div class="pt-bpx"><i id="pt-bpx"></i></div>
 </div>
 <div id="bar">
   <div id="lang">
@@ -388,6 +477,21 @@ header p{color:var(--muted);font-size:14px}
       <span class="pl"><svg viewBox="0 0 64 64"><path class="hh" d="M32 4 56 18v28L32 60 8 46V18z"/><path class="tri" d="M26 22v20l17-10z"/></svg></span>
       <span class="tt"><i>Launch trailer</i><b>Enchanted Wilds | Set Trailer</b><em class="ln"></em></span>
     </button>
+    <div class="pt-dock" id="pt-dock">
+      <div class="pt-head">
+        <div class="pt-hex"><span id="pt-lvl">0</span></div>
+        <div class="pt-meta">
+          <div class="pt-eyebrow" data-i18n="bp">BATTLEPASS</div>
+          <div class="pt-lv"><span id="pt-lvword">Level</span> <em id="pt-lv2">0</em> / 30</div>
+          <div class="pt-xp"><i id="pt-xpbar"></i></div>
+          <div class="pt-xpt" id="pt-xpt"></div>
+        </div>
+        <button class="pt-btn" id="pt-replay">Replay</button>
+        <button class="pt-nav" id="pt-prev" aria-label="Previous"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
+        <button class="pt-nav" id="pt-next" aria-label="Next"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>
+      </div>
+      <div class="pt-scroll" id="pt-scroll"><div class="pt-track" id="pt-track"><div class="pt-line"><i id="pt-fill"></i></div></div></div>
+    </div>
   </section>
   <section id="history" class="view" hidden>
     <header><h1 data-i18n="hist">Match History</h1><p data-i18n="histSub">Your recent games</p></header>
@@ -781,6 +885,141 @@ setLang(store.get('tft.lang') || 'en');
 // Square corners while maximized
 async function syncMax() { try { $('app').classList.toggle('max', await window.runtime.WindowIsMaximised()); } catch {} }
 let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syncMax, 120); }); syncMax();
+
+/* ================= PASS TRACKER (Battlepass) ================= */
+(() => {
+  const PASS_ENABLED = true;   // false = keep the card on "PASS DISABLED" until real Riot data is wired
+  const R = "orb:200:f,icon:0:f,arena:0:p,shard:50:f,boom:0:p,shard:50:p,orb:50:f,legend:0:p,shard:50:p,icon:0:f,orb:50:p,orb:50:f,shard:50:p,legend:0:p,orb:50:p,icon:0:f,shard:50:f,egg:0:p,shard:50:p,orb:100:f,shard:50:p,icon:0:f,orb:100:p,legend:0:p,shard:50:p,icon:0:f,arena:0:p,orb:100:p,shard:100:p,arena:0:p"
+    .split(",").map((s, i) => { const [t, a, p] = s.split(":"); return { level: i, type: t, amount: +a, premium: p === "p" }; });
+  const TXT = {
+    en: { lvl: 'Level', replay: 'Replay', free: 'FREE', hide: 'Hide', show: 'Show', xp: 'XP to next level' },
+    sk: { lvl: 'Úroveň', replay: 'Znova', free: 'ZADARMO', hide: 'Skryť', show: 'Zobraziť', xp: 'XP do ďalšej úrovne' },
+    cs: { lvl: 'Úroveň', replay: 'Znovu', free: 'ZDARMA', hide: 'Skrýt', show: 'Zobrazit', xp: 'XP do další úrovně' },
+    tr: { lvl: 'Seviye', replay: 'Tekrar', free: 'ÜCRETSİZ', hide: 'Gizle', show: 'Göster', xp: 'sonraki seviyeye XP' },
+    pt: { lvl: 'Nível', replay: 'Repetir', free: 'GRÁTIS', hide: 'Ocultar', show: 'Mostrar', xp: 'XP para o próximo nível' },
+    zh: { lvl: '等级', replay: '重播', free: '免费', hide: '隐藏', show: '显示', xp: '升级所需经验' },
+    ja: { lvl: 'レベル', replay: 'リプレイ', free: '無料', hide: '隠す', show: '表示', xp: '次のレベルまでXP' }
+  };
+  const P = id => document.getElementById('pt-' + id);
+  const track = P('track'), sc = P('scroll'), dock = P('dock'), card = $('bpass'), app = $('app');
+  const tx = () => TXT[document.documentElement.lang] || TXT.en;
+  let state, lastL;
+
+  /* ---- DATA ADAPTER: the only part to change for Riot ----
+     Riot's public API has no battle-pass endpoint, so compute XP yourself from TFT matches.
+     Go side (app.go): func (a *App) GetPassProgress(puuid string) (PassState, error)
+     returning {level, xp, xpToNext, claimed}. Keep the Riot key in Go, never in the frontend. */
+  async function getPassState() {
+    try { return await window.go.main.App.GetPassProgress(""); } catch {}
+    return { level: 2, xp: 340, xpToNext: 500, claimed: [0, 1] };   // demo data until the API exists
+  }
+
+  function build() {
+    R.forEach(r => {
+      const n = document.createElement('div');
+      n.className = 'pt-node' + (r.premium ? ' pt-prem' : '');
+      n.style.setProperty('--i', r.level); n.dataset.l = r.level;
+      n.innerHTML = `<div class="pt-tile"><i class="pt-ico pt-${r.type}"></i>${r.amount ? `<span class="pt-amt">x${r.amount}</span>` : ''}${r.premium ? '' : '<span class="pt-free"></span>'}<span class="pt-chk">&#10003;</span></div><div class="pt-pill">${r.level}</div>`;
+      n.querySelector('.pt-tile').onclick = e => claim(r.level, e);
+      track.appendChild(n);
+    });
+  }
+  function texts() {
+    const t = tx();
+    P('lvword').textContent = t.lvl; P('replay').textContent = t.replay;
+    track.querySelectorAll('.pt-free').forEach(e => e.textContent = t.free);
+    P('hint').textContent = dock.classList.contains('pt-closed') ? t.show : t.hide;
+    if (state) paintText();
+  }
+  function paintText() {
+    const t = tx(), L = state.level;
+    P('xpt').textContent = `${state.xp} / ${state.xpToNext} ${t.xp}`;
+    if (PASS_ENABLED) { const b = $('pt-bpl'); b.removeAttribute('data-i18n'); b.textContent = `${t.lvl} ${L} / 30`; }
+  }
+  function paint(animate = true) {
+    const L = state.level;
+    track.querySelectorAll('.pt-node').forEach(n => {
+      const l = +n.dataset.l;
+      n.classList.toggle('pt-done', l <= L); n.classList.toggle('pt-cur', l === L);
+      n.classList.toggle('pt-lock', l > L); n.classList.toggle('pt-claimed', state.claimed.includes(l));
+    });
+    if (lastL !== undefined && lastL !== L) { const h = dock.querySelector('.pt-hex'); h.classList.remove('pt-up'); void h.offsetWidth; h.classList.add('pt-up'); }
+    lastL = L;
+    P('lvl').textContent = L; P('lv2').textContent = L;
+    const pct = (state.xp / state.xpToNext * 100) + '%';
+    P('xpbar').style.width = pct; $('pt-bpx').style.width = pct;
+    P('fill').style.width = Math.min(1, L / 29) * 100 + '%';
+    paintText();
+    const cur = track.querySelector(`[data-l="${Math.min(L, 29)}"]`);
+    if (cur && sc.clientWidth) sc.scrollTo({ left: cur.offsetLeft - sc.clientWidth / 2 + 33, behavior: animate ? 'smooth' : 'auto' });
+  }
+  function saveClaimed() { store.set('tft.passClaimed', JSON.stringify(state.claimed)); }
+  function claim(l, e) {
+    if (l > state.level || state.claimed.includes(l)) return;
+    state.claimed.push(l); saveClaimed(); paint(false);
+    const r = e.currentTarget.getBoundingClientRect(), ar = app.getBoundingClientRect();
+    const cx = r.left - ar.left + r.width / 2, cy = r.top - ar.top + r.height / 2;
+    const ring = document.createElement('i'); ring.className = 'pt-ring'; ring.style.left = cx + 'px'; ring.style.top = cy + 'px'; app.appendChild(ring);
+    ring.animate([{ transform: 'scale(1)', opacity: .9 }, { transform: 'scale(7)', opacity: 0 }], { duration: 700, easing: 'ease-out' }).onfinish = () => ring.remove();
+    for (let i = 0; i < 34; i++) {
+      const s = document.createElement('i'); s.className = 'pt-spark'; s.style.left = cx + 'px'; s.style.top = cy + 'px'; app.appendChild(s);
+      const a = Math.random() * 6.28, d = 40 + Math.random() * 70;
+      s.animate([{ transform: 'translate(0,0) scale(1)', opacity: 1 }, { transform: `translate(${Math.cos(a) * d}px,${Math.sin(a) * d}px) scale(0)`, opacity: 0 }], { duration: 700 + Math.random() * 400, easing: 'cubic-bezier(.2,.8,.2,1)' }).onfinish = () => s.remove();
+    }
+  }
+  async function replay() {   // trailer-style count-up from 0 to the real level
+    const real = { ...state, claimed: [...state.claimed] };
+    state = { level: 0, xp: 0, xpToNext: real.xpToNext, claimed: [] }; paint(false);
+    for (let l = 0; l <= real.level; l++) { await new Promise(r => setTimeout(r, 420)); state.level = l; paint(true); }
+    state.xp = real.xp; state.claimed = real.claimed; paint(true);
+  }
+  function setOpen(open) {
+    dock.classList.toggle('pt-closed', !open); card.classList.toggle('pt-on', open);
+    store.set('tft.passOpen', open ? '1' : '0'); texts();
+    if (open && state) setTimeout(() => paint(false), 60);
+  }
+
+  P('replay').onclick = replay;
+  P('prev').onclick = () => sc.scrollBy({ left: -360 });
+  P('next').onclick = () => sc.scrollBy({ left: 360 });
+  const navState = () => { P('prev').disabled = sc.scrollLeft < 4; P('next').disabled = sc.scrollLeft + sc.clientWidth >= sc.scrollWidth - 4; };
+  sc.addEventListener('scroll', navState); setTimeout(navState, 800);
+  addEventListener('keydown', e => {
+    if (dock.classList.contains('pt-closed') || !dock.offsetParent) return;
+    if (/INPUT|TEXTAREA/.test((document.activeElement || {}).tagName || '')) return;
+    if (e.key === 'ArrowRight') sc.scrollBy({ left: 360 }); if (e.key === 'ArrowLeft') sc.scrollBy({ left: -360 });
+  });
+  track.addEventListener('mousemove', e => {   // 3D tilt toward the mouse
+    const t = e.target.closest('.pt-tile'); if (!t) return;
+    const r = t.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+    t.style.transform = `perspective(300px) rotateY(${x * 30}deg) rotateX(${-y * 30}deg) translateY(-5px) scale(1.1)`;
+  });
+  track.addEventListener('mouseout', e => { const t = e.target.closest('.pt-tile'); if (t) t.style.transform = ''; });
+  setInterval(() => {   // embers rising from the current level
+    if (dock.classList.contains('pt-closed') || !dock.offsetParent) return;
+    const t = track.querySelector('.pt-node.pt-cur .pt-tile'); if (!t) return;
+    const m = document.createElement('i'); m.className = 'pt-ember'; m.style.left = (8 + Math.random() * 46) + 'px'; t.appendChild(m);
+    m.animate([{ transform: 'translateY(0) scale(1)', opacity: 1 }, { transform: `translate(${(Math.random() - .5) * 24}px,-${40 + Math.random() * 26}px) scale(0)`, opacity: 0 }], { duration: 1300 + Math.random() * 700 }).onfinish = () => m.remove();
+  }, 170);
+
+  card.onclick = () => {
+    if (!card.classList.contains('pt-live')) return;
+    if (showView.cur && showView.cur !== 'home') { showView('home'); setOpen(true); return; }
+    setOpen(dock.classList.contains('pt-closed'));
+  };
+  const _setLang = setLang; setLang = function (l) { _setLang(l); texts(); };
+
+  (async () => {
+    build(); texts();
+    state = await getPassState();
+    let saved = []; try { saved = JSON.parse(store.get('tft.passClaimed') || '[]'); } catch {}
+    state.claimed = [...new Set([...(state.claimed || []), ...saved])];
+    if (PASS_ENABLED) { card.classList.add('pt-live'); card.removeAttribute('aria-disabled'); }
+    if (store.get('tft.passOpen') === '0') setOpen(false); else card.classList.add('pt-on');
+    setTimeout(() => paint(false), 600);
+    setTimeout(replay, 1700);
+  })();
+})();
 </script>
 </body>
 </html>
