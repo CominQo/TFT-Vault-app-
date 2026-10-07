@@ -229,6 +229,37 @@ header p{color:var(--muted);font-size:14px}
 .wgo:hover,.wgo:focus-visible{transform:translateY(-2px);box-shadow:0 12px 30px rgba(248,169,0,.42);outline:none}
 .wlegal{color:#6f7786;font-size:11.5px;line-height:1.45;margin-top:2px}
 @media (max-width:760px){.wbox{grid-template-columns:1fr}.wart{display:none}}
+
+/* ---- Login ---- */
+#login{position:absolute;z-index:92;inset:0;display:grid;place-items:center;padding:34px 24px 24px;background:rgba(4,7,12,.86);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);opacity:0;transition:opacity .3s}
+#login[hidden]{display:none}
+#login.on{opacity:1}
+#app.lgOn #lang{z-index:93}
+.lgbox{width:min(430px,100%);max-height:100%;overflow-y:auto;display:flex;flex-direction:column;gap:14px;padding:30px 32px 24px;border-radius:28px;background:#0e1116;border:1px solid rgba(255,255,255,.12);box-shadow:0 30px 80px rgba(0,0,0,.65);transform:translateY(14px) scale(.98);transition:transform .35s var(--ease)}
+#login.on .lgbox{transform:none}
+.lglogo{width:96px;height:auto;align-self:center;filter:drop-shadow(0 6px 16px rgba(0,0,0,.5))}
+#lgBody{display:flex;flex-direction:column;gap:12px}
+#lgBody h2{font-family:var(--head);font-size:30px;font-weight:700;text-align:center;letter-spacing:-.01em}
+#lgBody .lgsub{color:var(--muted);font-size:14px;text-align:center;margin-top:-6px}
+.lgList{display:flex;flex-direction:column;gap:8px;max-height:240px;overflow-y:auto;padding:2px}
+.lgRowWrap{position:relative}
+.lgRow{display:flex;align-items:center;gap:14px;width:100%;padding:10px 54px 10px 12px;border-radius:16px;border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--text);font:inherit;cursor:pointer;text-align:left;transition:border-color .2s,background .2s}
+.lgRow:hover,.lgRow:focus-visible{border-color:var(--gold);background:rgba(248,169,0,.07);outline:none}
+.lgAv{flex:none;width:40px;height:40px;border-radius:50%;border:2px solid var(--gold);background:#10141b;display:grid;place-items:center;font-weight:700;font-size:16px}
+.lgAv.big{width:64px;height:64px;font-size:26px;align-self:center}
+.lgNm{flex:1;min-width:0;font-weight:600;font-size:15px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lgLock{flex:none;width:16px;height:16px;fill:none;stroke:var(--muted);stroke-width:2}
+.lgDel{position:absolute;right:10px;top:50%;transform:translateY(-50%);width:32px;height:32px;border:0;border-radius:10px;background:transparent;color:var(--muted);font-size:20px;line-height:1;cursor:pointer}
+.lgDel:hover,.lgDel:focus-visible{background:rgba(229,72,77,.18);color:#ff7075;outline:none}
+.lgIn{width:100%;background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:14px;padding:12px 14px;color:var(--text);font:inherit}
+.lgIn:focus{outline:none;border-color:var(--gold)}
+.lgErr{min-height:18px;color:#ff7075;font-size:13px;text-align:center}
+.lgBtns{display:flex;gap:10px}
+.lgBtns .wgo{flex:1;padding:13px 18px}
+.lgGhost{border:1px solid var(--line);background:rgba(255,255,255,.05);color:var(--text);border-radius:16px;padding:13px 20px;font:inherit;font-weight:600;cursor:pointer;transition:border-color .2s}
+.lgGhost:hover,.lgGhost:focus-visible{border-color:var(--gold);outline:none}
+.lgNew{width:100%}
+.lgrem{align-self:flex-start}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}#bg{display:none}}
 </style>
 </head>
@@ -250,6 +281,7 @@ header p{color:var(--muted);font-size:14px}
       <label for="pname" data-i18n="dname">Display name</label>
       <input id="pname" maxlength="20" placeholder="Summoner" autocomplete="off">
       <small data-i18n="saved">Saved on this PC.</small>
+      <button class="btn" id="psign" data-i18n="signOut" style="margin-top:12px;width:100%">Sign out</button>
     </div>
   </div>
   <div id="menu">
@@ -310,6 +342,14 @@ header p{color:var(--muted);font-size:14px}
   </div>
 </div>
 <div id="toast"></div>
+<div id="login" hidden role="dialog" aria-modal="true" aria-labelledby="lgTitle">
+  <div class="lgbox">
+    <img class="lglogo" src="img/logo.png" alt="TFT Vault">
+    <div id="lgBody"></div>
+    <label class="wchk lgrem"><input type="checkbox" id="lgRem"><span data-i18n="lRem">Remember me on this PC</span></label>
+    <small class="wlegal" data-i18n="lLocal">Profiles are stored on this PC only and are not synced online.</small>
+  </div>
+</div>
 <div id="welcome" hidden role="dialog" aria-modal="true" aria-labelledby="wTitle">
   <div class="wbox">
     <div class="wart" aria-hidden="true"></div>
@@ -545,24 +585,27 @@ const pbtn = $('pbtn'), pmenu = $('pmenu'), pname = $('pname');
 const store = { get: k => { try { return localStorage.getItem(k); } catch { return null; } }, set: (k, v) => { try { localStorage.setItem(k, v); } catch {} } };
 function paintProfile() { const n = (pname.value || '').trim() || 'Summoner'; $('pav').textContent = (n[0] || 'S').toUpperCase(); $('pshow').textContent = n; }
 pname.value = store.get('tft.name') || ''; paintProfile();
-pname.oninput = () => { store.set('tft.name', pname.value); paintProfile(); };
+pname.oninput = () => { store.set('tft.name', pname.value); paintProfile(); if (window.__syncName) window.__syncName(pname.value); };
 pbtn.onclick = e => { e.stopPropagation(); pmenu.hidden = !pmenu.hidden; pbtn.setAttribute('aria-expanded', String(!pmenu.hidden)); if (!pmenu.hidden) pname.focus(); };
 pmenu.onclick = e => e.stopPropagation();
 document.addEventListener('click', () => { pmenu.hidden = true; pbtn.setAttribute('aria-expanded', 'false'); });
 
 // ---------- Language, patch notes ----------
 const I18N = {
-  en:{n:'English',c:'EN',patch:'Patch Notes 18.4 ↗',bp:'BATTLEPASS',bpOff:'PASS DISABLED',home:'Home',sets:'All sets',view:'View set',pick:'Pick a set',dname:'Display name',saved:'Saved on this PC.',back:'← Back',ov:'Overview',ch:'Champions',tr:'Traits',coll:'Collections',collSub:'Your TFT collection',collEmpty:'Nothing here yet. Your collections will show up here.',comp:'Comp Builder',compSub:'Plan your team comps',compEmpty:'Nothing here yet. The comp builder is coming soon.',hist:'Match History',histSub:'Your recent games',histEmpty:'Nothing here yet. Your match history will show up here.',donate:'Donate',lang:'Language',wTitle:"Welcome to TFT Vault",wSub:"Your TFT collection, all in one place",wAlpha:"Early alpha: the collection features are still being built, so expect rough edges, missing features and changes.",wF1:"Keep track of your whole TFT collection",wF2:"Plan your team comps in the Comp Builder",wF3:"Look back at your recent games in Match History",wF4:"Explore sets like Set 18: Enchanted Wilds, with champions, traits and patch notes",wHide:"Don't show this again",wGo:"Let's go",wLegal:"TFT Vault isn't endorsed by Riot Games. Teamfight Tactics and Riot Games are trademarks of Riot Games, Inc."},
-  sk:{n:'Slovenčina',c:'SK',patch:'Poznámky k záplate 18.4 ↗',bp:'BATTLEPASS',bpOff:'PERMANENTKA VYPNUTÁ',home:'Domov',sets:'Všetky sady',view:'Zobraziť sadu',pick:'Vyber si sadu',dname:'Zobrazované meno',saved:'Uložené na tomto PC.',back:'← Späť',ov:'Prehľad',ch:'Šampióni',tr:'Vlastnosti',coll:'Kolekcie',collSub:'Tvoja TFT kolekcia',collEmpty:'Zatiaľ tu nič nie je. Tvoje kolekcie sa zobrazia tu.',comp:'Zostavovač kompozícií',compSub:'Naplánuj si svoje kompozície',compEmpty:'Zatiaľ tu nič nie je. Zostavovač kompozícií už čoskoro.',hist:'História zápasov',histSub:'Tvoje posledné zápasy',histEmpty:'Zatiaľ tu nič nie je. Tvoja história zápasov sa zobrazí tu.',donate:'Podporiť',lang:'Jazyk',wTitle:"Vitaj v TFT Vault",wSub:"Tvoja TFT kolekcia na jednom mieste",wAlpha:"Raná alfa: funkcie kolekcií sa ešte dokončujú, takže počítaj s chybami, chýbajúcimi funkciami a zmenami.",wF1:"Maj prehľad o celej svojej TFT kolekcii",wF2:"Plánuj svoje kompozície v sekcii Zostavovač kompozícií",wF3:"Pozri si svoje posledné hry v sekcii História zápasov",wF4:"Objav sady ako Sada 18: Enchanted Wilds so šampiónmi, vlastnosťami a poznámkami k záplate",wHide:"Už nezobrazovať",wGo:"Poďme na to",wLegal:"TFT Vault nie je podporovaný spoločnosťou Riot Games. Teamfight Tactics a Riot Games sú ochranné známky spoločnosti Riot Games, Inc."},
-  cs:{n:'Čeština',c:'CS',patch:'Poznámky k patchi 18.4 ↗',bp:'BATTLEPASS',bpOff:'PERMANENTKA VYPNUTÁ',home:'Domů',sets:'Všechny sady',view:'Zobrazit sadu',pick:'Vyber sadu',dname:'Zobrazované jméno',saved:'Uloženo v tomto PC.',back:'← Zpět',ov:'Přehled',ch:'Šampioni',tr:'Vlastnosti',coll:'Kolekce',collSub:'Tvoje TFT kolekce',collEmpty:'Zatím tu nic není. Tvoje kolekce se zobrazí tady.',comp:'Builder kompozic',compSub:'Naplánuj si své kompozice',compEmpty:'Zatím tu nic není. Builder kompozic brzy.',hist:'Historie zápasů',histSub:'Tvoje poslední zápasy',histEmpty:'Zatím tu nic není. Tvoje historie zápasů se zobrazí tady.',donate:'Podpořit',lang:'Jazyk',wTitle:"Vítej v TFT Vault",wSub:"Tvoje TFT kolekce na jednom místě",wAlpha:"Raná alfa: funkce kolekcí se teprve dokončují, takže počítej s chybami, chybějícími funkcemi a změnami.",wF1:"Měj přehled o celé své TFT kolekci",wF2:"Plánuj své kompozice v sekci Builder kompozic",wF3:"Prohlédni si své poslední hry v sekci Historie zápasů",wF4:"Objevuj sady jako Sada 18: Enchanted Wilds se šampiony, vlastnostmi a poznámkami k patchi",wHide:"Už nezobrazovat",wGo:"Jdeme na to",wLegal:"TFT Vault není podporován společností Riot Games. Teamfight Tactics a Riot Games jsou ochranné známky společnosti Riot Games, Inc."},
-  tr:{n:'Türkçe',c:'TR',patch:'Yama Notları 18.4 ↗',bp:'SAVAŞ BİLETİ',bpOff:'BİLET DEVRE DIŞI',home:'Ana Sayfa',sets:'Tüm Setler',view:'Seti Gör',pick:'Bir set seç',dname:'Görünen ad',saved:'Bu bilgisayara kaydedildi.',back:'← Geri',ov:'Genel Bakış',ch:'Şampiyonlar',tr:'Özellikler',coll:'Koleksiyonlar',collSub:'TFT koleksiyonun',collEmpty:'Henüz burada bir şey yok. Koleksiyonların burada görünecek.',comp:'Kadro Oluşturucu',compSub:'Takım kadrolarını planla',compEmpty:'Henüz burada bir şey yok. Kadro oluşturucu yakında.',hist:'Maç Geçmişi',histSub:'Son maçların',histEmpty:'Henüz burada bir şey yok. Maç geçmişin burada görünecek.',donate:'Bağış Yap',lang:'Dil',wTitle:"TFT Vault'a hoş geldin",wSub:"TFT koleksiyonun tek bir yerde",wAlpha:"Erken alfa: koleksiyon özellikleri hâlâ geliştiriliyor, bu yüzden eksikler, hatalar ve değişiklikler olabilir.",wF1:"Tüm TFT koleksiyonunu takip et",wF2:"Kadro Oluşturucu ile takım kadrolarını planla",wF3:"Maç Geçmişi ile son oyunlarına geri dön",wF4:"Set 18: Enchanted Wilds gibi setleri şampiyonları, özellikleri ve yama notlarıyla keşfet",wHide:"Bir daha gösterme",wGo:"Hadi başlayalım",wLegal:"TFT Vault, Riot Games tarafından onaylanmamıştır. Teamfight Tactics ve Riot Games, Riot Games, Inc.'in ticari markalarıdır."},
-  pt:{n:'Português',c:'PT',patch:'Notas da Atualização 18.4 ↗',bp:'PASSE DE BATALHA',bpOff:'PASSE DESATIVADO',home:'Início',sets:'Todos os sets',view:'Ver set',pick:'Escolhe um set',dname:'Nome de exibição',saved:'Guardado neste PC.',back:'← Voltar',ov:'Visão geral',ch:'Campeões',tr:'Traços',coll:'Coleções',collSub:'A tua coleção TFT',collEmpty:'Ainda não há nada aqui. As tuas coleções vão aparecer aqui.',comp:'Construtor de Comps',compSub:'Planeia as tuas comps',compEmpty:'Ainda não há nada aqui. O construtor de comps chega em breve.',hist:'Histórico de Partidas',histSub:'Os teus jogos recentes',histEmpty:'Ainda não há nada aqui. O teu histórico de partidas vai aparecer aqui.',donate:'Doar',lang:'Idioma',wTitle:"Bem-vindo ao TFT Vault",wSub:"A tua coleção TFT num só lugar",wAlpha:"Alfa inicial: as funcionalidades de coleção ainda estão a ser construídas, por isso conta com arestas por limar, funcionalidades em falta e mudanças.",wF1:"Acompanha toda a tua coleção TFT",wF2:"Planeia as tuas comps no Construtor de Comps",wF3:"Revê as tuas últimas partidas no Histórico de Partidas",wF4:"Explora sets como o Set 18: Enchanted Wilds, com campeões, traços e notas da atualização",wHide:"Não mostrar novamente",wGo:"Vamos lá",wLegal:"O TFT Vault não é apoiado pela Riot Games. Teamfight Tactics e Riot Games são marcas registadas da Riot Games, Inc."},
-  zh:{n:'中文',c:'中',patch:'18.4 版本说明 ↗',bp:'战斗通行证',bpOff:'通行证已禁用',home:'主页',sets:'所有赛季',view:'查看赛季',pick:'选择一个赛季',dname:'显示名称',saved:'已保存在此电脑。',back:'← 返回',ov:'概览',ch:'英雄',tr:'羁绊',coll:'收藏',collSub:'你的 TFT 收藏',collEmpty:'这里暂时没有内容。你的收藏将显示在这里。',comp:'阵容构建器',compSub:'规划你的阵容',compEmpty:'这里暂时没有内容。阵容构建器即将推出。',hist:'对战记录',histSub:'你最近的对局',histEmpty:'这里暂时没有内容。你的对战记录将显示在这里。',donate:'捐赠',lang:'语言',wTitle:"欢迎使用 TFT Vault",wSub:"你的 TFT 收藏，尽在一处",wAlpha:"早期 Alpha 版本：收藏功能仍在开发中，可能会有不完善之处、缺失功能和变动。",wF1:"记录并管理你的全部 TFT 收藏",wF2:"在阵容构建器中规划你的阵容",wF3:"在对战记录中回顾你最近的对局",wF4:"探索第 18 赛季 Enchanted Wilds 等赛季，查看英雄、羁绊和更新说明",wHide:"不再显示",wGo:"开始吧",wLegal:"TFT Vault 未获 Riot Games 认可。云顶之弈和 Riot Games 是 Riot Games, Inc. 的商标。"},
-  ja:{n:'日本語',c:'日',patch:'パッチノート 18.4 ↗',bp:'バトルパス',bpOff:'パス無効',home:'ホーム',sets:'すべてのセット',view:'セットを見る',pick:'セットを選択',dname:'表示名',saved:'このPCに保存されました。',back:'← 戻る',ov:'概要',ch:'チャンピオン',tr:'特性',coll:'コレクション',collSub:'あなたのTFTコレクション',collEmpty:'まだ何もありません。コレクションはここに表示されます。',comp:'コンプビルダー',compSub:'チーム構成を計画しよう',compEmpty:'まだ何もありません。コンプビルダーは近日公開です。',hist:'対戦履歴',histSub:'最近の試合',histEmpty:'まだ何もありません。対戦履歴はここに表示されます。',donate:'寄付',lang:'言語',wTitle:"TFT Vaultへようこそ",wSub:"あなたのTFTコレクションを一か所に",wAlpha:"初期アルファ版：コレクション機能は開発中のため、不具合や未実装の機能、変更が発生する場合があります。",wF1:"TFTコレクションをまとめて管理",wF2:"コンプビルダーでチーム構成を計画",wF3:"対戦履歴で最近の試合を振り返る",wF4:"セット18「Enchanted Wilds」などのセットを、チャンピオン・シナジー・パッチノートとともに探索",wHide:"今後表示しない",wGo:"始めよう",wLegal:"TFT VaultはRiot Gamesの公認を受けていません。チームファイト タクティクスおよびRiot GamesはRiot Games, Inc.の商標です。"}
+  en:{n:'English',c:'EN',patch:'Patch Notes 18.4 ↗',bp:'BATTLEPASS',bpOff:'PASS DISABLED',home:'Home',sets:'All sets',view:'View set',pick:'Pick a set',dname:'Display name',saved:'Saved on this PC.',back:'← Back',ov:'Overview',ch:'Champions',tr:'Traits',coll:'Collections',collSub:'Your TFT collection',collEmpty:'Nothing here yet. Your collections will show up here.',comp:'Comp Builder',compSub:'Plan your team comps',compEmpty:'Nothing here yet. The comp builder is coming soon.',hist:'Match History',histSub:'Your recent games',histEmpty:'Nothing here yet. Your match history will show up here.',donate:'Donate',lang:'Language',wTitle:"Welcome to TFT Vault",wSub:"Your TFT collection, all in one place",wAlpha:"Early alpha: the collection features are still being built, so expect rough edges, missing features and changes.",wF1:"Keep track of your whole TFT collection",wF2:"Plan your team comps in the Comp Builder",wF3:"Look back at your recent games in Match History",wF4:"Explore sets like Set 18: Enchanted Wilds, with champions, traits and patch notes",wHide:"Don't show this again",wGo:"Let's go",wLegal:"TFT Vault isn't endorsed by Riot Games. Teamfight Tactics and Riot Games are trademarks of Riot Games, Inc.",lTitle:"Sign in",lSub:"Choose a profile to continue",lNew:"Create profile",lName:"Profile name",lPass:"Password (optional)",lPassAsk:"Password",lRem:"Remember me on this PC",lIn:"Sign in",lCreate:"Create",lBack:"Back",lWrong:"Wrong password.",lTaken:"That name is already taken.",lNeed:"Enter a profile name.",lShort:"Password must be at least 4 characters.",lLocal:"Profiles are stored on this PC only and are not synced online.",lDelAsk:"Delete this profile from this PC?",signOut:"Sign out",lAdd:"+ New profile"},
+  sk:{n:'Slovenčina',c:'SK',patch:'Poznámky k záplate 18.4 ↗',bp:'BATTLEPASS',bpOff:'PERMANENTKA VYPNUTÁ',home:'Domov',sets:'Všetky sady',view:'Zobraziť sadu',pick:'Vyber si sadu',dname:'Zobrazované meno',saved:'Uložené na tomto PC.',back:'← Späť',ov:'Prehľad',ch:'Šampióni',tr:'Vlastnosti',coll:'Kolekcie',collSub:'Tvoja TFT kolekcia',collEmpty:'Zatiaľ tu nič nie je. Tvoje kolekcie sa zobrazia tu.',comp:'Zostavovač kompozícií',compSub:'Naplánuj si svoje kompozície',compEmpty:'Zatiaľ tu nič nie je. Zostavovač kompozícií už čoskoro.',hist:'História zápasov',histSub:'Tvoje posledné zápasy',histEmpty:'Zatiaľ tu nič nie je. Tvoja história zápasov sa zobrazí tu.',donate:'Podporiť',lang:'Jazyk',wTitle:"Vitaj v TFT Vault",wSub:"Tvoja TFT kolekcia na jednom mieste",wAlpha:"Raná alfa: funkcie kolekcií sa ešte dokončujú, takže počítaj s chybami, chýbajúcimi funkciami a zmenami.",wF1:"Maj prehľad o celej svojej TFT kolekcii",wF2:"Plánuj svoje kompozície v sekcii Zostavovač kompozícií",wF3:"Pozri si svoje posledné hry v sekcii História zápasov",wF4:"Objav sady ako Sada 18: Enchanted Wilds so šampiónmi, vlastnosťami a poznámkami k záplate",wHide:"Už nezobrazovať",wGo:"Poďme na to",wLegal:"TFT Vault nie je podporovaný spoločnosťou Riot Games. Teamfight Tactics a Riot Games sú ochranné známky spoločnosti Riot Games, Inc.",lTitle:"Prihlásenie",lSub:"Vyber si profil a pokračuj",lNew:"Vytvoriť profil",lName:"Názov profilu",lPass:"Heslo (nepovinné)",lPassAsk:"Heslo",lRem:"Zapamätať si ma na tomto PC",lIn:"Prihlásiť sa",lCreate:"Vytvoriť",lBack:"Späť",lWrong:"Nesprávne heslo.",lTaken:"Tento názov je už obsadený.",lNeed:"Zadaj názov profilu.",lShort:"Heslo musí mať aspoň 4 znaky.",lLocal:"Profily sú uložené len na tomto PC a nesynchronizujú sa online.",lDelAsk:"Odstrániť tento profil z tohto PC?",signOut:"Odhlásiť sa",lAdd:"+ Nový profil"},
+  cs:{n:'Čeština',c:'CS',patch:'Poznámky k patchi 18.4 ↗',bp:'BATTLEPASS',bpOff:'PERMANENTKA VYPNUTÁ',home:'Domů',sets:'Všechny sady',view:'Zobrazit sadu',pick:'Vyber sadu',dname:'Zobrazované jméno',saved:'Uloženo v tomto PC.',back:'← Zpět',ov:'Přehled',ch:'Šampioni',tr:'Vlastnosti',coll:'Kolekce',collSub:'Tvoje TFT kolekce',collEmpty:'Zatím tu nic není. Tvoje kolekce se zobrazí tady.',comp:'Builder kompozic',compSub:'Naplánuj si své kompozice',compEmpty:'Zatím tu nic není. Builder kompozic brzy.',hist:'Historie zápasů',histSub:'Tvoje poslední zápasy',histEmpty:'Zatím tu nic není. Tvoje historie zápasů se zobrazí tady.',donate:'Podpořit',lang:'Jazyk',wTitle:"Vítej v TFT Vault",wSub:"Tvoje TFT kolekce na jednom místě",wAlpha:"Raná alfa: funkce kolekcí se teprve dokončují, takže počítej s chybami, chybějícími funkcemi a změnami.",wF1:"Měj přehled o celé své TFT kolekci",wF2:"Plánuj své kompozice v sekci Builder kompozic",wF3:"Prohlédni si své poslední hry v sekci Historie zápasů",wF4:"Objevuj sady jako Sada 18: Enchanted Wilds se šampiony, vlastnostmi a poznámkami k patchi",wHide:"Už nezobrazovat",wGo:"Jdeme na to",wLegal:"TFT Vault není podporován společností Riot Games. Teamfight Tactics a Riot Games jsou ochranné známky společnosti Riot Games, Inc.",lTitle:"Přihlášení",lSub:"Vyber profil a pokračuj",lNew:"Vytvořit profil",lName:"Název profilu",lPass:"Heslo (nepovinné)",lPassAsk:"Heslo",lRem:"Zapamatovat si mě na tomto PC",lIn:"Přihlásit se",lCreate:"Vytvořit",lBack:"Zpět",lWrong:"Nesprávné heslo.",lTaken:"Tento název je již obsazen.",lNeed:"Zadej název profilu.",lShort:"Heslo musí mít alespoň 4 znaky.",lLocal:"Profily jsou uloženy pouze v tomto PC a nesynchronizují se online.",lDelAsk:"Smazat tento profil z tohoto PC?",signOut:"Odhlásit se",lAdd:"+ Nový profil"},
+  tr:{n:'Türkçe',c:'TR',patch:'Yama Notları 18.4 ↗',bp:'SAVAŞ BİLETİ',bpOff:'BİLET DEVRE DIŞI',home:'Ana Sayfa',sets:'Tüm Setler',view:'Seti Gör',pick:'Bir set seç',dname:'Görünen ad',saved:'Bu bilgisayara kaydedildi.',back:'← Geri',ov:'Genel Bakış',ch:'Şampiyonlar',tr:'Özellikler',coll:'Koleksiyonlar',collSub:'TFT koleksiyonun',collEmpty:'Henüz burada bir şey yok. Koleksiyonların burada görünecek.',comp:'Kadro Oluşturucu',compSub:'Takım kadrolarını planla',compEmpty:'Henüz burada bir şey yok. Kadro oluşturucu yakında.',hist:'Maç Geçmişi',histSub:'Son maçların',histEmpty:'Henüz burada bir şey yok. Maç geçmişin burada görünecek.',donate:'Bağış Yap',lang:'Dil',wTitle:"TFT Vault'a hoş geldin",wSub:"TFT koleksiyonun tek bir yerde",wAlpha:"Erken alfa: koleksiyon özellikleri hâlâ geliştiriliyor, bu yüzden eksikler, hatalar ve değişiklikler olabilir.",wF1:"Tüm TFT koleksiyonunu takip et",wF2:"Kadro Oluşturucu ile takım kadrolarını planla",wF3:"Maç Geçmişi ile son oyunlarına geri dön",wF4:"Set 18: Enchanted Wilds gibi setleri şampiyonları, özellikleri ve yama notlarıyla keşfet",wHide:"Bir daha gösterme",wGo:"Hadi başlayalım",wLegal:"TFT Vault, Riot Games tarafından onaylanmamıştır. Teamfight Tactics ve Riot Games, Riot Games, Inc.'in ticari markalarıdır.",lTitle:"Giriş yap",lSub:"Devam etmek için bir profil seç",lNew:"Profil oluştur",lName:"Profil adı",lPass:"Şifre (isteğe bağlı)",lPassAsk:"Şifre",lRem:"Bu bilgisayarda beni hatırla",lIn:"Giriş yap",lCreate:"Oluştur",lBack:"Geri",lWrong:"Yanlış şifre.",lTaken:"Bu ad zaten kullanılıyor.",lNeed:"Bir profil adı gir.",lShort:"Şifre en az 4 karakter olmalı.",lLocal:"Profiller yalnızca bu bilgisayarda saklanır ve çevrimiçi senkronize edilmez.",lDelAsk:"Bu profil bu bilgisayardan silinsin mi?",signOut:"Çıkış yap",lAdd:"+ Yeni profil"},
+  pt:{n:'Português',c:'PT',patch:'Notas da Atualização 18.4 ↗',bp:'PASSE DE BATALHA',bpOff:'PASSE DESATIVADO',home:'Início',sets:'Todos os sets',view:'Ver set',pick:'Escolhe um set',dname:'Nome de exibição',saved:'Guardado neste PC.',back:'← Voltar',ov:'Visão geral',ch:'Campeões',tr:'Traços',coll:'Coleções',collSub:'A tua coleção TFT',collEmpty:'Ainda não há nada aqui. As tuas coleções vão aparecer aqui.',comp:'Construtor de Comps',compSub:'Planeia as tuas comps',compEmpty:'Ainda não há nada aqui. O construtor de comps chega em breve.',hist:'Histórico de Partidas',histSub:'Os teus jogos recentes',histEmpty:'Ainda não há nada aqui. O teu histórico de partidas vai aparecer aqui.',donate:'Doar',lang:'Idioma',wTitle:"Bem-vindo ao TFT Vault",wSub:"A tua coleção TFT num só lugar",wAlpha:"Alfa inicial: as funcionalidades de coleção ainda estão a ser construídas, por isso conta com arestas por limar, funcionalidades em falta e mudanças.",wF1:"Acompanha toda a tua coleção TFT",wF2:"Planeia as tuas comps no Construtor de Comps",wF3:"Revê as tuas últimas partidas no Histórico de Partidas",wF4:"Explora sets como o Set 18: Enchanted Wilds, com campeões, traços e notas da atualização",wHide:"Não mostrar novamente",wGo:"Vamos lá",wLegal:"O TFT Vault não é apoiado pela Riot Games. Teamfight Tactics e Riot Games são marcas registadas da Riot Games, Inc.",lTitle:"Iniciar sessão",lSub:"Escolhe um perfil para continuar",lNew:"Criar perfil",lName:"Nome do perfil",lPass:"Palavra-passe (opcional)",lPassAsk:"Palavra-passe",lRem:"Lembrar-me neste PC",lIn:"Iniciar sessão",lCreate:"Criar",lBack:"Voltar",lWrong:"Palavra-passe incorreta.",lTaken:"Esse nome já está em uso.",lNeed:"Introduz um nome de perfil.",lShort:"A palavra-passe deve ter pelo menos 4 caracteres.",lLocal:"Os perfis são guardados apenas neste PC e não são sincronizados online.",lDelAsk:"Eliminar este perfil deste PC?",signOut:"Terminar sessão",lAdd:"+ Novo perfil"},
+  zh:{n:'中文',c:'中',patch:'18.4 版本说明 ↗',bp:'战斗通行证',bpOff:'通行证已禁用',home:'主页',sets:'所有赛季',view:'查看赛季',pick:'选择一个赛季',dname:'显示名称',saved:'已保存在此电脑。',back:'← 返回',ov:'概览',ch:'英雄',tr:'羁绊',coll:'收藏',collSub:'你的 TFT 收藏',collEmpty:'这里暂时没有内容。你的收藏将显示在这里。',comp:'阵容构建器',compSub:'规划你的阵容',compEmpty:'这里暂时没有内容。阵容构建器即将推出。',hist:'对战记录',histSub:'你最近的对局',histEmpty:'这里暂时没有内容。你的对战记录将显示在这里。',donate:'捐赠',lang:'语言',wTitle:"欢迎使用 TFT Vault",wSub:"你的 TFT 收藏，尽在一处",wAlpha:"早期 Alpha 版本：收藏功能仍在开发中，可能会有不完善之处、缺失功能和变动。",wF1:"记录并管理你的全部 TFT 收藏",wF2:"在阵容构建器中规划你的阵容",wF3:"在对战记录中回顾你最近的对局",wF4:"探索第 18 赛季 Enchanted Wilds 等赛季，查看英雄、羁绊和更新说明",wHide:"不再显示",wGo:"开始吧",wLegal:"TFT Vault 未获 Riot Games 认可。云顶之弈和 Riot Games 是 Riot Games, Inc. 的商标。",lTitle:"登录",lSub:"选择一个档案以继续",lNew:"创建档案",lName:"档案名称",lPass:"密码（可选）",lPassAsk:"密码",lRem:"在此电脑上记住我",lIn:"登录",lCreate:"创建",lBack:"返回",lWrong:"密码错误。",lTaken:"该名称已被使用。",lNeed:"请输入档案名称。",lShort:"密码至少需要 4 个字符。",lLocal:"档案仅保存在此电脑上，不会在线同步。",lDelAsk:"要从此电脑删除这个档案吗？",signOut:"退出登录",lAdd:"+ 新建档案"},
+  ja:{n:'日本語',c:'日',patch:'パッチノート 18.4 ↗',bp:'バトルパス',bpOff:'パス無効',home:'ホーム',sets:'すべてのセット',view:'セットを見る',pick:'セットを選択',dname:'表示名',saved:'このPCに保存されました。',back:'← 戻る',ov:'概要',ch:'チャンピオン',tr:'特性',coll:'コレクション',collSub:'あなたのTFTコレクション',collEmpty:'まだ何もありません。コレクションはここに表示されます。',comp:'コンプビルダー',compSub:'チーム構成を計画しよう',compEmpty:'まだ何もありません。コンプビルダーは近日公開です。',hist:'対戦履歴',histSub:'最近の試合',histEmpty:'まだ何もありません。対戦履歴はここに表示されます。',donate:'寄付',lang:'言語',wTitle:"TFT Vaultへようこそ",wSub:"あなたのTFTコレクションを一か所に",wAlpha:"初期アルファ版：コレクション機能は開発中のため、不具合や未実装の機能、変更が発生する場合があります。",wF1:"TFTコレクションをまとめて管理",wF2:"コンプビルダーでチーム構成を計画",wF3:"対戦履歴で最近の試合を振り返る",wF4:"セット18「Enchanted Wilds」などのセットを、チャンピオン・シナジー・パッチノートとともに探索",wHide:"今後表示しない",wGo:"始めよう",wLegal:"TFT VaultはRiot Gamesの公認を受けていません。チームファイト タクティクスおよびRiot GamesはRiot Games, Inc.の商標です。",lTitle:"ログイン",lSub:"続けるにはプロフィールを選択",lNew:"プロフィールを作成",lName:"プロフィール名",lPass:"パスワード（任意）",lPassAsk:"パスワード",lRem:"このPCでログイン状態を保持",lIn:"ログイン",lCreate:"作成",lBack:"戻る",lWrong:"パスワードが違います。",lTaken:"その名前はすでに使われています。",lNeed:"プロフィール名を入力してください。",lShort:"パスワードは4文字以上にしてください。",lLocal:"プロフィールはこのPCにのみ保存され、オンライン同期されません。",lDelAsk:"このPCからこのプロフィールを削除しますか？",signOut:"ログアウト",lAdd:"+ 新規プロフィール"}
 };
 const PATCH_URL = 'https://teamfighttactics.leagueoflegends.com/en-gb/news/game-updates/teamfight-tactics-patch-18-4/';
+let CUR_LANG = 'en';
+const tt = k => (I18N[CUR_LANG] && I18N[CUR_LANG][k]) || I18N.en[k] || k;
 function setLang(l) {
   if (!I18N[l]) l = 'en';
+  CUR_LANG = l;
   const T = I18N[l];
   document.querySelectorAll('[data-i18n]').forEach(el => el.textContent = T[el.dataset.i18n]);
   document.querySelectorAll('[data-i18n-title]').forEach(el => { el.title = T[el.dataset.i18nTitle]; el.setAttribute('aria-label', T[el.dataset.i18nTitle]); });
@@ -570,6 +613,7 @@ function setLang(l) {
   document.querySelectorAll('#lmenu li').forEach(li => li.classList.toggle('on', li.dataset.l === l));
   document.documentElement.lang = l;
   store.set('tft.lang', l);
+  if (window.__lgRefresh) window.__lgRefresh();
 }
 $('lbtn').onclick = e => { e.stopPropagation(); $('lmenu').hidden = !$('lmenu').hidden; $('lbtn').classList.toggle('on', !$('lmenu').hidden); };
 $('lmenu').onclick = e => { const l = e.target.dataset.l; if (l) { setLang(l); $('lmenu').hidden = true; $('lbtn').classList.remove('on'); } e.stopPropagation(); };
@@ -590,7 +634,109 @@ const wm = $('welcome');
 function showWelcome() { wm.hidden = false; requestAnimationFrame(() => wm.classList.add('on')); $('wGo').focus(); }
 function closeWelcome() { if ($('wHide').checked) store.set('tft.welcome', APP_VERSION); wm.classList.remove('on'); setTimeout(() => wm.hidden = true, 300); }
 $('wGo').onclick = closeWelcome;
-if (store.get('tft.welcome') !== APP_VERSION) setTimeout(showWelcome, 400);
+const maybeWelcome = () => { if (store.get('tft.welcome') !== APP_VERSION) setTimeout(showWelcome, 400); };
+
+// ---------- Login (local profiles on this PC) ----------
+const lg = $('login');
+let CUR = null, lgView = 'list', lgSel = null;
+const profiles = {
+  all: () => { try { return JSON.parse(store.get('tft.profiles') || '[]'); } catch { return []; } },
+  save: a => store.set('tft.profiles', JSON.stringify(a)),
+};
+// Per-profile storage for future collection data: pstore.get('owned') -> "tft.p.<id>.owned"
+const pstore = { get: k => store.get(`tft.p.${CUR && CUR.id}.${k}`), set: (k, v) => store.set(`tft.p.${CUR && CUR.id}.${k}`, v) };
+
+const rand = n => [...crypto.getRandomValues(new Uint8Array(n))].map(b => b.toString(16).padStart(2, '0')).join('');
+async function hashPw(pw, salt) {
+  const data = new TextEncoder().encode(salt + ':' + pw);
+  try {
+    const buf = await crypto.subtle.digest('SHA-256', data);
+    return [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, '0')).join('');
+  } catch { let x = 5381; for (const b of data) x = ((x * 33) ^ b) >>> 0; return 'x' + x.toString(16); }  // weak fallback if WebCrypto is unavailable
+}
+
+function mk(tag, cls, txt) { const e = document.createElement(tag); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e; }
+const initial = n => ((n || '?').trim()[0] || '?').toUpperCase();
+const lockIcon = () => { const s = document.createElementNS('http://www.w3.org/2000/svg', 'svg'); s.setAttribute('viewBox', '0 0 24 24'); s.setAttribute('class', 'lgLock'); s.innerHTML = '<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>'; return s; };
+
+function lgRender() {
+  const all = profiles.all(), box = $('lgBody'); box.innerHTML = '';
+  if (!all.length && lgView === 'list') lgView = 'create';
+  const err = mk('div', 'lgErr'); err.setAttribute('role', 'alert');
+
+  if (lgView === 'list') {
+    const t = mk('h2', null, tt('lTitle')); t.id = 'lgTitle';
+    box.append(t, mk('p', 'lgsub', tt('lSub')));
+    const list = mk('div', 'lgList');
+    all.forEach(p => {
+      const wrap = mk('div', 'lgRowWrap'), row = mk('button', 'lgRow');
+      row.append(mk('span', 'lgAv', initial(p.name)), mk('span', 'lgNm', p.name)); if (p.hash) row.append(lockIcon());
+      row.onclick = () => { if (p.hash) { lgSel = p; lgView = 'pass'; lgRender(); } else signIn(p); };
+      const del = mk('button', 'lgDel', '×'); del.setAttribute('aria-label', 'Delete ' + p.name);
+      del.onclick = e => { e.stopPropagation(); if (!confirm(tt('lDelAsk'))) return; profiles.save(profiles.all().filter(x => x.id !== p.id)); if (store.get('tft.active') === p.id) store.set('tft.active', ''); lgRender(); };
+      wrap.append(row, del); list.append(wrap);
+    });
+    const add = mk('button', 'lgGhost lgNew', tt('lAdd')); add.onclick = () => { lgView = 'create'; lgRender(); };
+    box.append(list, add);
+    return;
+  }
+
+  if (lgView === 'create') {
+    const t = mk('h2', null, tt('lNew')); t.id = 'lgTitle';
+    const name = mk('input', 'lgIn'); name.maxLength = 20; name.placeholder = tt('lName'); name.autocomplete = 'off';
+    const pw = mk('input', 'lgIn'); pw.type = 'password'; pw.placeholder = tt('lPass'); pw.autocomplete = 'new-password';
+    const go = mk('button', 'wgo', tt('lCreate'));
+    const submit = async () => {
+      const n = name.value.trim();
+      if (!n) { err.textContent = tt('lNeed'); name.focus(); return; }
+      const cur = profiles.all();
+      if (cur.some(x => x.name.toLowerCase() === n.toLowerCase())) { err.textContent = tt('lTaken'); return; }
+      if (pw.value && pw.value.length < 4) { err.textContent = tt('lShort'); return; }
+      const p = { id: 'p' + Date.now().toString(36) + rand(2), name: n };
+      if (pw.value) { p.salt = rand(8); p.hash = await hashPw(pw.value, p.salt); }
+      cur.push(p); profiles.save(cur); signIn(p);
+    };
+    go.onclick = submit; [name, pw].forEach(i => i.onkeydown = e => { if (e.key === 'Enter') submit(); });
+    const btns = mk('div', 'lgBtns');
+    if (all.length) { const b = mk('button', 'lgGhost', tt('lBack')); b.onclick = () => { lgView = 'list'; lgRender(); }; btns.append(b); }
+    btns.append(go);
+    box.append(t, name, pw, err, btns); setTimeout(() => name.focus(), 50);
+    return;
+  }
+
+  // password prompt for a protected profile
+  const t = mk('h2', null, lgSel.name); t.id = 'lgTitle';
+  const pw = mk('input', 'lgIn'); pw.type = 'password'; pw.placeholder = tt('lPassAsk'); pw.autocomplete = 'current-password';
+  const go = mk('button', 'wgo', tt('lIn')), back = mk('button', 'lgGhost', tt('lBack'));
+  const submit = async () => {
+    if (await hashPw(pw.value, lgSel.salt) === lgSel.hash) signIn(lgSel);
+    else { err.textContent = tt('lWrong'); pw.select(); }
+  };
+  go.onclick = submit; pw.onkeydown = e => { if (e.key === 'Enter') submit(); };
+  back.onclick = () => { lgView = 'list'; lgRender(); };
+  const btns = mk('div', 'lgBtns'); btns.append(back, go);
+  box.append(mk('span', 'lgAv big', initial(lgSel.name)), t, pw, err, btns); setTimeout(() => pw.focus(), 50);
+}
+window.__lgRefresh = () => { if (!lg.hidden) lgRender(); };
+
+function showLogin() {
+  CUR = null; lgView = 'list'; lgSel = null; $('lgRem').checked = false;
+  lgRender(); lg.hidden = false; $('app').classList.add('lgOn'); requestAnimationFrame(() => lg.classList.add('on'));
+}
+function startSession(p) {
+  CUR = p; store.set('tft.name', p.name); pname.value = p.name; paintProfile();
+  lg.classList.remove('on'); $('app').classList.remove('lgOn'); setTimeout(() => lg.hidden = true, 300);
+  maybeWelcome();
+}
+function signIn(p) { store.set('tft.active', $('lgRem').checked ? p.id : ''); startSession(p); }
+$('psign').onclick = () => { store.set('tft.active', ''); pmenu.hidden = true; pbtn.setAttribute('aria-expanded', 'false'); showLogin(); };
+window.__syncName = v => {
+  const n = v.trim(); if (!CUR || !n) return;
+  const all = profiles.all(), p = all.find(x => x.id === CUR.id); if (p) { p.name = n; profiles.save(all); CUR.name = n; }
+};
+
+// Launch: skip the login only if "remember me" was ticked last time
+(() => { const p = profiles.all().find(x => x.id === store.get('tft.active')); p ? startSession(p) : showLogin(); })();
 
 // Square corners while maximized
 async function syncMax() { try { $('app').classList.toggle('max', await window.runtime.WindowIsMaximised()); } catch {} }
