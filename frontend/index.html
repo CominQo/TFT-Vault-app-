@@ -111,20 +111,32 @@ header p{color:var(--muted);font-size:14px}
 #side{position:absolute;z-index:5;left:0;top:0;bottom:0;width:340px;padding:40px 0 0 28px;display:flex;flex-direction:column;align-items:flex-start;pointer-events:none}
 #side>*{pointer-events:auto}
 #menu{display:flex;flex-direction:column;gap:6px;margin-top:38px}
-.nv{display:flex;align-items:center;gap:18px;padding:10px 14px 10px 8px;margin-left:-8px;background:none;border:0;border-radius:12px;color:#9aa3b0;font-family:var(--head);font-weight:700;font-size:25px;line-height:1.1;text-align:left;letter-spacing:.07em;text-transform:uppercase;cursor:pointer;text-shadow:0 1px 10px rgba(0,0,0,.7);transition:color .2s}
+.nv{position:relative;display:flex;align-items:center;gap:18px;padding:10px 14px 10px 8px;margin-left:-8px;background:none;border:0;border-radius:12px;color:#9aa3b0;font-family:var(--head);font-weight:700;font-size:25px;line-height:1.1;text-align:left;letter-spacing:.07em;text-transform:uppercase;cursor:pointer;text-shadow:0 1px 10px rgba(0,0,0,.7);transition:color .2s}
 .nv:hover,.nv:focus-visible{color:#e3e7ee;outline:none}
 .nv.on{color:var(--gold)}
 .nv svg{width:32px;height:32px;flex:none}
 .nv span{max-width:230px}
 .nv svg path{fill:transparent;stroke:currentColor;stroke-width:2.6;stroke-linejoin:round;transition:fill .2s var(--ease),stroke .2s}
 .nv.on svg path{fill:var(--gold);stroke:var(--gold)}
-#navHome.on svg path{fill:transparent}   /* Home hexagon stays an orange outline when selected */
 .nv svg path.hx{stroke-width:1.9}
 .nv svg .ck{fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;transition:stroke .2s}
 .nv.on svg .ck{stroke:#0e1116}
+.nv.on svg{filter:drop-shadow(0 0 7px rgba(248,169,0,.6))}
+.nv span{transition:transform .28s var(--ease)}
+.nv.on span{transform:translateX(4px)}
+.nv::before,.nv::after{content:"";position:absolute;left:5px;top:50%;width:38px;height:38px;margin-top:-19px;opacity:0;pointer-events:none;background:center/100% 100% no-repeat}
+.nv::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2.6 20.3 7.3v9.4L12 21.4 3.7 16.7V7.3z' fill='none' stroke='%23f8a900' stroke-width='1.5' stroke-linejoin='round'/%3E%3C/svg%3E")}
+.nv::after{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2.6 20.3 7.3v9.4L12 21.4 3.7 16.7V7.3z' fill='%23f8a900' stroke='%23f8a900' stroke-width='1.5' stroke-linejoin='round'/%3E%3C/svg%3E")}
+.nv.pulse::before{animation:nvHexRing .65s cubic-bezier(.2,.7,.3,1)}
+.nv.pulse::after{animation:nvHexFlash .5s ease-out}
+.nv.pulse svg,.nv.pulse .nimg{animation:nvPop .5s cubic-bezier(.34,1.56,.64,1)}
+@keyframes nvHexRing{0%{opacity:1;transform:scale(.55) rotate(-30deg)}100%{opacity:0;transform:scale(2.1) rotate(30deg)}}
+@keyframes nvHexFlash{0%{opacity:.5;transform:scale(.4)}100%{opacity:0;transform:scale(1.35)}}
+@keyframes nvPop{0%{transform:scale(.7) rotate(-10deg)}55%{transform:scale(1.25) rotate(4deg)}100%{transform:scale(1) rotate(0)}}
+@media (prefers-reduced-motion:reduce){.nv.pulse::before,.nv.pulse::after,.nv.pulse svg,.nv.pulse .nimg{animation:none}}
 .nimg{width:32px;height:32px;flex:none;object-fit:contain;filter:brightness(0) invert(.64);transition:filter .2s;pointer-events:none}
 .nv:hover .nimg{filter:brightness(0) invert(.88)}
-.nv.on .nimg{filter:none}
+.nv.on .nimg{filter:drop-shadow(0 0 7px rgba(248,169,0,.6))}
 #compb,#history{padding:64px 40px 48px 360px}
 #history header{padding:0 0 4px}
 #history .empty{margin-top:28px;max-width:52ch;line-height:1.55}
@@ -142,8 +154,37 @@ header p{color:var(--muted);font-size:14px}
 #pbtn:hover #pav,#pbtn:focus-visible #pav{transform:scale(1.06)}
 #pbtn:focus-visible{outline:none}
 #pshow{font-weight:600;font-size:15px;max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-shadow:0 1px 10px rgba(0,0,0,.7)}
-#pmenu{position:absolute;top:66px;left:0;width:250px;padding:16px;border-radius:18px;background:rgba(14,17,22,.94);border:1px solid var(--line);backdrop-filter:blur(16px);box-shadow:0 18px 40px rgba(0,0,0,.45)}
+#profile{z-index:20}
+#pmenu{position:absolute;z-index:20;top:66px;left:0;width:290px;padding:16px;border-radius:18px;background:#12161d;border:1px solid #2a323d;box-shadow:0 18px 40px rgba(0,0,0,.45)}
 #pmenu[hidden]{display:none}
+#pmenu:not([hidden]){animation:pmIn .24s var(--ease)}
+@keyframes pmIn{from{opacity:0;transform:translateY(-8px) scale(.97)}to{opacity:1;transform:none}}
+#ftoggle{width:100%;display:flex;align-items:center;gap:8px;margin-top:16px;padding:12px 0 4px;background:none;border:0;border-top:1px solid var(--line);color:var(--text);font:700 15px/1 var(--head);letter-spacing:.08em;text-transform:uppercase;cursor:pointer;text-align:left}
+#ftoggle b{min-width:22px;padding:3px 7px;border-radius:999px;background:rgba(248,169,0,.16);color:var(--gold);font:700 12px/1 var(--body);text-align:center}
+#ftoggle svg{margin-left:auto;width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;color:var(--muted);transition:transform .3s var(--ease)}
+#ftoggle[aria-expanded="false"] svg{transform:rotate(-90deg)}
+#ftoggle:hover svg,#ftoggle:focus-visible svg{color:var(--gold)}
+#ftoggle:focus-visible{outline:none}
+#fwrap{display:grid;grid-template-rows:1fr;transition:grid-template-rows .32s var(--ease)}
+#fwrap.closed{grid-template-rows:0fr}
+#fbody{overflow:hidden;min-height:0}
+#fadd{display:flex;gap:8px;margin-top:10px}
+#fadd input{flex:1;min-width:0}
+#fplus{flex:none;width:40px;border:0;border-radius:12px;background:var(--gold);color:#10141b;font:700 20px/1 var(--body);cursor:pointer;transition:transform .15s,filter .2s}
+#fplus:hover,#fplus:focus-visible{filter:brightness(1.12);outline:none}
+#fplus:active{transform:scale(.94)}
+#flist{list-style:none;margin:10px 0 0;padding:0;max-height:210px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.2) transparent}
+#flist li{display:flex;align-items:center;gap:10px;padding:7px 6px;border-radius:12px;animation:fIn .25s var(--ease)}
+#flist li:hover{background:rgba(255,255,255,.06)}
+@keyframes fIn{from{opacity:0;transform:translateX(-8px)}to{opacity:1;transform:none}}
+#flist .fa{flex:none;width:32px;height:32px;border-radius:50%;border:1.5px solid rgba(248,169,0,.7);background:#10141b;display:grid;place-items:center;font-weight:700;font-size:13px}
+#flist .fn{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:600;font-size:14px}
+#flist .fn i{font-style:normal;font-weight:400;color:var(--muted)}
+#flist .fx{flex:none;width:26px;height:26px;border:0;border-radius:8px;background:none;color:var(--muted);font-size:18px;line-height:1;cursor:pointer;opacity:0;transition:opacity .15s,color .15s,background .15s}
+#flist li:hover .fx,#flist .fx:focus-visible{opacity:1}
+#flist .fx:hover,#flist .fx:focus-visible{color:#ff7a7a;background:rgba(255,122,122,.12);outline:none}
+#fempty{margin:12px 0 2px;color:var(--muted);font-size:13px;line-height:1.45}
+#fempty[hidden]{display:none}
 #pmenu label{display:block;color:var(--muted);font-size:12px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px}
 #pmenu input{width:100%;background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:12px;padding:10px 12px;color:var(--text);font:inherit}
 #pmenu input:focus{outline:none;border-color:var(--gold)}
@@ -192,174 +233,25 @@ header p{color:var(--muted);font-size:14px}
 #bpass .bt svg{width:14px;height:14px;fill:currentColor}
 #bpass .bs{color:#ece3c8;font-size:13px;font-weight:700;letter-spacing:.03em}
 #patchNotes[hidden]{display:none}
-#donate{position:absolute;z-index:7;left:150px;bottom:30px;display:flex;align-items:center;gap:8px;padding:8px 14px;border:1px solid rgba(255,255,255,.18);border-radius:999px;background:rgba(10,13,18,.35);color:#cdd3de;font:600 13px/1 var(--body);cursor:pointer;text-shadow:0 1px 8px rgba(0,0,0,.6);transition:color .2s,border-color .2s,background .2s}
-#donate svg{width:15px;height:15px;fill:currentColor;transition:color .2s}
-#donate:hover,#donate:focus-visible{color:var(--gold);border-color:var(--gold);background:rgba(248,169,0,.1);outline:none}
-#lang{position:absolute;z-index:7;left:84px;bottom:22px}
-#lbtn{width:52px;height:52px;border:0;border-radius:16px;background:transparent;color:#aeb6c4;display:grid;place-items:center;align-content:center;gap:2px;cursor:pointer;font:inherit;transition:background .2s,color .2s}
-#lbtn:hover,#lbtn:focus-visible,#lbtn.on{background:rgba(255,255,255,.1);color:#fff;outline:none}
-#lbtn svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.6}
-#lbtn span{font-size:10px;font-weight:700;letter-spacing:.08em}
-#lmenu{position:absolute;left:62px;bottom:0;margin:0;padding:6px;list-style:none;min-width:170px;border-radius:14px;background:rgba(14,17,22,.95);border:1px solid var(--line);backdrop-filter:blur(16px);box-shadow:0 18px 40px rgba(0,0,0,.45)}
+#bar{position:absolute;z-index:7;left:84px;bottom:30px;display:flex;align-items:center;gap:10px}
+.pill{display:flex;align-items:center;gap:8px;height:36px;padding:0 14px;border:1px solid #2a323d;border-radius:999px;background:#12161d;color:#cdd3de;font:600 13px/1 var(--body);cursor:pointer;transition:color .2s,border-color .2s,background .2s}
+.pill:hover,.pill:focus-visible,.pill.on{color:var(--gold);border-color:var(--gold);outline:none}
+.pill svg{width:16px;height:16px;flex:none}
+#donate svg{fill:currentColor}
+#lang{position:relative}
+#lbtn svg:first-child{fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round}
+#lbtn .chev{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;transition:transform .25s var(--ease)}
+#lbtn.on .chev{transform:rotate(180deg)}
+#lcode{letter-spacing:.06em;min-width:18px;text-align:center}
+#lmenu{position:absolute;z-index:30;left:0;bottom:calc(100% + 10px);margin:0;padding:6px;list-style:none;width:212px;border-radius:16px;background:#12161d;border:1px solid #2a323d;box-shadow:0 18px 40px rgba(0,0,0,.6)}
+#lmenu:not([hidden]){animation:lmIn .22s var(--ease)}
+@keyframes lmIn{from{opacity:0;transform:translateY(8px) scale(.97)}to{opacity:1;transform:none}}
 #lmenu[hidden]{display:none}
-#lmenu li{padding:9px 12px;border-radius:9px;color:#cdd3de;font-size:14px;cursor:pointer}
-#lmenu li:hover,#lmenu li:focus-visible{background:rgba(255,255,255,.08);color:#fff;outline:none}
-#lmenu li.on{color:var(--gold)}
-
-/* ---- Welcome popup ---- */
-#drag{z-index:96}
-#welcome{position:absolute;z-index:95;inset:0;display:grid;place-items:center;padding:34px 24px 24px;background:rgba(3,5,9,.8);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);opacity:0;transition:opacity .3s}
-#welcome[hidden]{display:none}
-#welcome.on{opacity:1}
-.wbox{display:grid;grid-template-columns:310px 1fr;width:min(900px,100%);max-height:100%;border-radius:28px;overflow:hidden;background:#0e1116;border:1px solid rgba(255,255,255,.12);box-shadow:0 30px 80px rgba(0,0,0,.65);transform:translateY(16px) scale(.97);transition:transform .35s var(--ease)}
-#welcome.on .wbox{transform:none}
-.wart{position:relative;background:#1a2230 url(img/home-art.png) center top/cover}
-.wart::after{content:"";position:absolute;inset:0;background:linear-gradient(to right,transparent 62%,#0e1116),linear-gradient(to top,rgba(14,17,22,.55),transparent 35%)}
-.wbody{display:flex;flex-direction:column;gap:12px;padding:36px 38px 26px;overflow-y:auto}
-.wbadge{align-self:flex-start;background:var(--gold);color:#1c1300;font-weight:800;font-size:12px;letter-spacing:.14em;padding:5px 12px;border-radius:999px}
-.wbody h2{font-family:var(--head);font-size:clamp(28px,3.6vw,40px);font-weight:700;letter-spacing:-.01em;line-height:1.05;margin-top:4px}
-.wsub{color:var(--gold);font-weight:700;font-size:15px;letter-spacing:.02em}
-.wtxt{color:#c5cad3;font-size:14.5px;line-height:1.55}
-.wlist{list-style:none;padding:0;display:flex;flex-direction:column;gap:9px;margin:4px 0 6px}
-.wlist li{position:relative;padding-left:24px;color:#e4e7ec;font-size:14.5px;line-height:1.45}
-.wlist li::before{content:"";position:absolute;left:3px;top:.45em;width:8px;height:8px;border-radius:2px;background:var(--gold);transform:rotate(45deg)}
-.wfoot{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:6px}
-.wchk{display:flex;align-items:center;gap:9px;color:var(--muted);font-size:13px;cursor:pointer;user-select:none}
-.wchk input{width:17px;height:17px;accent-color:var(--gold);cursor:pointer}
-.wgo{border:0;border-radius:16px;padding:13px 32px;background:linear-gradient(180deg,#ffbe2e,#e29400);color:#1c1300;font:inherit;font-weight:800;font-size:15px;cursor:pointer;box-shadow:0 8px 24px rgba(248,169,0,.3);transition:transform .2s var(--ease),box-shadow .2s}
-.wgo:hover,.wgo:focus-visible{transform:translateY(-2px);box-shadow:0 12px 30px rgba(248,169,0,.42);outline:none}
-.wlegal{color:#6f7786;font-size:11.5px;line-height:1.45;margin-top:2px}
-@media (max-width:760px){.wbox{grid-template-columns:1fr}.wart{display:none}}
-
-/* ---- Login ---- */
-#login[hidden]{display:none}
-#login.on{opacity:1}
-#app.lgOn #lang{z-index:93}
-#app.lgOn #lbtn{color:#5b6270}
-#app.lgOn #lbtn:hover,#app.lgOn #lbtn:focus-visible,#app.lgOn #lbtn.on{background:rgba(0,0,0,.07);color:#14171c}
-.lgIn{width:100%;background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:14px;padding:12px 14px;color:var(--text);font:inherit}
-.lgIn:focus{outline:none;border-color:var(--gold)}
-.lgErr{min-height:18px;color:#ff7075;font-size:13px;text-align:center}
-.lgBtns{display:flex;gap:10px}
-.lgBtns .wgo{flex:1;padding:13px 18px}
-.lgGhost{border:1px solid var(--line);background:rgba(255,255,255,.05);color:var(--text);border-radius:16px;padding:13px 20px;font:inherit;font-weight:600;cursor:pointer;transition:border-color .2s}
-.lgGhost:hover,.lgGhost:focus-visible{border-color:var(--gold);outline:none}
-
-/* ---- Friends & chat ---- */
-#fbadge{min-width:24px;height:24px;border-radius:12px;background:#e5484d;color:#fff;font:700 12px/24px var(--body);text-align:center;padding:0 7px;letter-spacing:0;font-style:normal}
-#fbadge[hidden]{display:none}
-#friends{padding:64px 40px 36px 360px;height:100%}
-#friends .fwrap{display:flex;flex-direction:column;height:100%;min-height:0}
-#friends header{padding:0 0 4px}
-#fBody{flex:1;min-height:0;margin-top:20px}
-.fcard{max-width:520px;padding:26px 28px;border-radius:24px;background:rgba(14,17,22,.84);border:1px solid var(--line);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);display:flex;flex-direction:column;gap:12px}
-.fcard h2{font-family:var(--head);font-size:24px}
-.fcard p{color:#c5cad3;font-size:14px;line-height:1.55}
-.fcard .fsrv{color:var(--muted);font-size:12.5px;word-break:break-all}
-.fgrid{display:grid;grid-template-columns:330px minmax(0,1fr);gap:18px;height:100%;min-height:0}
-.fcol{display:flex;flex-direction:column;gap:12px;min-height:0}
-.fadd{display:flex;gap:8px}
-.fadd .lgIn{flex:1;min-width:0;padding:11px 14px}
-.fadd .wgo{padding:0 18px;font-size:14px;border-radius:14px}
-.flist{display:flex;flex-direction:column;gap:8px;overflow-y:auto;min-height:0;flex:1;padding:2px 4px 2px 2px}
-.fh{color:var(--muted);font-size:12px;letter-spacing:.08em;text-transform:uppercase;margin:8px 0 0}
-.frow{display:flex;align-items:center;gap:12px;width:100%;padding:10px 12px;border-radius:16px;border:1px solid var(--line);background:rgba(14,17,22,.78);color:var(--text);font:inherit;text-align:left}
-button.frow{cursor:pointer;transition:border-color .2s,background .2s}
-button.frow:hover,button.frow:focus-visible{border-color:var(--gold);outline:none}
-.frow.sel{border-color:var(--gold);background:rgba(248,169,0,.1)}
-.fav{flex:none;position:relative;width:40px;height:40px;border-radius:50%;border:2px solid #4a5160;background:#10141b;display:grid;place-items:center;font-weight:700;font-size:16px}
-.fav i{position:absolute;right:-3px;bottom:-3px;width:13px;height:13px;border-radius:50%;background:#5b6372;border:2px solid #0e1116}
-.fav.on{border-color:var(--gold)}
-.fav.on i{background:#3ddc84}
-.fn{flex:1;min-width:0}
-.fn b{display:block;font-size:15px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.fn span{color:var(--muted);font-size:12px}
-.fun{min-width:22px;height:22px;border-radius:11px;background:#e5484d;color:#fff;font:700 12px/22px var(--body);text-align:center;padding:0 6px}
-.fbtn{flex:none;width:34px;height:34px;border-radius:10px;border:1px solid var(--line);background:rgba(255,255,255,.05);color:var(--text);font-size:17px;line-height:1;cursor:pointer;transition:border-color .2s,background .2s}
-.fbtn:hover,.fbtn:focus-visible{border-color:var(--gold);outline:none}
-.fbtn.ok{background:rgba(61,220,132,.16);color:#3ddc84}
-.fbtn.no:hover,.fbtn.no:focus-visible{border-color:#e5484d;color:#ff7075}
-.ffoot{color:var(--muted);font-size:12.5px;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:2px 4px}
-.ffoot button{background:none;border:0;color:var(--muted);font:inherit;text-decoration:underline;cursor:pointer;padding:0}
-.ffoot button:hover{color:var(--text)}
-.fchat{display:flex;flex-direction:column;min-height:0;border-radius:24px;border:1px solid var(--line);background:rgba(14,17,22,.8);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);overflow:hidden}
-.fhead{display:flex;align-items:center;gap:12px;padding:14px 18px;border-bottom:1px solid var(--line)}
-.fhead .fn b{font-size:16px}
-#fMsgs{flex:1;min-height:0;overflow-y:auto;padding:16px 18px;display:flex;flex-direction:column;gap:8px}
-.fm{max-width:74%;padding:9px 13px;border-radius:16px;font-size:14.5px;line-height:1.4;overflow-wrap:anywhere;white-space:pre-wrap}
-.fm small{display:block;color:rgba(255,255,255,.45);font-size:11px;margin-top:3px}
-.fm.me{align-self:flex-end;background:rgba(248,169,0,.2);border:1px solid rgba(248,169,0,.38);border-bottom-right-radius:6px}
-.fm.them{align-self:flex-start;background:rgba(255,255,255,.07);border:1px solid var(--line);border-bottom-left-radius:6px}
-.fcomp{display:flex;gap:10px;padding:12px 14px;border-top:1px solid var(--line)}
-.fcomp .lgIn{flex:1;min-width:0}
-.fcomp .wgo{padding:0 24px;font-size:14px;border-radius:14px}
-.fempty{margin:auto;color:var(--muted);text-align:center;padding:30px;line-height:1.5;font-size:14px}
-@media (max-width:1100px){.fgrid{grid-template-columns:270px minmax(0,1fr)}}
-
-/* ---- Login: split screen (form left, looping video right) ---- */
-#login{position:absolute;z-index:92;inset:0;display:flex;background:#fafafa;opacity:0;transition:opacity .3s}
-.lgpanel{flex:none;width:clamp(390px,40%,480px);display:flex;flex-direction:column;align-items:center;padding:44px 0 92px;background:#fafafa;color:#1b1e24;overflow-y:auto}
-.lgpanel>*{width:min(310px,calc(100% - 60px));flex:none}
-.lgpanel>.lglogo{width:88px;height:auto;margin-bottom:28px}
-#lgBody{display:flex;flex-direction:column;gap:14px;flex:1 0 auto}
-.lgnote{color:#8a909b;font-size:11.5px;text-align:center;line-height:1.45;margin-top:18px}
-.lgtabs{display:flex;gap:4px;padding:6px;background:#eceef1;border-radius:18px}
-.lgtabs button{position:relative;flex:1;height:38px;border:0;border-radius:13px;background:transparent;color:#5b6270;font:inherit;font-weight:700;font-size:13px;cursor:pointer;transition:background .2s,color .2s}
-.lgtabs button:hover{color:#14171c}
-.lgtabs button.on{background:#d9dce2;color:#14171c}
-.lgtabs button.on::after{content:"";position:absolute;left:24%;right:24%;bottom:-6px;height:2px;border-radius:2px;background:var(--gold)}
-.lgfield{position:relative;height:52px;background:#eceef1;border-radius:10px;transition:box-shadow .2s}
-.lgfield:focus-within{box-shadow:inset 0 0 0 2px var(--gold)}
-.lgfield input{position:absolute;inset:0;width:100%;height:100%;border:0;background:transparent;padding:18px 14px 0;color:#14171c;font:inherit;font-size:15px;outline:none}
-.lgfield label{position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:10.5px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:#5b6270;pointer-events:none;transition:top .15s,font-size .15s}
-.lgfield input:focus+label,.lgfield input:not(:placeholder-shown)+label{top:13px;font-size:9.5px}
-.lgchips{display:flex;flex-wrap:wrap;gap:10px}
-.lgchipw{position:relative}
-.lgchip{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;width:60px;height:58px;border:0;border-radius:12px;background:#eceef1;color:#14171c;font:inherit;cursor:pointer;transition:background .2s,box-shadow .2s}
-.lgchip:hover,.lgchip:focus-visible{background:#ffecc2;box-shadow:inset 0 0 0 2px var(--gold);outline:none}
-.lgchip b{font-size:17px;line-height:1}
-.lgchip span{max-width:52px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:10.5px;color:#5b6270}
-.lgLock{position:absolute;right:5px;top:5px;width:11px;height:11px;fill:none;stroke:#7b8290;stroke-width:2.4}
-.lgx{position:absolute;top:-6px;right:-6px;width:20px;height:20px;border:0;border-radius:50%;background:#e5484d;color:#fff;font-size:13px;line-height:1;cursor:pointer;display:none;place-items:center}
-.lgchipw:hover .lgx,.lgx:focus-visible{display:grid}
-.lgchk{display:flex;align-items:center;gap:10px;color:#3a4049;font-size:14px;cursor:pointer;user-select:none}
-.lgchk input{width:20px;height:20px;accent-color:var(--gold);cursor:pointer}
-.lggo{align-self:center;margin-top:auto;width:64px;height:64px;border:0;border-radius:18px;background:#eceef1;color:#a0a6b0;cursor:pointer;display:grid;place-items:center;transition:background .2s,color .2s,transform .2s var(--ease)}
-.lggo svg{width:30px;height:30px}
-.lggo.ready{background:var(--gold);color:#1c1300}
-.lggo:hover,.lggo:focus-visible{transform:translateY(-2px);outline:none}
-.lgpanel .lgErr{color:#d92d33;min-height:0;text-align:left;font-size:13px}
-.lgpanel .lgErr:empty{display:none}
-.lgart{flex:1;position:relative;overflow:hidden;background:#0b1230}
-.lgart video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.lgart::after{content:"";position:absolute;inset:0;background:linear-gradient(to right,rgba(0,0,0,.22),transparent 22%)}
-@media (max-width:820px){.lgart{display:none}.lgpanel{width:100%}}
-
-/* ---- News ---- */
-#nbadge{flex:none;width:12px;height:12px;border-radius:50%;background:#e5484d;margin-left:-4px}
-#nbadge[hidden]{display:none}
-#news{padding:64px 40px 48px 360px}
-#news header{padding:0 0 4px}
-.ngrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;margin-top:22px;max-width:1000px}
-.ncard{display:flex;flex-direction:column;align-items:flex-start;gap:8px;padding:20px 22px;border-radius:22px;background:rgba(14,17,22,.84);border:1px solid var(--line);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
-.ncard .nt{display:flex;align-items:center;gap:8px}
-.ntag{background:var(--gold);color:#1c1300;font-weight:800;font-size:11px;letter-spacing:.1em;padding:3px 9px;border-radius:999px}
-.nver{color:var(--muted);font-size:12px}
-.ncard h3{font-size:19px;font-weight:800;letter-spacing:-.01em;line-height:1.15}  /* body font: the heading font has no usable digits */
-.ncard p{color:#c5cad3;font-size:14px;line-height:1.55}
-.nlink{margin-top:4px;padding:9px 18px;font-size:13px;border-radius:13px}
-#npop{position:absolute;z-index:95;inset:0;display:grid;place-items:center;padding:34px 24px 24px;background:rgba(3,5,9,.8);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);opacity:0;transition:opacity .3s}
-#npop[hidden]{display:none}
-#npop.on{opacity:1}
-.nbox{width:min(680px,100%);max-height:100%;overflow-y:auto;display:flex;flex-direction:column;gap:14px;padding:30px 34px 26px;border-radius:28px;background:#0e1116;border:1px solid rgba(255,255,255,.12);box-shadow:0 30px 80px rgba(0,0,0,.65);transform:translateY(16px) scale(.97);transition:transform .35s var(--ease)}
-#npop.on .nbox{transform:none}
-.nbox h2{font-family:var(--head);font-size:36px;font-weight:700;letter-spacing:-.01em;line-height:1}
-.nbox .nsub{color:var(--gold);font-weight:700;font-size:14px;margin-top:-6px}
-#npList{display:flex;flex-direction:column;gap:10px}
-#npList .ncard{background:rgba(255,255,255,.04);padding:16px 18px;border-radius:18px;backdrop-filter:none}
-#npList .ncard h3{font-size:17px}
-.nfoot{display:flex;justify-content:flex-end;gap:10px;margin-top:4px}
-.nfoot .wgo{padding:12px 32px}
+#lmenu li{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 12px;border-radius:10px;color:#cdd3de;font-size:14px;font-weight:600;cursor:pointer;transition:background .15s,color .15s}
+#lmenu li em{font-style:normal;font-size:11px;letter-spacing:.08em;color:var(--muted);transition:color .15s}
+#lmenu li:hover,#lmenu li:focus-visible{background:#1c232d;color:#fff;outline:none}
+#lmenu li.on{background:rgba(248,169,0,.14);color:var(--gold)}
+#lmenu li.on em{color:var(--gold)}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}#bg{display:none}}
 </style>
 </head>
@@ -381,16 +273,19 @@ button.frow:hover,button.frow:focus-visible{border-color:var(--gold);outline:non
       <label for="pname" data-i18n="dname">Display name</label>
       <input id="pname" maxlength="20" placeholder="Summoner" autocomplete="off">
       <small data-i18n="saved">Saved on this PC.</small>
-      <button class="btn" id="psign" data-i18n="signOut" style="margin-top:12px;width:100%">Sign out</button>
+      <button id="ftoggle" aria-expanded="true"><span data-i18n="friends">Friends</span><b id="fcount">0</b><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button>
+      <div id="fwrap"><div id="fbody">
+        <div id="fadd"><input id="fname" maxlength="24" autocomplete="off" placeholder="Name#TAG" data-i18n-ph="fph"><button id="fplus" aria-label="Add">+</button></div>
+        <ul id="flist"></ul>
+        <p id="fempty" data-i18n="fempty">No friends yet. Add one above.</p>
+      </div></div>
     </div>
   </div>
   <div id="menu">
     <button id="navHome" class="nv on"><svg viewBox="0 0 24 24"><path d="M12 2.6 20.3 7.3v9.4L12 21.4 3.7 16.7V7.3z"/></svg><span data-i18n="home">Home</span></button>
-    <button id="navNews" class="nv"><svg viewBox="0 0 24 24"><path d="M5 4.5h11a2 2 0 0 1 2 2V20H7a2 2 0 0 1-2-2z"/><path class="ck" d="M8.5 8.5h6M8.5 12h6M8.5 15.5h3"/><path d="M18 9h1.5A1.5 1.5 0 0 1 21 10.5V18a2 2 0 0 1-2 2h-1"/></svg><span data-i18n="news">News</span><i id="nbadge" hidden></i></button>
     <button id="navColl" class="nv"><img class="nimg" src="data:image/png;base64,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" alt=""><span data-i18n="coll">Collections</span></button>
     <button id="navComp" class="nv"><img class="nimg" src="data:image/png;base64,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" alt=""><span data-i18n="comp">Comp Builder</span></button>
     <button id="navHist" class="nv"><svg viewBox="0 0 24 24"><path class="hx" d="M12 2.6 20.3 7.3v9.4L12 21.4 3.7 16.7V7.3z"/><circle class="ck" cx="12" cy="12" r="4.5"/><polyline class="ck" points="12 9.4 12 12.1 14 13.3"/></svg><span data-i18n="hist">Match History</span></button>
-    <button id="navFriends" class="nv"><svg viewBox="0 0 24 24"><path d="M12 3.5a3.8 3.8 0 1 1 0 7.6 3.8 3.8 0 0 1 0-7.6zM4.5 20.5c0-3.9 3.3-6.4 7.5-6.4s7.5 2.5 7.5 6.4z"/></svg><span data-i18n="friends">Friends</span><i id="fbadge" hidden>0</i></button>
   </div>
   <a id="patchNotes" href="#" data-i18n="patch">Patch Notes 18.4 ↗</a>
 </nav>
@@ -398,19 +293,21 @@ button.frow:hover,button.frow:focus-visible{border-color:var(--gold);outline:non
   <div class="bt"><svg viewBox="0 0 24 24"><path d="M4 5l9-2v16l-9 2zm10 0l6 2v16l-6-2z"/></svg><span data-i18n="bp">BATTLEPASS</span></div>
   <div class="bs" data-i18n="bpOff">PASS DISABLED</div>
 </div>
-<div id="lang">
-  <button id="lbtn" aria-label="Language" aria-haspopup="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.2 3 14.8 0 18M12 3c-3 3.2-3 14.8 0 18"/></svg><span id="lcode">EN</span></button>
-  <ul id="lmenu" hidden>
-    <li tabindex="0" data-l="en">English</li>
-    <li tabindex="0" data-l="sk">Slovenčina</li>
-    <li tabindex="0" data-l="cs">Čeština</li>
-    <li tabindex="0" data-l="tr">Türkçe</li>
-    <li tabindex="0" data-l="pt">Português</li>
-    <li tabindex="0" data-l="zh">中文</li>
-    <li tabindex="0" data-l="ja">日本語</li>
-  </ul>
+<div id="bar">
+  <div id="lang">
+    <button id="lbtn" class="pill" aria-label="Language" aria-haspopup="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.2 3 14.8 0 18M12 3c-3 3.2-3 14.8 0 18"/></svg><span id="lcode">EN</span><svg class="chev" viewBox="0 0 24 24"><path d="M6 15l6-6 6 6"/></svg></button>
+    <ul id="lmenu" hidden>
+    <li tabindex="0" data-l="en"><span>English</span><em>EN</em></li>
+    <li tabindex="0" data-l="sk"><span>Slovenčina</span><em>SK</em></li>
+    <li tabindex="0" data-l="cs"><span>Čeština</span><em>CS</em></li>
+    <li tabindex="0" data-l="tr"><span>Türkçe</span><em>TR</em></li>
+    <li tabindex="0" data-l="pt"><span>Português</span><em>PT</em></li>
+    <li tabindex="0" data-l="zh"><span>中文</span><em>ZH</em></li>
+    <li tabindex="0" data-l="ja"><span>日本語</span><em>JA</em></li>
+    </ul>
+  </div>
+  <button id="donate" class="pill"><svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.6-9.3C.9 8.4 2.7 5 6 5c2 0 3.4 1.1 4 2.3h4C14.6 6.1 16 5 18 5c3.3 0 5.1 3.400 3.600 6.700C19.500 16.400 12 21 12 21z" transform="translate(0 -.5)"/></svg><span data-i18n="donate">Donate</span></button>
 </div>
-<button id="donate"><svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.6-9.3C.9 8.4 2.7 5 6 5c2 0 3.4 1.1 4 2.3h4C14.6 6.1 16 5 18 5c3.3 0 5.1 3.400 3.600 6.700C19.500 16.400 12 21 12 21z" transform="translate(0 -.5)"/></svg><span data-i18n="donate">Donate</span></button>
 <main id="main">
   <section id="home" class="view">
     <div class="hero">
@@ -432,16 +329,6 @@ button.frow:hover,button.frow:focus-visible{border-color:var(--gold);outline:non
     <header><h1 data-i18n="comp">Comp Builder</h1><p data-i18n="compSub">Plan your team comps</p></header>
     <div class="empty" data-i18n="compEmpty">Nothing here yet. The comp builder is coming soon.</div>
   </section>
-  <section id="news" class="view" hidden>
-    <header><h1 data-i18n="news">News</h1><p data-i18n="nSub">What's new in TFT Vault</p></header>
-    <div class="ngrid" id="nList"></div>
-  </section>
-  <section id="friends" class="view" hidden>
-    <div class="fwrap">
-      <header><h1 data-i18n="friends">Friends</h1><p data-i18n="fSub">Chat with your friends</p></header>
-      <div id="fBody"></div>
-    </div>
-  </section>
   <section id="sets" class="view" hidden>
     <header><h1>Teamfight Tactics</h1><p data-i18n="pick">Pick a set</p></header>
     <div id="grid"></div>
@@ -454,44 +341,6 @@ button.frow:hover,button.frow:focus-visible{border-color:var(--gold);outline:non
   </div>
 </div>
 <div id="toast"></div>
-<div id="login" hidden role="dialog" aria-modal="true" aria-label="Sign in">
-  <div class="lgpanel">
-    <img class="lglogo" src="img/logo.png" alt="TFT Vault">
-    <div id="lgBody"></div>
-    <small class="lgnote" data-i18n="lLocal">Profiles are stored on this PC only and are not synced online.</small>
-  </div>
-  <div class="lgart"><video id="lgVid" src="video/background.mp4" autoplay muted loop playsinline preload="auto" aria-hidden="true"></video></div>
-</div>
-<div id="npop" hidden role="dialog" aria-modal="true" aria-labelledby="npTitle">
-  <div class="nbox">
-    <h2 id="npTitle" data-i18n="news">News</h2>
-    <div class="nsub" data-i18n="nSub">What's new in TFT Vault</div>
-    <div id="npList"></div>
-    <div class="nfoot"><button class="lgGhost" id="npAll" data-i18n="nAll">Open News</button><button class="wgo" id="npGot" data-i18n="nGot">Got it</button></div>
-  </div>
-</div>
-<div id="welcome" hidden role="dialog" aria-modal="true" aria-labelledby="wTitle">
-  <div class="wbox">
-    <div class="wart" aria-hidden="true"></div>
-    <div class="wbody">
-      <span class="wbadge">ALPHA 0.1</span>
-      <h2 id="wTitle" data-i18n="wTitle">Welcome to TFT Vault</h2>
-      <p class="wsub" data-i18n="wSub">Your TFT collection, all in one place</p>
-      <p class="wtxt" data-i18n="wAlpha">Early alpha: the collection features are still being built, so expect rough edges, missing features and changes.</p>
-      <ul class="wlist">
-        <li data-i18n="wF1">Keep track of your whole TFT collection</li>
-        <li data-i18n="wF2">Plan your team comps in the Comp Builder</li>
-        <li data-i18n="wF3">Look back at your recent games in Match History</li>
-        <li data-i18n="wF4">Explore sets like Set 18: Enchanted Wilds, with champions, traits and patch notes</li>
-      </ul>
-      <div class="wfoot">
-        <label class="wchk"><input type="checkbox" id="wHide"><span data-i18n="wHide">Don't show this again</span></label>
-        <button class="wgo" id="wGo" data-i18n="wGo">Let's go</button>
-      </div>
-      <small class="wlegal" data-i18n="wLegal">TFT Vault isn't endorsed by Riot Games. Teamfight Tactics and Riot Games are trademarks of Riot Games, Inc.</small>
-    </div>
-  </div>
-</div>
 <section id="ov" hidden>
   <video muted loop playsinline></video>
   <button id="back" data-i18n="back">&larr; Back</button>
@@ -562,7 +411,7 @@ function close() {
   setTimeout(() => { ov.hidden = true; vid.pause(); }, 500);
 }
 document.getElementById('back').onclick = close;
-addEventListener('keydown', e => { if (e.key !== 'Escape') return; if (!wm.hidden) return closeWelcome(); if (!np.hidden) return closeNews(); if (!tm.hidden) return closeTrailer(); if (!dt.hidden) closeDetail(); else close(); });
+addEventListener('keydown', e => { if (e.key !== 'Escape') return; if (!tm.hidden) return closeTrailer(); if (!dt.hidden) closeDetail(); else close(); });
 loadSets().then(sets => { render(sets); renderHero(sets); });
 
 // Custom title bar controls (Wails runtime; no-ops in a plain browser preview)
@@ -664,13 +513,14 @@ const $ = id => document.getElementById(id);
 function toast(msg) { const t = $('toast'); t.textContent = msg; t.classList.add('on'); clearTimeout(toast.t); toast.t = setTimeout(() => t.classList.remove('on'), 3200); }
 
 function showView(v) {
-  $('home').hidden = v !== 'home'; $('sets').hidden = v !== 'sets'; $('compb').hidden = v !== 'comp'; $('history').hidden = v !== 'history'; $('friends').hidden = v !== 'friends'; $('news').hidden = v !== 'news'; 
-  $('navHome').classList.toggle('on', v === 'home'); $('navComp').classList.toggle('on', v === 'comp'); $('navColl').classList.toggle('on', v === 'sets'); $('navHist').classList.toggle('on', v === 'history'); $('navFriends').classList.toggle('on', v === 'friends'); $('patchNotes').hidden = v !== 'home';
-  $('navNews').classList.toggle('on', v === 'news');
-  if (v === 'news') { renderNews(); markNewsSeen(); }
-  if (v === 'friends') renderFriends();
+  $('home').hidden = v !== 'home'; $('sets').hidden = v !== 'sets'; $('compb').hidden = v !== 'comp'; $('history').hidden = v !== 'history'; 
+  $('navHome').classList.toggle('on', v === 'home'); $('navComp').classList.toggle('on', v === 'comp'); $('navColl').classList.toggle('on', v === 'sets'); $('navHist').classList.toggle('on', v === 'history'); $('patchNotes').hidden = v !== 'home';
   $('main').scrollTop = 0;
 }
+document.querySelectorAll('.nv').forEach(b => b.addEventListener('click', () => {
+  b.classList.remove('pulse'); void b.offsetWidth; b.classList.add('pulse');
+  clearTimeout(b._t); b._t = setTimeout(() => b.classList.remove('pulse'), 650);
+}));
 $('navHome').onclick = () => showView('home');
 $('navComp').onclick = () => showView('comp');
 $('navColl').onclick = () => showView('sets');
@@ -708,38 +558,68 @@ const pbtn = $('pbtn'), pmenu = $('pmenu'), pname = $('pname');
 const store = { get: k => { try { return localStorage.getItem(k); } catch { return null; } }, set: (k, v) => { try { localStorage.setItem(k, v); } catch {} } };
 function paintProfile() { const n = (pname.value || '').trim() || 'Summoner'; $('pav').textContent = (n[0] || 'S').toUpperCase(); $('pshow').textContent = n; }
 pname.value = store.get('tft.name') || ''; paintProfile();
-pname.oninput = () => { store.set('tft.name', pname.value); paintProfile(); if (window.__syncName) window.__syncName(pname.value); };
+pname.oninput = () => { store.set('tft.name', pname.value); paintProfile(); };
 pbtn.onclick = e => { e.stopPropagation(); pmenu.hidden = !pmenu.hidden; pbtn.setAttribute('aria-expanded', String(!pmenu.hidden)); if (!pmenu.hidden) pname.focus(); };
 pmenu.onclick = e => e.stopPropagation();
 document.addEventListener('click', () => { pmenu.hidden = true; pbtn.setAttribute('aria-expanded', 'false'); });
+// ---------- Friends (stored on this PC) ----------
+const tt = k => (I18N[document.documentElement.lang] || I18N.en)[k];
+let friends = []; try { friends = JSON.parse(store.get('tft.friends') || '[]').filter(x => typeof x === 'string'); } catch {}
+function renderFriends() {
+  const ul = $('flist'); ul.textContent = '';
+  friends.forEach((f, i) => {
+    const k = f.lastIndexOf('#'), nm = k > 0 ? f.slice(0, k) : f, tag = k > 0 ? f.slice(k) : '';
+    const li = document.createElement('li');
+    const av = document.createElement('span'); av.className = 'fa'; av.textContent = (nm[0] || '?').toUpperCase();
+    const fn = document.createElement('span'); fn.className = 'fn'; fn.textContent = nm;
+    if (tag) { const t = document.createElement('i'); t.textContent = tag; fn.append(t); }
+    const x = document.createElement('button'); x.className = 'fx'; x.textContent = '×'; x.title = x.ariaLabel = tt('frem');
+    x.onclick = () => { friends.splice(i, 1); saveFriends(); renderFriends(); };
+    li.append(av, fn, x); ul.append(li);
+  });
+  $('fcount').textContent = friends.length; $('fempty').hidden = friends.length > 0;
+}
+function saveFriends() { store.set('tft.friends', JSON.stringify(friends)); }
+function addFriend() {
+  const v = $('fname').value.trim().replace(/\s+/g, ' ');
+  if (!v) return;
+  if (friends.some(f => f.toLowerCase() === v.toLowerCase())) { toast(tt('fdup')); return; }
+  if (friends.length >= 50) return;
+  friends.unshift(v); saveFriends(); $('fname').value = ''; renderFriends(); $('flist').scrollTop = 0;
+}
+$('fplus').onclick = addFriend;
+$('fname').onkeydown = e => { if (e.key === 'Enter') addFriend(); };
+function setFriendsOpen(o) { $('fwrap').classList.toggle('closed', !o); $('ftoggle').setAttribute('aria-expanded', String(o)); store.set('tft.fopen', o ? '1' : '0'); }
+$('ftoggle').onclick = () => setFriendsOpen($('fwrap').classList.contains('closed'));
+if (store.get('tft.fopen') === '0') setFriendsOpen(false);
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && !pmenu.hidden) { pmenu.hidden = true; pbtn.setAttribute('aria-expanded', 'false'); pbtn.focus(); } });
+
 
 // ---------- Language, patch notes ----------
 const I18N = {
-  en:{n:'English',c:'EN',patch:'Patch Notes 18.4 ↗',bp:'BATTLEPASS',bpOff:'PASS DISABLED',home:'Home',sets:'All sets',view:'View set',pick:'Pick a set',dname:'Display name',saved:'Saved on this PC.',back:'← Back',ov:'Overview',ch:'Champions',tr:'Traits',coll:'Collections',collSub:'Your TFT collection',collEmpty:'Nothing here yet. Your collections will show up here.',comp:'Comp Builder',compSub:'Plan your team comps',compEmpty:'Nothing here yet. The comp builder is coming soon.',hist:'Match History',histSub:'Your recent games',histEmpty:'Nothing here yet. Your match history will show up here.',donate:'Donate',lang:'Language',wTitle:"Welcome to TFT Vault",wSub:"Your TFT collection, all in one place",wAlpha:"Early alpha: the collection features are still being built, so expect rough edges, missing features and changes.",wF1:"Keep track of your whole TFT collection",wF2:"Plan your team comps in the Comp Builder",wF3:"Look back at your recent games in Match History",wF4:"Explore sets like Set 18: Enchanted Wilds, with champions, traits and patch notes",wHide:"Don't show this again",wGo:"Let's go",wLegal:"TFT Vault isn't endorsed by Riot Games. Teamfight Tactics and Riot Games are trademarks of Riot Games, Inc.",lTitle:"Sign in",lSub:"Choose a profile to continue",lNew:"Create profile",lName:"Profile name",lPass:"Password (optional)",lPassAsk:"Password",lRem:"Remember me on this PC",lIn:"Sign in",lCreate:"Create",lBack:"Back",lWrong:"Wrong password.",lTaken:"That name is already taken.",lNeed:"Enter a profile name.",lShort:"Password must be at least 4 characters.",lLocal:"Profiles are stored on this PC only and are not synced online.",lDelAsk:"Delete this profile from this PC?",signOut:"Sign out",lAdd:"+ New profile",friends:"Friends",fSub:"Chat with your friends",fSetupT:"Connect to the friends server",fSetupP:"Friends and chat run on an online server. Enter its address to get started.",fServer:"Server address",fSave:"Save",fChange:"Change server",fUser:"Username",fPw:"Password",fSignIn:"Sign in",fCreate:"Create account",fAddPh:"Add a friend by username",fAdd:"Add",fReq:"Friend requests",fSent:"Sent requests",fNone:"No friends yet. Add someone by their username.",fPick:"Pick a friend to start chatting",fMsgPh:"Type a message…",fSend:"Send",fOnline:"Online",fOffline:"Offline",fSigned:"Signed in as {n}",fDisc:"Disconnect",fNoMsg:"No messages yet. Say hi!",fNew:"New message from {n}",fReqToast:"{n} sent you a friend request",fRemAsk:"Remove this friend and delete the chat?",fSentOk:"Request sent to {n}",fNowFriends:"You and {n} are now friends",eOffline:"Can't reach the server.",eCreds:"Wrong username or password.",eTaken:"That username is taken.",eBadUser:"Username must be 3–20 letters, numbers, _ . or -",eShort:"Password must be at least 6 characters.",eNoUser:"No user with that name.",eSelf:"That's you!",eAlready:"Already friends, or request already sent.",eRate:"Too many attempts. Wait a minute.",eSlow:"Slow down a little.",eGeneric:"Something went wrong.",eUrl:"Enter a valid address, like https://example.com",fRemove:"Remove friend",lNoProf:"No profile with that name.",news:"News",nSub:"What's new in TFT Vault",nGot:"Got it",nAll:"Open News",nNew:"NEW",nVer:"Alpha 0.1",nPatchBtn:"Open patch notes",n_friends_t:"Friends & chat",n_friends_d:"Add friends by username and chat with them live. See who is online and get notified of new messages.",n_login_t:"Profiles & sign in",n_login_d:"Create a profile with an optional password and stay signed in on this PC.",n_set18_t:"Set 18: Enchanted Wilds",n_set18_d:"Browse all 65 champions, 35 traits, the new mechanics and the patch timeline.",n_langs_t:"7 languages",n_langs_d:"English, Slovak, Czech, Turkish, Portuguese, Chinese and Japanese. Switch any time with the globe button in the bottom left.",n_patch_t:"Patch 18.4",n_patch_d:"Read the official Teamfight Tactics patch notes for 18.4."},
-  sk:{n:'Slovenčina',c:'SK',patch:'Poznámky k záplate 18.4 ↗',bp:'BATTLEPASS',bpOff:'PERMANENTKA VYPNUTÁ',home:'Domov',sets:'Všetky sady',view:'Zobraziť sadu',pick:'Vyber si sadu',dname:'Zobrazované meno',saved:'Uložené na tomto PC.',back:'← Späť',ov:'Prehľad',ch:'Šampióni',tr:'Vlastnosti',coll:'Kolekcie',collSub:'Tvoja TFT kolekcia',collEmpty:'Zatiaľ tu nič nie je. Tvoje kolekcie sa zobrazia tu.',comp:'Zostavovač kompozícií',compSub:'Naplánuj si svoje kompozície',compEmpty:'Zatiaľ tu nič nie je. Zostavovač kompozícií už čoskoro.',hist:'História zápasov',histSub:'Tvoje posledné zápasy',histEmpty:'Zatiaľ tu nič nie je. Tvoja história zápasov sa zobrazí tu.',donate:'Podporiť',lang:'Jazyk',wTitle:"Vitaj v TFT Vault",wSub:"Tvoja TFT kolekcia na jednom mieste",wAlpha:"Raná alfa: funkcie kolekcií sa ešte dokončujú, takže počítaj s chybami, chýbajúcimi funkciami a zmenami.",wF1:"Maj prehľad o celej svojej TFT kolekcii",wF2:"Plánuj svoje kompozície v sekcii Zostavovač kompozícií",wF3:"Pozri si svoje posledné hry v sekcii História zápasov",wF4:"Objav sady ako Sada 18: Enchanted Wilds so šampiónmi, vlastnosťami a poznámkami k záplate",wHide:"Už nezobrazovať",wGo:"Poďme na to",wLegal:"TFT Vault nie je podporovaný spoločnosťou Riot Games. Teamfight Tactics a Riot Games sú ochranné známky spoločnosti Riot Games, Inc.",lTitle:"Prihlásenie",lSub:"Vyber si profil a pokračuj",lNew:"Vytvoriť profil",lName:"Názov profilu",lPass:"Heslo (nepovinné)",lPassAsk:"Heslo",lRem:"Zapamätať si ma na tomto PC",lIn:"Prihlásiť sa",lCreate:"Vytvoriť",lBack:"Späť",lWrong:"Nesprávne heslo.",lTaken:"Tento názov je už obsadený.",lNeed:"Zadaj názov profilu.",lShort:"Heslo musí mať aspoň 4 znaky.",lLocal:"Profily sú uložené len na tomto PC a nesynchronizujú sa online.",lDelAsk:"Odstrániť tento profil z tohto PC?",signOut:"Odhlásiť sa",lAdd:"+ Nový profil",friends:"Priatelia",fSub:"Četuj so svojimi priateľmi",fSetupT:"Pripoj sa k serveru priateľov",fSetupP:"Priatelia a čet bežia na online serveri. Zadaj jeho adresu a môžeš začať.",fServer:"Adresa servera",fSave:"Uložiť",fChange:"Zmeniť server",fUser:"Používateľské meno",fPw:"Heslo",fSignIn:"Prihlásiť sa",fCreate:"Vytvoriť účet",fAddPh:"Pridaj priateľa podľa mena",fAdd:"Pridať",fReq:"Žiadosti o priateľstvo",fSent:"Odoslané žiadosti",fNone:"Zatiaľ nemáš priateľov. Pridaj niekoho podľa používateľského mena.",fPick:"Vyber priateľa a začni četovať",fMsgPh:"Napíš správu…",fSend:"Odoslať",fOnline:"Online",fOffline:"Offline",fSigned:"Prihlásený ako {n}",fDisc:"Odpojiť",fNoMsg:"Zatiaľ žiadne správy. Pozdrav!",fNew:"Nová správa od {n}",fReqToast:"{n} ti poslal(a) žiadosť o priateľstvo",fRemAsk:"Odstrániť tohto priateľa a zmazať četu?",fSentOk:"Žiadosť odoslaná používateľovi {n}",fNowFriends:"Ty a {n} ste teraz priatelia",eOffline:"Server je nedostupný.",eCreds:"Nesprávne meno alebo heslo.",eTaken:"Toto meno je už obsadené.",eBadUser:"Meno musí mať 3–20 písmen, číslic, _ . alebo -",eShort:"Heslo musí mať aspoň 6 znakov.",eNoUser:"Používateľ s týmto menom neexistuje.",eSelf:"To si ty!",eAlready:"Už ste priatelia alebo je žiadosť odoslaná.",eRate:"Príliš veľa pokusov. Počkaj minútu.",eSlow:"Spomaľ trochu.",eGeneric:"Niečo sa pokazilo.",eUrl:"Zadaj platnú adresu, napr. https://example.com",fRemove:"Odstrániť priateľa",lNoProf:"Profil s týmto názvom neexistuje.",news:"Novinky",nSub:"Čo je nové v TFT Vault",nGot:"Rozumiem",nAll:"Otvoriť novinky",nNew:"NOVÉ",nVer:"Alfa 0.1",nPatchBtn:"Otvoriť poznámky k záplate",n_friends_t:"Priatelia a čet",n_friends_d:"Pridávaj priateľov podľa mena a četuj s nimi naživo. Uvidíš, kto je online, a dostaneš upozornenie na nové správy.",n_login_t:"Profily a prihlásenie",n_login_d:"Vytvor si profil s voliteľným heslom a ostaň prihlásený na tomto PC.",n_set18_t:"Sada 18: Enchanted Wilds",n_set18_d:"Prezeraj si všetkých 65 šampiónov, 35 vlastností, nové mechaniky a priebeh aktualizácií.",n_langs_t:"7 jazykov",n_langs_d:"Angličtina, slovenčina, čeština, turečtina, portugalčina, čínština a japončina. Prepni kedykoľvek tlačidlom so zemeguľou vľavo dole.",n_patch_t:"Záplata 18.4",n_patch_d:"Prečítaj si oficiálne poznámky k záplate 18.4 pre Teamfight Tactics."},
-  cs:{n:'Čeština',c:'CS',patch:'Poznámky k patchi 18.4 ↗',bp:'BATTLEPASS',bpOff:'PERMANENTKA VYPNUTÁ',home:'Domů',sets:'Všechny sady',view:'Zobrazit sadu',pick:'Vyber sadu',dname:'Zobrazované jméno',saved:'Uloženo v tomto PC.',back:'← Zpět',ov:'Přehled',ch:'Šampioni',tr:'Vlastnosti',coll:'Kolekce',collSub:'Tvoje TFT kolekce',collEmpty:'Zatím tu nic není. Tvoje kolekce se zobrazí tady.',comp:'Builder kompozic',compSub:'Naplánuj si své kompozice',compEmpty:'Zatím tu nic není. Builder kompozic brzy.',hist:'Historie zápasů',histSub:'Tvoje poslední zápasy',histEmpty:'Zatím tu nic není. Tvoje historie zápasů se zobrazí tady.',donate:'Podpořit',lang:'Jazyk',wTitle:"Vítej v TFT Vault",wSub:"Tvoje TFT kolekce na jednom místě",wAlpha:"Raná alfa: funkce kolekcí se teprve dokončují, takže počítej s chybami, chybějícími funkcemi a změnami.",wF1:"Měj přehled o celé své TFT kolekci",wF2:"Plánuj své kompozice v sekci Builder kompozic",wF3:"Prohlédni si své poslední hry v sekci Historie zápasů",wF4:"Objevuj sady jako Sada 18: Enchanted Wilds se šampiony, vlastnostmi a poznámkami k patchi",wHide:"Už nezobrazovat",wGo:"Jdeme na to",wLegal:"TFT Vault není podporován společností Riot Games. Teamfight Tactics a Riot Games jsou ochranné známky společnosti Riot Games, Inc.",lTitle:"Přihlášení",lSub:"Vyber profil a pokračuj",lNew:"Vytvořit profil",lName:"Název profilu",lPass:"Heslo (nepovinné)",lPassAsk:"Heslo",lRem:"Zapamatovat si mě na tomto PC",lIn:"Přihlásit se",lCreate:"Vytvořit",lBack:"Zpět",lWrong:"Nesprávné heslo.",lTaken:"Tento název je již obsazen.",lNeed:"Zadej název profilu.",lShort:"Heslo musí mít alespoň 4 znaky.",lLocal:"Profily jsou uloženy pouze v tomto PC a nesynchronizují se online.",lDelAsk:"Smazat tento profil z tohoto PC?",signOut:"Odhlásit se",lAdd:"+ Nový profil",friends:"Přátelé",fSub:"Chatuj se svými přáteli",fSetupT:"Připoj se k serveru přátel",fSetupP:"Přátelé a chat běží na online serveru. Zadej jeho adresu a můžeš začít.",fServer:"Adresa serveru",fSave:"Uložit",fChange:"Změnit server",fUser:"Uživatelské jméno",fPw:"Heslo",fSignIn:"Přihlásit se",fCreate:"Vytvořit účet",fAddPh:"Přidej přítele podle jména",fAdd:"Přidat",fReq:"Žádosti o přátelství",fSent:"Odeslané žádosti",fNone:"Zatím nemáš žádné přátele. Přidej někoho podle uživatelského jména.",fPick:"Vyber přítele a začni chatovat",fMsgPh:"Napiš zprávu…",fSend:"Odeslat",fOnline:"Online",fOffline:"Offline",fSigned:"Přihlášen jako {n}",fDisc:"Odpojit",fNoMsg:"Zatím žádné zprávy. Pozdrav!",fNew:"Nová zpráva od {n}",fReqToast:"{n} ti poslal(a) žádost o přátelství",fRemAsk:"Odebrat tohoto přítele a smazat chat?",fSentOk:"Žádost odeslána uživateli {n}",fNowFriends:"Ty a {n} jste nyní přátelé",eOffline:"Server není dostupný.",eCreds:"Špatné jméno nebo heslo.",eTaken:"Toto jméno je už obsazené.",eBadUser:"Jméno musí mít 3–20 písmen, číslic, _ . nebo -",eShort:"Heslo musí mít alespoň 6 znaků.",eNoUser:"Uživatel s tímto jménem neexistuje.",eSelf:"To jsi ty!",eAlready:"Už jste přátelé, nebo je žádost odeslána.",eRate:"Příliš mnoho pokusů. Počkej minutu.",eSlow:"Zpomal trochu.",eGeneric:"Něco se pokazilo.",eUrl:"Zadej platnou adresu, např. https://example.com",fRemove:"Odebrat přítele",lNoProf:"Profil s tímto názvem neexistuje.",news:"Novinky",nSub:"Co je nového v TFT Vault",nGot:"Rozumím",nAll:"Otevřít novinky",nNew:"NOVÉ",nVer:"Alfa 0.1",nPatchBtn:"Otevřít poznámky k patchi",n_friends_t:"Přátelé a chat",n_friends_d:"Přidávej přátele podle jména a chatuj s nimi živě. Uvidíš, kdo je online, a dostaneš upozornění na nové zprávy.",n_login_t:"Profily a přihlášení",n_login_d:"Vytvoř si profil s volitelným heslem a zůstaň přihlášen na tomto PC.",n_set18_t:"Sada 18: Enchanted Wilds",n_set18_d:"Prohlížej všech 65 šampionů, 35 vlastností, nové mechaniky a přehled aktualizací.",n_langs_t:"7 jazyků",n_langs_d:"Angličtina, slovenština, čeština, turečtina, portugalština, čínština a japonština. Přepni kdykoli tlačítkem se zeměkoulí vlevo dole.",n_patch_t:"Patch 18.4",n_patch_d:"Přečti si oficiální poznámky k patchi 18.4 pro Teamfight Tactics."},
-  tr:{n:'Türkçe',c:'TR',patch:'Yama Notları 18.4 ↗',bp:'SAVAŞ BİLETİ',bpOff:'BİLET DEVRE DIŞI',home:'Ana Sayfa',sets:'Tüm Setler',view:'Seti Gör',pick:'Bir set seç',dname:'Görünen ad',saved:'Bu bilgisayara kaydedildi.',back:'← Geri',ov:'Genel Bakış',ch:'Şampiyonlar',tr:'Özellikler',coll:'Koleksiyonlar',collSub:'TFT koleksiyonun',collEmpty:'Henüz burada bir şey yok. Koleksiyonların burada görünecek.',comp:'Kadro Oluşturucu',compSub:'Takım kadrolarını planla',compEmpty:'Henüz burada bir şey yok. Kadro oluşturucu yakında.',hist:'Maç Geçmişi',histSub:'Son maçların',histEmpty:'Henüz burada bir şey yok. Maç geçmişin burada görünecek.',donate:'Bağış Yap',lang:'Dil',wTitle:"TFT Vault'a hoş geldin",wSub:"TFT koleksiyonun tek bir yerde",wAlpha:"Erken alfa: koleksiyon özellikleri hâlâ geliştiriliyor, bu yüzden eksikler, hatalar ve değişiklikler olabilir.",wF1:"Tüm TFT koleksiyonunu takip et",wF2:"Kadro Oluşturucu ile takım kadrolarını planla",wF3:"Maç Geçmişi ile son oyunlarına geri dön",wF4:"Set 18: Enchanted Wilds gibi setleri şampiyonları, özellikleri ve yama notlarıyla keşfet",wHide:"Bir daha gösterme",wGo:"Hadi başlayalım",wLegal:"TFT Vault, Riot Games tarafından onaylanmamıştır. Teamfight Tactics ve Riot Games, Riot Games, Inc.'in ticari markalarıdır.",lTitle:"Giriş yap",lSub:"Devam etmek için bir profil seç",lNew:"Profil oluştur",lName:"Profil adı",lPass:"Şifre (isteğe bağlı)",lPassAsk:"Şifre",lRem:"Bu bilgisayarda beni hatırla",lIn:"Giriş yap",lCreate:"Oluştur",lBack:"Geri",lWrong:"Yanlış şifre.",lTaken:"Bu ad zaten kullanılıyor.",lNeed:"Bir profil adı gir.",lShort:"Şifre en az 4 karakter olmalı.",lLocal:"Profiller yalnızca bu bilgisayarda saklanır ve çevrimiçi senkronize edilmez.",lDelAsk:"Bu profil bu bilgisayardan silinsin mi?",signOut:"Çıkış yap",lAdd:"+ Yeni profil",friends:"Arkadaşlar",fSub:"Arkadaşlarınla sohbet et",fSetupT:"Arkadaş sunucusuna bağlan",fSetupP:"Arkadaşlar ve sohbet çevrimiçi bir sunucuda çalışır. Başlamak için adresini gir.",fServer:"Sunucu adresi",fSave:"Kaydet",fChange:"Sunucuyu değiştir",fUser:"Kullanıcı adı",fPw:"Şifre",fSignIn:"Giriş yap",fCreate:"Hesap oluştur",fAddPh:"Kullanıcı adıyla arkadaş ekle",fAdd:"Ekle",fReq:"Arkadaşlık istekleri",fSent:"Gönderilen istekler",fNone:"Henüz arkadaşın yok. Kullanıcı adıyla birini ekle.",fPick:"Sohbet etmek için bir arkadaş seç",fMsgPh:"Bir mesaj yaz…",fSend:"Gönder",fOnline:"Çevrimiçi",fOffline:"Çevrimdışı",fSigned:"{n} olarak giriş yapıldı",fDisc:"Bağlantıyı kes",fNoMsg:"Henüz mesaj yok. Merhaba de!",fNew:"{n} kişisinden yeni mesaj",fReqToast:"{n} sana arkadaşlık isteği gönderdi",fRemAsk:"Bu arkadaş silinsin ve sohbet temizlensin mi?",fSentOk:"{n} kişisine istek gönderildi",fNowFriends:"Sen ve {n} artık arkadaşsınız",eOffline:"Sunucuya ulaşılamıyor.",eCreds:"Kullanıcı adı veya şifre yanlış.",eTaken:"Bu kullanıcı adı alınmış.",eBadUser:"Kullanıcı adı 3–20 harf, rakam, _ . veya - içermeli",eShort:"Şifre en az 6 karakter olmalı.",eNoUser:"Bu adla bir kullanıcı yok.",eSelf:"Bu sensin!",eAlready:"Zaten arkadaşsınız ya da istek gönderilmiş.",eRate:"Çok fazla deneme. Bir dakika bekle.",eSlow:"Biraz yavaşla.",eGeneric:"Bir şeyler ters gitti.",eUrl:"Geçerli bir adres gir, örn. https://example.com",fRemove:"Arkadaşı sil",lNoProf:"Bu adla bir profil yok.",news:"Haberler",nSub:"TFT Vault'ta neler yeni",nGot:"Anladım",nAll:"Haberleri aç",nNew:"YENİ",nVer:"Alfa 0.1",nPatchBtn:"Yama notlarını aç",n_friends_t:"Arkadaşlar ve sohbet",n_friends_d:"Kullanıcı adıyla arkadaş ekle ve onlarla canlı sohbet et. Kimin çevrimiçi olduğunu gör, yeni mesajlardan haberdar ol.",n_login_t:"Profiller ve giriş",n_login_d:"İsteğe bağlı şifreli bir profil oluştur ve bu bilgisayarda oturumunu açık tut.",n_set18_t:"Set 18: Enchanted Wilds",n_set18_d:"65 şampiyonun tamamına, 35 özelliğe, yeni mekaniklere ve yama zaman çizelgesine göz at.",n_langs_t:"7 dil",n_langs_d:"İngilizce, Slovakça, Çekçe, Türkçe, Portekizce, Çince ve Japonca. Sol alttaki dünya düğmesiyle istediğin zaman değiştir.",n_patch_t:"Yama 18.4",n_patch_d:"Teamfight Tactics 18.4 resmi yama notlarını oku."},
-  pt:{n:'Português',c:'PT',patch:'Notas da Atualização 18.4 ↗',bp:'PASSE DE BATALHA',bpOff:'PASSE DESATIVADO',home:'Início',sets:'Todos os sets',view:'Ver set',pick:'Escolhe um set',dname:'Nome de exibição',saved:'Guardado neste PC.',back:'← Voltar',ov:'Visão geral',ch:'Campeões',tr:'Traços',coll:'Coleções',collSub:'A tua coleção TFT',collEmpty:'Ainda não há nada aqui. As tuas coleções vão aparecer aqui.',comp:'Construtor de Comps',compSub:'Planeia as tuas comps',compEmpty:'Ainda não há nada aqui. O construtor de comps chega em breve.',hist:'Histórico de Partidas',histSub:'Os teus jogos recentes',histEmpty:'Ainda não há nada aqui. O teu histórico de partidas vai aparecer aqui.',donate:'Doar',lang:'Idioma',wTitle:"Bem-vindo ao TFT Vault",wSub:"A tua coleção TFT num só lugar",wAlpha:"Alfa inicial: as funcionalidades de coleção ainda estão a ser construídas, por isso conta com arestas por limar, funcionalidades em falta e mudanças.",wF1:"Acompanha toda a tua coleção TFT",wF2:"Planeia as tuas comps no Construtor de Comps",wF3:"Revê as tuas últimas partidas no Histórico de Partidas",wF4:"Explora sets como o Set 18: Enchanted Wilds, com campeões, traços e notas da atualização",wHide:"Não mostrar novamente",wGo:"Vamos lá",wLegal:"O TFT Vault não é apoiado pela Riot Games. Teamfight Tactics e Riot Games são marcas registadas da Riot Games, Inc.",lTitle:"Iniciar sessão",lSub:"Escolhe um perfil para continuar",lNew:"Criar perfil",lName:"Nome do perfil",lPass:"Palavra-passe (opcional)",lPassAsk:"Palavra-passe",lRem:"Lembrar-me neste PC",lIn:"Iniciar sessão",lCreate:"Criar",lBack:"Voltar",lWrong:"Palavra-passe incorreta.",lTaken:"Esse nome já está em uso.",lNeed:"Introduz um nome de perfil.",lShort:"A palavra-passe deve ter pelo menos 4 caracteres.",lLocal:"Os perfis são guardados apenas neste PC e não são sincronizados online.",lDelAsk:"Eliminar este perfil deste PC?",signOut:"Terminar sessão",lAdd:"+ Novo perfil",friends:"Amigos",fSub:"Conversa com os teus amigos",fSetupT:"Liga-te ao servidor de amigos",fSetupP:"Os amigos e o chat funcionam num servidor online. Introduz o endereço para começar.",fServer:"Endereço do servidor",fSave:"Guardar",fChange:"Mudar de servidor",fUser:"Nome de utilizador",fPw:"Palavra-passe",fSignIn:"Iniciar sessão",fCreate:"Criar conta",fAddPh:"Adiciona um amigo pelo nome de utilizador",fAdd:"Adicionar",fReq:"Pedidos de amizade",fSent:"Pedidos enviados",fNone:"Ainda não tens amigos. Adiciona alguém pelo nome de utilizador.",fPick:"Escolhe um amigo para começar a conversar",fMsgPh:"Escreve uma mensagem…",fSend:"Enviar",fOnline:"Online",fOffline:"Offline",fSigned:"Sessão iniciada como {n}",fDisc:"Desligar",fNoMsg:"Ainda sem mensagens. Diz olá!",fNew:"Nova mensagem de {n}",fReqToast:"{n} enviou-te um pedido de amizade",fRemAsk:"Remover este amigo e apagar a conversa?",fSentOk:"Pedido enviado a {n}",fNowFriends:"Tu e {n} são agora amigos",eOffline:"Não é possível contactar o servidor.",eCreds:"Nome de utilizador ou palavra-passe errados.",eTaken:"Esse nome de utilizador já existe.",eBadUser:"O nome deve ter 3–20 letras, números, _ . ou -",eShort:"A palavra-passe deve ter pelo menos 6 caracteres.",eNoUser:"Não existe nenhum utilizador com esse nome.",eSelf:"Esse és tu!",eAlready:"Já são amigos, ou o pedido já foi enviado.",eRate:"Demasiadas tentativas. Espera um minuto.",eSlow:"Mais devagar.",eGeneric:"Algo correu mal.",eUrl:"Introduz um endereço válido, por ex. https://example.com",fRemove:"Remover amigo",lNoProf:"Não existe nenhum perfil com esse nome.",news:"Novidades",nSub:"O que há de novo no TFT Vault",nGot:"Entendido",nAll:"Abrir novidades",nNew:"NOVO",nVer:"Alfa 0.1",nPatchBtn:"Abrir notas da atualização",n_friends_t:"Amigos e chat",n_friends_d:"Adiciona amigos pelo nome de utilizador e conversa com eles em direto. Vê quem está online e recebe avisos de novas mensagens.",n_login_t:"Perfis e início de sessão",n_login_d:"Cria um perfil com palavra-passe opcional e mantém a sessão iniciada neste PC.",n_set18_t:"Set 18: Enchanted Wilds",n_set18_d:"Explora todos os 65 campeões, 35 traços, as novas mecânicas e a linha do tempo de patches.",n_langs_t:"7 idiomas",n_langs_d:"Inglês, eslovaco, checo, turco, português, chinês e japonês. Muda quando quiseres com o botão do globo no canto inferior esquerdo.",n_patch_t:"Patch 18.4",n_patch_d:"Lê as notas oficiais da atualização 18.4 do Teamfight Tactics."},
-  zh:{n:'中文',c:'中',patch:'18.4 版本说明 ↗',bp:'战斗通行证',bpOff:'通行证已禁用',home:'主页',sets:'所有赛季',view:'查看赛季',pick:'选择一个赛季',dname:'显示名称',saved:'已保存在此电脑。',back:'← 返回',ov:'概览',ch:'英雄',tr:'羁绊',coll:'收藏',collSub:'你的 TFT 收藏',collEmpty:'这里暂时没有内容。你的收藏将显示在这里。',comp:'阵容构建器',compSub:'规划你的阵容',compEmpty:'这里暂时没有内容。阵容构建器即将推出。',hist:'对战记录',histSub:'你最近的对局',histEmpty:'这里暂时没有内容。你的对战记录将显示在这里。',donate:'捐赠',lang:'语言',wTitle:"欢迎使用 TFT Vault",wSub:"你的 TFT 收藏，尽在一处",wAlpha:"早期 Alpha 版本：收藏功能仍在开发中，可能会有不完善之处、缺失功能和变动。",wF1:"记录并管理你的全部 TFT 收藏",wF2:"在阵容构建器中规划你的阵容",wF3:"在对战记录中回顾你最近的对局",wF4:"探索第 18 赛季 Enchanted Wilds 等赛季，查看英雄、羁绊和更新说明",wHide:"不再显示",wGo:"开始吧",wLegal:"TFT Vault 未获 Riot Games 认可。云顶之弈和 Riot Games 是 Riot Games, Inc. 的商标。",lTitle:"登录",lSub:"选择一个档案以继续",lNew:"创建档案",lName:"档案名称",lPass:"密码（可选）",lPassAsk:"密码",lRem:"在此电脑上记住我",lIn:"登录",lCreate:"创建",lBack:"返回",lWrong:"密码错误。",lTaken:"该名称已被使用。",lNeed:"请输入档案名称。",lShort:"密码至少需要 4 个字符。",lLocal:"档案仅保存在此电脑上，不会在线同步。",lDelAsk:"要从此电脑删除这个档案吗？",signOut:"退出登录",lAdd:"+ 新建档案",friends:"好友",fSub:"与好友聊天",fSetupT:"连接好友服务器",fSetupP:"好友和聊天运行在在线服务器上。输入服务器地址即可开始。",fServer:"服务器地址",fSave:"保存",fChange:"更换服务器",fUser:"用户名",fPw:"密码",fSignIn:"登录",fCreate:"创建账号",fAddPh:"通过用户名添加好友",fAdd:"添加",fReq:"好友请求",fSent:"已发送的请求",fNone:"还没有好友。通过用户名添加一位吧。",fPick:"选择一位好友开始聊天",fMsgPh:"输入消息…",fSend:"发送",fOnline:"在线",fOffline:"离线",fSigned:"已登录为 {n}",fDisc:"断开连接",fNoMsg:"还没有消息，打个招呼吧！",fNew:"来自 {n} 的新消息",fReqToast:"{n} 向你发送了好友请求",fRemAsk:"移除该好友并删除聊天记录？",fSentOk:"已向 {n} 发送请求",fNowFriends:"你和 {n} 现在是好友了",eOffline:"无法连接到服务器。",eCreds:"用户名或密码错误。",eTaken:"该用户名已被占用。",eBadUser:"用户名需为 3–20 个字母、数字、_ . 或 -",eShort:"密码至少需要 6 个字符。",eNoUser:"没有该名称的用户。",eSelf:"这是你自己！",eAlready:"你们已是好友，或请求已发送。",eRate:"尝试次数过多，请稍等一分钟。",eSlow:"请慢一点。",eGeneric:"出了点问题。",eUrl:"请输入有效地址，例如 https://example.com",fRemove:"移除好友",lNoProf:"没有该名称的档案。",news:"新闻",nSub:"TFT Vault 有什么新内容",nGot:"知道了",nAll:"打开新闻",nNew:"新",nVer:"Alpha 0.1",nPatchBtn:"打开更新说明",n_friends_t:"好友与聊天",n_friends_d:"通过用户名添加好友并实时聊天。查看谁在线，并及时收到新消息通知。",n_login_t:"档案与登录",n_login_d:"创建带可选密码的档案，并在此电脑上保持登录。",n_set18_t:"第 18 赛季：Enchanted Wilds",n_set18_d:"浏览全部 65 名英雄、35 个羁绊、新机制和版本时间线。",n_langs_t:"7 种语言",n_langs_d:"英语、斯洛伐克语、捷克语、土耳其语、葡萄牙语、中文和日语。随时通过左下角的地球按钮切换。",n_patch_t:"版本 18.4",n_patch_d:"阅读云顶之弈 18.4 官方更新说明。"},
-  ja:{n:'日本語',c:'日',patch:'パッチノート 18.4 ↗',bp:'バトルパス',bpOff:'パス無効',home:'ホーム',sets:'すべてのセット',view:'セットを見る',pick:'セットを選択',dname:'表示名',saved:'このPCに保存されました。',back:'← 戻る',ov:'概要',ch:'チャンピオン',tr:'特性',coll:'コレクション',collSub:'あなたのTFTコレクション',collEmpty:'まだ何もありません。コレクションはここに表示されます。',comp:'コンプビルダー',compSub:'チーム構成を計画しよう',compEmpty:'まだ何もありません。コンプビルダーは近日公開です。',hist:'対戦履歴',histSub:'最近の試合',histEmpty:'まだ何もありません。対戦履歴はここに表示されます。',donate:'寄付',lang:'言語',wTitle:"TFT Vaultへようこそ",wSub:"あなたのTFTコレクションを一か所に",wAlpha:"初期アルファ版：コレクション機能は開発中のため、不具合や未実装の機能、変更が発生する場合があります。",wF1:"TFTコレクションをまとめて管理",wF2:"コンプビルダーでチーム構成を計画",wF3:"対戦履歴で最近の試合を振り返る",wF4:"セット18「Enchanted Wilds」などのセットを、チャンピオン・シナジー・パッチノートとともに探索",wHide:"今後表示しない",wGo:"始めよう",wLegal:"TFT VaultはRiot Gamesの公認を受けていません。チームファイト タクティクスおよびRiot GamesはRiot Games, Inc.の商標です。",lTitle:"ログイン",lSub:"続けるにはプロフィールを選択",lNew:"プロフィールを作成",lName:"プロフィール名",lPass:"パスワード（任意）",lPassAsk:"パスワード",lRem:"このPCでログイン状態を保持",lIn:"ログイン",lCreate:"作成",lBack:"戻る",lWrong:"パスワードが違います。",lTaken:"その名前はすでに使われています。",lNeed:"プロフィール名を入力してください。",lShort:"パスワードは4文字以上にしてください。",lLocal:"プロフィールはこのPCにのみ保存され、オンライン同期されません。",lDelAsk:"このPCからこのプロフィールを削除しますか？",signOut:"ログアウト",lAdd:"+ 新規プロフィール",friends:"フレンド",fSub:"フレンドとチャット",fSetupT:"フレンドサーバーに接続",fSetupP:"フレンドとチャットはオンラインサーバーで動作します。アドレスを入力して始めましょう。",fServer:"サーバーアドレス",fSave:"保存",fChange:"サーバーを変更",fUser:"ユーザー名",fPw:"パスワード",fSignIn:"ログイン",fCreate:"アカウント作成",fAddPh:"ユーザー名でフレンドを追加",fAdd:"追加",fReq:"フレンドリクエスト",fSent:"送信済みリクエスト",fNone:"まだフレンドがいません。ユーザー名で追加しましょう。",fPick:"フレンドを選んでチャットを始めよう",fMsgPh:"メッセージを入力…",fSend:"送信",fOnline:"オンライン",fOffline:"オフライン",fSigned:"{n} としてログイン中",fDisc:"切断",fNoMsg:"まだメッセージはありません。挨拶しよう！",fNew:"{n} から新着メッセージ",fReqToast:"{n} からフレンドリクエストが届きました",fRemAsk:"このフレンドを削除し、チャットも消去しますか？",fSentOk:"{n} にリクエストを送信しました",fNowFriends:"あなたと {n} はフレンドになりました",eOffline:"サーバーに接続できません。",eCreds:"ユーザー名またはパスワードが違います。",eTaken:"そのユーザー名は使用されています。",eBadUser:"ユーザー名は3〜20文字の英数字、_ . または -",eShort:"パスワードは6文字以上にしてください。",eNoUser:"その名前のユーザーはいません。",eSelf:"それはあなたです！",eAlready:"すでにフレンドか、リクエスト送信済みです。",eRate:"試行回数が多すぎます。1分お待ちください。",eSlow:"少しゆっくりお願いします。",eGeneric:"問題が発生しました。",eUrl:"有効なアドレスを入力してください（例: https://example.com）",fRemove:"フレンドを削除",lNoProf:"その名前のプロフィールはありません。",news:"ニュース",nSub:"TFT Vaultの新着情報",nGot:"OK",nAll:"ニュースを開く",nNew:"新",nVer:"アルファ 0.1",nPatchBtn:"パッチノートを開く",n_friends_t:"フレンドとチャット",n_friends_d:"ユーザー名でフレンドを追加し、リアルタイムでチャット。誰がオンラインか確認でき、新着メッセージも通知されます。",n_login_t:"プロフィールとログイン",n_login_d:"任意のパスワード付きでプロフィールを作成し、このPCでログイン状態を保てます。",n_set18_t:"セット18: Enchanted Wilds",n_set18_d:"全65体のチャンピオン、35のシナジー、新メカニクス、パッチ履歴を閲覧できます。",n_langs_t:"7言語対応",n_langs_d:"英語、スロバキア語、チェコ語、トルコ語、ポルトガル語、中国語、日本語。左下の地球ボタンでいつでも切り替えられます。",n_patch_t:"パッチ 18.4",n_patch_d:"チームファイト タクティクス 18.4 の公式パッチノートを読もう。"}
+  en:{n:'English',c:'EN',patch:'Patch Notes 18.4 ↗',bp:'BATTLEPASS',bpOff:'PASS DISABLED',home:'Home',sets:'All sets',view:'View set',pick:'Pick a set',dname:'Display name',saved:'Saved on this PC.',back:'← Back',ov:'Overview',ch:'Champions',tr:'Traits',coll:'Collections',collSub:'Your TFT collection',collEmpty:'Nothing here yet. Your collections will show up here.',comp:'Comp Builder',compSub:'Plan your team comps',compEmpty:'Nothing here yet. The comp builder is coming soon.',hist:'Match History',histSub:'Your recent games',histEmpty:'Nothing here yet. Your match history will show up here.',donate:'Donate',friends:'Friends',fph:'Add friend (Name#TAG)',fempty:'No friends yet. Add one above.',fdup:'Already in your friends',frem:'Remove',lang:'Language'},
+  sk:{n:'Slovenčina',c:'SK',patch:'Poznámky k záplate 18.4 ↗',bp:'BATTLEPASS',bpOff:'PERMANENTKA VYPNUTÁ',home:'Domov',sets:'Všetky sady',view:'Zobraziť sadu',pick:'Vyber si sadu',dname:'Zobrazované meno',saved:'Uložené na tomto PC.',back:'← Späť',ov:'Prehľad',ch:'Šampióni',tr:'Vlastnosti',coll:'Kolekcie',collSub:'Tvoja TFT kolekcia',collEmpty:'Zatiaľ tu nič nie je. Tvoje kolekcie sa zobrazia tu.',comp:'Zostavovač kompozícií',compSub:'Naplánuj si svoje kompozície',compEmpty:'Zatiaľ tu nič nie je. Zostavovač kompozícií už čoskoro.',hist:'História zápasov',histSub:'Tvoje posledné zápasy',histEmpty:'Zatiaľ tu nič nie je. Tvoja história zápasov sa zobrazí tu.',donate:'Podporiť',friends:'Priatelia',fph:'Pridať priateľa (Meno#TAG)',fempty:'Zatiaľ žiadni priatelia. Pridaj niekoho vyššie.',fdup:'Už je medzi tvojimi priateľmi',frem:'Odstrániť',lang:'Jazyk'},
+  cs:{n:'Čeština',c:'CS',patch:'Poznámky k patchi 18.4 ↗',bp:'BATTLEPASS',bpOff:'PERMANENTKA VYPNUTÁ',home:'Domů',sets:'Všechny sady',view:'Zobrazit sadu',pick:'Vyber sadu',dname:'Zobrazované jméno',saved:'Uloženo v tomto PC.',back:'← Zpět',ov:'Přehled',ch:'Šampioni',tr:'Vlastnosti',coll:'Kolekce',collSub:'Tvoje TFT kolekce',collEmpty:'Zatím tu nic není. Tvoje kolekce se zobrazí tady.',comp:'Builder kompozic',compSub:'Naplánuj si své kompozice',compEmpty:'Zatím tu nic není. Builder kompozic brzy.',hist:'Historie zápasů',histSub:'Tvoje poslední zápasy',histEmpty:'Zatím tu nic není. Tvoje historie zápasů se zobrazí tady.',donate:'Podpořit',friends:'Přátelé',fph:'Přidat přítele (Jméno#TAG)',fempty:'Zatím žádní přátelé. Přidej někoho výše.',fdup:'Už je mezi tvými přáteli',frem:'Odebrat',lang:'Jazyk'},
+  tr:{n:'Türkçe',c:'TR',patch:'Yama Notları 18.4 ↗',bp:'SAVAŞ BİLETİ',bpOff:'BİLET DEVRE DIŞI',home:'Ana Sayfa',sets:'Tüm Setler',view:'Seti Gör',pick:'Bir set seç',dname:'Görünen ad',saved:'Bu bilgisayara kaydedildi.',back:'← Geri',ov:'Genel Bakış',ch:'Şampiyonlar',tr:'Özellikler',coll:'Koleksiyonlar',collSub:'TFT koleksiyonun',collEmpty:'Henüz burada bir şey yok. Koleksiyonların burada görünecek.',comp:'Kadro Oluşturucu',compSub:'Takım kadrolarını planla',compEmpty:'Henüz burada bir şey yok. Kadro oluşturucu yakında.',hist:'Maç Geçmişi',histSub:'Son maçların',histEmpty:'Henüz burada bir şey yok. Maç geçmişin burada görünecek.',donate:'Bağış Yap',friends:'Arkadaşlar',fph:'Arkadaş ekle (Ad#TAG)',fempty:'Henüz arkadaş yok. Yukarıdan ekle.',fdup:'Zaten arkadaş listende',frem:'Kaldır',lang:'Dil'},
+  pt:{n:'Português',c:'PT',patch:'Notas da Atualização 18.4 ↗',bp:'PASSE DE BATALHA',bpOff:'PASSE DESATIVADO',home:'Início',sets:'Todos os sets',view:'Ver set',pick:'Escolhe um set',dname:'Nome de exibição',saved:'Guardado neste PC.',back:'← Voltar',ov:'Visão geral',ch:'Campeões',tr:'Traços',coll:'Coleções',collSub:'A tua coleção TFT',collEmpty:'Ainda não há nada aqui. As tuas coleções vão aparecer aqui.',comp:'Construtor de Comps',compSub:'Planeia as tuas comps',compEmpty:'Ainda não há nada aqui. O construtor de comps chega em breve.',hist:'Histórico de Partidas',histSub:'Os teus jogos recentes',histEmpty:'Ainda não há nada aqui. O teu histórico de partidas vai aparecer aqui.',donate:'Doar',friends:'Amigos',fph:'Adicionar amigo (Nome#TAG)',fempty:'Ainda sem amigos. Adiciona um acima.',fdup:'Já está nos teus amigos',frem:'Remover',lang:'Idioma'},
+  zh:{n:'中文',c:'中',patch:'18.4 版本说明 ↗',bp:'战斗通行证',bpOff:'通行证已禁用',home:'主页',sets:'所有赛季',view:'查看赛季',pick:'选择一个赛季',dname:'显示名称',saved:'已保存在此电脑。',back:'← 返回',ov:'概览',ch:'英雄',tr:'羁绊',coll:'收藏',collSub:'你的 TFT 收藏',collEmpty:'这里暂时没有内容。你的收藏将显示在这里。',comp:'阵容构建器',compSub:'规划你的阵容',compEmpty:'这里暂时没有内容。阵容构建器即将推出。',hist:'对战记录',histSub:'你最近的对局',histEmpty:'这里暂时没有内容。你的对战记录将显示在这里。',donate:'捐赠',friends:'好友',fph:'添加好友（名称#TAG）',fempty:'还没有好友。请在上方添加。',fdup:'已在你的好友列表中',frem:'移除',lang:'语言'},
+  ja:{n:'日本語',c:'日',patch:'パッチノート 18.4 ↗',bp:'バトルパス',bpOff:'パス無効',home:'ホーム',sets:'すべてのセット',view:'セットを見る',pick:'セットを選択',dname:'表示名',saved:'このPCに保存されました。',back:'← 戻る',ov:'概要',ch:'チャンピオン',tr:'特性',coll:'コレクション',collSub:'あなたのTFTコレクション',collEmpty:'まだ何もありません。コレクションはここに表示されます。',comp:'コンプビルダー',compSub:'チーム構成を計画しよう',compEmpty:'まだ何もありません。コンプビルダーは近日公開です。',hist:'対戦履歴',histSub:'最近の試合',histEmpty:'まだ何もありません。対戦履歴はここに表示されます。',donate:'寄付',friends:'フレンド',fph:'フレンドを追加（名前#TAG）',fempty:'まだフレンドがいません。上から追加してください。',fdup:'すでにフレンドです',frem:'削除',lang:'言語'}
 };
 const PATCH_URL = 'https://teamfighttactics.leagueoflegends.com/en-gb/news/game-updates/teamfight-tactics-patch-18-4/';
-let CUR_LANG = 'en';
-const tt = k => (I18N[CUR_LANG] && I18N[CUR_LANG][k]) || I18N.en[k] || k;
 function setLang(l) {
   if (!I18N[l]) l = 'en';
-  CUR_LANG = l;
   const T = I18N[l];
   document.querySelectorAll('[data-i18n]').forEach(el => el.textContent = T[el.dataset.i18n]);
   document.querySelectorAll('[data-i18n-title]').forEach(el => { el.title = T[el.dataset.i18nTitle]; el.setAttribute('aria-label', T[el.dataset.i18nTitle]); });
   $('lcode').textContent = T.c; $('lbtn').setAttribute('aria-label', T.lang); $('lbtn').title = T.lang;
   document.querySelectorAll('#lmenu li').forEach(li => li.classList.toggle('on', li.dataset.l === l));
+  document.querySelectorAll('[data-i18n-ph]').forEach(el => el.placeholder = T[el.dataset.i18nPh]);
   document.documentElement.lang = l;
+  renderFriends();
   store.set('tft.lang', l);
-  if (window.__lgRefresh) window.__lgRefresh();
 }
 $('lbtn').onclick = e => { e.stopPropagation(); $('lmenu').hidden = !$('lmenu').hidden; $('lbtn').classList.toggle('on', !$('lmenu').hidden); };
-$('lmenu').onclick = e => { const l = e.target.dataset.l; if (l) { setLang(l); $('lmenu').hidden = true; $('lbtn').classList.remove('on'); } e.stopPropagation(); };
+$('lmenu').onclick = e => { const li = e.target.closest('li'), l = li && li.dataset.l; if (l) { setLang(l); $('lmenu').hidden = true; $('lbtn').classList.remove('on'); } e.stopPropagation(); };
 $('lmenu').onkeydown = e => { if (e.key === 'Enter' && e.target.dataset.l) e.target.click(); };
 document.addEventListener('click', () => { $('lmenu').hidden = true; $('lbtn').classList.remove('on'); });
 $('patchNotes').onclick = e => { e.preventDefault(); try { window.runtime.BrowserOpenURL(PATCH_URL); } catch { window.open(PATCH_URL, '_blank'); } };
@@ -750,398 +630,6 @@ $('donate').onclick = () => {
   try { window.runtime.BrowserOpenURL(DONATE_URL); } catch { window.open(DONATE_URL, '_blank'); }
 };
 setLang(store.get('tft.lang') || 'en');
-
-// ---------- Welcome popup (shown on launch) ----------
-const APP_VERSION = '0.1';
-const wm = $('welcome');
-function showWelcome() { wm.hidden = false; requestAnimationFrame(() => wm.classList.add('on')); $('wGo').focus(); }
-function closeWelcome() { if ($('wHide').checked) store.set('tft.welcome', APP_VERSION); wm.classList.remove('on'); setTimeout(() => wm.hidden = true, 300); maybeNews(); }
-$('wGo').onclick = closeWelcome;
-const maybeWelcome = () => { if (store.get('tft.welcome') !== APP_VERSION) setTimeout(showWelcome, 400); else maybeNews(); };
-
-// ---------- Friends & chat (needs the online server in /server) ----------
-// After you deploy the server, put its address here so nobody has to type it, e.g. 'https://tftvault.fly.dev'
-const DEFAULT_SERVER = '';
-const OL = { me: null, friends: [], incoming: [], outgoing: [], sel: null, msgs: {}, ac: null, editServer: false };
-const olUrl = () => ((store.get('tft.server') || DEFAULT_SERVER) + '').trim().replace(/\/+$/, '');
-const olTok = () => CUR ? pstore.get('token') : null;
-const lc = s => (s || '').toLowerCase();
-const tf = (k, n) => tt(k).replace('{n}', n);
-const ERRKEY = { bad_username: 'eBadUser', short_password: 'eShort', taken: 'eTaken', bad_creds: 'eCreds', no_user: 'eNoUser', self: 'eSelf', already: 'eAlready', rate: 'eRate', slow_down: 'eSlow', offline: 'eOffline' };
-const errText = e => tt(ERRKEY[e && e.code] || 'eGeneric');
-const friendsOpen = () => !$('friends').hidden;
-
-async function olApi(path, body, auth = true) {
-  const headers = {};
-  if (body !== undefined) headers['Content-Type'] = 'application/json';
-  if (auth) headers.Authorization = 'Bearer ' + olTok();
-  let res;
-  try { res = await fetch(olUrl() + path, { method: body === undefined ? 'GET' : 'POST', headers, body: body === undefined ? undefined : JSON.stringify(body) }); }
-  catch { throw Object.assign(new Error('offline'), { code: 'offline' }); }
-  let data = null; try { data = await res.json(); } catch {}
-  if (!res.ok) {
-    const code = (data && data.error) || 'http';
-    if (res.status === 401 && auth) olDisconnect();
-    throw Object.assign(new Error(code), { code, status: res.status });
-  }
-  return data;
-}
-
-function olBadge() {
-  const n = OL.friends.reduce((a, f) => a + (f.unread || 0), 0) + OL.incoming.length;
-  $('fbadge').hidden = !n; $('fbadge').textContent = n > 99 ? '99+' : n;
-}
-async function olRefresh() {
-  let s; try { s = await olApi('/api/state'); } catch { return; }
-  Object.assign(OL, { me: s.me, friends: s.friends, incoming: s.incoming, outgoing: s.outgoing });
-  const gone = OL.sel && !OL.friends.some(f => lc(f.username) === lc(OL.sel));
-  if (gone) OL.sel = null;
-  olBadge();
-  if (friendsOpen() && $('fList')) { paintList(); if (gone) paintChat(); else paintHead(); }
-}
-function olStart() { olStop(); if (olUrl() && olTok()) { olRefresh(); olStream(); } }
-function olStop() { if (OL.ac) OL.ac.abort(); OL.ac = null; }
-function olReset() { olStop(); Object.assign(OL, { me: null, friends: [], incoming: [], outgoing: [], sel: null, msgs: {} }); olBadge(); }
-function olDisconnect() { olReset(); if (CUR) pstore.set('token', ''); if (friendsOpen()) renderFriends(); }
-
-async function olStream() {
-  const ac = new AbortController(); OL.ac = ac;
-  let first = true;
-  while (!ac.signal.aborted) {
-    try {
-      const res = await fetch(olUrl() + '/api/stream', { headers: { Authorization: 'Bearer ' + olTok() }, signal: ac.signal });
-      if (res.status === 401) { olDisconnect(); return; }
-      if (!first) olRefresh();            // catch up on anything missed while offline
-      first = false;
-      const reader = res.body.getReader(), dec = new TextDecoder(); let buf = '';
-      for (;;) {
-        const { value, done } = await reader.read(); if (done) break;
-        buf += dec.decode(value, { stream: true });
-        let i; while ((i = buf.indexOf('\n\n')) >= 0) {
-          const chunk = buf.slice(0, i); buf = buf.slice(i + 2);
-          const line = chunk.split('\n').find(l => l.startsWith('data: '));
-          if (line) { try { olEvent(JSON.parse(line.slice(6))); } catch {} }
-        }
-      }
-    } catch { if (ac.signal.aborted) return; }
-    if (ac.signal.aborted) return;
-    await new Promise(r => setTimeout(r, 3000));
-  }
-}
-
-function olEvent(ev) {
-  if (ev.t === 'message') {
-    const m = ev.msg, mine = lc(m.from) === lc(OL.me), other = mine ? m.to : m.from;
-    addMsg(m);
-    if (!mine) {
-      if (friendsOpen() && lc(OL.sel) === lc(other)) markRead(other);
-      else {
-        const f = OL.friends.find(x => lc(x.username) === lc(other)); if (f) f.unread = (f.unread || 0) + 1;
-        olBadge(); if (friendsOpen() && $('fList')) paintList();
-        toast(tf('fNew', other));
-      }
-    }
-  } else if (ev.t === 'friend_request') { toast(tf('fReqToast', ev.from)); olRefresh(); }
-  else if (ev.t === 'friend_update') olRefresh();
-  else if (ev.t === 'presence') {
-    const f = OL.friends.find(x => lc(x.username) === lc(ev.user)); if (f) { f.online = ev.online; if (friendsOpen() && $('fList')) { paintList(); paintHead(); } }
-  }
-}
-
-// ----- messages -----
-const fmtTime = ts => new Date(ts).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-function bubble(m) {
-  const b = mk('div', 'fm ' + (lc(m.from) === lc(OL.me) ? 'me' : 'them'), m.text);
-  b.append(mk('small', null, fmtTime(m.ts))); return b;
-}
-function addMsg(m) {
-  const other = lc(m.from) === lc(OL.me) ? m.to : m.from, arr = OL.msgs[lc(other)];
-  if (!arr || arr.some(x => x.id === m.id)) return;
-  arr.push(m);
-  if (lc(OL.sel) === lc(other) && $('fMsgs')) { const box = $('fMsgs'); const e = box.querySelector('.fempty'); if (e) e.remove(); box.append(bubble(m)); box.scrollTop = box.scrollHeight; }
-}
-function drawMsgs() {
-  const box = $('fMsgs'); if (!box) return; box.innerHTML = '';
-  const arr = OL.msgs[lc(OL.sel)] || [];
-  if (!arr.length) box.append(mk('div', 'fempty', tt('fNoMsg'))); else arr.forEach(m => box.append(bubble(m)));
-  box.scrollTop = box.scrollHeight;
-}
-function markRead(name) {
-  const f = OL.friends.find(x => lc(x.username) === lc(name));
-  if (f && f.unread) { f.unread = 0; olBadge(); if ($('fList')) paintList(); olApi('/api/read', { with: name }).catch(() => {}); }
-}
-async function sendMsg() {
-  const inp = $('fIn'), text = inp.value.trim(); if (!text || !OL.sel) return;
-  inp.value = '';
-  try { addMsg(await olApi('/api/messages', { to: OL.sel, text })); }
-  catch (e) { inp.value = text; toast(errText(e)); }
-}
-
-// ----- rendering -----
-const avatar = (name, on) => { const a = mk('div', 'fav' + (on ? ' on' : ''), initial(name)); if (on !== undefined) a.append(mk('i')); return a; };
-const nameCell = (name, sub) => { const d = mk('div', 'fn'); d.append(mk('b', null, name)); if (sub) d.append(mk('span', null, sub)); return d; };
-
-function setupCard() {
-  const c = mk('div', 'fcard');
-  const inp = mk('input', 'lgIn'); inp.placeholder = 'https://…'; inp.value = olUrl(); inp.setAttribute('aria-label', tt('fServer'));
-  const err = mk('div', 'lgErr'), go = mk('button', 'wgo', tt('fSave'));
-  const save = () => {
-    const v = inp.value.trim().replace(/\/+$/, '');
-    if (!/^https?:\/\/[^\s/]+/i.test(v)) { err.textContent = tt('eUrl'); return; }
-    store.set('tft.server', v); OL.editServer = false; renderFriends(); olStart();
-  };
-  go.onclick = save; inp.onkeydown = e => { if (e.key === 'Enter') save(); };
-  c.append(mk('h2', null, tt('fSetupT')), mk('p', null, tt('fSetupP')), inp, err, go);
-  return c;
-}
-
-function authCard() {
-  const c = mk('div', 'fcard');
-  const user = mk('input', 'lgIn'); user.placeholder = tt('fUser'); user.maxLength = 20; user.autocomplete = 'username';
-  user.value = pstore.get('olname') || ((CUR && CUR.name) || '').replace(/[^A-Za-z0-9_.-]/g, '').slice(0, 20);
-  const pw = mk('input', 'lgIn'); pw.type = 'password'; pw.placeholder = tt('fPw'); pw.autocomplete = 'current-password';
-  const err = mk('div', 'lgErr'), inB = mk('button', 'wgo', tt('fSignIn')), crB = mk('button', 'lgGhost', tt('fCreate'));
-  const chg = mk('button', 'lgGhost', tt('fChange')); chg.style.alignSelf = 'flex-start'; chg.style.padding = '7px 14px'; chg.style.fontSize = '13px';
-  chg.onclick = () => { OL.editServer = true; renderFriends(); };
-  const submit = async kind => {
-    if (!user.value.trim() || !pw.value) { err.textContent = tt(user.value.trim() ? 'eShort' : 'eBadUser'); return; }
-    inB.disabled = crB.disabled = true; err.textContent = '';
-    try {
-      const r = await olApi(kind === 'login' ? '/api/login' : '/api/register', { username: user.value.trim(), password: pw.value }, false);
-      pstore.set('token', r.token); pstore.set('olname', r.username); olStart(); renderFriends();
-    } catch (e) { err.textContent = errText(e); inB.disabled = crB.disabled = false; }
-  };
-  inB.onclick = () => submit('login'); crB.onclick = () => submit('register');
-  [user, pw].forEach(i => i.onkeydown = e => { if (e.key === 'Enter') submit('login'); });
-  const btns = mk('div', 'lgBtns'); btns.append(inB, crB);
-  c.append(mk('h2', null, tt('friends')), mk('div', 'fsrv', olUrl()), user, pw, err, btns, chg);
-  return c;
-}
-
-function buildConnected() {
-  const grid = mk('div', 'fgrid'), left = mk('div', 'fcol');
-  const add = mk('div', 'fadd'), inp = mk('input', 'lgIn'), btn = mk('button', 'wgo', tt('fAdd')), err = mk('div', 'lgErr');
-  inp.placeholder = tt('fAddPh'); inp.id = 'fAddIn'; inp.maxLength = 20;
-  const doAdd = async () => {
-    const n = inp.value.trim(); if (!n) return; err.textContent = '';
-    try { const r = await olApi('/api/friends/add', { username: n }); inp.value = ''; toast(tf(r.status === 'accepted' ? 'fNowFriends' : 'fSentOk', n)); olRefresh(); }
-    catch (e) { err.textContent = errText(e); }
-  };
-  btn.onclick = doAdd; inp.onkeydown = e => { if (e.key === 'Enter') doAdd(); };
-  add.append(inp, btn); err.style.minHeight = '0'; err.style.marginTop = '-6px';
-  const list = mk('div', 'flist'); list.id = 'fList';
-  const foot = mk('div', 'ffoot'), who = mk('span', null, tf('fSigned', OL.me || pstore.get('olname') || '')), out = mk('button', null, tt('fDisc'));
-  out.onclick = async () => { try { await olApi('/api/logout', {}); } catch {} olDisconnect(); };
-  foot.append(who, out);
-  left.append(add, err, list, foot);
-  const chat = mk('div', 'fchat'); chat.id = 'fChat';
-  grid.append(left, chat); return grid;
-}
-
-function paintList() {
-  const box = $('fList'); if (!box) return; box.innerHTML = '';
-  const head = t => box.append(mk('div', 'fh', t));
-  if (OL.incoming.length) {
-    head(tt('fReq'));
-    OL.incoming.forEach(n => {
-      const r = mk('div', 'frow'), ok = mk('button', 'fbtn ok', '✓'), no = mk('button', 'fbtn no', '×');
-      ok.setAttribute('aria-label', 'Accept'); no.setAttribute('aria-label', 'Decline');
-      ok.onclick = () => olApi('/api/friends/accept', { username: n }).then(olRefresh).catch(e => toast(errText(e)));
-      no.onclick = () => olApi('/api/friends/decline', { username: n }).then(olRefresh).catch(e => toast(errText(e)));
-      r.append(avatar(n), nameCell(n), ok, no); box.append(r);
-    });
-  }
-  const fr = [...OL.friends].sort((a, b) => (b.online - a.online) || a.username.localeCompare(b.username));
-  if (!fr.length && !OL.incoming.length && !OL.outgoing.length) box.append(mk('div', 'fempty', tt('fNone')));
-  if (fr.length) head(tt('friends'));
-  fr.forEach(f => {
-    const r = mk('button', 'frow' + (lc(f.username) === lc(OL.sel) ? ' sel' : ''));
-    r.append(avatar(f.username, f.online), nameCell(f.username, f.online ? tt('fOnline') : tt('fOffline')));
-    if (f.unread) r.append(mk('span', 'fun', f.unread > 99 ? '99+' : f.unread));
-    r.onclick = () => { OL.sel = f.username; paintList(); paintChat(); markRead(f.username); };
-    box.append(r);
-  });
-  if (OL.outgoing.length) {
-    head(tt('fSent'));
-    OL.outgoing.forEach(n => {
-      const r = mk('div', 'frow'), no = mk('button', 'fbtn no', '×');
-      no.onclick = () => olApi('/api/friends/cancel', { username: n }).then(olRefresh).catch(e => toast(errText(e)));
-      r.append(avatar(n), nameCell(n), no); box.append(r);
-    });
-  }
-}
-
-function paintHead() {
-  const h = $('fHead'); if (!h || !OL.sel) return;
-  const f = OL.friends.find(x => lc(x.username) === lc(OL.sel)); if (!f) return;
-  h.querySelector('.fav').className = 'fav' + (f.online ? ' on' : '');
-  h.querySelector('.fn span').textContent = f.online ? tt('fOnline') : tt('fOffline');
-}
-
-function paintChat() {
-  const box = $('fChat'); if (!box) return; box.innerHTML = '';
-  if (!OL.sel) { box.append(mk('div', 'fempty', tt('fPick'))); return; }
-  const f = OL.friends.find(x => lc(x.username) === lc(OL.sel)); if (!f) { OL.sel = null; paintChat(); return; }
-  const head = mk('div', 'fhead'); head.id = 'fHead';
-  const rm = mk('button', 'fbtn no', '×'); rm.title = tt('fRemove'); rm.setAttribute('aria-label', tt('fRemove')); rm.style.marginLeft = 'auto';
-  rm.onclick = async () => { if (!confirm(tt('fRemAsk'))) return; try { await olApi('/api/friends/remove', { username: f.username }); delete OL.msgs[lc(f.username)]; OL.sel = null; olRefresh(); paintChat(); } catch (e) { toast(errText(e)); } };
-  head.append(avatar(f.username, f.online), nameCell(f.username, f.online ? tt('fOnline') : tt('fOffline')), rm);
-  const msgs = mk('div'); msgs.id = 'fMsgs';
-  const comp = mk('div', 'fcomp'), inp = mk('input', 'lgIn'), send = mk('button', 'wgo', tt('fSend'));
-  inp.id = 'fIn'; inp.placeholder = tt('fMsgPh'); inp.maxLength = 500; inp.autocomplete = 'off';
-  inp.onkeydown = e => { if (e.key === 'Enter') sendMsg(); }; send.onclick = sendMsg;
-  comp.append(inp, send); box.append(head, msgs, comp);
-  const k = lc(f.username);
-  if (OL.msgs[k]) drawMsgs();
-  else olApi('/api/messages?with=' + encodeURIComponent(f.username)).then(ms => { OL.msgs[k] = ms || []; if (lc(OL.sel) === k) drawMsgs(); }).catch(e => toast(errText(e)));
-  inp.focus();
-}
-
-function renderFriends() {
-  const body = $('fBody'); body.innerHTML = '';
-  if (!olUrl() || OL.editServer) { body.append(setupCard()); return; }
-  if (!olTok()) { body.append(authCard()); return; }
-  body.append(buildConnected()); paintList(); paintChat();
-  if (!OL.me) olRefresh();
-}
-$('navFriends').onclick = () => showView('friends');
-const onLangChange = [];   // views re-render themselves when the language changes
-window.__lgRefresh = () => onLangChange.forEach(f => { try { f(); } catch {} });
-onLangChange.push(() => { if (friendsOpen()) renderFriends(); });
-
-// ---------- News (popup on first login + News page) ----------
-const NEWS = [{ id: 'friends', tag: true }, { id: 'login' }, { id: 'set18' }, { id: 'langs' }, { id: 'patch', url: () => PATCH_URL }];
-const newsLatest = NEWS[0].id;   // add a newer item at the top and everyone sees the popup again
-const np = $('npop');
-const newsUnseen = () => !!CUR && pstore.get('newsSeen') !== newsLatest;
-const openExternal = u => { try { window.runtime.BrowserOpenURL(u); } catch { window.open(u, '_blank'); } };
-function newsCard(n) {
-  const c = mk('div', 'ncard'), top = mk('div', 'nt');
-  if (n.tag) top.append(mk('span', 'ntag', tt('nNew')));
-  top.append(mk('span', 'nver', tt('nVer')));
-  c.append(top, mk('h3', null, tt('n_' + n.id + '_t')), mk('p', null, tt('n_' + n.id + '_d')));
-  if (n.url) { const b = mk('button', 'lgGhost nlink', tt('nPatchBtn')); b.onclick = () => openExternal(n.url()); c.append(b); }
-  return c;
-}
-function renderNews() { const box = $('nList'); box.innerHTML = ''; NEWS.forEach(n => box.append(newsCard(n))); }
-function paintNewsPop() { const box = $('npList'); box.innerHTML = ''; NEWS.slice(0, 3).forEach(n => box.append(newsCard(n))); }
-function markNewsSeen() { if (CUR) pstore.set('newsSeen', newsLatest); $('nbadge').hidden = true; }
-function showNews() { paintNewsPop(); np.hidden = false; requestAnimationFrame(() => np.classList.add('on')); $('npGot').focus(); }
-function closeNews() { markNewsSeen(); np.classList.remove('on'); setTimeout(() => np.hidden = true, 300); }
-function maybeNews() { $('nbadge').hidden = !newsUnseen(); if (newsUnseen()) setTimeout(showNews, 350); }
-$('npGot').onclick = closeNews;
-$('npAll').onclick = () => { closeNews(); showView('news'); };
-$('navNews').onclick = () => showView('news');
-onLangChange.push(() => { if (!$('news').hidden) renderNews(); if (!np.hidden) paintNewsPop(); });
-
-// ---------- Login (local profiles on this PC) ----------
-const lg = $('login');
-let CUR = null, lgTab = 'signin', lgRemember = false, lgDraft = { name: '', pw: '' };
-const profiles = {
-  all: () => { try { return JSON.parse(store.get('tft.profiles') || '[]'); } catch { return []; } },
-  save: a => store.set('tft.profiles', JSON.stringify(a)),
-};
-// Per-profile storage for future collection data: pstore.get('owned') -> "tft.p.<id>.owned"
-const pstore = { get: k => store.get(`tft.p.${CUR && CUR.id}.${k}`), set: (k, v) => store.set(`tft.p.${CUR && CUR.id}.${k}`, v) };
-
-const rand = n => [...crypto.getRandomValues(new Uint8Array(n))].map(b => b.toString(16).padStart(2, '0')).join('');
-async function hashPw(pw, salt) {
-  const data = new TextEncoder().encode(salt + ':' + pw);
-  try {
-    const buf = await crypto.subtle.digest('SHA-256', data);
-    return [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, '0')).join('');
-  } catch { let x = 5381; for (const b of data) x = ((x * 33) ^ b) >>> 0; return 'x' + x.toString(16); }  // weak fallback if WebCrypto is unavailable
-}
-
-function mk(tag, cls, txt) { const e = document.createElement(tag); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e; }
-const initial = n => ((n || '?').trim()[0] || '?').toUpperCase();
-const lockIcon = () => { const s = document.createElementNS('http://www.w3.org/2000/svg', 'svg'); s.setAttribute('viewBox', '0 0 24 24'); s.setAttribute('class', 'lgLock'); s.innerHTML = '<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>'; return s; };
-
-function lgRender() {
-  const all = profiles.all(), box = $('lgBody'); box.innerHTML = '';
-  const signin = lgTab === 'signin';
-
-  const tabs = mk('div', 'lgtabs');
-  [['signin', 'lIn'], ['create', 'lNew']].forEach(([k, key]) => {
-    const b = mk('button', lgTab === k ? 'on' : '', tt(key)); b.type = 'button';
-    b.onclick = () => { lgTab = k; lgDraft.pw = ''; lgRender(); }; tabs.append(b);
-  });
-  const field = (labelKey, type, id) => {
-    const w = mk('div', 'lgfield'), i = mk('input'); i.type = type; i.id = id; i.placeholder = ' ';
-    const l = mk('label', null, tt(labelKey)); l.htmlFor = id; w.append(i, l); return [w, i];
-  };
-  const [nameW, name] = field('lName', 'text', 'lgName'); name.maxLength = 20; name.autocomplete = 'off'; name.value = lgDraft.name;
-  const [pwW, pw] = field(signin ? 'lPassAsk' : 'lPass', 'password', 'lgPw'); pw.autocomplete = signin ? 'current-password' : 'new-password'; pw.value = lgDraft.pw;
-  const err = mk('div', 'lgErr'); err.setAttribute('role', 'alert');
-  const go = mk('button', 'lggo'); go.type = 'button'; go.setAttribute('aria-label', tt(signin ? 'lIn' : 'lCreate'));
-  go.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
-  const ready = () => go.classList.toggle('ready', !!name.value.trim());
-  name.oninput = () => { lgDraft.name = name.value; ready(); }; pw.oninput = () => { lgDraft.pw = pw.value; }; ready();
-
-  const submit = async () => {
-    err.textContent = '';
-    const n = name.value.trim();
-    if (!n) { err.textContent = tt('lNeed'); name.focus(); return; }
-    const cur = profiles.all();
-    if (signin) {
-      const p = cur.find(x => x.name.toLowerCase() === n.toLowerCase());
-      if (!p) { err.textContent = tt('lNoProf'); return; }
-      if (p.hash && await hashPw(pw.value, p.salt) !== p.hash) { err.textContent = tt('lWrong'); pw.select(); return; }
-      signIn(p); return;
-    }
-    if (cur.some(x => x.name.toLowerCase() === n.toLowerCase())) { err.textContent = tt('lTaken'); return; }
-    if (pw.value && pw.value.length < 4) { err.textContent = tt('lShort'); return; }
-    const p = { id: 'p' + Date.now().toString(36) + rand(2), name: n };
-    if (pw.value) { p.salt = rand(8); p.hash = await hashPw(pw.value, p.salt); }
-    cur.push(p); profiles.save(cur); signIn(p);
-  };
-  go.onclick = submit; [name, pw].forEach(i => i.onkeydown = e => { if (e.key === 'Enter') submit(); });
-
-  box.append(tabs, nameW, pwW);
-  if (signin && all.length) {                        // saved profiles: tap one to fill the name (or sign straight in)
-    const chips = mk('div', 'lgchips');
-    all.forEach(p => {
-      const w = mk('div', 'lgchipw'), c = mk('button', 'lgchip'); c.type = 'button'; c.title = p.name;
-      c.append(mk('b', null, initial(p.name)), mk('span', null, p.name)); if (p.hash) c.append(lockIcon());
-      c.onclick = () => { if (p.hash) { name.value = lgDraft.name = p.name; ready(); pw.focus(); } else signIn(p); };
-      const x = mk('button', 'lgx', '×'); x.type = 'button'; x.setAttribute('aria-label', 'Delete ' + p.name);
-      x.onclick = e => { e.stopPropagation(); if (!confirm(tt('lDelAsk'))) return; profiles.save(profiles.all().filter(q => q.id !== p.id)); if (store.get('tft.active') === p.id) store.set('tft.active', ''); lgRender(); };
-      w.append(c, x); chips.append(w);
-    });
-    box.append(chips);
-  }
-  const rem = mk('label', 'lgchk'), cb = mk('input'); cb.type = 'checkbox'; cb.checked = lgRemember; cb.onchange = () => { lgRemember = cb.checked; };
-  rem.append(cb, mk('span', null, tt('lRem')));
-  box.append(err, rem, go);
-  if (!name.value) setTimeout(() => name.focus(), 50);
-}
-onLangChange.push(() => { if (!lg.hidden) lgRender(); });
-
-function showLogin() {
-  olReset(); CUR = null;
-  lgTab = profiles.all().length ? 'signin' : 'create'; lgRemember = false; lgDraft = { name: '', pw: '' };
-  $('nbadge').hidden = true;
-  lgRender(); lg.hidden = false; $('app').classList.add('lgOn');
-  const bgv = $('bg'); if (bgv) bgv.pause();          // only one video should decode at a time
-  $('lgVid').play().catch(() => {});
-  requestAnimationFrame(() => lg.classList.add('on'));
-}
-function startSession(p) {
-  CUR = p; store.set('tft.name', p.name); pname.value = p.name; paintProfile();
-  lg.classList.remove('on'); $('app').classList.remove('lgOn');
-  setTimeout(() => { lg.hidden = true; $('lgVid').pause(); }, 300);
-  const bgv = $('bg'); if (bgv) bgv.play().catch(() => {});
-  olStart(); maybeWelcome();
-}
-function signIn(p) { store.set('tft.active', lgRemember ? p.id : ''); startSession(p); }
-$('psign').onclick = () => { store.set('tft.active', ''); pmenu.hidden = true; pbtn.setAttribute('aria-expanded', 'false'); showLogin(); };
-window.__syncName = v => {
-  const n = v.trim(); if (!CUR || !n) return;
-  const all = profiles.all(), p = all.find(x => x.id === CUR.id); if (p) { p.name = n; profiles.save(all); CUR.name = n; }
-};
-
-// Launch: skip the login only if "remember me" was ticked last time
-(() => { const p = profiles.all().find(x => x.id === store.get('tft.active')); p ? startSession(p) : showLogin(); })();
 
 // Square corners while maximized
 async function syncMax() { try { $('app').classList.toggle('max', await window.runtime.WindowIsMaximised()); } catch {} }
