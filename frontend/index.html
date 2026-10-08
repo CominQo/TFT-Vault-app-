@@ -449,6 +449,34 @@ background:linear-gradient(160deg,#ffffff1c,#ffffff08);border:1.5px solid color-
 .cb-p{position:relative;width:54px;height:54px;border:2px solid var(--c);border-radius:11px;background:#10131c center/cover;display:grid;place-items:center;font:700 9px/1.1 var(--body);text-align:center;cursor:grab;transition:transform .15s}
 .cb-p:hover{transform:translateY(-3px) scale(1.07)}.cb-p.used{opacity:.3}
 .cb-p small{position:absolute;right:2px;bottom:1px;color:var(--c);font-size:9px}
+
+/* ---- v3: buttons, items, pins, better drag ---- */
+.cb-btn{position:relative;overflow:hidden;display:inline-flex;align-items:center;gap:7px;padding:9px 16px;border-radius:99px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.07);color:var(--text);font:700 12px var(--body);cursor:pointer;transition:transform .2s,border-color .2s,background .2s,box-shadow .2s}
+.cb-btn svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.cb-btn:hover{transform:translateY(-2px);border-color:var(--gold);box-shadow:0 8px 20px rgba(0,0,0,.35)}
+.cb-btn:active{transform:scale(.95)}.cb-btn:disabled{opacity:.35;pointer-events:none}
+.cb-btn.on{border-color:var(--gold);background:rgba(248,169,0,.16);color:var(--gold)}
+.cb-btn.pri{background:linear-gradient(135deg,#ffd27a,var(--gold));color:#1c1300;border-color:transparent;box-shadow:0 6px 18px rgba(248,169,0,.35)}
+.cb-btn.pri:after{content:"";position:absolute;top:0;bottom:0;width:40%;left:-60%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.7),transparent);transform:skewX(-20deg);transition:left .6s}
+.cb-btn.pri:hover:after{left:130%}
+.cb-seg{display:inline-flex;padding:3px;gap:2px;border-radius:99px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1)}
+.cb-seg button{border:0;background:none;color:var(--muted);font:700 12px var(--body);padding:6px 13px;border-radius:99px;cursor:pointer;transition:.2s}
+.cb-seg button:hover{color:var(--text)}.cb-seg button.on{background:var(--gold);color:#1c1300}
+.cb-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}.cb-hd .cb-h{margin:0}
+.cb-u{animation:none}.cb-u.n{animation:cbPop .4s var(--ease)}.cb-u:active{cursor:grabbing}
+.cb-hex{transition:filter .2s,transform .18s}.cb-hex.over{transform:scale(1.07)}
+.cb-pins{position:absolute;left:50%;bottom:-7px;transform:translateX(-50%);display:flex;gap:2px;z-index:3}
+.cb-it{width:20px;height:20px;border-radius:50%;display:grid;place-items:center;font:800 8px var(--body);color:#10131c;background:radial-gradient(circle at 30% 25%,rgba(255,255,255,.55),transparent 45%),var(--c) center/cover;border:2px solid #0d111a;box-shadow:0 2px 6px rgba(0,0,0,.6),0 0 0 1px var(--c);cursor:grab;transition:transform .15s}
+.cb-it:hover{transform:scale(1.35);z-index:4}.cb-it.n{animation:cbPin .5s cubic-bezier(.2,1.6,.3,1)}
+@keyframes cbPin{from{transform:translateY(-18px) scale(.3);opacity:0}}
+.cb-i{width:62px;display:grid;justify-items:center;gap:5px;cursor:grab;font:600 9px/1.1 var(--body);color:var(--muted);text-align:center}
+.cb-i b{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font:800 13px var(--body);color:#10131c;background:radial-gradient(circle at 30% 25%,rgba(255,255,255,.55),transparent 45%),var(--c) center/cover;border:3px solid #0d111a;box-shadow:0 0 0 1.5px var(--c),0 6px 14px rgba(0,0,0,.45);transition:transform .15s}
+.cb-i:hover b{transform:translateY(-3px) scale(1.1)}
+.cb-board{align-content:center;justify-items:center;gap:14px}
+.cb-rm{padding:8px 18px;border-radius:99px;border:1.5px dashed rgba(255,107,107,.55);color:#ff8d8d;font:700 12px var(--body);opacity:0;transform:translateY(8px);pointer-events:none;transition:.2s}
+#cbx[data-drag=unit] .cb-rm,#cbx[data-drag=pin] .cb-rm{opacity:1;transform:none;pointer-events:auto}
+.cb-rm.over{background:rgba(255,107,107,.18);transform:scale(1.05)}
+.cb-hint{color:var(--muted);font-size:12px;margin-bottom:12px}
 </style>
 </head>
 <body>
@@ -1064,48 +1092,60 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
 
 /* ================= COMP BUILDER (Set 18) ================= */
 (() => {
-  const N = 28, KEY = 'tft.comp18', SKEY = 'tft.comps18';
+  const N = 28, KEY = 'tft.comp18', GKEY = 'tft.gear18', SKEY = 'tft.comps18', MAXI = 3;
   const root = $('cbx');
-  let D = null, board = Array(N).fill(null), hist = [], comps = [], costF = 0, q = '', traitF = '', hideUsed = false, drag = null, started = false;
+  const HUES = ['#ef6b5f', '#e9b44c', '#a678f0', '#5db7f2', '#d5974a', '#52c7a0', '#e46f9a', '#f08a4b', '#c9c24a'];
+  const FALLBACK = ['B.F. Sword', 'Recurve Bow', 'Needlessly Large Rod', 'Tear of the Goddess', 'Chain Vest', 'Negatron Cloak', "Giant's Belt", 'Sparring Gloves', 'Spatula'];
+  const IC = {
+    save: '<path d="M5 3h11l3 3v15H5zM8 3v6h7V3M8 21v-7h8v7"/>', undo: '<path d="M9 14L4 9l5-5M4 9h10a6 6 0 010 12h-3"/>', clear: '<path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/>'
+  };
+  const btn = (id, label, cls = '') => `<button class="cb-btn ${cls}" id="${id}"><svg viewBox="0 0 24 24">${IC[id.slice(3)]}</svg>${label}</button>`;
+  let D = null, ITEMS = [], board = Array(N).fill(null), gear = Array(N).fill(null), hist = [], comps = [];
+  let costF = 0, q = '', traitF = '', hideUsed = false, tab = 'c', drag = null, started = false, fresh = null;
   const champ = n => D.champions.find(c => c.name === n);
+  const item = n => ITEMS.find(i => i.name === n);
   const img = c => c.icon || c.img || c.image || c.portrait || '';
   const esc = s => String(s).replace(/[&<>"]/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[m]);
-  const push = () => { hist.push(board.slice()); if (hist.length > 50) hist.shift(); };
-  const save = () => store.set(KEY, JSON.stringify(board));
+  const snap = () => ({ b: board.slice(), g: gear.map(x => x ? x.slice() : null) });
+  const push = () => { hist.push(snap()); if (hist.length > 50) hist.shift(); };
+  const save = () => { store.set(KEY, JSON.stringify(board)); store.set(GKEY, JSON.stringify(gear)); };
   const saveComps = () => store.set(SKEY, JSON.stringify(comps));
   const valid = b => b.map(n => n && champ(n) ? n : null);
+  const fixGear = (g, b) => Array.from({ length: N }, (_, i) => b[i] && Array.isArray(g && g[i]) ? g[i].filter(item).slice(0, MAXI) : null);
 
   function shell() {
     const tr = D.traits.filter(t => t.kind !== 'hidden');
-    root.innerHTML = `<div class="cb-top"><input id="cb-name" maxlength="24" placeholder="Comp name"><button class="pill cb-save" id="cb-save">Save comp</button><button class="pill" id="cb-undo">Undo</button><button class="pill" id="cb-clear">Clear</button><span class="cb-n" id="cb-count"></span></div>
+    root.innerHTML = `<div class="cb-top"><input id="cb-name" maxlength="24" placeholder="Comp name">${btn('cb-save', 'Save comp', 'pri')}${btn('cb-undo', 'Undo')}${btn('cb-clear', 'Clear')}<span class="cb-n" id="cb-count"></span></div>
       <div class="cb-panel"><div class="cb-h">Saved comps</div><div class="cb-saved" id="cb-sv"></div></div>
-      <div class="cb-main"><div class="cb-panel"><div class="cb-h">Traits</div><div class="cb-traits" id="cb-tr"></div></div><div class="cb-panel cb-board"><div id="cb-bd"></div></div></div>
-      <div class="cb-panel"><div class="cb-h">Champions</div><div class="cb-bar"><input id="cb-q" placeholder="Search champions or traits">
-        ${[0,1,2,3,4,5].map(c => `<button class="pill${c === costF ? ' on' : ''}" data-c="${c}">${c ? c + ' gold' : 'All'}</button>`).join('')}
-        <select id="cb-tf"><option value="">All traits</option>${tr.map(t => `<option>${esc(t.name)}</option>`).join('')}</select>
-        <button class="pill" id="cb-hu">Hide placed</button></div><div class="cb-grid" id="cb-pl"></div></div>`;
-    $('cb-bd').innerHTML = [0,1,2,3].map(r => `<div class="cb-row${r % 2 ? ' o' : ''}">${Array.from({ length: 7 }, (_, k) => `<div class="cb-hex" data-i="${r * 7 + k}"></div>`).join('')}</div>`).join('');
+      <div class="cb-main"><div class="cb-panel"><div class="cb-h">Traits</div><div class="cb-traits" id="cb-tr"></div></div>
+        <div class="cb-panel cb-board"><div id="cb-bd"></div><div class="cb-rm" id="cb-rm">Drop here to remove</div></div></div>
+      <div class="cb-panel"><div class="cb-hd"><div class="cb-seg"><button class="on" data-tab="c">Champions</button><button data-tab="i">Items</button></div></div>
+        <div id="cb-cp"><div class="cb-bar"><input id="cb-q" placeholder="Search champions or traits">
+          <div class="cb-seg">${[0,1,2,3,4,5].map(c => `<button data-c="${c}" class="${c === costF ? 'on' : ''}">${c || 'All'}</button>`).join('')}</div>
+          <select id="cb-tf"><option value="">All traits</option>${tr.map(t => `<option>${esc(t.name)}</option>`).join('')}</select>
+          <button class="cb-btn" id="cb-hu">Hide placed</button></div><div class="cb-grid" id="cb-pl"></div></div>
+        <div id="cb-ip" hidden><div class="cb-hint">Drag an item onto a champion on the board (max ${MAXI} each). Drag a pin to move it, or click it to remove.</div>
+          <div class="cb-grid" id="cb-il">${ITEMS.map(i => `<div class="cb-i" draggable="true" data-n="${esc(i.name)}" title="${esc(i.name)}"><b style="--c:${i.color};${i.icon ? `background-image:url(${i.icon})` : ''}">${i.icon ? '' : i.ab}</b>${esc(i.name)}</div>`).join('')}</div></div></div>`;
+    $('cb-bd').innerHTML = [0,1,2,3].map(r => `<div class="cb-row${r % 2 ? ' o' : ''}">${Array.from({ length: 7 }, (_, k) => `<div class="cb-hex" style="z-index:${4 - r}" data-i="${r * 7 + k}"></div>`).join('')}</div>`).join('');
   }
   function paintSaved() {
     $('cb-sv').innerHTML = comps.length ? comps.map(c => `<div class="cb-sc" data-id="${c.id}"><b>${esc(c.name)}</b><div>${valid(c.board).filter(Boolean).map(n => `<i style="--c:${COST[champ(n).cost]}"></i>`).join('')}</div><em data-del="${c.id}">×</em></div>`).join('')
       : '<span class="cb-none">No saved comps yet. Build a team and press Save comp.</span>';
   }
-  function unit(c, i) {
-    const bg = img(c) ? `background-image:url(${img(c)})` : '';
-    return `<div class="cb-u" draggable="true" data-i="${i}" data-n="${esc(c.name)}" style="--c:${COST[c.cost]}"><b style="${bg}">${img(c) ? '' : esc(c.name)}</b></div>`;
-  }
-  const tierColor = r => !r.tier ? '#555' : r.bp.length === 1 || r.tier / r.bp.length < .5 && r.bp.length < 3 ? '#e0a82e'
-    : r.tier === r.bp.length ? 'linear-gradient(135deg,#b06cff,#4ea1ff)' : r.tier / r.bp.length <= .34 ? '#b8793f' : r.tier / r.bp.length <= .67 ? '#c3ccd8' : '#e0a82e';
+  const unit = (c, i) => `<div class="cb-u${fresh && fresh.u === i ? ' n' : ''}" draggable="true" data-i="${i}" data-n="${esc(c.name)}" style="--c:${COST[c.cost]}"><b style="${img(c) ? `background-image:url(${img(c)})` : ''}">${img(c) ? '' : esc(c.name)}</b></div>`;
+  const pin = (n, i, k) => { const it = item(n); return `<span class="cb-it${fresh && fresh.p && fresh.p[0] === i && fresh.p[1] === k ? ' n' : ''}" draggable="true" data-i="${i}" data-k="${k}" data-n="${esc(n)}" title="${esc(n)}" style="--c:${it.color};${it.icon ? `background-image:url(${it.icon})` : ''}">${it.icon ? '' : it.ab}</span>`; };
+  const tierColor = r => !r.tier ? '#555' : r.bp.length === 1 ? '#e0a82e' : r.tier === r.bp.length ? 'linear-gradient(135deg,#b06cff,#4ea1ff)' : r.tier / r.bp.length <= .34 ? '#b8793f' : r.tier / r.bp.length <= .67 ? '#c3ccd8' : '#e0a82e';
   function paintBoard() {
     document.querySelectorAll('.cb-hex').forEach(h => {
-      const n = board[+h.dataset.i], c = n && champ(n);
-      h.innerHTML = c ? unit(c, h.dataset.i) : ''; h.classList.toggle('f', !!c);
-      if (c) h.style.setProperty('--c', COST[c.cost]);
+      const i = +h.dataset.i, c = board[i] && champ(board[i]);
+      h.innerHTML = c ? unit(c, i) + `<div class="cb-pins">${(gear[i] || []).map((g, k) => pin(g, i, k)).join('')}</div>` : '';
+      h.classList.toggle('f', !!c); if (c) h.style.setProperty('--c', COST[c.cost]);
     });
+    fresh = null; $('cb-undo').disabled = !hist.length;
     const used = new Set(board.filter(Boolean));
     document.querySelectorAll('.cb-p').forEach(p => p.classList.toggle('used', used.has(p.dataset.n)));
     const cs = D.champions.filter(c => used.has(c.name));
-    $('cb-count').textContent = `${cs.length} units · ${cs.reduce((a, c) => a + c.cost, 0)} gold`;
+    $('cb-count').textContent = `${cs.length} units · ${cs.reduce((a, c) => a + c.cost, 0)} gold · ${gear.reduce((a, g) => a + (g ? g.length : 0), 0)} items`;
     const cnt = {}; cs.forEach(c => c.traits.forEach(t => cnt[t] = (cnt[t] || 0) + 1));
     const rows = D.traits.filter(t => cnt[t.name] && t.kind !== 'hidden').map(t => {
       const bp = (t.kind === 'single' || !t.bp || !t.bp.length ? [1] : t.bp.map(x => parseInt(x))).filter(x => x > 0);
@@ -1122,43 +1162,67 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
   }
   function place(name, to, from) {
     push();
-    if (from != null) { const a = board[to]; board[to] = name; board[from] = a; }
-    else { const old = board.indexOf(name); if (old >= 0) board[old] = null; board[to] = name; }
-    paintBoard();
+    if (from != null) { [board[to], board[from]] = [name, board[to]]; [gear[to], gear[from]] = [gear[from], gear[to]]; }
+    else { const old = board.indexOf(name), g = old >= 0 ? gear[old] : null; if (old >= 0) { board[old] = null; gear[old] = null; } board[to] = name; gear[to] = g; }
+    fresh = { u: to }; paintBoard();
   }
+  const remove = i => { push(); board[i] = null; gear[i] = null; paintBoard(); };
+  function addItem(i, name) {
+    if (!board[i]) return;
+    if ((gear[i] || []).length >= MAXI) return toast('Max ' + MAXI + ' items per champion');
+    push(); (gear[i] = gear[i] || []).push(name); fresh = { p: [i, gear[i].length - 1] }; paintBoard();
+  }
+  function moveItem(from, k, to) {
+    if (from === to || !board[to]) return;
+    if ((gear[to] || []).length >= MAXI) return toast('Max ' + MAXI + ' items per champion');
+    push(); const [it] = gear[from].splice(k, 1); (gear[to] = gear[to] || []).push(it); fresh = { p: [to, gear[to].length - 1] }; paintBoard();
+  }
+  const removeItem = (i, k) => { push(); gear[i].splice(k, 1); paintBoard(); };
   function saveComp() {
     if (!board.some(Boolean)) return toast('Add champions to the board first');
-    const name = $('cb-name').value.trim() || 'Comp ' + (comps.length + 1), old = comps.find(c => c.name === name);
-    if (old) old.board = board.slice(); else comps.push({ id: Date.now(), name, board: board.slice() });
+    const name = $('cb-name').value.trim() || 'Comp ' + (comps.length + 1), old = comps.find(c => c.name === name), s = snap();
+    if (old) { old.board = s.b; old.gear = s.g; } else comps.push({ id: Date.now(), name, board: s.b, gear: s.g });
     saveComps(); paintSaved(); toast((old ? 'Updated ' : 'Saved ') + name);
   }
+  const clearOver = () => root.querySelectorAll('.over').forEach(x => x.classList.remove('over'));
   function wire() {
     root.addEventListener('dragstart', e => {
       const el = e.target.closest('[draggable]'); if (!el) return;
-      drag = { name: el.dataset.n, from: el.classList.contains('cb-u') ? +el.dataset.i : null };
-      e.dataTransfer.setData('text/plain', drag.name); e.dataTransfer.effectAllowed = 'move';
+      const k = el.classList.contains('cb-p') ? 'champ' : el.classList.contains('cb-u') ? 'unit' : el.classList.contains('cb-i') ? 'item' : 'pin';
+      drag = { kind: k, name: el.dataset.n, from: el.dataset.i != null ? +el.dataset.i : null, k: +el.dataset.k };
+      root.dataset.drag = k; e.dataTransfer.setData('text/plain', drag.name || 'x'); e.dataTransfer.effectAllowed = 'move';
+      e.dataTransfer.setDragImage(el, el.offsetWidth / 2, el.offsetHeight / 2);
     });
-    root.addEventListener('dragover', e => { e.preventDefault(); const h = e.target.closest('.cb-hex'); document.querySelectorAll('.cb-hex.over').forEach(x => x !== h && x.classList.remove('over')); if (h) h.classList.add('over'); });
-    root.addEventListener('dragend', () => { drag = null; document.querySelectorAll('.cb-hex.over').forEach(x => x.classList.remove('over')); });
+    root.addEventListener('dragover', e => {
+      if (!drag) return;
+      const h = e.target.closest('.cb-hex'), rm = e.target.closest('.cb-rm'), out = drag.kind === 'unit' || drag.kind === 'pin';
+      const ok = h ? (drag.kind === 'champ' || drag.kind === 'unit' || !!board[+h.dataset.i]) : out;
+      clearOver();
+      if (ok) { e.preventDefault(); if (h) h.classList.add('over'); else if (rm) rm.classList.add('over'); }
+    });
+    const done = () => { drag = null; root.dataset.drag = ''; clearOver(); };
+    root.addEventListener('dragend', done);
     root.addEventListener('drop', e => {
-      e.preventDefault(); if (!drag) return;
-      document.querySelectorAll('.cb-hex.over').forEach(x => x.classList.remove('over'));
-      const h = e.target.closest('.cb-hex');
-      if (h) place(drag.name, +h.dataset.i, drag.from);
-      else if (drag.from != null) { push(); board[drag.from] = null; paintBoard(); }
-      drag = null;
+      if (!drag) return; e.preventDefault();
+      const h = e.target.closest('.cb-hex'), i = h && +h.dataset.i, d = drag; done();
+      if (d.kind === 'champ' || d.kind === 'unit') { if (h) place(d.name, i, d.kind === 'unit' ? d.from : null); else if (d.kind === 'unit') remove(d.from); }
+      else if (d.kind === 'item') { if (h) addItem(i, d.name); }
+      else if (h) moveItem(d.from, d.k, i); else removeItem(d.from, d.k);
     });
     root.addEventListener('click', e => {
-      const g = e.target, u = g.closest('.cb-u'), p = g.closest('.cb-p'), c = g.closest('[data-c]'), del = g.closest('[data-del]'), sc = g.closest('.cb-sc');
-      if (u) { push(); board[+u.dataset.i] = null; paintBoard(); }
+      const g = e.target, it = g.closest('.cb-it'), u = g.closest('.cb-u'), p = g.closest('.cb-p'), c = g.closest('[data-c]'), tb = g.closest('[data-tab]');
+      const del = g.closest('[data-del]'), sc = g.closest('.cb-sc'), b = g.closest('.cb-btn');
+      if (it) removeItem(+it.dataset.i, +it.dataset.k);
+      else if (u) remove(+u.dataset.i);
       else if (p) { const i = board.indexOf(null); if (i >= 0 && !board.includes(p.dataset.n)) place(p.dataset.n, i, null); }
-      else if (c) { costF = +c.dataset.c; root.querySelectorAll('[data-c]').forEach(x => x.classList.toggle('on', x === c)); paintPool(); }
+      else if (c) { costF = +c.dataset.c; c.parentNode.querySelectorAll('button').forEach(x => x.classList.toggle('on', x === c)); paintPool(); }
+      else if (tb) { tab = tb.dataset.tab; tb.parentNode.querySelectorAll('button').forEach(x => x.classList.toggle('on', x === tb)); $('cb-cp').hidden = tab !== 'c'; $('cb-ip').hidden = tab !== 'i'; }
       else if (del) { comps = comps.filter(x => String(x.id) !== del.dataset.del); saveComps(); paintSaved(); }
-      else if (sc) { const s = comps.find(x => String(x.id) === sc.dataset.id); if (s) { push(); board = valid(s.board); $('cb-name').value = s.name; paintBoard(); } }
-      else if (g.id === 'cb-save') saveComp();
-      else if (g.id === 'cb-hu') { hideUsed = !hideUsed; g.classList.toggle('on', hideUsed); paintPool(); }
-      else if (g.id === 'cb-undo' && hist.length) { board = hist.pop(); paintBoard(); }
-      else if (g.id === 'cb-clear') { push(); board = Array(N).fill(null); paintBoard(); }
+      else if (sc) { const s = comps.find(x => String(x.id) === sc.dataset.id); if (s) { push(); board = valid(s.board); gear = fixGear(s.gear, board); $('cb-name').value = s.name; paintBoard(); } }
+      else if (b && b.id === 'cb-save') saveComp();
+      else if (b && b.id === 'cb-hu') { hideUsed = !hideUsed; b.classList.toggle('on', hideUsed); paintPool(); }
+      else if (b && b.id === 'cb-undo' && hist.length) { const s = hist.pop(); board = s.b; gear = s.g; paintBoard(); }
+      else if (b && b.id === 'cb-clear') { push(); board = Array(N).fill(null); gear = Array(N).fill(null); paintBoard(); }
     });
     root.addEventListener('input', e => { if (e.target.id === 'cb-q') { q = e.target.value; paintPool(); } });
     root.addEventListener('change', e => { if (e.target.id === 'cb-tf') { traitF = e.target.value; paintPool(); } });
@@ -1169,7 +1233,10 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
       const s = (await loadSets()).find(x => String(x.id) === '18');
       D = cache[s.info] ||= await (await fetch(s.info)).json();
     } catch { root.innerHTML = '<div class="empty">Set 18 data not found.</div>'; started = false; return; }
-    try { const b = JSON.parse(store.get(KEY) || '[]'); if (Array.isArray(b) && b.length === N) board = valid(b); } catch {}
+    const raw = D.items || D.components;   // uses your set data if it has items, otherwise the standard components
+    ITEMS = (Array.isArray(raw) && raw.length ? raw.map(x => typeof x === 'string' ? { name: x } : x).filter(x => x && x.name) : FALLBACK.map(name => ({ name })))
+      .map((x, i) => ({ name: x.name, ab: x.abbr || x.name.split(/\s+/).map(w => w[0]).join('').slice(0, 2).toUpperCase(), color: x.color || HUES[i % HUES.length], icon: x.icon || x.img || x.image || '' }));
+    try { const b = JSON.parse(store.get(KEY) || '[]'); if (Array.isArray(b) && b.length === N) board = valid(b); gear = fixGear(JSON.parse(store.get(GKEY) || '[]'), board); } catch {}
     try { const s = JSON.parse(store.get(SKEY) || '[]'); if (Array.isArray(s)) comps = s; } catch {}
     shell(); wire(); paintSaved(); paintPool();
   }
