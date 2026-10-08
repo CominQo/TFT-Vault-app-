@@ -154,7 +154,7 @@ header p{color:var(--muted);font-size:14px}
 .nhead p{margin:4px 0 0;color:var(--muted);font-size:13px}
 #nclose{flex:none;width:36px;height:36px;border:0;border-radius:10px;background:rgba(255,255,255,.06);color:var(--muted);font-size:24px;line-height:1;cursor:pointer;transition:background .15s,color .15s,transform .2s var(--ease)}
 #nclose:hover,#nclose:focus-visible{background:rgba(248,169,0,.16);color:var(--gold);transform:rotate(90deg);outline:none}
-#nbody{overflow-y:auto;padding:8px 22px 22px;scrollbar-width:thin;scrollbar-color:rgba(248,169,0,.55) transparent}
+#nbody{overflow-y:auto;padding:8px 22px 22px;scrollbar-width:thin;scrollbar-color:rgba(var(--sb-rgb),var(--sb-a)) transparent}
 .nitem{padding:18px 0;border-bottom:1px solid var(--line);animation:pmRise .45s var(--ease) both}
 .nitem:last-child{border-bottom:0}
 .nitem h3{display:flex;align-items:center;gap:10px;margin:0;font-size:18px;font-weight:700}
@@ -221,7 +221,7 @@ header p{color:var(--muted);font-size:14px}
 #fplus{flex:none;width:40px;border:0;border-radius:12px;background:var(--gold);color:#10141b;font:700 20px/1 var(--body);cursor:pointer;transition:transform .15s,filter .2s}
 #fplus:hover,#fplus:focus-visible{filter:brightness(1.12);outline:none}
 #fplus:active{transform:scale(.94)}
-#flist{list-style:none;margin:10px 0 0;padding:0;max-height:210px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(248,169,0,.55) transparent}
+#flist{list-style:none;margin:10px 0 0;padding:0;max-height:210px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(var(--sb-rgb),var(--sb-a)) transparent}
 #flist li{display:flex;align-items:center;gap:10px;padding:7px 6px;border-radius:12px;animation:fIn .25s var(--ease)}
 #flist li:hover{background:rgba(255,255,255,.06)}
 @keyframes fIn{from{opacity:0;transform:translateX(-8px)}to{opacity:1;transform:none}}
@@ -433,48 +433,152 @@ background:linear-gradient(160deg,#ffffff1c,#ffffff08);border:1.5px solid color-
 .cb-p:hover{transform:translateY(-3px) scale(1.07)}.cb-p.used{opacity:.3}
 .cb-p small{position:absolute;right:2px;bottom:1px;color:var(--c);font-size:9px}
 
-/* ---- Cosmetic collections (inside Collections page) ---- */
+/* ---- Cosmetic collections (redesign) ---- */
+@keyframes cUp{from{opacity:0;transform:translateY(16px) scale(.97)}to{opacity:1;transform:none}}
+@keyframes cFade{from{opacity:0}to{opacity:1}}
+@keyframes cPop{0%{transform:scale(.3)}60%{transform:scale(1.3)}100%{transform:scale(1)}}
+@keyframes cFloat{50%{translate:0 -8px}}
+@keyframes cShine{from{transform:translateX(-130%) skewX(-20deg)}to{transform:translateX(330%) skewX(-20deg)}}
 #cswitch{display:flex;gap:8px;margin:18px 0 4px}
-#colx{padding-top:18px}
+#colx{padding-top:14px}
 #colx[hidden]{display:none}
-#colgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px;margin-top:6px}
-.scard{position:relative;text-align:left;padding:18px;border:1px solid var(--line);border-radius:18px;background:rgba(23,27,34,.75);color:var(--text);font:inherit;cursor:pointer;display:flex;flex-direction:column;gap:10px;transition:transform .25s var(--ease),border-color .2s}
-.scard:hover,.scard:focus-visible{transform:translateY(-4px);border-color:var(--gold);outline:none}
-.scard b{font-size:18px;letter-spacing:-.01em}
-.scard span{color:var(--muted);font-size:13px}
-.scard.done{border-color:var(--gold)}
-.prog{height:5px;border-radius:9px;background:rgba(255,255,255,.1);overflow:hidden}
-.prog i{display:block;height:100%;width:0;border-radius:9px;background:var(--gold);transition:width .5s var(--ease)}
-.rdots{display:flex;gap:6px}
+.ring{position:relative;width:96px;height:96px;flex:none}
+.ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ring circle{fill:none;stroke-width:9}
+.ring .bg{stroke:rgba(255,255,255,.08)}
+.ring .fg{stroke:var(--gold);stroke-linecap:round;stroke-dasharray:326.7;stroke-dashoffset:326.7;transition:stroke-dashoffset 1.1s var(--ease);filter:drop-shadow(0 0 6px rgba(248,169,0,.55))}
+.ring b{position:absolute;inset:0;display:grid;place-items:center;font:700 20px var(--head)}
+#chero{position:relative;display:flex;align-items:center;gap:24px;padding:22px 28px;border:1px solid var(--line);border-radius:24px;overflow:hidden;background:radial-gradient(120% 160% at 0% 0%,rgba(248,169,0,.18),transparent 55%),rgba(23,27,34,.72);animation:cFade .6s var(--ease) both}
+#chero::after{content:"";position:absolute;top:0;bottom:0;left:0;width:26%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.07),transparent);animation:cShine 2.4s .4s var(--ease) 1 both;pointer-events:none}
+#chero h2{margin:0;font:700 26px var(--head);letter-spacing:-.01em}
+#chero p{margin:4px 0 0;color:var(--muted)}
+#cbar{position:sticky;top:-1px;z-index:5;display:flex;flex-wrap:wrap;gap:10px;margin:16px 0 8px;padding:10px 0;background:linear-gradient(var(--bg) 78%,transparent)}
+.cin{background:rgba(23,27,34,.9);border:1px solid var(--line);border-radius:13px;color:var(--text);padding:9px 14px;font:inherit;font-size:14px;transition:border-color .2s,box-shadow .2s}
+.cin:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(248,169,0,.15)}
+#cq,#sq{flex:1;min-width:200px}
+select.cin{cursor:pointer;padding-right:10px}
+select.cin option{background:#171b22}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 10px}
+.chip{display:inline-flex;align-items:center;gap:7px;height:32px;padding:0 14px;border-radius:99px;border:1px solid var(--line);background:rgba(23,27,34,.8);color:var(--muted);font:600 13px/1 var(--body);cursor:pointer;transition:color .2s,border-color .2s,background .25s,transform .2s var(--ease)}
+.chip:hover{color:var(--text);border-color:#3a4350;transform:translateY(-1px)}
+.chip i{width:8px;height:8px;border-radius:50%;background:var(--c)}
+.chip em{font-style:normal;font-weight:500;opacity:.65}
+.chip.on{color:#10141b;background:var(--c,var(--gold));border-color:var(--c,var(--gold))}
+.chip.on i{background:#10141b}
+.cgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:18px}
+#colgrid{margin-top:6px}
+.sent{height:1px}
+/* series card */
+.scard{position:relative;text-align:left;padding:0;border:1px solid var(--line);border-radius:20px;background:rgba(23,27,34,.82);color:var(--text);font:inherit;cursor:pointer;overflow:hidden;display:flex;flex-direction:column;animation:cUp .55s var(--ease) both;animation-delay:var(--d,0ms);transition:transform .35s var(--ease),border-color .25s,box-shadow .35s}
+.scard::before{content:"";position:absolute;inset:0 0 auto;height:3px;background:var(--rc);z-index:3}
+.scard:hover,.scard:focus-visible{transform:translateY(-6px);border-color:var(--rc);box-shadow:0 18px 40px rgba(0,0,0,.45),0 0 34px -10px var(--rc);outline:none}
+.mosaic{display:grid;grid-template-columns:1fr 1fr;grid-auto-rows:80px;gap:2px;background:#0b0e13}
+.mosaic.two{grid-auto-rows:162px}
+.mosaic.one{grid-template-columns:1fr;grid-auto-rows:162px}
+.mosaic span{display:block;overflow:hidden}
+.mosaic img{width:100%;height:100%;object-fit:cover;transition:transform .7s var(--ease)}
+.scard:hover .mosaic img{transform:scale(1.1)}
+.sbody{padding:14px 16px 16px;display:flex;flex-direction:column;gap:8px}
+.sbody b{font:700 18px/1.2 var(--head)}
+.sbody .meta{display:flex;justify-content:space-between;color:var(--muted);font-size:13px}
+.cprog{height:5px;border-radius:9px;background:rgba(255,255,255,.09);overflow:hidden}
+.cprog i{display:block;height:100%;width:0;border-radius:9px;background:linear-gradient(90deg,#ff7a00,var(--gold));transition:width .9s var(--ease)}
+.rdots{display:flex;flex-wrap:wrap;gap:4px 12px}
 .rdots em{font-style:normal;font-size:12px;font-weight:600}
-#sdetail{position:fixed;z-index:20;inset:0;overflow-y:auto;background:rgba(14,17,22,.88);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);opacity:0;transform:translateY(12px);transition:opacity .25s,transform .25s}
+.donebadge{position:absolute;top:12px;right:12px;z-index:4;overflow:hidden;padding:5px 10px;border-radius:99px;background:var(--gold);color:#10141b;font:700 11px/1 var(--body);letter-spacing:.05em;text-transform:uppercase}
+.donebadge::after{content:"";position:absolute;inset:0;width:40%;background:rgba(255,255,255,.55);animation:cShine 2.6s 1s infinite}
+/* series detail */
+#sdetail{position:fixed;z-index:20;inset:0;overflow-y:auto;background:rgba(10,12,16,.95);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);opacity:0;transform:translateY(14px);transition:opacity .3s var(--ease),transform .35s var(--ease)}
 #sdetail[hidden]{display:none}
 #sdetail.on{opacity:1;transform:none}
-#sdetail .sbar{position:sticky;top:-1px;z-index:2;padding:12px 0;background:rgb(14,17,22);border-bottom:1px solid var(--line);margin:22px 0 18px}
-.sprog{display:flex;align-items:center;gap:14px;margin-top:18px;max-width:420px}
-.sprog .prog{flex:1;height:7px}
-.sprog span{color:var(--muted);font-size:13px;white-space:nowrap}
-.cos{position:relative;text-align:left;font:inherit;color:var(--text);cursor:pointer;background:rgba(23,27,34,.75);border:1px solid var(--line);border-left:3px solid var(--c);border-radius:18px;padding:12px 14px;display:flex;flex-direction:column;gap:4px;transition:border-color .2s,background .2s}
-.cos:hover,.cos:focus-visible{border-color:var(--c);outline:none}
-.cos i{font-style:normal;color:var(--c);font-size:12px;font-weight:700}
-.cos b{font-size:15px;padding-right:22px}
-.cos small{color:var(--muted);font-size:12px}
-.cos::after{content:"";position:absolute;top:12px;right:12px;width:16px;height:16px;border-radius:50%;border:1.5px solid var(--muted)}
-.cos.own{background:rgba(248,169,0,.1);border-color:var(--gold)}
-.cos.own::after{background:var(--gold) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4 8.4l2.6 2.6L12 5.6' fill='none' stroke='%2310141b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/100% no-repeat;border-color:var(--gold)}
-.cimg{width:100%;aspect-ratio:1;object-fit:cover;border-radius:12px;margin-bottom:6px;background:rgba(255,255,255,.05)}
-
-/* ---- Smooth orange / transparent scrollbars ---- */
+#sbanner{position:relative;overflow:hidden;padding:30px 40px 26px;border-bottom:1px solid var(--line)}
+#sbg{position:absolute;inset:-40px;background-size:cover;background-position:center;filter:blur(38px) saturate(1.4);opacity:.38;transform:scale(1.1);animation:cFade 1.1s both}
+#sbanner::before{content:"";position:absolute;inset:0;z-index:0;background:linear-gradient(180deg,rgba(10,12,16,.45),rgba(10,12,16,.9))}
+#sbanner .bin{position:relative;z-index:1;display:flex;flex-direction:column;gap:20px}
+#sbanner .bmain{display:flex;align-items:center;gap:26px;flex-wrap:wrap}
+#sbanner .bmain>div:nth-child(2){flex:1;min-width:240px}
+#sbanner h2{margin:0;font:700 38px/1.1 var(--head);letter-spacing:-.015em;animation:cUp .6s var(--ease) both}
+#sbanner p{margin:6px 0 10px;color:var(--muted);animation:cUp .6s .06s var(--ease) both}
+#sstats{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;font-weight:600}
+#sbanner .bact{display:flex;gap:10px}
+#sfbar{position:sticky;top:0;z-index:6;padding:14px 40px 4px;background:rgba(10,12,16,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+#sfbar .frow{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:12px}
+.gwrap{padding:24px 40px 70px}
+.gwrap .cgrid{grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:16px}
+.cos{position:relative;display:flex;flex-direction:column;text-align:left;cursor:pointer;border:1px solid var(--line);border-radius:18px;overflow:hidden;background:rgba(23,27,34,.88);animation:cUp .5s var(--ease) both;animation-delay:var(--d,0ms);transition:transform .3s var(--ease),border-color .25s,box-shadow .3s}
+.cos:hover,.cos:focus-visible{transform:translateY(-5px);border-color:var(--c);box-shadow:0 16px 34px rgba(0,0,0,.5),0 0 30px -8px var(--c);outline:none}
+.cos.own{border-color:rgba(248,169,0,.65)}
+.cos .cimg{position:relative;aspect-ratio:1;overflow:hidden;background:radial-gradient(circle at 50% 38%,color-mix(in srgb,var(--c) 30%,transparent),transparent 70%),#0d1015}
+.cos .cimg img{width:100%;height:100%;object-fit:cover;filter:saturate(.7) brightness(.88);transition:transform .55s var(--ease),filter .4s}
+.cos.own .cimg img,.cos:hover .cimg img{filter:none}
+.cos:hover .cimg img{transform:scale(1.08)}
+.rbadge{position:absolute;left:10px;top:10px;padding:5px 9px;border-radius:99px;background:rgba(10,12,16,.78);border:1px solid color-mix(in srgb,var(--c) 55%,transparent);color:var(--c);font:700 10.5px/1 var(--body);letter-spacing:.06em;text-transform:uppercase}
+.ownb{position:absolute;right:10px;top:10px;width:30px;height:30px;display:grid;place-items:center;padding:0;border-radius:50%;border:1.5px solid rgba(255,255,255,.55);background:rgba(10,12,16,.6);cursor:pointer;transition:background .2s,border-color .2s,transform .2s var(--ease)}
+.ownb:hover{transform:scale(1.12)}
+.ownb svg{width:16px;height:16px;opacity:0;fill:none;stroke:#10141b;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.cos.own .ownb{background:var(--gold);border-color:var(--gold)}
+.cos.own .ownb svg{opacity:1;animation:cPop .4s var(--ease)}
+.play{position:absolute;right:10px;bottom:10px;width:34px;height:34px;display:grid;place-items:center;border-radius:50%;background:rgba(10,12,16,.7);border:1px solid rgba(255,255,255,.3);opacity:0;transform:scale(.7);transition:opacity .25s,transform .3s var(--ease)}
+.play svg{width:16px;height:16px;fill:#fff}
+.cos:hover .play{opacity:1;transform:none}
+.cinfo{padding:11px 13px 14px}
+.cinfo b{display:block;font-size:14px;line-height:1.3}
+.cinfo small{display:block;margin-top:3px;color:var(--muted);font-size:12px}
+/* viewer */
+#viewer{position:fixed;inset:0;z-index:40;display:grid;place-items:center;background:rgba(6,8,11,.8);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);opacity:0;transition:opacity .3s}
+#viewer[hidden]{display:none}
+#viewer.on{opacity:1}
+.vcard{display:grid;grid-template-columns:1.3fr 1fr;width:min(1020px,94vw);max-height:90vh;overflow:hidden;border:1px solid var(--line);border-radius:26px;background:#12161d;box-shadow:0 40px 100px rgba(0,0,0,.6),0 0 90px -30px var(--c);transform:translateY(22px) scale(.95);transition:transform .45s var(--ease)}
+#viewer.on .vcard{transform:none}
+.vmedia{position:relative;min-height:440px;display:grid;place-items:center;overflow:hidden;perspective:900px;background:radial-gradient(circle at 50% 40%,color-mix(in srgb,var(--c) 32%,transparent),#0b0e13 75%);animation:cFade .4s both}
+.vimg,.vvid{max-width:100%;max-height:78vh;object-fit:contain;animation:cFade .45s both}
+.vimg{animation:cFade .45s both,cFloat 6s ease-in-out infinite;filter:drop-shadow(0 20px 30px rgba(0,0,0,.5));transition:transform .2s}
+.vvid{width:100%}
+.vinfo{position:relative;display:flex;flex-direction:column;gap:14px;padding:30px 28px;overflow-y:auto}
+.vx{position:absolute;right:16px;top:14px;width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--text);font-size:15px;cursor:pointer;transition:background .2s,transform .2s}
+.vx:hover{background:rgba(255,255,255,.12);transform:rotate(90deg)}
+#vrar{align-self:flex-start;padding:5px 11px;border-radius:99px;border:1px solid color-mix(in srgb,var(--c) 55%,transparent);color:var(--c);font:700 11px/1 var(--body);letter-spacing:.07em;text-transform:uppercase}
+#vname{margin:0;padding-right:36px;font:700 30px/1.15 var(--head);letter-spacing:-.01em}
+#vmeta{margin:0;display:grid;grid-template-columns:auto 1fr;gap:8px 16px;font-size:14px}
+#vmeta dt{color:var(--muted)}
+#vmeta dd{margin:0}
+.vact{display:flex;flex-wrap:wrap;gap:10px;margin-top:4px}
+.vown{padding:11px 20px;border-radius:13px;border:1px solid var(--gold);background:transparent;color:var(--gold);font:700 14px var(--body);cursor:pointer;transition:background .25s,color .25s,transform .2s var(--ease)}
+.vown:hover{transform:translateY(-2px)}
+.vown.on{background:var(--gold);color:#10141b}
+.vact a.btn{display:inline-flex;align-items:center;text-decoration:none;padding:11px 18px}
+.vnav{display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:10px;color:var(--muted);font-size:13px}
+.vnav button{width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--text);font-size:20px;cursor:pointer;transition:background .2s,transform .2s var(--ease)}
+.vnav button:hover{background:rgba(255,255,255,.12);transform:scale(1.1)}
+@media (max-width:820px){.vcard{grid-template-columns:1fr;overflow-y:auto}.vmedia{min-height:300px}#sbanner,#sfbar,.gwrap{padding-left:20px;padding-right:20px}}
+@media (prefers-reduced-motion:reduce){.scard,.cos,#chero,#sbg,.vimg,.vmedia,#sbanner h2,#sbanner p,.donebadge::after,#chero::after{animation:none!important}.scard,.cos,.mosaic img,.cos .cimg img{transition:none}}
+/* ---- Custom scrollbar (driven by --sb-* variables, set from the profile menu) ---- */
+:root{--sb-rgb:248,169,0;--sb-a:.55;--sb-w:10px}
 html,*{scroll-behavior:smooth}
 *{overscroll-behavior:contain}
-::-webkit-scrollbar{width:10px;height:10px;background:transparent}
+::-webkit-scrollbar{width:var(--sb-w);height:var(--sb-w);background:transparent}
 ::-webkit-scrollbar-track{background:transparent;margin:6px 0}
 ::-webkit-scrollbar-corner{background:transparent}
-::-webkit-scrollbar-thumb{background:linear-gradient(180deg,rgba(248,169,0,.55),rgba(255,122,0,.45));border-radius:10px;border:3px solid transparent;background-clip:padding-box;transition:background .25s}
-::-webkit-scrollbar-thumb:hover{background:linear-gradient(180deg,rgba(255,190,40,.95),rgba(255,138,0,.9));background-clip:padding-box;border:2px solid transparent}
-::-webkit-scrollbar-thumb:active{background:#ff9d00;background-clip:padding-box;border:2px solid transparent}
-@supports (-moz-appearance:none){*{scrollbar-width:thin;scrollbar-color:rgba(248,169,0,.6) transparent}}
+::-webkit-scrollbar-thumb{background:rgba(var(--sb-rgb),var(--sb-a));border-radius:10px;border:3px solid transparent;background-clip:padding-box;transition:background .25s}
+::-webkit-scrollbar-thumb:hover{background:rgba(var(--sb-rgb),calc(var(--sb-a) + .35));background-clip:padding-box;border:2px solid transparent}
+::-webkit-scrollbar-thumb:active{background:rgb(var(--sb-rgb));background-clip:padding-box;border:2px solid transparent}
+@supports not selector(::-webkit-scrollbar){*{scrollbar-width:thin;scrollbar-color:rgba(var(--sb-rgb),var(--sb-a)) transparent}}
 @media (prefers-reduced-motion:reduce){html,*{scroll-behavior:auto}}
+#sbp{margin:14px 0 2px;padding-top:14px;border-top:1px solid var(--line)}
+#sbp .sbrow{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+#sbp .sbrow>span{flex:0 0 74px;color:var(--muted);font-size:12px}
+#sbp .sbrow>output{flex:0 0 34px;text-align:right;color:var(--muted);font-size:12px}
+#sbp .sw{display:flex;gap:8px;flex:1}
+#sbp .sw button{width:22px;height:22px;border-radius:50%;border:2px solid transparent;background:rgb(var(--c));cursor:pointer;padding:0;transition:transform .2s}
+#sbp .sw button:hover{transform:scale(1.15)}
+#sbp .sw button.on{border-color:#fff}
+#pmenu #sbp input[type=range]{-webkit-appearance:none;appearance:none;flex:1;width:auto;height:4px;padding:0;border:0;border-radius:4px;background:linear-gradient(90deg,rgba(var(--sb-rgb),.15),rgb(var(--sb-rgb)))}
+#pmenu #sbp input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;background:rgb(var(--sb-rgb));border:2px solid #12161d;cursor:pointer}
+#pmenu #sbp input[type=range]:focus-visible{outline:2px solid rgb(var(--sb-rgb));outline-offset:4px}
+#sbp .sbfoot{display:flex;align-items:center;justify-content:space-between}
+#sbp .sbfoot label{display:flex;align-items:center;gap:8px;margin:0;cursor:pointer;text-transform:none;letter-spacing:0;font-size:13px;color:var(--text)}
+#pmenu #sbp input[type=checkbox]{width:16px;height:16px;padding:0;accent-color:rgb(var(--sb-rgb))}
+#sbreset{background:none;border:0;color:var(--muted);font:inherit;font-size:12px;text-decoration:underline;cursor:pointer}
 </style>
 </head>
 <body>
@@ -495,6 +599,18 @@ html,*{scroll-behavior:smooth}
       <div id="phead"><span class="pavb"></span><div><b id="pbig">Summoner</b><small data-i18n="saved">Saved on this PC.</small></div></div>
       <div><label for="pname" data-i18n="dname">Display name</label>
       <input id="pname" maxlength="20" placeholder="Summoner" autocomplete="off"></div>
+      <div id="sbp"><label>Scrollbar</label>
+        <div class="sbrow"><span>Color</span><div class="sw" id="sbsw">
+          <button style="--c:248,169,0" data-c="248,169,0" aria-label="Orange"></button>
+          <button style="--c:255,106,0" data-c="255,106,0" aria-label="Deep orange"></button>
+          <button style="--c:255,95,162" data-c="255,95,162" aria-label="Pink"></button>
+          <button style="--c:176,108,255" data-c="176,108,255" aria-label="Purple"></button>
+          <button style="--c:60,200,255" data-c="60,200,255" aria-label="Blue"></button>
+          <button style="--c:255,255,255" data-c="255,255,255" aria-label="White"></button></div></div>
+        <div class="sbrow"><span>Width</span><input id="sbw" type="range" min="6" max="18" step="1"><output id="sbwo"></output></div>
+        <div class="sbrow"><span>Opacity</span><input id="sba" type="range" min="15" max="100" step="1"><output id="sbao"></output></div>
+        <div class="sbfoot"><label><input id="sbsm" type="checkbox"> Smooth wheel</label><button id="sbreset" type="button">Reset</button></div>
+      </div>
       <button id="ftoggle" aria-expanded="true"><span data-i18n="friends">Friends</span><b id="fcount">0</b><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button>
       <div id="fwrap"><div id="fbody">
         <div id="fadd"><input id="fname" maxlength="24" autocomplete="off" placeholder="Name#TAG" data-i18n-ph="fph"><button id="fplus" aria-label="Add">+</button></div>
@@ -573,9 +689,20 @@ html,*{scroll-behavior:smooth}
     <div id="cswitch"><button class="pill on" data-m="sets">Sets</button><button class="pill" data-m="cols">Collections</button></div>
     <div id="grid"></div>
     <div id="colx" hidden>
-      <div class="bar"><input id="colq" placeholder="Search collections…" autocomplete="off"><span id="colsum" style="color:var(--muted);font-size:13px"></span></div>
-      <div id="tyrow" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:14px"></div>
-      <div id="colgrid"></div>
+      <div id="chero">
+        <div class="ring"><svg viewBox="0 0 120 120"><circle class="bg" cx="60" cy="60" r="52"/><circle class="fg" id="cringfg" cx="60" cy="60" r="52"/></svg><b id="cringtxt">0%</b></div>
+        <div><h2>Cosmetic Collections</h2><p id="cheroS"></p></div>
+      </div>
+      <div id="cbar">
+        <input id="cq" class="cin" type="search" placeholder="Search collections or cosmetics…" autocomplete="off" aria-label="Search">
+        <select id="csort" class="cin" aria-label="Sort"><option value="size">Most cosmetics</option><option value="progress">Highest progress</option><option value="rarity">Rarest first</option><option value="name">A – Z</option></select>
+        <select id="cstat" class="cin" aria-label="Status"><option value="all">All collections</option><option value="owned">Started</option><option value="missing">Incomplete</option><option value="complete">Completed</option></select>
+      </div>
+      <div class="chips" id="ctype"></div>
+      <div class="chips" id="crar"></div>
+      <div id="colgrid" class="cgrid"></div>
+      <div id="cmore" class="sent"></div>
+      <div id="cempty" class="empty" hidden>No collection matches these filters.</div>
     </div>
   </section>
 </main>
@@ -602,13 +729,44 @@ html,*{scroll-behavior:smooth}
   <div class="in"></div>
 </section>
 <section id="sdetail" hidden>
-  <div class="dwrap">
-    <div class="dhead"><button class="btn" id="sback">&larr; Back</button><div><h2 id="stitle"></h2><p id="ssub"></p></div></div>
-    <div class="sprog"><div class="prog"><i id="sfill"></i></div><span id="scount"></span></div>
-    <div class="sbar bar"><input id="sq" placeholder="Search in this collection…" autocomplete="off"><span id="srar" style="display:contents"></span><button class="btn" id="sall">Mark all owned</button><button class="btn" id="snone">Clear</button></div>
-    <div class="champs" id="slist"></div>
+  <div id="sbanner"><div id="sbg"></div>
+    <div class="bin">
+      <div><button class="btn" id="sback">&larr; Back</button></div>
+      <div class="bmain">
+        <div class="ring"><svg viewBox="0 0 120 120"><circle class="bg" cx="60" cy="60" r="52"/><circle class="fg" id="sringfg" cx="60" cy="60" r="52"/></svg><b id="sringt">0%</b></div>
+        <div><h2 id="stitle"></h2><p id="ssub"></p><div id="sstats"></div></div>
+        <div class="bact"><button class="btn" id="sall">Mark shown owned</button><button class="btn" id="snone">Clear shown</button></div>
+      </div>
+    </div>
+  </div>
+  <div id="sfbar">
+    <div class="frow">
+      <input id="sq" class="cin" type="search" placeholder="Search in this collection…" autocomplete="off" aria-label="Search in collection">
+      <select id="ssort" class="cin" aria-label="Sort"><option value="default">Default order</option><option value="rarity">Rarest first</option><option value="name">A – Z</option><option value="missing">Missing first</option></select>
+      <select id="sstat" class="cin" aria-label="Status"><option value="all">All</option><option value="owned">Owned</option><option value="missing">Missing</option></select>
+    </div>
+    <div class="chips" id="stype"></div>
+    <div class="chips" id="srar"></div>
+  </div>
+  <div class="gwrap">
+    <div id="slist" class="cgrid"></div>
+    <div id="smore" class="sent"></div>
+    <div id="sempty" class="empty" hidden>Nothing matches these filters.</div>
   </div>
 </section>
+<div id="viewer" hidden>
+  <div class="vcard" id="vcard" role="dialog" aria-modal="true" aria-labelledby="vname">
+    <div class="vmedia" id="vmedia"></div>
+    <div class="vinfo">
+      <button class="vx" id="vx" aria-label="Close">&#10005;</button>
+      <span id="vrar"></span>
+      <h3 id="vname"></h3>
+      <dl id="vmeta"></dl>
+      <div class="vact"><button class="vown" id="vown"></button><a id="vlink" class="btn" target="_blank" rel="noopener noreferrer"></a></div>
+      <div class="vnav"><button id="vprev" aria-label="Previous">&#8249;</button><span id="vcount"></span><button id="vnext" aria-label="Next">&#8250;</button></div>
+    </div>
+  </div>
+</div>
 <section id="detail" hidden>
   <div class="dwrap">
     <div class="dhead"><button class="btn" id="dback" data-i18n="back">&larr; Back</button><div><h2 id="dtitle"></h2><p id="dsub"></p></div></div>
@@ -1187,26 +1345,63 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
   if (showView.cur === 'comp') init();
 })();
 
-// ---------- Cosmetic collections (Collections page -> series -> cosmetics) ----------
+// ---------- Collections (redesign: hero, filters, series -> cosmetics -> viewer) ----------
 (() => {
-  const RC = { Legendary: '#f5b942', Mythic: '#b06cff', Prestige: '#ff8fb8' };
-  const KEY = 'tftvault.owned.v1';
-  const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-  let owned = new Set();
-  try { owned = new Set(JSON.parse(localStorage.getItem(KEY) || '[]')); } catch {}
+  const RC = { Standard: '#8d95a3', Legendary: '#f5b942', Mythic: '#b06cff', Prestige: '#ff8fb8' };
+  const RW = { Standard: 0, Legendary: 1, Mythic: 2, Prestige: 3 }, RARS = Object.keys(RC);
+  const KEY = 'tftvault.owned.v1', CIRC = 326.7, VIDEO_TYPES = new Set(['Little Legend', 'Arena']);
+  const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  let owned = new Set(); try { owned = new Set(JSON.parse(localStorage.getItem(KEY) || '[]')); } catch {}
   const save = () => { try { localStorage.setItem(KEY, JSON.stringify([...owned])); } catch {} };
-  let COLS = null, cur = null, cq = '', sq = '', rar = 'All', ty = 'All';
   const g = id => document.getElementById(id);
-  const ownedIn = c => c.items.filter(i => owned.has(i.id)).length;
-  const pct = c => c.items.length ? Math.round(100 * ownedIn(c) / c.items.length) : 0;
+  const TL = t => ({ 'Little Legend': 'Little Legends', Arena: 'Arenas', Boom: 'Booms', Portal: 'Portals' }[t] || t);
+  const rc = r => RC[r] || RC.Standard;
 
-  async function load() {
-    if (COLS) return COLS;
-    try { COLS = (await (await fetch('collections.json')).json()).collections; }
-    catch { COLS = []; toast('collections.json not found'); }
-    return COLS;
+  let COLS = null, ALL = [], ALLC = null, VP = '', SER = new Map(), loading = null;
+  const F = { q: '', type: 'All', rar: new Set(), status: 'all', sort: 'size' };
+  let cur = null, DF = null, curList = [], vList = [], vIdx = 0, vTimer = 0, dTimer = 0;
+  const heroP = { v: 0 }, wA = { obs: null }, wB = { obs: null };
+
+  const tOk = (i, f) => (f.type === 'All' || i.type === f.type) && (!f.rar.size || f.rar.has(i.rarity));
+  const cnt = a => { let n = 0; for (const i of a) if (owned.has(i.id)) n++; return n; };
+  const score = a => a.reduce((n, i) => n + 1 + RW[i.rarity] * 2, 0);
+  const topR = a => a.reduce((m, i) => RW[i.rarity] > RW[m] ? i.rarity : m, 'Standard');
+
+  function load() {
+    return loading ||= (async () => {
+      try { const j = await (await fetch('collections.json')).json(); COLS = j.collections || []; VP = j.videoPattern || ''; }
+      catch { COLS = []; try { toast('collections.json not found'); } catch {} }
+      const m = new Map(), isO = c => /^Other /.test(c.name);
+      COLS.forEach(c => c.items.forEach(i => { i._n = (i.name + ' ' + (i.type || '')).toLowerCase(); if (!RC[i.rarity]) i.rarity = 'Standard'; if (!m.has(i.id)) m.set(i.id, i); }));
+      COLS.forEach(c => c.items.forEach(i => { const p = SER.get(i.id);
+        if (!p || (isO(p) && !isO(c)) || (isO(p) === isO(c) && c.items.length < p.items.length)) SER.set(i.id, c); }));
+      ALL = [...m.values()];
+      ALLC = { id: '__all', name: 'All Cosmetics', blurb: 'Every Little Legend, Arena, Boom and Portal in one place.', items: ALL };
+    })();
   }
 
+  // renders arr in chunks while the sentinel scrolls into view
+  function chunk(box, sent, arr, tpl, root, w) {
+    if (w.obs) w.obs.disconnect();
+    box.innerHTML = ''; let n = 0; const SIZE = 36;
+    const more = () => { box.insertAdjacentHTML('beforeend', arr.slice(n, n + SIZE).map((x, i) => tpl(x, n + i, i)).join('')); n += SIZE; sent.hidden = n >= arr.length; };
+    more();
+    w.obs = new IntersectionObserver(es => {
+      if (es[0].isIntersecting && n < arr.length) { more(); w.obs.unobserve(sent); if (n < arr.length) w.obs.observe(sent); }
+    }, { root, rootMargin: '700px' });
+    w.obs.observe(sent);
+  }
+
+  function ring(fg, txt, p, from) {
+    fg.style.strokeDashoffset = CIRC * (1 - p / 100);
+    if (RM || from.v === p) { txt.textContent = p + '%'; from.v = p; return; }
+    const a = from.v, t0 = performance.now(); from.v = p;
+    const step = now => { const k = Math.min(1, (now - t0) / 800), e = 1 - Math.pow(1 - k, 3); txt.textContent = Math.round(a + (p - a) * e) + '%'; if (k < 1) requestAnimationFrame(step); };
+    requestAnimationFrame(step);
+  }
+
+  /* ---------------- collections list ---------------- */
   function mode(m) {
     document.querySelectorAll('#cswitch .pill').forEach(b => b.classList.toggle('on', b.dataset.m === m));
     g('grid').hidden = m !== 'sets'; g('colx').hidden = m !== 'cols';
@@ -1214,77 +1409,224 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
   }
   g('cswitch').onclick = e => { const m = e.target.dataset.m; if (m) mode(m); };
 
-  const ofType = c => ty === 'All' ? c.items : c.items.filter(i => i.type === ty);
-  const ownedT = c => ofType(c).filter(i => owned.has(i.id)).length;
-  const pctT = c => ofType(c).length ? Math.round(100 * ownedT(c) / ofType(c).length) : 0;
-
   async function paintList() {
     await load();
-    const types = ['All', ...new Set(COLS.flatMap(c => c.items.map(i => i.type)))];
-    g('tyrow').innerHTML = types.map(t => `<button class="pill${t === ty ? ' on' : ''}" data-t="${esc(t)}">${esc(t === 'All' ? 'All types' : t)}</button>`).join('');
-    const k = cq.trim().toLowerCase();
-    const list = COLS.filter(c => ofType(c).length && (!k || c.name.toLowerCase().includes(k)));
-    const all = new Map(); COLS.forEach(c => c.items.forEach(i => all.set(i.id, i)));
-    const pool = [...all.values()].filter(i => ty === 'All' || i.type === ty);
-    g('colsum').textContent = `${list.length} collections · ${pool.filter(i => owned.has(i.id)).length} / ${pool.length} owned`;
-    g('colgrid').innerHTML = list.length ? list.map(c => {
-      const its = ofType(c), counts = {}; its.forEach(i => counts[i.rarity] = (counts[i.rarity] || 0) + 1);
-      const dots = Object.keys(RC).filter(r => counts[r]).map(r => `<em style="color:${RC[r]}">${counts[r]} ${r}</em>`).join('');
-      return `<button class="scard${pctT(c) === 100 ? ' done' : ''}" data-id="${esc(c.id)}">
-        <b>${esc(c.name)}</b><span>${ownedT(c)} / ${its.length} owned</span>
-        <div class="prog"><i style="width:${pctT(c)}%"></i></div><div class="rdots">${dots}</div></button>`;
-    }).join('') : '<div class="empty">No collection matches.</div>';
-  }
-  g('tyrow').onclick = e => { const t = e.target.dataset.t; if (t) { ty = t; paintList(); } };
-  g('colq').oninput = e => { cq = e.target.value; paintList(); };
-  g('colgrid').onclick = e => {
-    const b = e.target.closest('.scard'); if (!b) return;
-    cur = COLS.find(c => c.id === b.dataset.id); sq = ''; rar = 'All'; openCol();
-  };
+    const tc = {}, rcn = {}; ALL.forEach(i => { tc[i.type] = (tc[i.type] || 0) + 1; rcn[i.rarity] = (rcn[i.rarity] || 0) + 1; });
+    g('ctype').innerHTML = ['All', ...Object.keys(tc)].map(t => `<button class="chip${F.type === t ? ' on' : ''}" data-t="${esc(t)}">${t === 'All' ? 'All types' : esc(TL(t))}<em>${t === 'All' ? ALL.length : tc[t]}</em></button>`).join('');
+    g('crar').innerHTML = RARS.filter(r => rcn[r]).map(r => `<button class="chip${F.rar.has(r) ? ' on' : ''}" style="--c:${RC[r]}" data-r="${r}"><i></i>${r}<em>${rcn[r]}</em></button>`).join('');
 
-  function openCol() {
-    const d = g('sdetail');
-    g('stitle').textContent = cur.name; g('ssub').textContent = cur.blurb || '';
-    g('sq').value = '';
-    const rs = ['All', ...new Set(cur.items.map(i => i.rarity))];
-    const ts = [...new Set(cur.items.map(i => i.type))];
-    g('srar').innerHTML = rs.map(r => `<button class="pill${r === rar ? ' on' : ''}" data-r="${esc(r)}">${esc(r)}</button>`).join('')
-      + (ts.length > 1 ? ts.map(t => `<button class="pill${t === ty ? ' on' : ''}" data-t="${esc(t)}">${esc(t)}</button>`).join('') : '');
-    d.hidden = false; requestAnimationFrame(() => d.classList.add('on'));
-    paintItems();
+    const k = F.q.trim().toLowerCase();
+    const pass = x => { const o = cnt(x.v), t = x.v.length;
+      return t && (F.status === 'all' || (F.status === 'owned' && o > 0) || (F.status === 'missing' && o < t) || (F.status === 'complete' && o === t)); };
+    let list = COLS.map(c => ({ c, v: c.items.filter(i => tOk(i, F)) })).filter(pass);
+    if (k) list = list.filter(x => x.c.name.toLowerCase().includes(k) || x.c.items.some(i => i._n.includes(k)));
+    const S = { size: (a, b) => b.v.length - a.v.length, name: (a, b) => a.c.name.localeCompare(b.c.name),
+      progress: (a, b) => cnt(b.v) / b.v.length - cnt(a.v) / a.v.length || b.v.length - a.v.length, rarity: (a, b) => score(b.v) - score(a.v) };
+    list.sort(S[F.sort]);
+    if (!k) { const ax = { c: ALLC, v: ALL.filter(i => tOk(i, F)) }; if (pass(ax)) list.unshift(ax); }
+
+    const pool = ALL.filter(i => tOk(i, F)), o = cnt(pool), p = pool.length ? Math.round(100 * o / pool.length) : 0;
+    ring(g('cringfg'), g('cringtxt'), p, heroP);
+    g('cheroS').textContent = `${o} of ${pool.length} cosmetics owned · ${list.length} collection${list.length === 1 ? '' : 's'} shown`;
+    g('cempty').hidden = list.length > 0;
+    chunk(g('colgrid'), g('cmore'), list, seriesCard, null, wA);
   }
-  function closeCol() {
+
+  function seriesCard(x, idx, k) {
+    const { c, v } = x, o = cnt(v), t = v.length, p = Math.round(100 * o / t), top = topR(v);
+    const imgs = [...v].filter(i => i.img).sort((a, b) => RW[b.rarity] - RW[a.rarity]).slice(0, 4);
+    const use = imgs.length >= 4 ? imgs : imgs.slice(0, imgs.length >= 2 ? 2 : 1);
+    const cls = use.length >= 4 ? '' : use.length >= 2 ? ' two' : ' one';
+    const counts = {}; v.forEach(i => counts[i.rarity] = (counts[i.rarity] || 0) + 1);
+    const dots = RARS.filter(r => counts[r]).map(r => `<em style="color:${RC[r]}">${counts[r]} ${r}</em>`).join('');
+    return `<button class="scard" data-id="${esc(c.id)}" style="--rc:${rc(top)};--d:${k * 35}ms">
+      ${o === t ? '<span class="donebadge">Complete</span>' : ''}
+      <div class="mosaic${cls}">${use.map(i => `<span><img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="${esc(i.img)}" alt="" onerror="this.style.visibility='hidden'"></span>`).join('')}</div>
+      <div class="sbody"><b>${esc(c.name)}</b>
+        <div class="meta"><span>${o} / ${t} owned</span><span>${p}%</span></div>
+        <div class="cprog"><i style="width:${p}%"></i></div><div class="rdots">${dots}</div></div></button>`;
+  }
+
+  let qT = 0;
+  g('cq').oninput = e => { F.q = e.target.value; clearTimeout(qT); qT = setTimeout(paintList, 140); };
+  g('csort').onchange = e => { F.sort = e.target.value; paintList(); };
+  g('cstat').onchange = e => { F.status = e.target.value; paintList(); };
+  g('ctype').onclick = e => { const b = e.target.closest('.chip'); if (b) { F.type = b.dataset.t; paintList(); } };
+  g('crar').onclick = e => { const b = e.target.closest('.chip'); if (!b) return; const r = b.dataset.r; F.rar.has(r) ? F.rar.delete(r) : F.rar.add(r); paintList(); };
+  g('colgrid').onclick = e => { const b = e.target.closest('.scard'); if (!b) return; openCol(b.dataset.id === '__all' ? ALLC : COLS.find(c => c.id === b.dataset.id)); };
+
+  /* ---------------- series detail ---------------- */
+  function openCol(c) {
+    if (!c) return;
+    clearTimeout(dTimer); cur = c;
+    DF = { q: '', type: F.type, rar: new Set(F.rar), status: 'all', sort: 'default' };
+    const d = g('sdetail'), top = [...c.items].filter(i => i.img).sort((a, b) => RW[b.rarity] - RW[a.rarity])[0];
+    g('stitle').textContent = c.name; g('ssub').textContent = c.blurb || `${c.items.length} cosmetics`;
+    g('sbg').style.backgroundImage = top ? `url("${top.img.replace(/"/g, '%22')}")` : '';
+    g('sq').value = ''; g('ssort').value = 'default'; g('sstat').value = 'all';
+    heroS.v = 0; d.hidden = false; d.scrollTop = 0; requestAnimationFrame(() => d.classList.add('on'));
+    paintDetail();
+  }
+  const heroS = { v: 0 };
+  function closeDetail() {
     const d = g('sdetail'); if (d.hidden) return;
-    d.classList.remove('on'); setTimeout(() => d.hidden = true, 250); paintList();
+    d.classList.remove('on'); if (wB.obs) wB.obs.disconnect();
+    dTimer = setTimeout(() => { d.hidden = true; }, 300);
+    if (!g('colx').hidden) paintList();
   }
-  function paintItems() {
-    const k = sq.trim().toLowerCase();
-    const list = cur.items.filter(i => (rar === 'All' || i.rarity === rar) && (ty === 'All' || i.type === ty || !cur.items.some(x => x.type === ty)) && (!k || i.name.toLowerCase().includes(k)));
-    g('slist').innerHTML = list.length ? list.map(i => `<button class="cos${owned.has(i.id) ? ' own' : ''}" style="--c:${RC[i.rarity] || '#9aa4b2'}" data-id="${esc(i.id)}" aria-pressed="${owned.has(i.id)}">
-      ${i.img ? `<img class="cimg" loading="lazy" referrerpolicy="no-referrer" src="${esc(i.img)}" alt="" onerror="this.remove()">` : ''}<i>${esc(i.rarity)}</i><b>${esc(i.name)}</b><small>${esc(i.type || '')}${i.source ? ' · ' + esc(i.source) : ''}</small></button>`).join('') : '<div class="empty">Nothing matches.</div>';
-    stat();
+  g('sback').onclick = closeDetail;
+
+  function detailItems() {
+    const k = DF.q.trim().toLowerCase();
+    let a = cur.items.filter(i => tOk(i, DF) && (!k || i._n.includes(k)) && (DF.status === 'all' || (DF.status === 'owned') === owned.has(i.id)));
+    if (DF.sort === 'rarity') a = [...a].sort((x, y) => RW[y.rarity] - RW[x.rarity] || x.name.localeCompare(y.name));
+    else if (DF.sort === 'name') a = [...a].sort((x, y) => x.name.localeCompare(y.name));
+    else if (DF.sort === 'missing') a = [...a].sort((x, y) => owned.has(x.id) - owned.has(y.id) || x.name.localeCompare(y.name));
+    return a;
   }
-  function stat() {
-    const its = cur.items.filter(i => ty === 'All' || i.type === ty || !cur.items.some(x => x.type === ty));
-    const o = its.filter(i => owned.has(i.id)).length, p = its.length ? Math.round(100 * o / its.length) : 0;
-    g('sfill').style.width = p + '%'; g('scount').textContent = `${o} / ${its.length} owned (${p}%)`;
+
+  function paintStats() {
+    const pool = cur.items.filter(i => tOk(i, DF)), o = cnt(pool), p = pool.length ? Math.round(100 * o / pool.length) : 0;
+    ring(g('sringfg'), g('sringt'), p, heroS);
+    const rcn = {}; pool.forEach(i => rcn[i.rarity] = (rcn[i.rarity] || 0) + 1);
+    g('sstats').innerHTML = `<span>${o} / ${pool.length} owned</span>` + RARS.filter(r => rcn[r]).map(r => `<span style="color:${RC[r]}">${rcn[r]} ${r}</span>`).join('');
+  }
+
+  function paintDetail() {
+    const tc = {}, rcn = {}; cur.items.forEach(i => { tc[i.type] = (tc[i.type] || 0) + 1; rcn[i.rarity] = (rcn[i.rarity] || 0) + 1; });
+    const types = Object.keys(tc);
+    g('stype').innerHTML = types.length > 1 ? ['All', ...types].map(t => `<button class="chip${DF.type === t ? ' on' : ''}" data-t="${esc(t)}">${t === 'All' ? 'All types' : esc(TL(t))}<em>${t === 'All' ? cur.items.length : tc[t]}</em></button>`).join('') : '';
+    g('srar').innerHTML = Object.keys(rcn).length > 1 ? RARS.filter(r => rcn[r]).map(r => `<button class="chip${DF.rar.has(r) ? ' on' : ''}" style="--c:${RC[r]}" data-r="${r}"><i></i>${r}<em>${rcn[r]}</em></button>`).join('') : '';
+    curList = detailItems();
+    g('sempty').hidden = curList.length > 0;
+    chunk(g('slist'), g('smore'), curList, cos, g('sdetail'), wB);
+    paintStats();
+  }
+
+  function cos(i, idx, k) {
+    const c = rc(i.rarity), on = owned.has(i.id);
+    return `<div class="cos${on ? ' own' : ''}" data-id="${esc(i.id)}" data-i="${idx}" style="--c:${c};--d:${k * 35}ms" tabindex="0" role="button" aria-label="${esc(i.name)}">
+      <div class="cimg">${i.img ? `<img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="${esc(i.img)}" alt="" onerror="this.style.visibility='hidden'">` : ''}
+        <span class="rbadge">${esc(i.rarity)}</span>
+        <button class="ownb" aria-pressed="${on}" aria-label="Toggle owned"><svg viewBox="0 0 16 16"><path d="M3.5 8.5l3 3 6-7"/></svg></button>
+        ${VIDEO_TYPES.has(i.type) ? '<span class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>' : ''}</div>
+      <div class="cinfo"><b>${esc(i.name)}</b><small>${esc(i.type)}${i.source ? ' · ' + esc(i.source) : ''}</small></div></div>`;
+  }
+
+  function toggle(id) {
+    owned.has(id) ? owned.delete(id) : owned.add(id); save();
+    const on = owned.has(id);
+    document.querySelectorAll(`.cos[data-id="${CSS.escape(id)}"]`).forEach(el => { el.classList.toggle('own', on); el.querySelector('.ownb')?.setAttribute('aria-pressed', on); });
+    if (cur) paintStats(); if (!g('viewer').hidden) vOwn();
   }
   g('slist').onclick = e => {
-    const b = e.target.closest('.cos'); if (!b) return;
-    owned.has(b.dataset.id) ? owned.delete(b.dataset.id) : owned.add(b.dataset.id);
-    save(); b.classList.toggle('own'); b.setAttribute('aria-pressed', owned.has(b.dataset.id));
-    stat();
+    const card = e.target.closest('.cos'); if (!card) return;
+    if (e.target.closest('.ownb')) { toggle(card.dataset.id); return; }
+    openViewer(curList, +card.dataset.i);
   };
-  g('sq').oninput = e => { sq = e.target.value; paintItems(); };
-  g('srar').onclick = e => {
-    const r = e.target.dataset.r, t = e.target.dataset.t;
-    if (t) ty = ty === t ? 'All' : t; else if (r) rar = r; else return;
-    g('srar').querySelectorAll('.pill').forEach(b => b.classList.toggle('on', b.dataset.r ? b.dataset.r === rar : b.dataset.t === ty)); paintItems();
-  };
-  g('sall').onclick = () => { cur.items.forEach(i => owned.add(i.id)); save(); paintItems(); };
-  g('snone').onclick = () => { cur.items.forEach(i => owned.delete(i.id)); save(); paintItems(); };
-  g('sback').onclick = closeCol;
-  addEventListener('keydown', e => { if (e.key === 'Escape' && !g('sdetail').hidden) closeCol(); });
+  g('slist').onkeydown = e => { if (e.key === 'Enter' && e.target.classList.contains('cos')) openViewer(curList, +e.target.dataset.i); };
+  let sT = 0;
+  g('sq').oninput = e => { DF.q = e.target.value; clearTimeout(sT); sT = setTimeout(paintDetail, 140); };
+  g('ssort').onchange = e => { DF.sort = e.target.value; paintDetail(); };
+  g('sstat').onchange = e => { DF.status = e.target.value; paintDetail(); };
+  g('stype').onclick = e => { const b = e.target.closest('.chip'); if (b) { DF.type = b.dataset.t; paintDetail(); } };
+  g('srar').onclick = e => { const b = e.target.closest('.chip'); if (!b) return; const r = b.dataset.r; DF.rar.has(r) ? DF.rar.delete(r) : DF.rar.add(r); paintDetail(); };
+  g('sall').onclick = () => { curList.forEach(i => owned.add(i.id)); save(); paintDetail(); };
+  g('snone').onclick = () => { curList.forEach(i => owned.delete(i.id)); save(); paintDetail(); };
+
+  /* ---------------- viewer (video for Little Legends & Arenas) ---------------- */
+  function openViewer(list, idx) {
+    clearTimeout(vTimer); vList = list; vIdx = idx;
+    const v = g('viewer'); v.hidden = false; renderViewer();
+    requestAnimationFrame(() => v.classList.add('on')); g('vx').focus({ preventScroll: true });
+  }
+  function closeViewer() {
+    const v = g('viewer'); if (v.hidden) return;
+    v.classList.remove('on'); g('vmedia').innerHTML = '';
+    vTimer = setTimeout(() => { v.hidden = true; }, 260);
+  }
+  function vOwn() { const i = vList[vIdx]; if (!i) return; const on = owned.has(i.id); const b = g('vown'); b.classList.toggle('on', on); b.textContent = on ? '✓ Owned' : 'Mark as owned'; }
+  function renderViewer() {
+    const i = vList[vIdx]; if (!i) return; const c = rc(i.rarity);
+    g('vcard').style.setProperty('--c', c);
+    const m = g('vmedia'); m.style.setProperty('--c', c); m.innerHTML = '';
+    const img = () => { const im = new Image(); im.alt = i.name; im.referrerPolicy = 'no-referrer'; im.className = 'vimg'; im.src = i.img || ''; m.appendChild(im); };
+    const src = VIDEO_TYPES.has(i.type) ? (i.video || (VP ? VP.replace(/\{id\}/g, i.id).replace(/\{type\}/g, encodeURIComponent(i.type)) : '')) : '';
+    if (src) {
+      const vd = document.createElement('video'); vd.className = 'vvid'; vd.src = src; vd.autoplay = true; vd.loop = true; vd.muted = true; vd.playsInline = true; vd.controls = true;
+      vd.onerror = () => { vd.remove(); img(); g('vlink').textContent = '▶ Watch preview ↗'; }; m.appendChild(vd); const pr = vd.play?.(); if (pr) pr.catch(() => {});
+    } else img();
+    const r = g('vrar'); r.textContent = i.rarity; g('vname').textContent = i.name;
+    const s = SER.get(i.id);
+    g('vmeta').innerHTML = `<dt>Type</dt><dd>${esc(i.type)}</dd>` + (s ? `<dt>Collection</dt><dd>${esc(s.name)}</dd>` : '') + (i.source ? `<dt>Source</dt><dd>${esc(i.source)}</dd>` : '');
+    const a = g('vlink'); a.href = i.url || 'https://tftskins.com/cosmetic/' + encodeURIComponent(i.id);
+    a.textContent = VIDEO_TYPES.has(i.type) && !src ? '▶ Watch preview ↗' : 'View on tftskins.com ↗';
+    g('vcount').textContent = `${vIdx + 1} / ${vList.length}`;
+    vOwn();
+  }
+  const step = d => { if (!vList.length) return; vIdx = (vIdx + d + vList.length) % vList.length; renderViewer(); };
+  g('vprev').onclick = () => step(-1); g('vnext').onclick = () => step(1); g('vx').onclick = closeViewer;
+  g('viewer').onclick = e => { if (e.target === g('viewer')) closeViewer(); };
+  g('vown').onclick = () => { const i = vList[vIdx]; if (i) toggle(i.id); };
+  g('vmedia').addEventListener('mousemove', e => {
+    const im = g('vmedia').querySelector('.vimg'); if (!im || RM) return;
+    const r = e.currentTarget.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+    im.style.animation = 'none'; im.style.transform = `rotateY(${x * 16}deg) rotateX(${-y * 16}deg) scale(1.04)`;
+  });
+  g('vmedia').addEventListener('mouseleave', () => { const im = g('vmedia').querySelector('.vimg'); if (im) { im.style.transform = ''; im.style.animation = ''; } });
+
+  addEventListener('keydown', e => {
+    if (!g('viewer').hidden) {
+      if (e.key === 'Escape') { e.stopPropagation(); closeViewer(); }
+      else if (e.key === 'ArrowRight') step(1); else if (e.key === 'ArrowLeft') step(-1);
+      return;
+    }
+    if (e.key === 'Escape' && !g('sdetail').hidden) { e.stopPropagation(); closeDetail(); }
+  }, true);
+})();
+
+// ---------- Scrollbar customization + smooth wheel ----------
+(() => {
+  const KEY = 'tftvault.sb.v1', D = { rgb: '248,169,0', w: 10, a: 55, smooth: false };
+  let s = { ...D };
+  try { s = { ...D, ...JSON.parse(localStorage.getItem(KEY) || '{}') }; } catch {}
+  const g = id => document.getElementById(id), root = document.documentElement;
+  function apply(save = true) {
+    root.style.setProperty('--sb-rgb', s.rgb); root.style.setProperty('--sb-w', s.w + 'px'); root.style.setProperty('--sb-a', s.a / 100);
+    g('sbw').value = s.w; g('sba').value = s.a; g('sbwo').textContent = s.w + 'px'; g('sbao').textContent = s.a + '%'; g('sbsm').checked = s.smooth;
+    g('sbsw').querySelectorAll('button').forEach(b => b.classList.toggle('on', b.dataset.c === s.rgb));
+    if (save) try { localStorage.setItem(KEY, JSON.stringify(s)); } catch {}
+  }
+  g('sbsw').onclick = e => { const c = e.target.dataset.c; if (c) { s.rgb = c; apply(); } };
+  g('sbw').oninput = e => { s.w = +e.target.value; apply(); };
+  g('sba').oninput = e => { s.a = +e.target.value; apply(); };
+  g('sbsm').onchange = e => { s.smooth = e.target.checked; apply(); };
+  g('sbreset').onclick = () => { s = { ...D }; apply(); };
+  apply(false);
+
+  // smooth wheel: eases scrollTop toward a target instead of jumping
+  const st = new WeakMap();
+  const scroller = e => { for (const el of e.composedPath()) {
+    if (!(el instanceof Element)) continue;
+    const o = getComputedStyle(el).overflowY;
+    if ((o === 'auto' || o === 'scroll') && el.scrollHeight > el.clientHeight + 1) return el; } return null; };
+  addEventListener('wheel', e => {
+    if (!s.smooth || e.ctrlKey || e.shiftKey || Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
+    const el = scroller(e); if (!el) return;
+    e.preventDefault();
+    let t = st.get(el); if (!t) { t = { y: el.scrollTop, raf: 0 }; st.set(el, t); }
+    if (!t.raf) t.y = el.scrollTop;
+    const dy = e.deltaMode === 1 ? e.deltaY * 40 : e.deltaMode === 2 ? e.deltaY * el.clientHeight : e.deltaY;
+    t.y = Math.max(0, Math.min(el.scrollHeight - el.clientHeight, t.y + dy));
+    if (t.raf) return;
+    el.style.scrollBehavior = 'auto';
+    const tick = () => {
+      const d = t.y - el.scrollTop;
+      if (Math.abs(d) < 0.5) { el.scrollTop = t.y; t.raf = 0; el.style.scrollBehavior = ''; return; }
+      el.scrollTop += d * 0.16; t.raf = requestAnimationFrame(tick);
+    };
+    t.raf = requestAnimationFrame(tick);
+  }, { passive: false });
 })();
 </script>
 </body>
