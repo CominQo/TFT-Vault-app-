@@ -255,6 +255,15 @@ header p{color:var(--muted);font-size:14px}
 .eyebrow{color:var(--a,var(--gold));font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
 .hero h1{font-family:var(--head);font-size:clamp(34px,4.6vw,58px);font-weight:700;letter-spacing:.03em;line-height:1.08;text-transform:uppercase}
 .hero p{color:#cdd3de;font-size:16px;line-height:1.55;max-width:48ch}
+
+/* ---- Home hero: Enchanted Wilds logo instead of text ---- */
+.hero h1 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.hero.has-logo{top:calc((100% - 240px)/2)}
+#hLogo{display:block;width:min(clamp(250px,calc((100vh - 460px)*1.7),520px),40vw);height:auto;margin:-6px 0 4px -10px;filter:drop-shadow(0 6px 14px rgba(0,0,0,.6)) drop-shadow(0 0 28px rgba(80,200,120,.22));animation:hlIn .9s var(--ease) both,hlFloat 7s ease-in-out 1s infinite}
+#hLogo[hidden]{display:none}
+@keyframes hlIn{from{opacity:0;transform:translateY(18px) scale(.94)}to{opacity:1;transform:none}}
+@keyframes hlFloat{50%{transform:translateY(-6px)}}
+@media (prefers-reduced-motion:reduce){#hLogo{animation:none}}
 .cta{align-self:flex-start;margin-top:8px;background:#fff;color:#0e1116;border:0;border-radius:999px;padding:14px 30px;font:inherit;font-weight:700;font-size:15px;cursor:pointer;transition:transform .2s var(--ease),box-shadow .2s}
 .cta:hover,.cta:focus-visible{transform:translateY(-2px);box-shadow:0 10px 26px rgba(0,0,0,.4);outline:none}
 #sets{padding:64px 40px 48px 360px}
@@ -912,7 +921,7 @@ body.dens .tname{font-size:10px}
   <section id="home" class="view">
     <div class="hero">
       <div class="eyebrow" id="hEye">New set</div>
-      <h1 id="hTitle">Teamfight Tactics</h1>
+      <h1 id="hTitle"><img id="hLogo" src="img/hero-logo.webp" alt="Teamfight Tactics: Enchanted Wilds" hidden><span id="hTitleT">Teamfight Tactics</span></h1>
       <p id="hText"></p>
       <button class="cta" id="hView" data-i18n="view">View set</button>
     </div>
@@ -1254,7 +1263,10 @@ function renderHero(sets) {
   const s = sets.find(x => x.new) || sets[0]; if (!s) return;
   $('home').style.setProperty('--a', s.accent);
   $('hEye').textContent = s.new ? 'New set · Set ' + s.id : 'Set ' + s.id;
-  $('hTitle').textContent = s.name;
+  const lg = $('hLogo'), tt = $('hTitleT'); tt.textContent = s.name;
+  const useLogo = String(s.id) === '18';   // set 18 = Enchanted Wilds artwork
+  const hero = lg.closest('.hero'); lg.hidden = !useLogo; tt.classList.toggle('sr', useLogo); hero.classList.toggle('has-logo', useLogo);
+  lg.onerror = () => { lg.hidden = true; tt.classList.remove('sr'); hero.classList.remove('has-logo'); };
   $('hText').textContent = s.blurb || '';
   $('hView').onclick = () => open(s, $('hView'));
   const tc = $('tcard'); tc.hidden = !s.trailer;
