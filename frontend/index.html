@@ -550,6 +550,44 @@ background:linear-gradient(160deg,#ffffff1c,#ffffff08);border:1.5px solid color-
 .cb-hint{color:var(--muted);font-size:12px;margin-bottom:12px}
 
 
+/* ---- Live smart comp recommendations ---- */
+@keyframes rcIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.cb-main{grid-template-columns:230px minmax(0,1fr) 330px}
+.cb-recs{display:flex;flex-direction:column;gap:10px;max-height:780px;min-width:0}
+.cb-recs .cb-h{margin-bottom:0}
+.rc-sub{color:var(--muted);font-size:12.5px;line-height:1.45}
+.rc-recs-in{display:flex;flex-direction:column;gap:10px}
+.rc-recs-in input{width:100%;background:rgba(255,255,255,.06);color:var(--text);border:1px solid rgba(255,255,255,.14);border-radius:99px;padding:8px 14px;font:inherit;outline:none}
+.rc-recs-in input:focus{border-color:var(--gold)}
+.rc-chips{display:flex;flex-wrap:wrap;gap:6px}
+.rc-list{display:grid;gap:10px;overflow-y:auto;padding-right:4px;min-height:60px;align-content:start}
+.rc-card{position:relative;display:grid;gap:9px;padding:12px;border-radius:16px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);animation:rcIn .28s var(--ease) both;transition:border-color .2s,box-shadow .2s}
+.rc-card:hover{border-color:rgba(248,169,0,.5)}
+.rc-card.top{border-color:var(--gold);box-shadow:0 0 22px -10px var(--gold)}
+.rc-head{display:flex;gap:10px;align-items:center}
+.rc-tier{flex:none;width:30px;height:30px;display:grid;place-items:center;border-radius:9px;font:800 15px var(--head);color:#14100a;background:var(--tc)}
+.rc-nm{min-width:0}.rc-nm b{display:block;font-size:14px;line-height:1.2}.rc-nm small{color:var(--muted);font-size:11.5px}
+.rc-pct{margin-left:auto;text-align:right;font:800 19px var(--head);line-height:1}.rc-pct small{display:block;margin-top:3px;color:var(--muted);font:600 10px var(--body);letter-spacing:.06em;text-transform:uppercase}
+.rc-bar{height:5px;border-radius:9px;background:rgba(255,255,255,.1);overflow:hidden}
+.rc-bar i{display:block;height:100%;width:0;border-radius:9px;background:linear-gradient(90deg,#ff7a00,var(--gold));transition:width .45s var(--ease)}
+.rc-ch{display:flex;flex-wrap:wrap;gap:4px}
+.rc-c{width:28px;height:28px;border-radius:8px;border:2px solid var(--c);background:#10131c center/cover;opacity:.32;display:grid;place-items:center;overflow:hidden;font:700 7px/1 var(--body);text-align:center;transition:opacity .25s,box-shadow .25s}
+.rc-c.m{opacity:1;box-shadow:0 0 9px -1px var(--c)}
+.rc-tr{display:flex;flex-wrap:wrap;gap:5px}
+.rc-tag{padding:2px 8px;border-radius:99px;font:600 11px var(--body);background:rgba(255,255,255,.06);color:var(--muted)}
+.rc-tag.d{background:rgba(248,169,0,.18);color:var(--gold)}.rc-tag.e{background:rgba(93,183,242,.16);color:#7fd2ff}
+.rc-why{color:var(--muted);font-size:11.5px}.rc-why b{color:var(--text);font-weight:700}
+.rc-act{display:flex;gap:8px;align-items:center}
+.rc-act .cb-btn{padding:8px 14px}
+.rc-ap{position:absolute;top:12px;right:12px;display:none}
+.rc-card.ap .rc-pct small:after{content:" · applied";color:var(--gold)}
+.rc-aug{display:grid;gap:8px;padding-top:4px;border-top:1px solid rgba(255,255,255,.08)}
+.rc-ag b{font:800 10.5px var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--ac)}
+.rc-ag div{display:flex;flex-wrap:wrap;gap:5px;margin-top:5px}
+.rc-ag span{padding:3px 9px;border-radius:8px;font:600 11.5px var(--body);color:var(--ac);background:color-mix(in srgb,var(--ac) 14%,transparent);border:1px solid color-mix(in srgb,var(--ac) 38%,transparent)}
+.rc-none{padding:18px 6px;color:var(--muted);font-size:13px;line-height:1.5;text-align:center}
+@media (max-width:1640px){.cb-main{grid-template-columns:230px minmax(0,1fr)}.cb-recs{grid-column:1/-1;max-height:none}.rc-list{grid-template-columns:repeat(auto-fill,minmax(310px,1fr));max-height:640px}}
+@media (prefers-reduced-motion:reduce){.rc-card{animation:none}.rc-bar i{transition:none}}
 /* ---- Cosmetic collections (redesign) ---- */
 @keyframes cUp{from{opacity:0;transform:translateY(16px) scale(.97)}to{opacity:1;transform:none}}
 @keyframes cFade{from{opacity:0}to{opacity:1}}
@@ -1644,7 +1682,7 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
     root.innerHTML = `<div class="cb-top"><input id="cb-name" maxlength="24" placeholder="Comp name">${btn('cb-save', 'Save comp', 'pri')}${btn('cb-undo', 'Undo')}${btn('cb-clear', 'Clear')}<span class="cb-n" id="cb-count"></span></div>
       <div class="cb-panel"><div class="cb-h">Saved comps</div><div class="cb-saved" id="cb-sv"></div></div>
       <div class="cb-main"><div class="cb-panel"><div class="cb-h">Traits</div><div class="cb-traits" id="cb-tr"></div></div>
-        <div class="cb-panel cb-board"><div id="cb-bd"></div><div class="cb-rm" id="cb-rm">Drop here to remove</div></div></div>
+        <div class="cb-panel cb-board"><div id="cb-bd"></div><div class="cb-rm" id="cb-rm">Drop here to remove</div></div>${recShell()}</div>
       <div class="cb-panel"><div class="cb-hd"><div class="cb-seg"><button class="on" data-tab="c">Champions</button><button data-tab="i">Items</button><button data-tab="t">Traits</button></div></div>
         <div id="cb-cp"><div class="cb-bar"><input id="cb-q" placeholder="Search champions or traits">
           <div class="cb-seg">${[0,1,2,3,4,5].map(c => `<button data-c="${c}" class="${c === costF ? 'on' : ''}">${c || 'All'}</button>`).join('')}</div>
@@ -1676,13 +1714,13 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
     document.querySelectorAll('.cb-p').forEach(p => p.classList.toggle('used', used.has(p.dataset.n)));
     const cs = D.champions.filter(c => used.has(c.name));
     $('cb-count').textContent = `${cs.length} units · ${cs.reduce((a, c) => a + c.cost, 0)} gold · ${gear.reduce((a, g) => a + (g ? g.length : 0), 0)} items`;
-    const cnt = {}; cs.forEach(c => c.traits.forEach(t => cnt[t] = (cnt[t] || 0) + 1));
+    const cnt = currentTraits();
     const rows = D.traits.filter(t => cnt[t.name] && t.kind !== 'hidden').map(t => {
       const bp = (t.kind === 'single' || !t.bp || !t.bp.length ? [1] : t.bp.map(x => parseInt(x))).filter(x => x > 0);
       return { t, n: cnt[t.name], bp, tier: bp.filter(b => b <= cnt[t.name]).length };
     }).sort((a, b) => (b.tier > 0) - (a.tier > 0) || b.tier - a.tier || b.n - a.n);
     $('cb-tr').innerHTML = rows.map(r => `<div class="cb-t${r.tier ? ' on' : ''}"><i style="--tc:${tierColor(r)}">${r.n}</i><div><b>${r.t.icon ? `<img src="${r.t.icon}" alt="">` : ''}${esc(r.t.name)}</b>${r.bp.map((b, i) => `<u class="${i < r.tier ? 'a' : ''}">${b}</u>`).join(' › ')}</div></div>`).join('');
-    save();
+    save(); recalc();
   }
   function paintItems() {
     const k = iq.trim().toLowerCase();
@@ -1782,6 +1820,117 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
     root.addEventListener('input', e => { if (e.target.id === 'cb-q') { q = e.target.value; paintPool(); } else if (e.target.id === 'cb-iq') { iq = e.target.value; paintItems(); } else if (e.target.id === 'cb-tq') { tq = e.target.value; paintTraits(); } });
     root.addEventListener('change', e => { if (e.target.id === 'cb-tf') { traitF = e.target.value; paintPool(); } });
   }
+  /* ---------- live smart comp recommendations ---------- */
+  const STY = [['All', ''], ['Early', 'Early Strong'], ['Mid', 'Mid Game'], ['Fast 8', 'Fast 8'], ['Fast 9', 'Fast 9'], ['Late', 'Late Game'], ['High Roll', 'High Roll']];
+  const TIERC = { S: '#ff7a59', A: '#f5b942', B: '#5db7f2' }, TIERW = { S: 3, A: 2, B: 1 };
+  const AUGC = { best: ['Best', '#f5b942'], good: ['Good', '#5db7f2'], situational: ['Situational', '#9aa4b2'] };
+  let RECS = null, styF = '', rq = '', openAug = null, applied = null, recSig = '', recRaf = 0;
+  const norm = s => String(s || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+  const embTrait = n => String(n || '').replace(/\s*(Emblem|Crest)\s*$/i, '').trim();
+  // trait granted by a gear item (emblems), '' for normal items
+  const gearTrait = name => { const it = item(name); if (!it) return ''; return it.trait || (it.tags.includes('emblem') ? embTrait(it.name) : ''); };
+
+  // champion traits + emblem bonuses (an emblem on a champion that already has the trait adds nothing)
+  function currentTraits() {
+    const cnt = {};
+    board.forEach((n, i) => {
+      const c = n && champ(n); if (!c) return;
+      c.traits.forEach(t => cnt[t] = (cnt[t] || 0) + 1);
+      (gear[i] || []).forEach(g => { const t = gearTrait(g); if (t && !c.traits.includes(t)) cnt[t] = (cnt[t] || 0) + 1; });
+    });
+    return cnt;
+  }
+  const boardEmblems = () => { const s = new Set(); board.forEach((n, i) => n && (gear[i] || []).forEach(g => { const t = gearTrait(g); if (t) s.add(norm(t)); })); return s; };
+
+  // +2 per matched champ, +3 per completed trait, +2 per matched emblem
+  function scoreComp(c, cur, onBoard, emb) {
+    const champs = c.champs || [], tr = Object.keys(c.traits || {}), em = c.emblems || [];
+    const m = champs.filter(n => onBoard.has(n)).length;
+    const done = tr.filter(t => (cur[t] || 0) >= (c.traits[t] || 1)).length;
+    const e = em.filter(x => emb.has(norm(embTrait(x)))).length;
+    const s = 2 * m + 3 * done + 2 * e, max = 2 * champs.length + 3 * tr.length + 2 * em.length;
+    return { s, m, done, e, max, pct: max ? Math.round(100 * s / max) : 0 };
+  }
+
+  async function loadRecs() {
+    try { const r = await fetch('comps.json'); if (!r.ok) throw 0; const j = await r.json(); RECS = Array.isArray(j) ? j : (j.comps || []); }
+    catch { RECS = []; $('rc-sub').textContent = 'comps.json not found next to sets.json.'; }
+    recalc();
+  }
+  const recShell = () => `<div class="cb-panel cb-recs" id="cb-rec"><div class="cb-h">Recommended for your board</div>
+    <div class="rc-recs-in"><div class="rc-sub" id="rc-sub">Loading comps…</div>
+    <input id="rc-q" placeholder="Search comps, champions, traits" autocomplete="off">
+    <div class="rc-chips" id="rc-chips"></div></div><div class="rc-list" id="rc-list"></div></div>`;
+
+  function recalc() { if (recRaf) return; recRaf = requestAnimationFrame(() => { recRaf = 0; paintRecs(); }); }
+
+  function paintRecs() {
+    if (!$('rc-list') || !RECS) return;
+    const cur = currentTraits(), onBoard = new Set(board.filter(Boolean)), emb = boardEmblems(), nUnits = onBoard.size;
+    const k = rq.trim().toLowerCase();
+    const hay = c => [c.name, c.tier, c.style, ...(c.champs || []), ...Object.keys(c.traits || {}), ...(c.emblems || [])].join(' ').toLowerCase();
+    // 1) score + search (live), 2) hide non-matching comps once the board has champions
+    const scored = RECS.map(c => ({ c, r: scoreComp(c, cur, onBoard, emb) })).filter(x => (!nUnits || x.r.s > 0) && (!k || hay(x.c).includes(k)));
+    scored.sort((a, b) => b.r.s - a.r.s || b.r.pct - a.r.pct || (TIERW[b.c.tier] || 0) - (TIERW[a.c.tier] || 0) || a.c.name.localeCompare(b.c.name));
+    $('rc-chips').innerHTML = STY.map(([l, v]) => `<button class="cb-chip${styF === v ? ' on' : ''}" data-sty="${esc(v)}">${l}<small>${v ? scored.filter(x => x.c.style === v).length : scored.length}</small></button>`).join('');
+    const list = scored.filter(x => !styF || x.c.style === styF);
+    $('rc-sub').textContent = !RECS.length ? 'No comps loaded.' : nUnits
+      ? `${list.length} comp${list.length === 1 ? '' : 's'} match your ${nUnits} champion${nUnits === 1 ? '' : 's'}${styF || k ? ' (filtered)' : ''}.`
+      : `Showing all ${list.length} comps. Add champions to see the best fits first.`;
+    const sig = JSON.stringify([list.map(x => [x.c.id, x.r.s, x.r.pct]), openAug, applied, styF]);
+    if (sig === recSig) return; recSig = sig;
+    $('rc-list').innerHTML = list.length ? list.map((x, i) => recCard(x.c, x.r, i, cur, onBoard, emb)).join('')
+      : `<div class="rc-none">${nUnits ? 'No comp matches this board yet. Try other champions, or clear the filters.' : 'No comps match your filters.'}</div>`;
+  }
+
+  function recCard(c, r, idx, cur, onBoard, emb) {
+    const tr = Object.keys(c.traits || {}), open = openAug === c.id, ap = applied === c.id && r.m === (c.champs || []).length;
+    const aug = c.augments || {};
+    return `<div class="rc-card${idx === 0 && r.s > 0 ? ' top' : ''}${ap ? ' ap' : ''}" data-rc="${esc(c.id)}">
+      <div class="rc-head"><span class="rc-tier" style="--tc:${TIERC[c.tier] || '#8a93a3'}">${esc(c.tier || '?')}</span>
+        <div class="rc-nm"><b>${esc(c.name)}</b><small>${esc(c.style || '')}</small></div>
+        <div class="rc-pct">${r.pct}%<small>match</small></div></div>
+      <div class="rc-bar"><i style="width:${r.pct}%"></i></div>
+      <div class="rc-ch">${(c.champs || []).map(n => { const ch = champ(n), m = onBoard.has(n);
+        return `<span class="rc-c${m ? ' m' : ''}" title="${esc(n)}${m ? ' ✓' : ''}" style="--c:${ch ? COST[ch.cost] : '#555'};${ch && img(ch) ? `background-image:url(${img(ch)})` : ''}">${ch && img(ch) ? '' : esc(n.slice(0, 4))}</span>`; }).join('')}</div>
+      <div class="rc-tr">${tr.map(t => `<span class="rc-tag${(cur[t] || 0) >= c.traits[t] ? ' d' : ''}">${esc(t)} ${Math.min(cur[t] || 0, c.traits[t])}/${c.traits[t]}</span>`).join('')}${(c.emblems || []).map(e => `<span class="rc-tag${emb.has(norm(embTrait(e))) ? ' e' : ''}">◆ ${esc(e)}</span>`).join('')}</div>
+      <div class="rc-why"><b>${r.m}</b>/${(c.champs || []).length} champs · <b>${r.done}</b>/${tr.length} traits${(c.emblems || []).length ? ` · <b>${r.e}</b>/${c.emblems.length} emblem` : ''} · score <b>${r.s}</b></div>
+      <div class="rc-act"><button class="cb-btn pri" data-apply="${esc(c.id)}">Apply Comp</button><button class="cb-btn${open ? ' on' : ''}" data-aug="${esc(c.id)}">Augments</button></div>
+      ${open ? `<div class="rc-aug">${Object.keys(AUGC).map(t => (aug[t] || []).length ? `<div class="rc-ag" style="--ac:${AUGC[t][1]}"><b>${AUGC[t][0]}</b><div>${aug[t].map(a => `<span>${esc(a)}</span>`).join('')}</div></div>` : '').join('') || '<span class="rc-why">No augment data.</span>'}</div>` : ''}</div>`;
+  }
+
+  // board = layout, gear = comp.items + emblems; one undo step
+  function applyComp(c) {
+    const lay = (c.boardLayout || []).slice(0, N); while (lay.length < N) lay.push(null);
+    const nb = lay.map(n => n && champ(n) ? n : null), lost = lay.filter((n, i) => n && !nb[i]).length;
+    if (!nb.some(Boolean)) return toast('None of this comp’s champions exist in this set');
+    push();
+    board = nb; gear = Array(N).fill(null); let skipped = 0;
+    nb.forEach((n, i) => { const its = n && (c.items || {})[n]; if (!Array.isArray(its)) return;
+      const ok = its.filter(item).slice(0, MAXI); skipped += its.length - ok.length; if (ok.length) gear[i] = ok; });
+    (c.emblems || []).forEach(e => {
+      const it = item(e) || ITEMS.find(x => norm(x.name) === norm(e)) || ITEMS.find(x => x.trait && norm(x.trait) === norm(embTrait(e)));
+      if (!it) { skipped++; return; }
+      const t = gearTrait(it.name) || embTrait(e);
+      const free = nb.map((n, i) => n ? i : -1).filter(i => i >= 0 && (gear[i] || []).length < MAXI);
+      const best = free.filter(i => !champ(nb[i]).traits.includes(t)).sort((a, b) => (gear[b] || []).length - (gear[a] || []).length || champ(nb[b]).cost - champ(nb[a]).cost)[0];
+      const at = best ?? free[0]; if (at == null) { skipped++; return; }
+      (gear[at] = gear[at] || []).push(it.name);
+    });
+    applied = c.id; openAug = c.id; fresh = null; $('cb-name').value = c.name; paintBoard();
+    toast(`Applied ${c.name}` + (lost || skipped ? ` (${lost ? lost + ' champion' + (lost > 1 ? 's' : '') + ' missing' : ''}${lost && skipped ? ', ' : ''}${skipped ? skipped + ' item' + (skipped > 1 ? 's' : '') + ' not found' : ''})` : ''));
+  }
+
+  function wireRecs() {
+    root.addEventListener('click', e => {
+      const ap = e.target.closest('[data-apply]'), ag = e.target.closest('[data-aug]'), sf = e.target.closest('[data-sty]');
+      if (ap) { const c = RECS.find(x => x.id === ap.dataset.apply); if (c) applyComp(c); }
+      else if (ag) { openAug = openAug === ag.dataset.aug ? null : ag.dataset.aug; recSig = ''; paintRecs(); }
+      else if (sf) { styF = sf.dataset.sty; recSig = ''; paintRecs(); }
+    });
+    root.addEventListener('input', e => { if (e.target.id === 'rc-q') { rq = e.target.value; paintRecs(); } });
+  }
+
   async function init() {
     if (started) return; started = true;
     try { D = await (await fetch('comp18/comp18.json')).json(); if (!D || !D.champions) throw 0; }   // full data pack: all champions, traits and items with icons
@@ -1796,7 +1945,7 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
       .map((x, i) => ({ name: x.name, ab: x.abbr || x.name.split(/\s+/).map(w => w[0]).join('').slice(0, 2).toUpperCase(), color: x.color || (x.tags && TAGC[x.tags[0]]) || HUES[i % HUES.length], icon: x.icon || x.img || x.image || '', tags: x.tags || [], desc: x.desc || '', trait: x.trait || '' }));
     try { const b = JSON.parse(store.get(KEY) || '[]'); if (Array.isArray(b) && b.length === N) board = valid(b); gear = fixGear(JSON.parse(store.get(GKEY) || '[]'), board); } catch {}
     try { const s = JSON.parse(store.get(SKEY) || '[]'); if (Array.isArray(s)) comps = s; } catch {}
-    shell(); wire(); paintSaved(); paintItems(); paintTraits(); paintPool();
+    shell(); wire(); wireRecs(); paintSaved(); paintItems(); paintTraits(); paintPool(); loadRecs();
   }
   $('navComp').addEventListener('click', init);
   if (showView.cur === 'comp') init();
