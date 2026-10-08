@@ -1,0 +1,2037 @@
+{
+ "set": 18,
+ "title": "Enchanted Wilds",
+ "champions": [
+  {
+   "name": "Akali",
+   "cost": 1,
+   "traits": [
+    "Inferno",
+    "Adaptor",
+    "Ravager"
+   ],
+   "icon": "comp18/champs/Akali.webp",
+   "role": "ad",
+   "ability": {
+    "name": "Kunai Strike",
+    "desc": "Adaptor : Throw a volley of kunai at the target, dealing 155 / 235 / 370 physical damage. If the target is Burning, deal an additional 35 / 52 / 80 damage. Adaptor : If the Ability kills, cast it again."
+   }
+  },
+  {
+   "name": "Camille",
+   "cost": 1,
+   "traits": [
+    "Coven",
+    "Ravager"
+   ],
+   "icon": "comp18/champs/Camille.webp",
+   "role": "ad",
+   "ability": {
+    "name": "Defensive Sweep",
+    "desc": "Slice the target for 170 / 255 / 435 physical damage and gain 60 / 90 / 200 Shield for 2 seconds."
+   }
+  },
+  {
+   "name": "Cinderling",
+   "cost": 1,
+   "traits": [
+    "Riftbeast",
+    "Hunter"
+   ],
+   "icon": "comp18/champs/Cinderling.webp",
+   "role": "ad",
+   "ability": {
+    "name": "Razor Leaves",
+    "desc": "Summon five razor-sharp leaves that converge on the current target, dealing a total of 370 / 555 / 835 physical damage and applying 20% Wound and 1% Burn for 4 seconds. Scarlet Buff: Cinderling gains 22% Attack Damage each cast. Wound: Reduces healing received. Burn: Deals a percent of the target’s max Health as true damage every second."
+   }
+  },
+  {
+   "name": "Karma",
+   "cost": 1,
+   "traits": [
+    "Blossom",
+    "Spellweaver"
+   ],
+   "icon": "comp18/champs/Karma.webp",
+   "role": "ap",
+   "ability": {
+    "name": "Karmic Bond",
+    "desc": "Tether the current target, dealing 280 / 420 / 630 magic damage over 1.5 seconds. Then release a burst of power around them, dealing 120 / 180 / 270 magic damage to all enemies in a 1 Hex radius and 30% Slowing them for 2 seconds. Slow: Reduce Attack Speed"
+   }
+  },
+  {
+   "name": "Kobuko",
+   "cost": 1,
+   "traits": [
+    "Sprykin",
+    "Brawler"
+   ],
+   "icon": "comp18/champs/Kobuko.webp",
+   "role": "tank",
+   "ability": {
+    "name": "Dance of Life",
+    "desc": "Restore 314 / 364 / 509 Health over 2 seconds. The next attack is replaced with a bash that deals 140 / 175 / 220 magic damage."
+   }
+  },
+  {
+   "name": "Leona",
+   "cost": 1,
+   "traits": [
+    "Solar",
+    "Defender"
+   ],
+   "icon": "comp18/champs/Leona.webp",
+   "role": "tank",
+   "ability": {
+    "name": "Shield Bash",
+    "desc": "Passive: Start combat with 60 / 70 / 80 bonus Armor and Magic Resist that decays over 12 seconds. Active: Bash the current target, dealing 60 / 108 / 162 magic damage and Stunning them for 1.5 seconds."
+   }
+  },
+  {
+   "name": "Ornn",
+   "cost": 1,
+   "traits": [
+    "Elderwood",
+    "Defender"
+   ],
+   "icon": "comp18/champs/Ornn.webp",
+   "role": "tank",
+   "ability": {
+    "name": "Bellows Breath",
+    "desc": "Active: Gain 400 / 460 / 550 Shield for 4 seconds and deal 200 / 300 / 450 magic damage to enemies in a cone. Quest: Each player combat, Ornn stores damage blocked as Forge Power, doubled at 3-star. Gain an Artifact Anvil each time he gains enough Forge Power. (Forge Power: / )"
+   }
+  },
+  {
+   "name": "Pebbles",
+   "cost": 1,
+   "traits": [
+    "Riftbeast",
+    "Invoker"
+   ],
+   "icon": "comp18/champs/Pebbles.webp",
+   "role": "ap",
+   "ability": {
+    "name": "Azure Laser",
+    "desc": "Begin consuming 0.35 max Mana per second and channeling a laser on the target. Each second while casting, deal 160 / 240 / 360 magic damage to them and reduce their Magic Resist by 3. Teal Buff: Gain 2 Mana Regen for every 4 seconds channeled."
+   }
+  },
+  {
+   "name": "Rakan",
+   "cost": 1,
+   "traits": [
+    "Fae",
+    "Juggernaut",
+    "Vanguard"
+   ],
+   "icon": "comp18/champs/Rakan.webp",
+   "role": "tank",
+   "ability": {
+    "name": "Entrancing Dance",
+    "desc": "Gain 270 / 320 / 415 Shield for 4 seconds. Then grant the ally who has dealt the most damage this combat 1.9 / 2 / 2.3 decaying Attack Speed for 4 seconds."
+   }
+  },
+  {
+   "name": "Rek'Sai",
+   "cost": 1,
+   "traits": [
+    "Blackthorn",
+    "Brawler"
+   ],
+   "icon": "comp18/champs/RekSai.webp",
+   "role": "tank",
+   "ability": {
+    "name": "Uproot",
+    "desc": "Passive: Restore 17 / 21 / 27 Health each second, tripled for 3 seconds after casting. Active: Lunge out of the ground, Stunning adjacent enemies for 1 second and dealing 70 / 105 / 160 magic damage to them."
+   }
+  },
+  {
+   "name": "Varus",
+   "cost": 1,
+   "traits": [
+    "Inferno",
+    "Rapidfire"
+   ],
+   "icon": "comp18/champs/Varus.webp",
+   "role": "ad",
+   "ability": {
+    "name": "Piercing Arrow",
+    "desc": "Wind up, then fire an arrow at the most enemies in line with the target. It deals 415 / 625 / 995 physical damage to enemies hit, reduced by 40% for each enemy it passes through (minimum 40%)."
+   }
+  },
+  {
+   "name": "Veigar",
+   "cost": 1,
+   "traits": [
+    "Blackthorn",
+    "Sprykin",
+    "Spellweaver"
+   ],
+   "icon": "comp18/champs/Veigar.webp",
+   "role": "ap",
+   "ability": {
+    "name": "Primordial Burst",
+    "desc": "Launch a giant blast at the target that deals 175 / 265 / 395 magic damage, increased to 265 / 400 / 595 if they're below 30% max Health. If they die, permanently gain 1.5% Ability Power. Current bonus: %"
+   }
+  },
+  {
+   "name": "Xayah",
+   "cost": 1,
+   "traits": [
+    "Elderwood",
+    "Fae",
+    "Rapidfire"
+   ],
+   "icon": "comp18/champs/Xayah.webp",
+   "role": "ad",
+   "ability": {
+    "name": "Deadly Plumage",
+    "desc": "Gain 50% Attack Speed for the next 5 attacks. These attacks are replaced with feathers that deal 72 / 108 / 165 physical damage and reduce Armor by 2 / 2 / 2."
+   }
+  },
+  {
+   "name": "Yorick",
+   "cost": 1,
+   "traits": [
+    "Blossom",
+    "Juggernaut",
+    "Summoner"
+   ],
+   "icon": "comp18/champs/Yorick.webp",
+   "role": "tank",
+   "ability": {
+    "name": "Last Rites",
+    "desc": "Passive: On death, spawn a Spirit Walker with 330 / 530 / 880 max Health which immediately taunts, forcing enemies to attack it. Active: Restore 280 / 325 / 435 Health and strike the target, dealing 150 / 225 / 340 physical damage."
+   }
+  },
+  {
+   "name": "Alistar",
+   "cost": 2,
+   "traits": [
+    "Elderwood",
+    "Brawler"
+   ],
+   "icon": "comp18/champs/Alistar.webp",
+   "role": "tank",
+   "ability": {
+    "name": "Triumphant Roar",
+    "desc": "Roar, restoring 276 / 336 / 396 Health, cleansing disables, and healing the two lowest percent Health allies for 80 / 105 / 130. Then slam the current target, dealing 100 / 150 / 225 magic damage and Stunning them for 1.5 seconds."
+   }
+  },
+  {
+   "name": "Caitlyn",
+   "cost": 2,
+   "traits": [
+    "Coven",
+    "Hunter"
+   ],
+   "icon": "comp18/champs/Caitlyn.webp",
+   "role": "ad",
+   "ability": {
+    "name": "Headshot",
+    "desc": "Passive: Every third attack is replaced with a Headshot that deals 220 / 330 / 545 physical damage."
+   }
+  },
+  {
+   "name": "Elise",
+   "cost": 2,
+   "traits": [
+    "Coven",
+    "Vanguard"
+   ],
+   "icon": "comp18/champs/Elise.webp",
+   "role": "tank",
+   "ability": {
+    "name": "Spider Queen",
+    "desc": "Transform into a spider and gain 375 / 475 / 725 max Health. Attacks while in Spider Form deal 35 / 50 / 80 bonus magic damage and heal for 55 / 90 / 170. Subsequent casts grant 175% decaying Attack Speed for 4 seconds."
+   }
+  },
+  {
+   "name": "Gromp",
+   "cost": 2,
+   "traits": [
+    "Riftbeast",
+    "Adaptor"
+   ],
+   "icon": "comp18/champs/Gromp.webp",
+   "role": "ap",
+   "ability": {
+    "name": "Belchy Bubble",
+    "desc": "Adaptor : Belch a noxious bubble at the current target that explodes on the first enemy hit, dealing 225 / 340 / 535 magic damage. Enemies within a 1 hex radius of the explosion take 145 / 220 / 345 magic damage over 3 seconds. Adaptor : Heavily slows the target. Purple Buff: Every 5 seconds, Gromp gains 30% Ability Power."
+   }
+  },
+  {
+   "name": "Kayle",
+   "cost": 2,
+   "traits": [
+    "Solar",
+    "Rapidfire"
+   ],
+   "icon": "comp18/champs/Kayle.webp",
+   "role": "ap",
+   "ability": {
+    "name": "Solar Judgement",
+    "desc": "Passive: Kayle ascends based on her star level, granting her stacking bonuses. 1st Ascension: Attacks deal 56 / 84 / 98 bonus magic damage. 2nd Ascension: Attacks 20% Shred enemies hit for 2 seconds. 3rd Ascension: Attacks fire waves, dealing 40 / 40 / 40 magic damage to all other units hit. 4th Ascension: Gain infinite range. Every 3rd wave is much larger. Shred: Reduce Magic Resist"
+   }
+  },
+  {
+   "name": "LeBlanc",
+   "cost": 2,
+   "traits": [
+    "Elderwood",
+    "Spellweaver"
+   ],
+   "icon": "comp18/champs/LeBlanc.webp",
+   "role": "ap",
+   "ability": {
+    "name": "Mirror Image",
+    "desc": "Passive: After player combat, your strongest LeBlanc has a 10% / 15% / 40% chance to create a copy of an ally on your board, increased by 4% per takedown. Active: Launch a mirror image at the current target, dealing 250 / 375 / 565 magic damage and 85 / 130 / 190 to adjacent enemies."
+   }
+  },
+  {
+   "name": "Murkwolf",
+   "cost": 2,
+   "traits": [
+    "Riftbeast",
+    "Ravager"
+   ],
+   "icon": "comp18/champs/Murkwolf.webp",
+   "role": "ad",
+   "ability": {
+    "name": "Rending Claws",
+    "desc": "Leap to the lowest Health enemy within 3 Hexes and deal 500 / 1050 / 2250 physical damage. The next 2 attacks gain 175% Attack Speed and deal 60 / 90 / 135 bonus physical damage. Grey Buff: Gain Precision and 25% Critical Strike Chance, increased up to 75% based on missing Health."
+   }
+  },
+  {
+   "name": "Scuttlecrab",
+   "cost": 2,
+   "traits": [
+    "Riftbeast",
+    "Juggernaut"
+   ],
+   "icon": "comp18/champs/Scuttlecrab.webp",
+   "role": "tank",
+   "ability": {
+    "name": "Can You Dig It?",
+    "desc": "Passive: Attacks are replaced by a dance that deals 50 / 75 / 112.5 physical damage to all adjacent enemies. Active: Burrow underground, gaining 15% Durability for 3 seconds and healing 325 / 400 / 675 over the duration. Green Buff: When allies fall below 50% Health, they restore 15% max Health."
+   }
+  },
+  {
+   "name": "Sejuani",
+   "cost": 2,
+   "traits": [
+    "Solar",
+    "Juggernaut"
+   ],
+   "icon": "comp18/champs/Sejuani.webp",
+   "role": "tank",
+   "ability": {
+    "name": "Sun's Wrath",
+    "desc": "Gain 315 / 340 / 365 Shield for 4 seconds. Then cleave in a cone, dealing 90 / 135 / 205 magic damage and strike in a line, dealing 120 / 180 / 270 magic damage to enemies hit."
+   }
+  },
+  {
+   "name": "Shen",
+   "cost": 2,
+   "traits": [
+    "Inferno",
+    "Defender"
+   ],
+   "icon": "comp18/champs/Shen.webp",
+   "role": "tank",
+   "ability": {
+    "name": "Ki Barrier",
+    "desc": "Grant 325 / 400 / 500 Shield to Shen and 200 / 275 / 375 Shield to a nearby damaged ally for 4 seconds. Both of their next 3 attacks gain 40% Attack Speed and deal 35 / 55 / 80 bonus magic damage."
+   }
+  },
+  {
+   "name": "Teemo",
+   "cost": 2,
+   "traits": [
+    "Sprykin",
+    "Invoker"
+   ],
+   "icon": "comp18/champs/Teemo.webp",
+   "role": "ap",
+   "ability": {
+    "name": "Fungus Among Us",
+    "desc": "Throw 2 clusters of mushrooms that deal 60 / 90 / 135 magic damage to the 3 nearest enemies. Then hurl a giant mushroom that deals 135 / 200 / 310 magic damage to the target. Each cast has a 10% / 12% / 15% chance to forage an extra mushroom that can be collected for bonus effects. Red: 1 Reroll (Reds Foraged: ) Green: 1 Tactician Health (Greens Foraged: ) Yellow: 2 XP (Yellows Foraged: )"
+   }
+  },
+  {
+   "name": "Warwick",
+   "cost": 2,
+   "traits": [
+    "Blackthorn",
+    "Ravager"
+   ],
+   "icon": "comp18/champs/Warwick.webp",
+   "role": "ad",
+   "ability": {
+    "name": "Jaws of The Beast",
+    "desc": "Bite the current target, dealing 200 / 300 / 450 physical damage and healing for 0.2 / 0.2 / 0.2 of the damage dealt. Gain 20% Attack Speed for the rest of combat."
+   }
+  },
+  {
+   "name": "Yunara",
+   "cost": 2,
+   "traits": [
+    "Blossom",
+    "Executioner"
+   ],
+   "icon": "comp18/champs/Yunara.webp",
+   "role": "ad",
+   "ability": {
+    "name": "Cultivation of Spirit",
+    "desc": "Dash, then launch an orb at the current target that deals 165 / 245 / 375 physical damage and splits, dealing 57.75 / 85.75 / 131.25 physical damage to 2 nearby enemies."
+   }
+  },
+  {
+   "name": "Azir",
+   "cost": 3,
+   "traits": [
+    "Blackthorn",
+    "Executioner",
+    "Summoner"
+   ],
+   "icon": "comp18/champs/Azir.webp",
+   "role": "ap",
+   "ability": {
+    "name": "Arise!",
+    "desc": "Gain 150% Attack Speed and summon 2 soldiers for the next 6 attacks. These attacks are replaced by commands which direct each soldier to deal 46 / 69 / 110 magic damage per attack."
+   }
+  },
+  {
+   "name": "Cassiopeia",
+   "cost": 3,
+   "traits": [
+    "Coven",
+    "Spellweaver"
+   ],
+   "icon": "comp18/champs/Cassiopeia.webp",
+   "role": "ap",
+   "ability": {
+    "name": "Noxious Blast",
+    "desc": "Poison the target and the nearest non-poisoned enemy, dealing 425 / 640 / 1020 magic damage over 15 seconds. Poisons stack."
+   }
+  },
+  {
+   "name": "Diana",
+   "cost": 3,
+   "traits": [
+    "Lunar",
+    "Ravager",
+    "Vanguard"
+   ],
+   "icon": "comp18/champs/Diana.webp",
+   "role": "ap",
+   "ability": {
+    "name": "Pale Barrier",
+    "desc": "Gain 150 / 225 / 300 shield for 2 seconds and send out 6 moonlight orbs spread among enemies within 2 hexes, each dealing 65 / 100 / 155 magic damage."
+   }
+  },
+  {
+   "name": "Fiddlesticks",
+   "cost": 3,
+   "traits": [
+    "Flora Fatalis",
+    "Defender",
+    "Spellweaver"
+   ],
+   "icon": "comp18/champs/Fiddlesticks.webp",
+   "role": "tank",
+   "ability": {
+    "name": "Harvest",
+    "desc": "Reduce the Magic Resist of the 3 nearest enemies by 10. Then drain life from them over 2 seconds, healing for 395 / 470 / 790 Health and dealing 70 / 105 / 170 magic damage to each over the duration."
+   }
+  },
+  {
+   "name": "Hecarim",
+   "cost": 3,
+   "traits": [
+    "Elderwood",
+    "Vanguard"
+   ],
+   "icon": "comp18/champs/Hecarim.webp",
+   "role": "tank",
+   "ability": {
+    "name": "Spirit of Dread",
+    "desc": "Gain 50 Armor and Magic Resist for 3 seconds and restore 375 / 475 / 685 Health over the duration. Launch spectral riders at the 3 nearest enemies, dealing 80 / 120 / 195 magic damage and Stunning them for 1.5 / 1.75 / 3 seconds."
+   }
+  },
+  {
+   "name": "Kha'Zix",
+   "cost": 3,
+   "traits": [
+    "Rival"
+   ],
+   "icon": "comp18/champs/KhaZix.webp",
+   "role": "ap",
+   "ability": {
+    "name": "Taste Their Fear",
+    "desc": "Leap to the farthest enemy within 2.7 Hexes, dealing 260 / 370 / 550 magic damage. If they have no adjacent allies, deal 310 / 445 / 660 magic damage instead and gain 10 mana."
+   }
+  },
+  {
+   "name": "Kog'Maw",
+   "cost": 3,
+   "traits": [
+    "Caustic",
+    "Adaptor",
+    "Invoker"
+   ],
+   "icon": "comp18/champs/KogMaw.webp",
+   "role": "ad",
+   "ability": {
+    "name": "Raining Artillery",
+    "desc": "Adaptor : Launch acid at the target and the other nearest enemy, dealing 165 / 250 / 425 physical damage. Enemies below 50% max Health take 231 / 350 / 595 physical damage instead. Adaptor: Damages enemies over time."
+   }
+  },
+  {
+   "name": "Krug",
+   "cost": 3,
+   "traits": [
+    "Riftbeast",
+    "Brawler"
+   ],
+   "icon": "comp18/champs/Krug.webp",
+   "role": "tank",
+   "ability": {
+    "name": "Rock and Roll",
+    "desc": "Passive: On death, split into two Kruglettes with 182 / 232 / 312 Health which immediately taunt, forcing enemies to attack them. Active: Gain 175 / 225 / 325 max Health, then roll into the target, dealing 223 / 288 / 423 damage. Slate Buff: On death, Krug and Kruglettes Shield allies for 8% max Health."
+   }
+  },
+  {
+   "name": "Mama Beak",
+   "cost": 3,
+   "traits": [
+    "Riftbeast",
+    "Summoner",
+    "Rapidfire"
+   ],
+   "icon": "comp18/champs/MamaBeak.webp",
+   "role": "ad",
+   "ability": {
+    "name": "Flock Family",
+    "desc": "Summon 4 untargetable Tiny Beaks nearby for 5 / 5 / 5 seconds. Whenever Mama Beak attacks, Tiny Beaks attack the same enemy, dealing 27 / 41 / 65 physical damage. Orange Buff: Dealing physical damage reduces enemy Armor by 2."
+   }
+  },
+  {
+   "name": "Master Yi",
+   "cost": 3,
+   "traits": [
+    "Blossom",
+    "Adaptor"
+   ],
+   "icon": "comp18/champs/MasterYi.webp",
+   "role": "ad",
+   "ability": {
+    "name": "Wuju Style",
+    "desc": "Passive: Every third attack is a Double Strike. On takedown, gain a burst of movement speed. Adaptor : Double Strikes grant 0.15 / 0.15 / 0.15 stacking Attack Speed. Adaptor : Double Strikes deal bonus damage and heal."
+   }
+  },
+  {
+   "name": "Rammus",
+   "cost": 3,
+   "traits": [
+    "Sprykin",
+    "Defender"
+   ],
+   "icon": "comp18/champs/Rammus.webp",
+   "role": "tank",
+   "ability": {
+    "name": "Defensive Ball Curl",
+    "desc": "Taunt, forcing enemies to attack this champion. For 4 seconds, gain 350 / 450 / 550 Shield and 60 Armor and Magic Resist. When the Shield breaks, deal 50 / 75 / 120 physical damage to enemies in 2 Hexes."
+   }
+  },
+  {
+   "name": "Rengar",
+   "cost": 3,
+   "traits": [
+    "Rival"
+   ],
+   "icon": "comp18/champs/Rengar.webp",
+   "role": "ad",
+   "ability": {
+    "name": "Savagery",
+    "desc": "Jump to the lowest percent Health enemy within 3 hexes and stab them, dealing 255 / 385 / 615 physical damage. Then heal for 70 / 70 / 70, increased to up to 150 / 220 / 220 based on their missing Health."
+   }
+  },
+  {
+   "name": "Tristana",
+   "cost": 3,
+   "traits": [
+    "Fae",
+    "Sprykin",
+    "Hunter"
+   ],
+   "icon": "comp18/champs/Tristana.webp",
+   "role": "ad",
+   "ability": {
+    "name": "Explosive Charge",
+    "desc": "Attach an explosive charge to the target that lasts 4 seconds. While active, gain infinite range and 0.6 / 0.6 / 0.6 Attack Speed. After the duration, the charge explodes and splits damage between all enemies within 2 hexes, dealing 160 / 240 / 385 physical damage + 10 / 15 / 25 for each attack while casting. If an enemy with an explosive charge on them dies, it attaches to Tristana's new target."
+   }
+  },
+  {
+   "name": "Vi",
+   "cost": 3,
+   "traits": [
+    "Primal",
+    "Juggernaut"
+   ],
+   "icon": "comp18/champs/Vi.webp",
+   "role": "tank",
+   "ability": {
+    "name": "Furious Fists",
+    "desc": "Passive: On attack, restore 22 / 22 / 22 Health. Active: Unleash a primal roar, restoring 225 / 300 / 400 Health. Then gain 85% / 100% / 125% Attack Speed, 15% Durability, and is Unstoppable for 3 seconds."
+   }
+  },
+  {
+   "name": "Ahri",
+   "cost": 4,
+   "traits": [
+    "Blossom",
+    "Spellweaver"
+   ],
+   "icon": "comp18/champs/Ahri.webp",
+   "role": "ap",
+   "ability": {
+    "name": "Spirit Bomb",
+    "desc": "Launch a spirit bomb at the location within 4 hexes that has the most surrounding enemies. It deals 485 / 735 / 3500 magic damage to enemies in a 3 hex radius, reduced by 20% per hex away from the epicenter."
+   }
+  },
+  {
+   "name": "Amumu",
+   "cost": 4,
+   "traits": [
+    "Inferno",
+    "Juggernaut"
+   ],
+   "icon": "comp18/champs/Amumu.webp",
+   "role": "tank",
+   "ability": {
+    "name": "Tantrum",
+    "desc": "Passive: Every second, restore 29.04 / 29.15 / 56 Health and deal 12 / 18 / 150 magic damage to enemies within 1 hex. Active: Deal 100 / 150 / 2000 magic damage to enemies within 2 hexes and Stun them for 1 / 6 seconds, increased to 2.5 / 2.5 / 12.5 seconds if the target is Burning. Burn: Deals a percent of the target’s max Health as true damage every second."
+   }
+  },
+  {
+   "name": "Aphelios",
+   "cost": 4,
+   "traits": [
+    "Lunar",
+    "Rapidfire"
+   ],
+   "icon": "comp18/champs/Aphelios.webp",
+   "role": "ad",
+   "ability": {
+    "name": "Moonlight's Onslaught",
+    "desc": "Equip Severum and swipe the target 5 / 5 / 5 times over 2 seconds, each dealing 70 / 105 / 850 physical damage. After the onslaught finishes, fire a blast that deals 490 / 735 / 5225 physical damage split among all enemies in a 2 Hex radius."
+   }
+  },
+  {
+   "name": "Brambleback",
+   "cost": 4,
+   "traits": [
+    "Riftbeast",
+    "Ravager"
+   ],
+   "icon": "comp18/champs/Brambleback.webp",
+   "role": "ad",
+   "ability": {
+    "name": "Crimson Fury",
+    "desc": "Passive: When the target dies, leap at the next target, dealing 170 / 255 / 600 physical damage. Active: Gain 80% / 280% / 400% Attack Damage for 8 seconds. During this time ignore 0.4 / 0.4 / 0.6 Armor. Red Buff: Attacks 1% Burn enemies and heal Brambleback for 4% max Health."
+   }
+  },
+  {
+   "name": "Ezreal",
+   "cost": 4,
+   "traits": [
+    "Elderwood",
+    "Executioner"
+   ],
+   "icon": "comp18/champs/Ezreal.webp",
+   "role": "ad",
+   "ability": {
+    "name": "Forest's Flurry",
+    "desc": "Blink away from the current target, deal 235 / 355 / 1200 physical damage to them, and gain 0.25 / 0.25 / 1 Attack Speed. Every 4th cast consumes the Attack Speed granted from Nature's Wrath and fires a blast through the largest group of enemies that deals 385 / 580 / 2500 physical damage, reduced by 25% for each enemy it passes through (minimum 50%)."
+   }
+  },
+  {
+   "name": "Lillia",
+   "cost": 4,
+   "traits": [
+    "Fae",
+    "Defender"
+   ],
+   "icon": "comp18/champs/Lillia.webp",
+   "role": "tank",
+   "ability": {
+    "name": "Lilting Lullaby",
+    "desc": "Restore 300 / 400 / 800 Health and send 4 butterflies at nearby enemies. Enemies hit take 90 / 135 / 2000 magic damage and Sleep for 1.5 / 1.75 / 8 seconds. If they take 1000 damage, they wake up and take an additional 10% max Health magic damage."
+   }
+  },
+  {
+   "name": "Malphite",
+   "cost": 4,
+   "traits": [
+    "Blackthorn",
+    "Monolith"
+   ],
+   "icon": "comp18/champs/Malphite.webp",
+   "role": "tank",
+   "ability": {
+    "name": "Petrified Bark",
+    "desc": "Gain 700 / 850 / 2000 Shield for 4 seconds and become petrified. When the shield breaks, unleash a wave of dark energy, dealing 82 / 123 / 3398.6 magic damage to enemies within 2 / 3 hexes."
+   }
+  },
+  {
+   "name": "Morgana",
+   "cost": 4,
+   "traits": [
+    "Coven",
+    "Invoker"
+   ],
+   "icon": "comp18/champs/Morgana.webp",
+   "role": "ap",
+   "ability": {
+    "name": "Withering Curse",
+    "desc": "Passive: Gain 25% Omnivamp. Active: Fire a dark blast at 3 nearby enemies, dealing 60 / 90 / 500 magic damage to them and cursing them for 4 seconds. Then, spawn a 2 Hex withering zone for the same duration that deals 33 / 50 / 500 magic damage per second. Cursed enemies take 22 / 33 / 240 more damage per curse."
+   }
+  },
+  {
+   "name": "Nidalee",
+   "cost": 4,
+   "traits": [
+    "Primal",
+    "Adaptor"
+   ],
+   "icon": "comp18/champs/Nidalee.webp",
+   "role": "ap",
+   "ability": {
+    "name": "Javelin Toss",
+    "desc": "Adaptor : Gain 150% Attack Speed for the next 3 / 99 attacks. These attacks are replaced with javelins that deal 170 / 255 / 2000 magic damage. The 3rd attack instead targets the furthest enemy with the least items and deals 320 / 480 / 3000 magic damage. Adaptor : Transform into a Melee cougar Assassin that swipes enemies."
+   }
+  },
+  {
+   "name": "Sentinel",
+   "cost": 4,
+   "traits": [
+    "Riftbeast",
+    "Vanguard",
+    "Invoker"
+   ],
+   "icon": "comp18/champs/Sentinel.webp",
+   "role": "tank",
+   "ability": {
+    "name": "Azure Shockwave",
+    "desc": "Gain 530 / 630 / 2130 Shield for 4 seconds. Slam the ground, sending a fissure in the direction of the most enemies. Enemies hit are briefly knocked up, take 100 / 150 / 3500 magic damage, and are Mana Reaved for 10. Blue Buff: Each time Sentinel casts, allies gain 2 Mana Regen. Mana Reave: Increase the Mana cost of the next Ability cast."
+   }
+  },
+  {
+   "name": "Sett",
+   "cost": 4,
+   "traits": [
+    "Blossom",
+    "Brawler"
+   ],
+   "icon": "comp18/champs/Sett.webp",
+   "role": "tank",
+   "ability": {
+    "name": "Haymaker",
+    "desc": "Passive: Upon falling below 40% max Health the first time each combat, gain 100 mana. Active: Wind up a big punch, rapidly healing for 369 / 419 / 2144 before dealing 222 / 297 / 5072 physical damage in a large cone."
+   }
+  },
+  {
+   "name": "Sivir",
+   "cost": 4,
+   "traits": [
+    "Primal",
+    "Hunter"
+   ],
+   "icon": "comp18/champs/Sivir.webp",
+   "role": "ad",
+   "ability": {
+    "name": "Boomerang Blade",
+    "desc": "Throw a large crossblade that deals 205 / 305 / 1150 physical damage to the current target and bounces 8 times between nearby enemies, dealing 41 / 61 / 460 physical damage each bounce. When this kills an enemy, bounce 3 / 6 / 10 additional times."
+   }
+  },
+  {
+   "name": "Soraka",
+   "cost": 4,
+   "traits": [
+    "Flora Fatalis",
+    "Executioner"
+   ],
+   "icon": "comp18/champs/Soraka.webp",
+   "role": "ap",
+   "ability": {
+    "name": "Starcall",
+    "desc": "Call down a star on the current target, dealing 190 / 285 / 1000 magic damage. If a star has previously fallen on them, call down 3 additional stars that each deal 100 / 150 / 1000 magic damage."
+   }
+  },
+  {
+   "name": "Zyra",
+   "cost": 4,
+   "traits": [
+    "Thornmaiden",
+    "Summoner"
+   ],
+   "icon": "comp18/champs/Zyra.webp",
+   "role": "ap",
+   "ability": {
+    "name": "Rampant Growth",
+    "desc": "Spawn 2 / 4 plants around the battlefield that attack the nearest enemy 10 times. Each attack deals 37 / 55 / 225 magic damage."
+   }
+  },
+  {
+   "name": "Alune",
+   "cost": 5,
+   "traits": [
+    "Attuned",
+    "Lunar",
+    "Spellweaver"
+   ],
+   "icon": "comp18/champs/Alune.webp",
+   "role": "ap",
+   "ability": {
+    "name": "Moonfall",
+    "desc": "Rain 9 moonshards split among the 3 nearest enemies, dealing 50 / 75 / 500 magic damage each. If the moon is full, instead crash it onto the board, dealing 2350 / 3600 / 7500 magic damage split among all enemies."
+   }
+  },
+  {
+   "name": "Ashe",
+   "cost": 5,
+   "traits": [
+    "Blossom",
+    "Hunter"
+   ],
+   "icon": "comp18/champs/Ashe.webp",
+   "role": "ad",
+   "ability": {
+    "name": "Spirit Rift",
+    "desc": "Fire an arrow through the most enemies in a line that deals 440 / 660 / 1000 physical damage, reduced by 80% / 40% per enemy hit (minimum 20%). The arrow leaves a trail for 4 / 20 seconds that deals 7 / 11 / 220 + 2% / 3% / 10% max Health physical damage per second to enemies within and 20% Slows them. Slow: Reduce Attack Speed"
+   }
+  },
+  {
+   "name": "Draven",
+   "cost": 5,
+   "traits": [
+    "Bounty Seeker"
+   ],
+   "icon": "comp18/champs/Draven.webp",
+   "role": "ad",
+   "ability": {
+    "name": "Whirling Death",
+    "desc": "Passive: Attacks target random enemies in range and apply a bleed that deals 140 / 210 / 3000 physical damage over 12 seconds. Every attack has a 0.12 / 0.12 / 0.12 chance to deal 50% / 900% bonus physical damage and apply 2 bleeds instead. Active: Throw two giant axes towards the enemy with the most bleeds. Deal 100 / 150 / 400 physical damage to enemies hit and consume their bleed, instantly dealing the remaining damage. The axes then return, dealing 30 / 45 / 100 physical damage to enemies hit."
+   }
+  },
+  {
+   "name": "Elder Dragon",
+   "cost": 5,
+   "traits": [
+    "Apex Predator",
+    "Riftbeast"
+   ],
+   "icon": "comp18/champs/ElderDragon.webp",
+   "role": "ad",
+   "ability": {
+    "name": "Heat Without Equal",
+    "desc": "Passive: Attacks deal 75% / 100% damage to enemies adjacent to the target. Active: Become invulnerable and fly into the air. On return, stun all enemies for 1.25 / 99 seconds, gain 15% / 100% Omnivamp, and Ignite them for 3 / 99 seconds. Ignited enemies take 2% / 20% max Health physical damage per second. Replace this ability with Flame Breath and immediately cast it. Flame Breath: Spew fire at the most enemies in a line through the target, dealing 285 / 430 / 7200 physical damage, reduced by 20% for each enemy it passes through (minimum 20%.) Ignite those enemies for 3 / 99 seconds. Elder Dragon Buff: Damaging an enemy below 12% Health executes them."
+   }
+  },
+  {
+   "name": "Gnar",
+   "cost": 5,
+   "traits": [
+    "Elderwood",
+    "Sprykin",
+    "Brawler"
+   ],
+   "icon": "comp18/champs/Gnar.webp",
+   "role": "ad",
+   "ability": {
+    "name": "Rage Gene",
+    "desc": "Passive: Gain 5 / 50 / 10 Rage per second and 5 Rage per attack. Active: Transform into Mega Gnar and leap into the largest group of enemies within 3 hexes. Then, deal 100 / 150 / 2000 physical damage to enemies within 2 / 10 hexes, reduce their Armor and Magic Resist by 15 / 20 / 100, and Stun them for 1 / 15 second. Mega Gnar gains 400 / 600 / 10000 Health, and replaces his Ability with Grab n' Throw. Grab n' Throw: Throw the target at the farthest enemy, dealing 380 / 570 / 9000 physical damage to them and 135 / 205 / 4500 physical damage to enemies they pass through. If there's only 1 enemy left, throw them off the battlefield instead."
+   }
+  },
+  {
+   "name": "Ivern",
+   "cost": 5,
+   "traits": [
+    "Greenfather"
+   ],
+   "icon": "comp18/champs/Ivern.webp",
+   "role": "ap",
+   "ability": {
+    "name": "Triggerseed",
+    "desc": "Passive: Shields from this Ability can critically strike with Precision. Active: Grant 2 / 10 allies Shield and 10% / 15% / 100% Damage Amp for 6 seconds. Then deal 140 / 210 / 2000 magic damage to enemies adjacent to them. After casting 6 times, also grant 100% stacking Attack Speed to targets."
+   }
+  },
+  {
+   "name": "Kennen",
+   "cost": 5,
+   "traits": [
+    "Inferno",
+    "Executioner"
+   ],
+   "icon": "comp18/champs/Kennen.webp",
+   "role": "ap",
+   "ability": {
+    "name": "Firestorm",
+    "desc": "Charge up, gaining 15% Ability Power per Burning enemy. Then, gain 250 / 350 / 3000 Shield for 2.5 seconds and rush through a nearby group of enemies, dealing 80 / 120 / 1500 magic damage to each. After rushing, unleash a 2 Hex firestorm that deals a total of 450 / 675 / 5000 magic damage split among all enemies hit over 2 seconds."
+   }
+  },
+  {
+   "name": "Lux (Blackthorn)",
+   "cost": 5,
+   "traits": [
+    "Blackthorn",
+    "Avatar"
+   ],
+   "icon": "comp18/champs/LuxBlackthorn.webp",
+   "role": "ap",
+   "ability": {
+    "name": "Final Spark",
+    "desc": "Passive: On cast, all allies that share a trait with Lux gain 3 / 3 / 100 mana. Active: Fire a laser towards the largest group of enemies that deals 330 / 520 / 5000 magic damage, reduced by 25% / 10% for each enemy hit."
+   }
+  },
+  {
+   "name": "Lux (Blossom)",
+   "cost": 5,
+   "traits": [
+    "Blossom",
+    "Avatar"
+   ],
+   "icon": "comp18/champs/LuxBlossom.webp",
+   "role": "ap",
+   "ability": {
+    "name": "Final Spark",
+    "desc": "Passive: On cast, all allies that share a trait with Lux gain 3 / 3 / 100 mana. Active: Fire a laser towards the largest group of enemies that deals 330 / 520 / 5000 magic damage, reduced by 25% / 10% for each enemy hit."
+   }
+  },
+  {
+   "name": "Lux (Coven)",
+   "cost": 5,
+   "traits": [
+    "Coven",
+    "Avatar"
+   ],
+   "icon": "comp18/champs/LuxCoven.webp",
+   "role": "ap",
+   "ability": {
+    "name": "Final Spark",
+    "desc": "Passive: On cast, all allies that share a trait with Lux gain 3 / 3 / 100 mana. Active: Fire a laser towards the largest group of enemies that deals 330 / 520 / 5000 magic damage, reduced by 25% / 10% for each enemy hit."
+   }
+  },
+  {
+   "name": "Lux (Elderwood)",
+   "cost": 5,
+   "traits": [
+    "Elderwood",
+    "Avatar"
+   ],
+   "icon": "comp18/champs/LuxElderwood.webp",
+   "role": "ap",
+   "ability": {
+    "name": "Final Spark",
+    "desc": "Passive: On cast, all allies that share a trait with Lux gain 3 / 3 / 100 mana. Active: Fire a laser towards the largest group of enemies that deals 330 / 520 / 5000 magic damage, reduced by 25% / 10% for each enemy hit."
+   }
+  },
+  {
+   "name": "Lux (Fae)",
+   "cost": 5,
+   "traits": [
+    "Fae",
+    "Avatar"
+   ],
+   "icon": "comp18/champs/LuxFae.webp",
+   "role": "ap",
+   "ability": {
+    "name": "Final Spark",
+    "desc": "Passive: On cast, all allies that share a trait with Lux gain 3 / 3 / 100 mana. Active: Fire a laser towards the largest group of enemies that deals 330 / 520 / 5000 magic damage, reduced by 25% / 10% for each enemy hit."
+   }
+  },
+  {
+   "name": "Lux (Inferno)",
+   "cost": 5,
+   "traits": [
+    "Inferno",
+    "Avatar"
+   ],
+   "icon": "comp18/champs/LuxInferno.webp",
+   "role": "ap",
+   "ability": {
+    "name": "Final Spark",
+    "desc": "Passive: On cast, all allies that share a trait with Lux gain 3 / 3 / 100 mana. Active: Fire a laser towards the largest group of enemies that deals 330 / 520 / 5000 magic damage, reduced by 25% / 10% for each enemy hit."
+   }
+  },
+  {
+   "name": "Lux (Lunar)",
+   "cost": 5,
+   "traits": [
+    "Lunar",
+    "Avatar"
+   ],
+   "icon": "comp18/champs/LuxLunar.webp",
+   "role": "ap",
+   "ability": {
+    "name": "Final Spark",
+    "desc": "Passive: On cast, all allies that share a trait with Lux gain 3 / 3 / 100 mana. Active: Fire a laser towards the largest group of enemies that deals 330 / 520 / 5000 magic damage, reduced by 25% / 10% for each enemy hit."
+   }
+  },
+  {
+   "name": "Lux (Primal)",
+   "cost": 5,
+   "traits": [
+    "Primal",
+    "Avatar"
+   ],
+   "icon": "comp18/champs/LuxPrimal.webp",
+   "role": "ap",
+   "ability": {
+    "name": "Final Spark",
+    "desc": "Passive: On cast, all allies that share a trait with Lux gain 3 / 3 / 100 mana. Active: Fire a laser towards the largest group of enemies that deals 330 / 520 / 5000 magic damage, reduced by 25% / 10% for each enemy hit."
+   }
+  },
+  {
+   "name": "Lux (Solar)",
+   "cost": 5,
+   "traits": [
+    "Solar",
+    "Avatar"
+   ],
+   "icon": "comp18/champs/LuxSolar.webp",
+   "role": "ap",
+   "ability": {
+    "name": "Final Spark",
+    "desc": "Passive: On cast, all allies that share a trait with Lux gain 3 / 3 / 100 mana. Active: Fire a laser towards the largest group of enemies that deals 330 / 520 / 5000 magic damage, reduced by 25% / 10% for each enemy hit."
+   }
+  },
+  {
+   "name": "Maokai",
+   "cost": 5,
+   "traits": [
+    "Old Growth",
+    "Juggernaut"
+   ],
+   "icon": "comp18/champs/Maokai.webp",
+   "role": "tank",
+   "ability": {
+    "name": "Sow the Seeds",
+    "desc": "Passive: After every 650 / 300 / 200 damage blocked, a sapling jumps towards a nearby enemy and deals 77 / 77 / 825 magic damage. On death, 3 / 5 / 10 saplings jump out. Active: Deal 66 / 66 / 1100 magic damage to target and restore 330 / 400 / 2000 + 10% / 100% missing Health."
+   }
+  },
+  {
+   "name": "Taric",
+   "cost": 5,
+   "traits": [
+    "Emerald Aspect",
+    "Vanguard"
+   ],
+   "icon": "comp18/champs/Taric.webp",
+   "role": "tank",
+   "ability": {
+    "name": "Emerald Radiance",
+    "desc": "Passive: The first time Taric or his paired ally drops below 50% Health, unleash emerald energy from both of them, granting 305 / 480 / 11300 Shield to allies within 3 Hexes for 3 / 99 seconds. Active: Restore 200 / 300 / 3000 Health. Taric and his paired ally deal 100 / 150 / 1000 bonus magic damage on their next 2 attacks."
+   }
+  }
+ ],
+ "traits": [
+  {
+   "name": "Adaptor",
+   "kind": "normal",
+   "bp": [
+    2,
+    3,
+    4
+   ],
+   "cat": "class",
+   "icon": "comp18/traits/Adaptor.webp",
+   "desc": "Innate: Adaptor abilities change depending on if their Attack Damage or Ability Power is higher. Adaptors gain Ability Power or Attack Damage, depending on which is higher.",
+   "levels": {
+    "2": "25% AD OR AP",
+    "3": "35% AD OR AP",
+    "4": "50% AD OR AP"
+   }
+  },
+  {
+   "name": "Apex Predator",
+   "kind": "single",
+   "bp": [],
+   "cat": "origin",
+   "icon": "comp18/traits/ApexPredator.webp",
+   "desc": "Elder Dragon takes up 2 team slots and grants +2 to the Riftbeast trait.",
+   "levels": {}
+  },
+  {
+   "name": "Attuned",
+   "kind": "single",
+   "bp": [],
+   "cat": "origin",
+   "icon": "comp18/traits/Attuned.webp",
+   "desc": "Your strongest Alune cycles to a new phase of the moon after each cast. While the moon is at or below half full, your team gains 7% Durabilty. While above, your team gains 7% Damage Amp.",
+   "levels": {}
+  },
+  {
+   "name": "Avatar",
+   "kind": "single",
+   "bp": [],
+   "cat": "origin",
+   "icon": "comp18/traits/Avatar.webp",
+   "desc": "Having an Avatar on your bench or board transforms all other Avatars in your shop to the Trait of that Avatar. An Avatar's chosen Trait is counted twice for Trait bonuses.",
+   "levels": {}
+  },
+  {
+   "name": "Blossom",
+   "kind": "normal",
+   "bp": [
+    3,
+    5,
+    7,
+    9,
+    11
+   ],
+   "cat": "origin",
+   "icon": "comp18/traits/Blossom.webp",
+   "desc": "After combat, your Wisps are empowered. Blossom champions gain Attack Damage, Ability Power, and 10% max Health.",
+   "levels": {
+    "3": "Wisps are upgraded, 12% AP",
+    "5": "Wisps are in every shop, 30% AP",
+    "7": "Gain 4 gold after buying a Wisp, 40% AP",
+    "9": "You can buy 2 Wisps per round, 45% AP",
+    "11": "Wisps overflow with power, 100% AP"
+   }
+  },
+  {
+   "name": "Bounty Seeker",
+   "kind": "single",
+   "bp": [],
+   "cat": "origin",
+   "icon": "comp18/traits/BountySeeker.webp",
+   "desc": "Choose a bounty. Your strongest Draven can progress on the bounty to earn its reward. Upon completing a bounty, choose another.",
+   "levels": {}
+  },
+  {
+   "name": "Brawler",
+   "kind": "normal",
+   "bp": [
+    2,
+    4,
+    6
+   ],
+   "cat": "class",
+   "icon": "comp18/traits/Brawler.webp",
+   "desc": "Your team gains 120 max Health. Brawlers gain more.",
+   "levels": {
+    "2": "25% HEALTH",
+    "4": "40% HEALTH",
+    "6": "65% HEALTH"
+   }
+  },
+  {
+   "name": "Caustic",
+   "kind": "single",
+   "bp": [],
+   "cat": "origin",
+   "icon": "comp18/traits/Caustic.webp",
+   "desc": "Caustic damage 30% Shreds and Sunders enemies for 4 seconds. Shred: Reduce Magic Resist Sunder: Reduce Armor",
+   "levels": {}
+  },
+  {
+   "name": "Coven",
+   "kind": "normal",
+   "bp": [
+    3,
+    4,
+    5,
+    7
+   ],
+   "cat": "origin",
+   "icon": "comp18/traits/Coven.webp",
+   "desc": "Gather Essence by killing champions, plus more by losing player combat. Beginning at 40 Essence, choose to convert Essence to rewards or continue gathering Essence. Each reward requires increasing amounts of Essence.",
+   "levels": {
+    "3": "2 Essence per kill, 18 Essence per loss",
+    "4": "2 per kill, 18 / 32 / 60 per loss",
+    "5": "3 per kill, 32 per loss",
+    "7": "10 per kill, 60 per loss"
+   }
+  },
+  {
+   "name": "Defender",
+   "kind": "normal",
+   "bp": [
+    2,
+    4,
+    6
+   ],
+   "cat": "class",
+   "icon": "comp18/traits/Defender.webp",
+   "desc": "Your team gains 12 Armor and Magic Resist. Defenders gain more.",
+   "levels": {
+    "2": "25 ARMORMR",
+    "4": "60 ARMORMR",
+    "6": "120 ARMORMR"
+   }
+  },
+  {
+   "name": "Eclipse",
+   "kind": "hidden",
+   "bp": [],
+   "cat": "origin",
+   "icon": "comp18/traits/Eclipse.webp",
+   "desc": "After 10 seconds of combat, the Eclipse kills the lowest Health enemy, repeating every 3.5 seconds.",
+   "levels": {}
+  },
+  {
+   "name": "Elderwood",
+   "kind": "normal",
+   "bp": [
+    3,
+    5,
+    7,
+    9,
+    11
+   ],
+   "cat": "origin",
+   "icon": "comp18/traits/Elderwood.webp",
+   "desc": "Gain placeable Elderwood plants.",
+   "levels": {
+    "3": "A Stonebark Tree and a Lifebloom",
+    "5": "A second Stonebark Tree and Stonebark Trees gain 200 Health",
+    "7": "and the Deepwood Protector",
+    "9": "Plants star up to 2-star",
+    "11": "Plants star up to 3-star and the forest comes to life"
+   }
+  },
+  {
+   "name": "Blackthorn",
+   "kind": "normal",
+   "bp": [
+    2,
+    4,
+    6
+   ],
+   "cat": "origin",
+   "icon": "comp18/traits/Blackthorn.webp",
+   "desc": "The ally on the Blackthorn hex is sacrificed before combat, granting your champions Health. Blackthorn champions gain additional stats based on the sacrifice's Role, Star Level, and Cost.",
+   "levels": {
+    "2": "175 HEALTH",
+    "4": "300 HEALTH; Bonus is 30% stronger",
+    "6": "550 HEALTH; Bonus is 60% stronger"
+   }
+  },
+  {
+   "name": "Emerald Aspect",
+   "kind": "single",
+   "bp": [],
+   "cat": "origin",
+   "icon": "comp18/traits/EmeraldAspect.webp",
+   "desc": "Drag an ally onto your strongest Taric to pair them, granting the ally powerful bonuses from Taric's Ability.",
+   "levels": {}
+  },
+  {
+   "name": "Executioner",
+   "kind": "normal",
+   "bp": [
+    2,
+    3,
+    4
+   ],
+   "cat": "class",
+   "icon": "comp18/traits/Executioner.webp",
+   "desc": "Precision: Ability damage can critically strike. Extra Precision grants 10% Critical Strike Damage.",
+   "levels": {
+    "2": "Executioners gain Precision and 15% Critical Strike Chance.",
+    "3": "Additionally, enemies bleed for 30% bonus true damage over 3 seconds.",
+    "4": "Bleed damage increased to 40%."
+   }
+  },
+  {
+   "name": "Fae",
+   "kind": "normal",
+   "bp": [
+    2,
+    4
+   ],
+   "cat": "origin",
+   "icon": "comp18/traits/Fae.webp",
+   "desc": "Your team's damage, healing, and shielding attracts Pixies. Each Pixie grants Fae champions Attack Damage and Ability Power, and after they fall below 50% Health, they heal for each Pixie.",
+   "levels": {
+    "2": "5% ADAP and 2% Heal.",
+    "4": "8% ADAP and 4% Heal. After attracting 7 Pixies, start attracting Golden Pixies instead which grant gold."
+   }
+  },
+  {
+   "name": "Flora Fatalis",
+   "kind": "normal",
+   "bp": [
+    1,
+    2
+   ],
+   "cat": "origin",
+   "icon": "comp18/traits/FloraFatalis.webp",
+   "desc": "Flora Fatalis champions harvest enemies on takedown, gaining:",
+   "levels": {
+    "1": "10 Mana",
+    "2": "and grant a 0.08 max Health heal to the lowest Health ally."
+   }
+  },
+  {
+   "name": "Greenfather",
+   "kind": "single",
+   "bp": [],
+   "cat": "origin",
+   "icon": "comp18/traits/Greenfather.webp",
+   "desc": "Gain 1 / 10 seed when your strongest Ivern casts, plus 3 / 30 every combat. Ivern uses 5 seeds to grow a hex on your board that grants a bonus to its occupant. Seeds: / 5 Current Biome:",
+   "levels": {}
+  },
+  {
+   "name": "Hunter",
+   "kind": "normal",
+   "bp": [
+    2,
+    3,
+    4,
+    5
+   ],
+   "cat": "class",
+   "icon": "comp18/traits/Hunter.webp",
+   "desc": "Hunters gain Attack Damage. If a Hunter hasn't swapped targets for 4 seconds, they gain 10% Damage Amp.",
+   "levels": {
+    "2": "20% AD",
+    "3": "30% AD",
+    "4": "45% AD",
+    "5": "65% AD"
+   }
+  },
+  {
+   "name": "Inferno",
+   "kind": "normal",
+   "bp": [
+    2,
+    3,
+    5,
+    7
+   ],
+   "cat": "origin",
+   "icon": "comp18/traits/Inferno.webp",
+   "desc": "Inferno damage Burns and Wounds enemies for 4 seconds. Inferno Burns stack with other Burns.",
+   "levels": {
+    "2": "1% Burn, 33% Wound",
+    "3": "After combat, 1 of your shop slots without an Inferno champion ignites, rolling a champion one tier higher",
+    "5": "Ignite 2 shop slots, 2% Burn",
+    "7": "Ignite 4 shop slots, 3% Burn"
+   }
+  },
+  {
+   "name": "Invoker",
+   "kind": "normal",
+   "bp": [
+    2,
+    3,
+    4,
+    5
+   ],
+   "cat": "class",
+   "icon": "comp18/traits/Invoker.webp",
+   "desc": "Your team gains Mana Regen, increased for Invokers.",
+   "levels": {
+    "2": "1 MANAREGEN | 3 MANAREGEN",
+    "3": "1 MANAREGEN | 4 MANAREGEN",
+    "4": "2 MANAREGEN | 6 MANAREGEN",
+    "5": "2 MANAREGEN | 9 MANAREGEN"
+   }
+  },
+  {
+   "name": "Juggernaut",
+   "kind": "normal",
+   "bp": [
+    2,
+    4,
+    6
+   ],
+   "cat": "class",
+   "icon": "comp18/traits/Juggernaut.webp",
+   "desc": "Your team gains Durability. Juggernauts gain more.",
+   "levels": {
+    "2": "4% Durability or 20% Durability",
+    "4": "0% / 4% / 8% Durability or 30% Durability",
+    "6": "8% Durability or 40% Durability"
+   }
+  },
+  {
+   "name": "Lunar",
+   "kind": "normal",
+   "bp": [
+    2,
+    3,
+    4,
+    5
+   ],
+   "cat": "origin",
+   "icon": "comp18/traits/Lunar.webp",
+   "desc": "Lunar champions and adjacent allies gain Attack Speed and Ability Power. Lunar champions gain 100% more.",
+   "levels": {
+    "2": "7% AS, 7% AP",
+    "3": "10% AS, 10% AP",
+    "4": "14% AS, 14% AP",
+    "5": "18% AS, 18% AP"
+   }
+  },
+  {
+   "name": "Monolith",
+   "kind": "single",
+   "bp": [],
+   "cat": "origin",
+   "icon": "comp18/traits/Monolith.webp",
+   "desc": "Monoliths gain 10 Armor and Magic Resist for each enemy targeting them.",
+   "levels": {}
+  },
+  {
+   "name": "Old Growth",
+   "kind": "single",
+   "bp": [],
+   "cat": "origin",
+   "icon": "comp18/traits/OldGrowth.webp",
+   "desc": "Whenever an enemy within 3 / 10 hexes dies, your strongest Old Growth champion gains 30 / 100 / 1000 permanent max Health. Current:",
+   "levels": {}
+  },
+  {
+   "name": "Primal",
+   "kind": "normal",
+   "bp": [
+    2,
+    4
+   ],
+   "cat": "origin",
+   "icon": "comp18/traits/Primal.webp",
+   "desc": "Choose one of four Primal Blessings.",
+   "levels": {
+    "2": "Choose a blessing.",
+    "4": "Choose a second blessing."
+   }
+  },
+  {
+   "name": "Rapidfire",
+   "kind": "normal",
+   "bp": [
+    2,
+    3,
+    4,
+    5
+   ],
+   "cat": "class",
+   "icon": "comp18/traits/Rapidfire.webp",
+   "desc": "Your team gains 10% Attack Speed. Rapidfire champions gain more on every attack, up to 10 stacks.",
+   "levels": {
+    "2": "+3% AS per Attack",
+    "3": "+5% AS per Attack",
+    "4": "+9% AS per Attack",
+    "5": "+15% AS per Attack"
+   }
+  },
+  {
+   "name": "Ravager",
+   "kind": "normal",
+   "bp": [
+    2,
+    4,
+    6
+   ],
+   "cat": "class",
+   "icon": "comp18/traits/Ravager.webp",
+   "desc": "Ravagers gain 10% Omnivamp. Additionally, Ravagers deal bonus damage, doubled against units below 50% Health.",
+   "levels": {
+    "2": "12% Bonus Damage",
+    "4": "25% Bonus Damage",
+    "6": "40% Bonus Damage"
+   }
+  },
+  {
+   "name": "Riftbeast",
+   "kind": "normal",
+   "bp": [
+    3,
+    5,
+    7,
+    10
+   ],
+   "cat": "origin",
+   "icon": "comp18/traits/Riftbeast.webp",
+   "desc": "See the breakpoint effects below.",
+   "levels": {
+    "3": "Use the Alpha Mark to grant a Riftbeast their unique Buff",
+    "5": "Every 3 combats, your next shop is overrun with Riftbeasts.",
+    "7": "On combat start and every 5 seconds Riftbeasts grow gaining 6% AD 6% AP 6% AS +5 ARMOR +5 MR +50 HEALTH +1 MANAREGEN",
+    "10": "+2 maximum team size"
+   }
+  },
+  {
+   "name": "Rival",
+   "kind": "normal",
+   "bp": [
+    1,
+    2
+   ],
+   "cat": "origin",
+   "icon": "comp18/traits/Rival.webp",
+   "desc": "Only applies to your strongest Rival.",
+   "levels": {
+    "1": "Rivals collect takedowns, gaining 3 if they takedown another Rival. Takedowns evolve Kha'Zix, permanently granting him your choice of Executioner, Rapidfire, Ravager, or Spellweaver. Rengar grants 2/3/5 gold every 8 takedowns. After 30 takedowns, your team gains 5% Attack Damage plus 0.2% AD per additional takedown. Kha'Zix Takedowns: / Rengar Takedowns: Gold Earned:",
+    "2": "Rivals can be fielded together, and their abilities grant each other bonuses."
+   }
+  },
+  {
+   "name": "Solar",
+   "kind": "normal",
+   "bp": [
+    3
+   ],
+   "cat": "origin",
+   "icon": "comp18/traits/Solar.webp",
+   "desc": "See the breakpoint effects below.",
+   "levels": {
+    "3": "Your champions gain a 5% max Health shield and deal 7% bonus magic damage. Gain additional bonuses for each unique 3-star 3STAR champion: 1 3STAR: Increase shield and magic damage by 1.5% for each 3-star. 3 3STAR: 18% AS and 15 MR 5 3STAR: Convert 50% of the bonus magic damage to true damage. 8 3STAR: Every 4 seconds of combat, a 3-star champion ascends to 4-star."
+   }
+  },
+  {
+   "name": "Spellweaver",
+   "kind": "normal",
+   "bp": [
+    2,
+    4,
+    6
+   ],
+   "cat": "class",
+   "icon": "comp18/traits/Spellweaver.webp",
+   "desc": "Your team gains 10% Ability Power. Spellweavers gain more, plus extra Ability Power whenever a Spellweaver casts an Ability.",
+   "levels": {
+    "2": "10% AP, +1% AP per cast",
+    "4": "30% AP, +1% AP per cast",
+    "6": "55% AP, +2% AP per cast"
+   }
+  },
+  {
+   "name": "Sprykin",
+   "kind": "normal",
+   "bp": [
+    3,
+    5,
+    7
+   ],
+   "cat": "origin",
+   "icon": "comp18/traits/Sprykin.webp",
+   "desc": "Gain the Big Furry Friend. Drop a Sprykin on the BFF to pick its Rider.",
+   "levels": {
+    "3": "The Rider gains 15% HEALTH and 15% AS",
+    "5": "40% HEALTH 35% AS, and 0% / 100% of the BFF's Ability applies to your Sprykin champions.",
+    "7": "45% HEALTH 45% AS, and 100% of the BFF's Ability applies to your Sprykin champions."
+   }
+  },
+  {
+   "name": "Summoner",
+   "kind": "normal",
+   "bp": [
+    2,
+    3
+   ],
+   "cat": "class",
+   "icon": "comp18/traits/Summoner.webp",
+   "desc": "Summoners empower their summons in different ways. Yorick: +30% Health Azir: +45% Damage Mama Beak: +45% Damage Zyra: +4 Plant Attacks",
+   "levels": {
+    "2": "Empower Summons",
+    "3": "Improve each effect by 50%"
+   }
+  },
+  {
+   "name": "Thornmaiden",
+   "kind": "single",
+   "bp": [],
+   "cat": "origin",
+   "icon": "comp18/traits/Thornmaiden.webp",
+   "desc": "Your team gains 5% Durability, increased to 10% if 6 or more Zyra plants are alive.",
+   "levels": {}
+  },
+  {
+   "name": "Vanguard",
+   "kind": "normal",
+   "bp": [
+    2,
+    4,
+    6
+   ],
+   "cat": "class",
+   "icon": "comp18/traits/Vanguard.webp",
+   "desc": "At Combat Start and after dropping below 50% Health, Vanguards gain a max Health Shield for 10 seconds.",
+   "levels": {
+    "2": "18% max Health",
+    "4": "32% max Health",
+    "6": "42% max Health. Gain 5% Durability while Shielded."
+   }
+  }
+ ],
+ "items": [
+  {
+   "name": "Adaptive Helm",
+   "tags": [
+    "ap",
+    "tank"
+   ],
+   "icon": "comp18/items/AdaptiveHelm.webp"
+  },
+  {
+   "name": "Archangel's Staff",
+   "tags": [
+    "ap"
+   ],
+   "icon": "comp18/items/ArchangelsStaff.webp"
+  },
+  {
+   "name": "Bloodthirster",
+   "tags": [
+    "ad"
+   ],
+   "icon": "comp18/items/Bloodthirster.webp"
+  },
+  {
+   "name": "Blue Buff",
+   "tags": [
+    "ap"
+   ],
+   "icon": "comp18/items/BlueBuff.webp"
+  },
+  {
+   "name": "Bramble Vest",
+   "tags": [
+    "tank"
+   ],
+   "icon": "comp18/items/BrambleVest.webp"
+  },
+  {
+   "name": "Crownguard",
+   "tags": [
+    "ap"
+   ],
+   "icon": "comp18/items/Crownguard.webp"
+  },
+  {
+   "name": "Deathblade",
+   "tags": [
+    "ad"
+   ],
+   "icon": "comp18/items/Deathblade.webp"
+  },
+  {
+   "name": "Dragon's Claw",
+   "tags": [
+    "tank"
+   ],
+   "icon": "comp18/items/DragonsClaw.webp"
+  },
+  {
+   "name": "Edge of Night",
+   "tags": [
+    "ad",
+    "tank"
+   ],
+   "icon": "comp18/items/EdgeOfNight.webp"
+  },
+  {
+   "name": "Evenshroud",
+   "tags": [
+    "tank"
+   ],
+   "icon": "comp18/items/Evenshroud.webp"
+  },
+  {
+   "name": "Gargoyle Stoneplate",
+   "tags": [
+    "tank"
+   ],
+   "icon": "comp18/items/GargoyleStoneplate.webp"
+  },
+  {
+   "name": "Giant Slayer",
+   "tags": [
+    "ad"
+   ],
+   "icon": "comp18/items/GiantSlayer.webp"
+  },
+  {
+   "name": "Guinsoo's Rageblade",
+   "tags": [
+    "ad",
+    "ap"
+   ],
+   "icon": "comp18/items/GuinsoosRageblade.webp"
+  },
+  {
+   "name": "Hand of Justice",
+   "tags": [
+    "ad",
+    "ap"
+   ],
+   "icon": "comp18/items/HandOfJustice.webp"
+  },
+  {
+   "name": "Hextech Gunblade",
+   "tags": [
+    "ad",
+    "ap"
+   ],
+   "icon": "comp18/items/HextechGunblade.webp"
+  },
+  {
+   "name": "Infinity Edge",
+   "tags": [
+    "ad"
+   ],
+   "icon": "comp18/items/InfinityEdge.webp"
+  },
+  {
+   "name": "Ionic Spark",
+   "tags": [
+    "ap"
+   ],
+   "icon": "comp18/items/IonicSpark.webp"
+  },
+  {
+   "name": "Jeweled Gauntlet",
+   "tags": [
+    "ap"
+   ],
+   "icon": "comp18/items/JeweledGauntlet.webp"
+  },
+  {
+   "name": "Kraken's Fury",
+   "tags": [
+    "ad"
+   ],
+   "icon": "comp18/items/KrakensFury.webp"
+  },
+  {
+   "name": "Last Whisper",
+   "tags": [
+    "ad"
+   ],
+   "icon": "comp18/items/LastWhisper.webp"
+  },
+  {
+   "name": "Morellonomicon",
+   "tags": [
+    "ap"
+   ],
+   "icon": "comp18/items/Morellonomicon.webp"
+  },
+  {
+   "name": "Nashor's Tooth",
+   "tags": [
+    "ap"
+   ],
+   "icon": "comp18/items/NashorsTooth.webp"
+  },
+  {
+   "name": "Protector's Vow",
+   "tags": [
+    "tank"
+   ],
+   "icon": "comp18/items/ProtectorsVow.webp"
+  },
+  {
+   "name": "Quicksilver",
+   "tags": [
+    "util"
+   ],
+   "icon": "comp18/items/Quicksilver.webp"
+  },
+  {
+   "name": "Rabadon's Deathcap",
+   "tags": [
+    "ap"
+   ],
+   "icon": "comp18/items/RabadonsDeathcap.webp"
+  },
+  {
+   "name": "Red Buff",
+   "tags": [
+    "ad"
+   ],
+   "icon": "comp18/items/RedBuff.webp"
+  },
+  {
+   "name": "Spear of Shojin",
+   "tags": [
+    "ad",
+    "ap"
+   ],
+   "icon": "comp18/items/SpearOfShojin.webp"
+  },
+  {
+   "name": "Spirit Visage",
+   "tags": [
+    "tank",
+    "ap"
+   ],
+   "icon": "comp18/items/SpiritVisage.webp"
+  },
+  {
+   "name": "Steadfast Heart",
+   "tags": [
+    "tank"
+   ],
+   "icon": "comp18/items/SteadfastHeart.webp"
+  },
+  {
+   "name": "Sterak's Gage",
+   "tags": [
+    "ad",
+    "tank"
+   ],
+   "icon": "comp18/items/SteraksGage.webp"
+  },
+  {
+   "name": "Striker's Flail",
+   "tags": [
+    "ad"
+   ],
+   "icon": "comp18/items/StrikersFlail.webp"
+  },
+  {
+   "name": "Sunfire Cape",
+   "tags": [
+    "tank"
+   ],
+   "icon": "comp18/items/SunfireCape.webp"
+  },
+  {
+   "name": "Tactician's Cape",
+   "tags": [
+    "util"
+   ],
+   "icon": "comp18/items/TacticiansCape.webp"
+  },
+  {
+   "name": "Tactician's Crown",
+   "tags": [
+    "util"
+   ],
+   "icon": "comp18/items/TacticiansCrown.webp"
+  },
+  {
+   "name": "Tactician's Shield",
+   "tags": [
+    "util"
+   ],
+   "icon": "comp18/items/TacticiansShield.webp"
+  },
+  {
+   "name": "Thief's Gloves",
+   "tags": [
+    "util"
+   ],
+   "icon": "comp18/items/ThiefsGloves.webp"
+  },
+  {
+   "name": "Titan's Resolve",
+   "tags": [
+    "ad",
+    "tank"
+   ],
+   "icon": "comp18/items/TitansResolve.webp"
+  },
+  {
+   "name": "Void Staff",
+   "tags": [
+    "ap"
+   ],
+   "icon": "comp18/items/VoidStaff.webp"
+  },
+  {
+   "name": "Warmog's Armor",
+   "tags": [
+    "tank"
+   ],
+   "icon": "comp18/items/WarmogsArmor.webp"
+  },
+  {
+   "name": "Fae Emblem",
+   "tags": [
+    "emblem"
+   ],
+   "icon": "comp18/items/DA_18_EmblemFae.webp",
+   "trait": "Fae",
+   "desc": "The holder gains the Fae trait."
+  },
+  {
+   "name": "Hunter Emblem",
+   "tags": [
+    "emblem"
+   ],
+   "icon": "comp18/items/DA_18_EmblemHunter.webp",
+   "trait": "Hunter",
+   "desc": "The holder gains the Hunter trait. Takedowns grant 15% Attack Damage."
+  },
+  {
+   "name": "Inferno Emblem",
+   "tags": [
+    "emblem"
+   ],
+   "icon": "comp18/items/DA_18_EmblemInferno.webp",
+   "trait": "Inferno",
+   "desc": "The holder gains the Inferno trait."
+  },
+  {
+   "name": "Rapidfire Emblem",
+   "tags": [
+    "emblem"
+   ],
+   "icon": "comp18/items/DA_18_EmblemRapidfire.webp",
+   "trait": "Rapidfire",
+   "desc": "The holder gains the Rapidfire trait. Attacks deal 1% of the target's max Health as true damage."
+  },
+  {
+   "name": "Elderwood Emblem",
+   "tags": [
+    "emblem"
+   ],
+   "icon": "comp18/items/DA_18_EmblemElderwood.webp",
+   "trait": "Elderwood",
+   "desc": "The holder gains the Elderwood trait."
+  },
+  {
+   "name": "Ravager Emblem",
+   "tags": [
+    "emblem"
+   ],
+   "icon": "comp18/items/DA_18_EmblemSlayer.webp",
+   "trait": "Ravager",
+   "desc": "The holder gains the Ravager trait. Gain 3% Damage Amp per 300 Health restored."
+  },
+  {
+   "name": "Sprykin Emblem",
+   "tags": [
+    "emblem"
+   ],
+   "icon": "comp18/items/DA_18_EmblemSprykin.webp",
+   "trait": "Sprykin",
+   "desc": "The holder gains the Sprykin trait. If the holder is riding the BFF, gain an additional 20% %i:scaleAS% 15 %i:scaleArmor% 15 %i:scaleMR%"
+  },
+  {
+   "name": "Vanguard Emblem",
+   "tags": [
+    "emblem"
+   ],
+   "icon": "comp18/items/DA_18_EmblemVanguard.webp",
+   "trait": "Vanguard",
+   "desc": "The holder gains the Vanguard trait. If the holder survives 22 seconds in player combat, gain 1 player health."
+  },
+  {
+   "name": "Blossom Emblem",
+   "tags": [
+    "emblem"
+   ],
+   "icon": "comp18/items/DA_18_EmblemBlossom.webp",
+   "trait": "Blossom",
+   "desc": "The holder gains the Blossom trait."
+  },
+  {
+   "name": "Spellweaver Emblem",
+   "tags": [
+    "emblem"
+   ],
+   "icon": "comp18/items/DA_18_EmblemSpellweaver.webp",
+   "trait": "Spellweaver",
+   "desc": "The holder gains the Spellweaver trait. Gain 2 Mana whenever an ally casts their Ability."
+  },
+  {
+   "name": "Invoker Emblem",
+   "tags": [
+    "emblem"
+   ],
+   "icon": "comp18/items/DA_18_EmblemInvoker.webp",
+   "trait": "Invoker",
+   "desc": "The holder gains the Invoker trait. On cast, gain Ability Power equal to 8% of Mana spent."
+  },
+  {
+   "name": "Lunar Emblem",
+   "tags": [
+    "emblem"
+   ],
+   "icon": "comp18/items/DA_18_EmblemLunar.webp",
+   "trait": "Lunar",
+   "desc": "The holder gains the Lunar trait."
+  },
+  {
+   "name": "Brawler Emblem",
+   "tags": [
+    "emblem"
+   ],
+   "icon": "comp18/items/DA_18_EmblemBrawler.webp",
+   "trait": "Brawler",
+   "desc": "The holder gains the Brawler trait. Attacks deal 2.5% of the holder's max Health as magic damage."
+  },
+  {
+   "name": "Blackthorn Emblem",
+   "tags": [
+    "emblem"
+   ],
+   "icon": "comp18/items/DA_18_EmblemBlackthorn.webp",
+   "trait": "Eldritch",
+   "desc": "The holder gains the Blackthorn trait."
+  },
+  {
+   "name": "Executioner Emblem",
+   "tags": [
+    "emblem"
+   ],
+   "icon": "comp18/items/DA_18_EmblemExecutioner.webp",
+   "trait": "Executioner",
+   "desc": "The holder gains the Executioner trait. Damage executes enemies below 8% of their max Health."
+  },
+  {
+   "name": "Primal Emblem",
+   "tags": [
+    "emblem"
+   ],
+   "icon": "comp18/items/DA_18_EmblemPrimal.webp",
+   "trait": "Primal",
+   "desc": "The holder gains the Primal trait."
+  },
+  {
+   "name": "Coven Emblem",
+   "tags": [
+    "emblem"
+   ],
+   "icon": "comp18/items/DA_18_EmblemCoven.webp",
+   "trait": "Coven",
+   "desc": "The holder gains the Coven trait."
+  },
+  {
+   "name": "Defender Emblem",
+   "tags": [
+    "emblem"
+   ],
+   "icon": "comp18/items/DA_18_EmblemDefender.webp",
+   "trait": "Defender",
+   "desc": "The holder gains the Defender trait. Combat Start: Gain 6% Attack Speed for every ally that starts in the front row."
+  },
+  {
+   "name": "Flora Fatalis Emblem",
+   "tags": [
+    "emblem"
+   ],
+   "icon": "comp18/items/DA_18_EmblemFloraFatalis.webp",
+   "trait": "Flora Fatalis",
+   "desc": "The holder gains the Flora Fatalis trait."
+  },
+  {
+   "name": "Juggernaut Emblem",
+   "tags": [
+    "emblem"
+   ],
+   "icon": "comp18/items/DA_18_EmblemJuggernaut.webp",
+   "trait": "Juggernaut",
+   "desc": "The holder gains the Juggernaut trait. Gain 10 mana whenever a Juggernaut dies."
+  }
+ ],
+ "source": "Icons and data: OP.GG / TFT Academy. Item roles (Damage / AP / Tanky) are editable in this file."
+}
