@@ -294,10 +294,29 @@ header p{color:var(--muted);font-size:14px}
 /* ---- Patch notes / Battle pass / Language ---- */
 #patchNotes{margin-top:22px;color:#2fd1c5;font-weight:600;font-size:13px;text-decoration:none;padding:4px 0;text-shadow:0 1px 10px rgba(0,0,0,.7);transition:color .2s}
 #patchNotes:hover,#patchNotes:focus-visible{color:#8ff5ec;outline:none}
-#bpass{position:absolute;z-index:6;top:50px;right:28px;min-width:210px;padding:11px 16px 13px;border-radius:12px;background:rgba(10,13,18,.7);border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);opacity:.6;filter:grayscale(.55);cursor:not-allowed;user-select:none}
-#bpass .bt{display:flex;align-items:center;gap:7px;color:#9aa4b2;font-size:10px;font-weight:700;letter-spacing:.14em;margin-bottom:9px}
-#bpass .bt svg{width:14px;height:14px;fill:currentColor}
-#bpass .bs{color:#ece3c8;font-size:13px;font-weight:700;letter-spacing:.03em}
+/* ---- Pass card (top right, HOME ONLY) - in-game style ---- */
+#bpass{position:absolute;z-index:6;top:40px;right:24px;display:flex;align-items:center;gap:16px;padding:12px 8px 12px 78px;background:linear-gradient(90deg,rgba(7,10,15,0),rgba(7,10,15,.8) 36%);color:#ece3c8;cursor:pointer;user-select:none;transition:transform .25s,filter .25s}
+#bpass[hidden]{display:none}
+#bpass:hover{transform:translateY(-2px);filter:brightness(1.12)}
+#bpass:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+#bpass .bp-info{text-align:right}
+#bpass .bp-next{font-size:12px;color:#a9b4b8;letter-spacing:.02em}
+#bpass .bp-name{font-family:var(--body);font-size:21px;font-weight:800;color:#f6efe0;line-height:1.15;white-space:nowrap}
+#bpass .bp-row{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;margin-top:10px}
+#bpass .bp-lv{font-family:var(--body);font-size:20px;font-weight:800;color:#e9e1cf}
+#bpass .bp-xp{display:flex;align-items:center;gap:4px;font-size:12px;font-weight:700;color:#cfd6d8}
+#bpass .bp-xp svg{width:11px;height:11px;fill:none;stroke:#cfd6d8;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+#bpass .bp-xp b{color:#2fd1c5;font-weight:700}
+#bpass .bp-bar{display:flex;gap:3px;width:270px;height:22px;margin:6px 0 0 auto;padding:3px;background:#0b1a27;border:2px solid #3a6f8f;transform:skewX(-18deg);transform-origin:100% 50%}
+#bpass .bp-bar span{flex:1;position:relative;overflow:hidden;background:#123049}
+#bpass .bp-bar i{position:absolute;left:0;top:0;bottom:0;width:0;background:linear-gradient(#37d4e8,#1a8fb5);transition:width 1.1s cubic-bezier(.2,.8,.2,1)}
+#bpass .bp-rw{position:relative;flex:none;width:86px;height:98px;display:grid;place-items:center;border:3px solid #c8aa6e;background:radial-gradient(circle at 50% 42%,#6fb7e6,#2b5f86);box-shadow:inset 0 0 0 2px #0a1420,0 4px 14px rgba(0,0,0,.5);overflow:hidden}
+#bpass .bp-rw .pt-ico{width:34px;height:34px;transform:translateY(-8px) scale(1.5)}
+#bpass .bp-tag{position:absolute;left:0;right:0;bottom:0;padding:3px 0;background:#0d1822;color:#f0e6d2;text-align:center;font-family:var(--head);font-size:13px;font-weight:800;letter-spacing:.04em}
+#bpass .bp-gem{position:absolute;z-index:2;top:-10px;left:50%;width:18px;height:18px;margin-left:-9px;transform:rotate(45deg);border:2px solid #1c6a2a;border-radius:4px;background:linear-gradient(135deg,#8dff6a,#2fa23a)}
+#bpass.bp-prem .bp-gem{border-color:#7a5200;background:linear-gradient(135deg,#ffe28a,#f8a900)}
+#bpass.bp-prem .bp-rw{border-color:#f8a900}
+#bpass.pt-up .bp-rw{animation:pt-bump .7s cubic-bezier(.2,1.4,.3,1)}
 #patchNotes[hidden]{display:none}
 #bar{position:absolute;z-index:7;left:84px;bottom:30px;display:flex;align-items:center;gap:10px}
 .pill{position:relative;display:flex;align-items:center;gap:8px;height:36px;padding:0 14px;border:1px solid #2a323d;border-radius:999px;background:#12161d;color:#cdd3de;font:600 13px/1 var(--body);cursor:pointer;transition:color .2s,border-color .2s,background .2s}
@@ -398,16 +417,7 @@ background:linear-gradient(160deg,#ffffff1c,#ffffff08);border:1.5px solid color-
 .pt-ember{position:absolute;bottom:60%;width:4px;height:4px;border-radius:50%;background:var(--pt-accent);box-shadow:0 0 8px 2px var(--pt-accent);pointer-events:none}
 .pt-ring{position:fixed;width:20px;height:20px;margin:-10px 0 0 -10px;border-radius:50%;border:3px solid var(--pt-accent);pointer-events:none;z-index:9}
 
-/* ---- Battlepass card becomes the tracker toggle ---- */
-#bpass.pt-live{opacity:1;filter:none;cursor:pointer;transition:border-color .25s,transform .25s,box-shadow .25s}
-#bpass.pt-live:hover{transform:translateY(-2px);border-color:var(--gold);box-shadow:0 10px 28px rgba(0,0,0,.45)}
-#bpass.pt-live.pt-on{border-color:rgba(248,169,0,.55)}
-#bpass.pt-live .bs{font-family:var(--head);font-size:15px;letter-spacing:.04em}
-#bpass .pt-bpx{display:none;height:4px;margin-top:9px;border-radius:9px;background:rgba(255,255,255,.12);overflow:hidden}
-#bpass.pt-live .pt-bpx{display:block}
-.pt-bpx i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--pt-teal),var(--pt-mint));transition:width 1.2s var(--ease)}
-#bpass .pt-hint{display:none;margin-left:auto;color:var(--gold);font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
-#bpass.pt-live .pt-hint{display:block}
+
 
 /* ===== Comp Builder (Set 18) ===== */
 :root{--cb-hx:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%)}
@@ -628,9 +638,17 @@ html,*{scroll-behavior:smooth}
   </div>
   <a id="patchNotes" href="#" data-i18n="patch">Patch Notes 18.4 ↗</a>
 </nav>
-<div id="bpass" aria-disabled="true" title="">
-  <div class="bt"><svg viewBox="0 0 24 24"><path d="M4 5l9-2v16l-9 2zm10 0l6 2v16l-6-2z"/></svg><span data-i18n="bp">BATTLEPASS</span><span class="pt-hint" id="pt-hint"></span></div>
-  <div class="bs" id="pt-bpl" data-i18n="bpOff">PASS DISABLED</div><div class="pt-bpx"><i id="pt-bpx"></i></div>
+<div id="bpass" role="button" tabindex="0" title="">
+  <div class="bp-info">
+    <div class="bp-next" id="bp-next">Next Reward:</div>
+    <div class="bp-name" id="bp-name">-</div>
+    <div class="bp-row">
+      <span class="bp-lv" id="bp-lv">Lv. 0</span>
+      <span class="bp-xp"><svg viewBox="0 0 24 24"><path d="M5 15l7-7 7 7"/><path d="M5 21h14"/></svg><b id="bp-xp">0</b>/<span id="bp-need">1,000</span>XP</span>
+    </div>
+    <div class="bp-bar" id="bp-bar"><span><i></i></span><span><i></i></span><span><i></i></span><span><i></i></span><span><i></i></span><span><i></i></span><span><i></i></span><span><i></i></span><span><i></i></span><span><i></i></span></div>
+  </div>
+  <div class="bp-rw"><span class="bp-gem"></span><i class="pt-ico pt-orb" id="bp-ico"></i><div class="bp-tag" id="bp-tag">FREE</div></div>
 </div>
 <div id="bar">
   <div id="lang">
@@ -937,7 +955,7 @@ function showView(v) {
   showView.cur = v;
   $('navNews').classList.remove('on');
   $('home').hidden = v !== 'home'; $('sets').hidden = v !== 'sets'; $('compb').hidden = v !== 'comp'; $('history').hidden = v !== 'history'; 
-  $('navHome').classList.toggle('on', v === 'home'); $('navComp').classList.toggle('on', v === 'comp'); $('navColl').classList.toggle('on', v === 'sets'); $('navHist').classList.toggle('on', v === 'history'); $('patchNotes').hidden = v !== 'home';
+  $('navHome').classList.toggle('on', v === 'home'); $('navComp').classList.toggle('on', v === 'comp'); $('navColl').classList.toggle('on', v === 'sets'); $('navHist').classList.toggle('on', v === 'history'); $('patchNotes').hidden = v !== 'home'; $('bpass').hidden = v !== 'home';
   $('main').scrollTop = 0;
 }
 document.querySelectorAll('.nv').forEach(b => b.addEventListener('click', () => {
@@ -1127,21 +1145,21 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
 
 /* ================= PASS TRACKER (Battlepass) ================= */
 (() => {
-  const PASS_ENABLED = true;   // false = keep the card on "PASS DISABLED" until real Riot data is wired
   const R = "orb:200:f,icon:0:f,arena:0:p,shard:50:f,boom:0:p,shard:50:p,orb:50:f,legend:0:p,shard:50:p,icon:0:f,orb:50:p,orb:50:f,shard:50:p,legend:0:p,orb:50:p,icon:0:f,shard:50:f,egg:0:p,shard:50:p,orb:100:f,shard:50:p,icon:0:f,orb:100:p,legend:0:p,shard:50:p,icon:0:f,arena:0:p,orb:100:p,shard:100:p,arena:0:p"
     .split(",").map((s, i) => { const [t, a, p] = s.split(":"); return { level: i, type: t, amount: +a, premium: p === "p" }; });
   const TXT = {
-    en: { lvl: 'Level', replay: 'Replay', free: 'FREE', hide: 'Hide', show: 'Show', xp: 'XP to next level' },
-    sk: { lvl: 'Úroveň', replay: 'Znova', free: 'ZADARMO', hide: 'Skryť', show: 'Zobraziť', xp: 'XP do ďalšej úrovne' },
-    cs: { lvl: 'Úroveň', replay: 'Znovu', free: 'ZDARMA', hide: 'Skrýt', show: 'Zobrazit', xp: 'XP do další úrovně' },
-    tr: { lvl: 'Seviye', replay: 'Tekrar', free: 'ÜCRETSİZ', hide: 'Gizle', show: 'Göster', xp: 'sonraki seviyeye XP' },
-    pt: { lvl: 'Nível', replay: 'Repetir', free: 'GRÁTIS', hide: 'Ocultar', show: 'Mostrar', xp: 'XP para o próximo nível' },
-    zh: { lvl: '等级', replay: '重播', free: '免费', hide: '隐藏', show: '显示', xp: '升级所需经验' },
-    ja: { lvl: 'レベル', replay: 'リプレイ', free: '無料', hide: '隠す', show: '表示', xp: '次のレベルまでXP' }
+    en: { nxt: 'Next Reward:', lv: 'Lv.', prem: 'PREMIUM', done: 'All rewards claimed', lvl: 'Level', replay: 'Replay', free: 'FREE', hide: 'Hide', show: 'Show', xp: 'XP to next level' },
+    sk: { nxt: 'Ďalšia odmena:', lv: 'Lv.', prem: 'PREMIUM', done: 'Všetky odmeny získané', lvl: 'Úroveň', replay: 'Znova', free: 'ZADARMO', hide: 'Skryť', show: 'Zobraziť', xp: 'XP do ďalšej úrovne' },
+    cs: { nxt: 'Další odměna:', lv: 'Lv.', prem: 'PREMIUM', done: 'Všechny odměny získány', lvl: 'Úroveň', replay: 'Znovu', free: 'ZDARMA', hide: 'Skrýt', show: 'Zobrazit', xp: 'XP do další úrovně' },
+    tr: { nxt: 'Sonraki Ödül:', lv: 'Sv.', prem: 'PREMIUM', done: 'Tüm ödüller alındı', lvl: 'Seviye', replay: 'Tekrar', free: 'ÜCRETSİZ', hide: 'Gizle', show: 'Göster', xp: 'sonraki seviyeye XP' },
+    pt: { nxt: 'Próxima Recompensa:', lv: 'Nv.', prem: 'PREMIUM', done: 'Todas as recompensas obtidas', lvl: 'Nível', replay: 'Repetir', free: 'GRÁTIS', hide: 'Ocultar', show: 'Mostrar', xp: 'XP para o próximo nível' },
+    zh: { nxt: '下一个奖励：', lv: '等级', prem: '高级', done: '已领取全部奖励', lvl: '等级', replay: '重播', free: '免费', hide: '隐藏', show: '显示', xp: '升级所需经验' },
+    ja: { nxt: '次の報酬：', lv: 'Lv.', prem: 'プレミアム', done: '全報酬を獲得済み', lvl: 'レベル', replay: 'リプレイ', free: '無料', hide: '隠す', show: '表示', xp: '次のレベルまでXP' }
   };
   const P = id => document.getElementById('pt-' + id);
   const track = P('track'), sc = P('scroll'), dock = P('dock'), card = $('bpass'), app = $('app');
   const tx = () => TXT[document.documentElement.lang] || TXT.en;
+  const NAMES = { orb: 'Orb', icon: 'Icon', arena: 'Arena', shard: 'Shard', boom: 'Boom', legend: 'Little Legend', egg: 'Egg' };
   let state, lastL;
 
   /* ---- DATA ADAPTER: the only part to change for Riot ----
@@ -1167,13 +1185,21 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
     const t = tx();
     P('lvword').textContent = t.lvl; P('replay').textContent = t.replay;
     track.querySelectorAll('.pt-free').forEach(e => e.textContent = t.free);
-    P('hint').textContent = dock.classList.contains('pt-closed') ? t.show : t.hide;
+    card.title = dock.classList.contains('pt-closed') ? t.show : t.hide;
     if (state) paintText();
   }
   function paintText() {
     const t = tx(), L = state.level;
     P('xpt').textContent = `${state.xp} / ${state.xpToNext} ${t.xp}`;
-    if (PASS_ENABLED) { const b = $('pt-bpl'); b.removeAttribute('data-i18n'); b.textContent = `${t.lvl} ${L} / 30`; }
+    const n = R[L + 1];
+    $('bp-next').textContent = t.nxt; $('bp-lv').textContent = `${t.lv} ${L}`;
+    $('bp-xp').textContent = state.xp.toLocaleString('en-US'); $('bp-need').textContent = state.xpToNext.toLocaleString('en-US');
+    card.classList.toggle('bp-prem', !!(n && n.premium));
+    if (n) {
+      $('bp-name').textContent = (NAMES[n.type] || n.type) + (n.amount ? ' x' + n.amount : '');
+      $('bp-tag').textContent = n.premium ? t.prem : t.free;
+      $('bp-ico').className = 'pt-ico pt-' + n.type; $('bp-ico').style.visibility = '';
+    } else { $('bp-name').textContent = t.done; $('bp-tag').textContent = ''; $('bp-ico').style.visibility = 'hidden'; }
   }
   function paint(animate = true) {
     const L = state.level;
@@ -1182,11 +1208,13 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
       n.classList.toggle('pt-done', l <= L); n.classList.toggle('pt-cur', l === L);
       n.classList.toggle('pt-lock', l > L); n.classList.toggle('pt-claimed', state.claimed.includes(l));
     });
-    if (lastL !== undefined && lastL !== L) { const h = dock.querySelector('.pt-hex'); h.classList.remove('pt-up'); void h.offsetWidth; h.classList.add('pt-up'); }
+    if (lastL !== undefined && lastL !== L) { const h = dock.querySelector('.pt-hex'); h.classList.remove('pt-up'); void h.offsetWidth; h.classList.add('pt-up'); card.classList.remove('pt-up'); void card.offsetWidth; card.classList.add('pt-up'); }
     lastL = L;
     P('lvl').textContent = L; P('lv2').textContent = L;
     const pct = (state.xp / state.xpToNext * 100) + '%';
-    P('xpbar').style.width = pct; $('pt-bpx').style.width = pct;
+    P('xpbar').style.width = pct;
+    const f = Math.min(1, state.xp / state.xpToNext) * 10;
+    [...$('bp-bar').children].forEach((s, i) => { s.firstElementChild.style.width = Math.max(0, Math.min(1, f - i)) * 100 + '%'; });
     P('fill').style.width = Math.min(1, L / 29) * 100 + '%';
     paintText();
     const cur = track.querySelector(`[data-l="${Math.min(L, 29)}"]`);
@@ -1241,11 +1269,8 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
     m.animate([{ transform: 'translateY(0) scale(1)', opacity: 1 }, { transform: `translate(${(Math.random() - .5) * 24}px,-${40 + Math.random() * 26}px) scale(0)`, opacity: 0 }], { duration: 1300 + Math.random() * 700 }).onfinish = () => m.remove();
   }, 170);
 
-  card.onclick = () => {
-    if (!card.classList.contains('pt-live')) return;
-    if (showView.cur && showView.cur !== 'home') { showView('home'); setOpen(true); return; }
-    setOpen(dock.classList.contains('pt-closed'));
-  };
+  card.onclick = () => setOpen(dock.classList.contains('pt-closed'));
+  card.onkeydown = e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); card.onclick(); } };
   const _setLang = setLang; setLang = function (l) { _setLang(l); texts(); };
 
   (async () => {
@@ -1253,7 +1278,7 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
     state = await getPassState();
     let saved = []; try { saved = JSON.parse(store.get('tft.passClaimed') || '[]'); } catch {}
     state.claimed = [...new Set([...(state.claimed || []), ...saved])];
-    if (PASS_ENABLED) { card.classList.add('pt-live'); card.removeAttribute('aria-disabled'); }
+    card.hidden = !!showView.cur && showView.cur !== 'home';
     if (store.get('tft.passOpen') === '0') setOpen(false); else card.classList.add('pt-on');
     setTimeout(() => paint(false), 600);
     setTimeout(replay, 1700);
