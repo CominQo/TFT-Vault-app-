@@ -1,0 +1,474 @@
+[
+ {
+  "id": "khazix-assassins",
+  "name": "Kha'Zix Assassins",
+  "tier": "S",
+  "style": "Fast 8",
+  "champs": [
+   "Kha'Zix",
+   "Rengar",
+   "Zed",
+   "Talon",
+   "Akali",
+   "Katarina",
+   "Qiyana",
+   "Naafiri"
+  ],
+  "traits": {
+   "Assassin": 6,
+   "Challenger": 2
+  },
+  "boardLayout": [
+   "Naafiri",
+   null,
+   "Rengar",
+   null,
+   "Talon",
+   null,
+   "Kha'Zix",
+   null,
+   null,
+   null,
+   null,
+   null,
+   null,
+   null,
+   null,
+   null,
+   null,
+   null,
+   null,
+   null,
+   null,
+   "Zed",
+   null,
+   "Akali",
+   null,
+   "Katarina",
+   null,
+   "Qiyana"
+  ],
+  "items": {
+   "Kha'Zix": [
+    "Infinity Edge",
+    "Bloodthirster",
+    "Edge of Night"
+   ],
+   "Rengar": [
+    "Sterak's Gage",
+    "Bloodthirster"
+   ],
+   "Zed": [
+    "Giant Slayer",
+    "Last Whisper"
+   ]
+  },
+  "emblems": [
+   "Assassin Emblem"
+  ],
+  "augments": {
+   "best": [
+    "Combat Training",
+    "Jeweled Lotus",
+    "Cybernetic Uplink"
+   ],
+   "good": [
+    "Pandora's Items",
+    "Blue Battery"
+   ],
+   "situational": [
+    "Titanic Titan",
+    "Tiny Power"
+   ]
+  }
+ },
+ {
+  "id": "stalker-bruisers",
+  "name": "Stalker Bruisers",
+  "tier": "A",
+  "style": "Mid Game",
+  "champs": [
+   "Kha'Zix",
+   "Rengar",
+   "Vi",
+   "Jax",
+   "Sett",
+   "Camille",
+   "Pyke"
+  ],
+  "traits": {
+   "Assassin": 4,
+   "Bruiser": 4
+  },
+  "boardLayout": [
+   null,
+   "Sett",
+   null,
+   "Jax",
+   null,
+   "Vi",
+   null,
+   null,
+   null,
+   "Camille",
+   null,
+   "Pyke",
+   null,
+   null,
+   null,
+   null,
+   null,
+   null,
+   null,
+   null,
+   null,
+   null,
+   "Rengar",
+   null,
+   "Kha'Zix",
+   null,
+   null,
+   null
+  ],
+  "items": {
+   "Rengar": [
+    "Bloodthirster",
+    "Sterak's Gage"
+   ],
+   "Kha'Zix": [
+    "Infinity Edge",
+    "Last Whisper"
+   ],
+   "Sett": [
+    "Warmog's Armor",
+    "Bramble Vest"
+   ]
+  },
+  "emblems": [
+   "Bruiser Emblem"
+  ],
+  "augments": {
+   "best": [
+    "Combat Training",
+    "Tri Force"
+   ],
+   "good": [
+    "Cybernetic Implants",
+    "Blue Battery"
+   ],
+   "situational": [
+    "Windfall",
+    "Level Up!"
+   ]
+  }
+ },
+ {
+  "id": "sorcerer-reroll",
+  "name": "Sorcerer Reroll",
+  "tier": "A",
+  "style": "Early Strong",
+  "champs": [
+   "Lux",
+   "Ahri",
+   "Syndra",
+   "Orianna",
+   "Zoe",
+   "Annie",
+   "Karma"
+  ],
+  "traits": {
+   "Sorcerer": 6
+  },
+  "boardLayout": [
+   null,
+   null,
+   "Annie",
+   null,
+   "Karma",
+   null,
+   null,
+   null,
+   null,
+   null,
+   null,
+   null,
+   null,
+   null,
+   null,
+   null,
+   null,
+   null,
+   null,
+   null,
+   null,
+   null,
+   "Lux",
+   "Syndra",
+   "Ahri",
+   "Orianna",
+   "Zoe",
+   null
+  ],
+  "items": {
+   "Ahri": [
+    "Rabadon's Deathcap",
+    "Jeweled Gauntlet",
+    "Archangel's Staff"
+   ],
+   "Lux": [
+    "Blue Buff",
+    "Spear of Shojin"
+   ]
+  },
+  "emblems": [],
+  "augments": {
+   "best": [
+    "Ancient Archives",
+    "Jeweled Lotus"
+   ],
+   "good": [
+    "Blue Battery",
+    "Pandora's Items"
+   ],
+   "situational": [
+    "Component Grab Bag",
+    "Clear Mind"
+   ]
+  }
+ },
+ {
+  "id": "marksman-rush",
+  "name": "Marksman Rush",
+  "tier": "S",
+  "style": "Fast 9",
+  "champs": [
+   "Jinx",
+   "Ashe",
+   "Draven",
+   "Samira",
+   "Caitlyn",
+   "Vayne",
+   "Lucian",
+   "Kai'Sa"
+  ],
+  "traits": {
+   "Marksman": 6,
+   "Duelist": 2
+  },
+  "boardLayout": [
+   "Lucian",
+   null,
+   null,
+   null,
+   null,
+   null,
+   "Samira",
+   null,
+   null,
+   null,
+   null,
+   null,
+   null,
+   null,
+   null,
+   null,
+   null,
+   null,
+   null,
+   null,
+   null,
+   "Jinx",
+   "Ashe",
+   null,
+   "Draven",
+   "Caitlyn",
+   "Vayne",
+   "Kai'Sa"
+  ],
+  "items": {
+   "Jinx": [
+    "Guinsoo's Rageblade",
+    "Giant Slayer",
+    "Last Whisper"
+   ],
+   "Draven": [
+    "Infinity Edge",
+    "Bloodthirster"
+   ],
+   "Vayne": [
+    "Statikk Shiv",
+    "Quicksilver"
+   ]
+  },
+  "emblems": [
+   "Marksman Emblem"
+  ],
+  "augments": {
+   "best": [
+    "Cybernetic Uplink",
+    "Combat Training"
+   ],
+   "good": [
+    "Tri Force",
+    "Pandora's Items"
+   ],
+   "situational": [
+    "Item Grab Bag",
+    "Windfall"
+   ]
+  }
+ },
+ {
+  "id": "guardian-fortress",
+  "name": "Guardian Fortress",
+  "tier": "B",
+  "style": "Late Game",
+  "champs": [
+   "Poppy",
+   "Leona",
+   "Braum",
+   "Alistar",
+   "Ornn",
+   "Malphite",
+   "Garen",
+   "Shen"
+  ],
+  "traits": {
+   "Guardian": 6,
+   "Vanguard": 4
+  },
+  "boardLayout": [
+   "Braum",
+   "Leona",
+   null,
+   "Poppy",
+   null,
+   "Alistar",
+   "Garen",
+   null,
+   null,
+   "Ornn",
+   null,
+   "Shen",
+   null,
+   null,
+   null,
+   null,
+   null,
+   null,
+   null,
+   null,
+   null,
+   null,
+   "Malphite",
+   null,
+   null,
+   null,
+   null,
+   null
+  ],
+  "items": {
+   "Ornn": [
+    "Warmog's Armor",
+    "Gargoyle Stoneplate"
+   ],
+   "Braum": [
+    "Bramble Vest",
+    "Sunfire Cape"
+   ],
+   "Malphite": [
+    "Dragon's Claw",
+    "Redemption"
+   ]
+  },
+  "emblems": [],
+  "augments": {
+   "best": [
+    "Stand United",
+    "Titanic Titan"
+   ],
+   "good": [
+    "Cybernetic Implants",
+    "Tiny Titans"
+   ],
+   "situational": [
+    "Level Up!",
+    "Crown Jewels"
+   ]
+  }
+ },
+ {
+  "id": "moonlit-hunters",
+  "name": "Moonlit Hunters",
+  "tier": "B",
+  "style": "High Roll",
+  "champs": [
+   "Kha'Zix",
+   "Nidalee",
+   "Elise",
+   "Diana",
+   "Briar",
+   "Shaco"
+  ],
+  "traits": {
+   "Assassin": 2,
+   "Shapeshifter": 4
+  },
+  "boardLayout": [
+   null,
+   null,
+   "Briar",
+   null,
+   "Shaco",
+   null,
+   null,
+   null,
+   null,
+   null,
+   null,
+   null,
+   null,
+   null,
+   null,
+   null,
+   null,
+   null,
+   null,
+   null,
+   null,
+   null,
+   "Nidalee",
+   null,
+   "Elise",
+   "Kha'Zix",
+   "Diana",
+   null
+  ],
+  "items": {
+   "Nidalee": [
+    "Spear of Shojin",
+    "Hextech Gunblade"
+   ],
+   "Kha'Zix": [
+    "Edge of Night",
+    "Giant Slayer"
+   ]
+  },
+  "emblems": [
+   "Shapeshifter Emblem"
+  ],
+  "augments": {
+   "best": [
+    "Moonlight Hunt",
+    "Combat Training"
+   ],
+   "good": [
+    "Blue Battery"
+   ],
+   "situational": [
+    "Pandora's Items",
+    "Windfall"
+   ]
+  }
+ }
+]
