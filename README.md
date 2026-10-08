@@ -71,3 +71,18 @@ If you like the app: https://revolut.me/kubo_comor
 
 ## Legal
 Riot Games, TFT, Teamfight Tactics are trademarks of Riot Games, Inc. This project is not endorsed by Riot Games.
+
+## Releasing an update (auto-update)
+
+The app checks GitHub Releases on launch and offers new versions in a popup (and via the refresh button
+next to Donate). To publish one:
+
+```
+git tag v0.1.3
+git push origin v0.1.3
+```
+
+The workflow builds `TFT-Vault.exe`, bakes in the version, and publishes a Release with the exe and its
+`.sha256` checksum. The app only installs a release that has both, and only if the checksum matches.
+Release notes (auto-generated from commits) are shown in the update popup. Local/untagged builds are
+`dev` and never offer updates. Auto-install works on Windows; elsewhere the popup links to the release page.

@@ -23,6 +23,7 @@ func main() {
 		Frameless:        true, // custom title bar is drawn in frontend/index.html
 		BackgroundColour: &options.RGBA{R: 7, G: 10, B: 15, A: 255},
 		AssetServer:      &assetserver.Options{Assets: assets},
+		OnStartup:        app.startup,
 		Bind:             []interface{}{app},
 		Windows:          &windows.Options{Theme: windows.Dark},
 	})
