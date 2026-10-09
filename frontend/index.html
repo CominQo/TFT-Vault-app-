@@ -1131,7 +1131,7 @@ html.introFade #app>*:not(#bg):not(#bgshade){transition:opacity .7s ease!importa
 /* panes */
 .pfpane{flex:1;min-height:0;display:flex;flex-direction:column;padding:12px 14px 0}
 .pfpane[hidden]{display:none}
-.pfpane.in{animation:pvIn .32s var(--ease)}
+.pfpane.pfin{animation:pvIn .32s var(--ease)}
 .pfscroll{flex:1;min-height:0;overflow-y:auto;padding-bottom:10px;scrollbar-width:thin;scrollbar-color:rgba(var(--sb-rgb),var(--sb-a)) transparent}
 .pftitle{display:flex;align-items:center;gap:8px;margin:12px 2px 6px;font:700 14px/1 var(--head);letter-spacing:.07em;text-transform:uppercase}
 .pftitle b{padding:2px 7px;border-radius:99px;background:rgba(248,169,0,.16);color:var(--gold);font:700 11px/1.3 var(--body);letter-spacing:0}
@@ -1236,7 +1236,7 @@ html.introFade #app>*:not(#bg):not(#bgshade){transition:opacity .7s ease!importa
 @keyframes pfGlow{50%{box-shadow:0 0 14px rgba(248,169,0,.95)}}
 .pfbadge{animation:pfBadge 1.8s ease-in-out infinite}
 @keyframes pfBadge{50%{transform:scale(1.18)}}
-.pfpane.in{animation:pfSlide .38s var(--ease)}
+.pfpane.pfin{animation:pfSlide .38s var(--ease)}
 @keyframes pfSlide{from{opacity:0;transform:translateX(var(--dx,0))}to{opacity:1;transform:none}}
 /* status list */
 #pstlist{transform-origin:20px 0}
@@ -1282,6 +1282,9 @@ html.introFade #app>*:not(#bg):not(#bgshade){transition:opacity .7s ease!importa
 #pview-out .pavb::before{animation-duration:9s;opacity:.55}
 #lgbtn{position:relative;overflow:hidden}
 @keyframes pfFloat{50%{transform:translateY(-6px)}}
+#pview-out>*{position:relative;z-index:1}
+#pview-out::before{width:96px;height:111px;background:rgba(248,169,0,.07)!important}
+#pview-out::after{width:70px;height:81px;background:rgba(75,224,242,.07)!important}
 @media (prefers-reduced-motion:reduce){#pmenu::before,#pmenu::after,#pview-out::before,#pview-out::after,#pmenu *::before,#pmenu *::after,#pav::before,#pbtn::after,.sdot::after{animation:none!important}}
 </style>
 </head>
@@ -1420,7 +1423,7 @@ html.introFade #app>*:not(#bg):not(#bgshade){transition:opacity .7s ease!importa
 
       <div id="pview-out">
         <span class="pavb"><i class="sdot"></i></span>
-        <h3>Signed out</h3>
+        <h3>Welcome back</h3>
         <p>Log in to see your friends and messages. Everything stays saved on this PC.</p>
         <input id="lgname" maxlength="20" autocomplete="off" placeholder="Name#TAG">
         <button id="lgbtn" type="button"><svg viewBox="0 0 24 24"><path d="M15 4h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-3M10 8l4 4-4 4M14 12H4"/></svg>Log in</button>
@@ -1882,7 +1885,7 @@ function setTab(t) {
   $('pind').style.transform = 'translateX(' + (TABS.indexOf(t) * 100) + '%)';
   document.querySelectorAll('.pfpane').forEach(p => {
     const on = p.dataset.p === t;
-    if (on && p.hidden) { p.hidden = false; p.style.setProperty('--dx', (dir >= 0 ? 26 : -26) + 'px'); p.classList.remove('in'); void p.offsetWidth; p.classList.add('in'); } else if (!on) p.hidden = true;
+    if (on && p.hidden) { p.hidden = false; p.style.setProperty('--dx', (dir >= 0 ? 26 : -26) + 'px'); p.classList.remove('pfin'); void p.offsetWidth; p.classList.add('pfin'); } else if (!on) p.hidden = true;
   });
   if (t === 'msgs') paintChats();
 }
