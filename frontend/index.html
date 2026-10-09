@@ -1436,6 +1436,126 @@ html.introFade #app>*:not(#bg):not(#bgshade){transition:opacity .7s ease!importa
 html.fx-off *,html.fx-off *::before,html.fx-off *::after{animation-duration:.001s!important;animation-delay:0s!important;animation-iteration-count:1!important;transition-duration:.001s!important;transition-delay:0s!important;scroll-behavior:auto!important}
 html.fx-off .hexfly{display:none!important}
 </style>
+<style id="stCss2">
+/* ===== Settings, TFT client look: dark navy glass, gold bevel, hex icons, chamfered controls ===== */
+#spanel{width:min(380px,calc(100vw - 24px));border-radius:3px;border:1px solid #7a6531;
+  background:radial-gradient(120% 70% at 50% -10%,rgba(40,70,120,.28),transparent 60%),linear-gradient(180deg,#0e1828,#070c15 70%);
+  box-shadow:0 30px 70px rgba(0,0,0,.7),0 0 0 1px rgba(0,0,0,.6),0 0 38px -12px rgba(248,169,0,.35),inset 0 0 0 1px rgba(240,200,110,.1),inset 0 0 70px rgba(20,45,90,.22)}
+#spanel::before{top:-7px;width:12px;height:12px;border-radius:0;background:#0e1828;border-left:1px solid #7a6531;border-top:1px solid #7a6531}
+#spanel::after{content:"";position:absolute;left:12%;right:12%;top:0;height:2px;pointer-events:none;background:linear-gradient(90deg,transparent,#f8c15a 30%,#fff1c4 50%,#f8c15a 70%,transparent);filter:drop-shadow(0 0 6px rgba(248,169,0,.8))}
+.st-top{padding:18px 14px 12px 16px;position:relative}
+.st-top::after{content:"";position:absolute;left:16px;right:16px;bottom:0;height:1px;background:linear-gradient(90deg,rgba(248,169,0,.7),rgba(248,169,0,.08))}
+.st-hex{width:40px;height:44px;background:linear-gradient(160deg,#ffd77a,#c98a12);color:#1a1204;box-shadow:0 0 18px rgba(248,169,0,.45)}
+.st-hex svg{stroke-width:2.2}
+.st-top h3{font-size:22px;letter-spacing:.14em;color:#f6e7bd;text-shadow:0 0 14px rgba(248,169,0,.35)}
+.st-x{border-radius:3px;border:1px solid rgba(255,255,255,.1);width:28px;height:28px}
+.st-x:hover,.st-x:focus-visible{background:rgba(248,169,0,.14);border-color:#c9a14a;color:#ffd77a}
+.st-h{margin:16px 2px 9px;font-size:11px;letter-spacing:.22em;color:#e9bd62}
+.st-h::before{content:"";width:8px;height:9px;flex:none;background:#f8a900;clip-path:var(--cb-hx);box-shadow:0 0 8px #f8a900}
+.st-h::after{background:linear-gradient(90deg,rgba(248,169,0,.55),transparent)}
+.st-card{position:relative;margin-bottom:7px;padding:11px 12px 11px 14px;border-radius:2px;border:1px solid rgba(255,255,255,.07);border-left:3px solid #2b3446;
+  background:linear-gradient(90deg,rgba(255,255,255,.045),rgba(255,255,255,.012));transition:border-color .2s,background .2s,box-shadow .2s}
+.st-card:hover{background:linear-gradient(90deg,rgba(255,255,255,.07),rgba(255,255,255,.02))}
+.st-card.on{border-color:rgba(248,169,0,.22);border-left-color:#f8a900;background:linear-gradient(90deg,rgba(248,169,0,.12),rgba(248,169,0,.015));box-shadow:inset 0 0 24px rgba(248,169,0,.05)}
+.st-ico{width:36px;height:40px;background:#1b2536;color:#7f8aa0}
+.st-card.on .st-ico{background:linear-gradient(160deg,#ffd77a,#c98a12);color:#1a1204;box-shadow:0 0 14px rgba(248,169,0,.35)}
+.st-lab{font-size:14px;letter-spacing:.03em;color:#f1ecde}
+.st-sub{color:#8791a5}
+.st-sl{margin:12px 0 2px 48px;gap:12px}
+.st-sl output{min-width:46px;padding:4px 0;border-radius:2px;border:1px solid rgba(248,169,0,.3);background:#0a111c;color:#f6d489;letter-spacing:.04em}
+.st-r{height:8px;border-radius:1px;background:
+  repeating-linear-gradient(90deg,transparent 0 calc(10% - 1px),rgba(0,0,0,.45) calc(10% - 1px) 10%),
+  linear-gradient(90deg,#c98a12,#ffd77a var(--p,50%),#1a2231 var(--p,50%));box-shadow:inset 0 0 0 1px rgba(255,255,255,.09),0 0 12px -4px rgba(248,169,0,.5)}
+.st-r::-webkit-slider-thumb{width:18px;height:20px;border:0;border-radius:0;background:linear-gradient(160deg,#fff3cf,#f0b43a 55%,#b9780f);clip-path:var(--cb-hx);box-shadow:none;filter:drop-shadow(0 0 5px rgba(248,169,0,.8))}
+.st-r::-moz-range-thumb{width:16px;height:18px;border:0;border-radius:0;background:linear-gradient(160deg,#fff3cf,#f0b43a 55%,#b9780f);clip-path:var(--cb-hx)}
+/* chamfered toggle with a diamond knob */
+.st-sw{width:48px;height:24px;border-radius:0;border:1px solid #38425a;background:#0a111c;clip-path:polygon(7px 0,calc(100% - 7px) 0,100% 50%,calc(100% - 7px) 100%,7px 100%,0 50%);transition:background .2s,border-color .2s}
+.st-sw::after{top:50%;left:6px;width:12px;height:12px;border-radius:1px;transform:translateY(-50%) rotate(45deg);background:#6b768c;transition:left .22s var(--ease),background .2s,box-shadow .2s}
+.st-sw[aria-checked="true"]{background:linear-gradient(90deg,rgba(248,169,0,.1),rgba(248,169,0,.4));border-color:#f8a900}
+.st-sw[aria-checked="true"]::after{left:calc(100% - 18px);transform:translateY(-50%) rotate(45deg);background:#ffe6a3;box-shadow:0 0 10px #f8a900}
+.st-foot{padding:6px 14px 16px}
+.st-reset{padding:9px 16px;border-radius:2px;border:1px solid #7a6531;background:linear-gradient(180deg,rgba(248,169,0,.08),rgba(248,169,0,.02));color:#e6c06a;letter-spacing:.1em;text-transform:uppercase;font-size:11px}
+.st-reset:hover,.st-reset:focus-visible{color:#1a1204;border-color:#ffd77a;background:linear-gradient(180deg,#ffd77a,#d99a1c);box-shadow:0 0 18px rgba(248,169,0,.4)}
+#spanel:not([hidden]) .st-sec:nth-of-type(3){animation-delay:.12s}
+</style>
+<style id="stCss3">
+/* ===== Settings: extra motion (all of it is switched off by "Animated effects" = OFF) ===== */
+/* panel: unfolds from the top with a gold flash, then idles with a moving shine */
+#spanel:not([hidden]){animation:stOpen .5s var(--ease) both}
+@keyframes stOpen{0%{opacity:0;transform:translateY(-14px) scale(.94);clip-path:inset(0 0 100% 0)}55%{opacity:1;clip-path:inset(0 0 0 0)}100%{opacity:1;transform:none;clip-path:inset(-30px -30px -30px -30px)}}
+#spanel::after{background-size:220% 100%;animation:stShine 3.2s linear infinite}
+@keyframes stShine{0%{background-position:120% 0}100%{background-position:-120% 0}}
+#spanel:not([hidden])::before{animation:stFlash 1.1s ease-out both}
+@keyframes stFlash{0%{box-shadow:0 0 0 0 rgba(248,169,0,.9)}100%{box-shadow:0 0 0 14px rgba(248,169,0,0)}}
+/* header: hex pulses, ring spins, title slides in, divider draws */
+.st-hex{position:relative;animation:stHexIn .7s var(--ease) both,stHexGlow 2.8s ease-in-out .7s infinite}
+@keyframes stHexIn{from{opacity:0;transform:scale(.2) rotate(-120deg)}to{opacity:1;transform:none}}
+@keyframes stHexGlow{0%,100%{box-shadow:0 0 12px rgba(248,169,0,.35)}50%{box-shadow:0 0 26px rgba(248,169,0,.8)}}
+.st-hex svg{animation:stSlide 4s ease-in-out 1s infinite}
+@keyframes stSlide{0%,100%{transform:translateX(0)}50%{transform:translateX(1.5px) rotate(6deg)}}
+.st-top h3{animation:stTitle .6s var(--ease) .12s both}
+@keyframes stTitle{from{opacity:0;transform:translateX(-14px);letter-spacing:.32em}to{opacity:1;transform:none;letter-spacing:.14em}}
+.st-top::after{transform-origin:left;animation:stDraw .8s var(--ease) .25s both}
+@keyframes stDraw{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.st-x{transition:transform .25s var(--ease),background .15s,border-color .15s,color .15s}
+.st-x:hover{transform:rotate(90deg)}
+/* section titles: hex bullet pulses, rule draws */
+.st-h::before{animation:stBullet 2.4s ease-in-out infinite}
+@keyframes stBullet{0%,100%{transform:scale(1);opacity:.85}50%{transform:scale(1.35);opacity:1}}
+.st-h::after{transform-origin:left;animation:stDraw .7s var(--ease) .3s both}
+/* cards: slide in one after another */
+#spanel:not([hidden]) .st-card{animation:stCardIn .55s var(--ease) both;animation-delay:calc(.16s + var(--s,0)*.14s + var(--c,0)*.07s)}
+@keyframes stCardIn{from{opacity:0;transform:translateX(-26px) skewX(-6deg)}to{opacity:1;transform:none}}
+.st-sec:nth-of-type(2){--s:1}.st-sec:nth-of-type(3){--s:2}
+.st-card:nth-child(3){--c:1}
+.st-card{transition:border-color .2s,background .2s,box-shadow .2s,transform .25s var(--ease)}
+.st-card:hover{transform:translateX(4px)}
+.st-card::before{content:"";position:absolute;left:-3px;top:0;bottom:0;width:3px;background:#f8a900;transform:scaleY(0);transform-origin:center;transition:transform .3s var(--ease);box-shadow:0 0 10px #f8a900}
+.st-card.on::before{transform:scaleY(1)}
+/* card shine sweep on hover */
+.st-card::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(105deg,transparent 35%,rgba(255,235,170,.14) 50%,transparent 65%) no-repeat;background-size:300% 100%;background-position:130% 0}
+.st-card:hover::after{background-position:-30% 0;transition:background-position .7s ease}
+.st-body{overflow-x:hidden}
+/* icon hexes */
+.st-ico{transition:background .2s,color .2s,transform .35s var(--ease),box-shadow .2s}
+.st-card:hover .st-ico{transform:rotate(12deg) scale(1.08)}
+.st-card.on .st-ico{animation:stFloat 3s ease-in-out infinite}
+@keyframes stFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-2px)}}
+.st-card:hover.on .st-ico{animation:none}
+/* toggling a card: pop + gold ring flash */
+.st-card.pop{animation:stPop .45s var(--ease)}
+@keyframes stPop{0%{transform:scale(1)}35%{transform:scale(1.025);box-shadow:0 0 0 2px rgba(248,169,0,.65),0 0 26px rgba(248,169,0,.35)}100%{transform:scale(1)}}
+.st-card.pop .st-ico{animation:stIcoPop .5s var(--ease)}
+@keyframes stIcoPop{0%{transform:scale(.6) rotate(-40deg)}60%{transform:scale(1.2) rotate(8deg)}100%{transform:none}}
+/* switch: knob bounces, glow breathes while on */
+.st-sw::after{transition:left .3s cubic-bezier(.5,1.8,.5,1),background .2s,box-shadow .2s}
+.st-sw[aria-checked="true"]::after{animation:stKnob 2.2s ease-in-out .3s infinite}
+@keyframes stKnob{0%,100%{box-shadow:0 0 6px #f8a900}50%{box-shadow:0 0 15px #ffd77a}}
+.st-sw:hover{filter:brightness(1.2)}
+/* sliders: fill glows, thumb grows, value chip bumps */
+.st-sl{transform-origin:left}
+.st-r{transition:filter .2s}
+.st-r:hover{filter:brightness(1.15)}
+.st-r::-webkit-slider-thumb{transition:transform .2s var(--ease)}
+.st-r:hover::-webkit-slider-thumb{transform:scale(1.2)}
+.st-r:active::-webkit-slider-thumb{transform:scale(1.4) rotate(30deg)}
+.st-sl output.bump{animation:stBump .3s var(--ease)}
+@keyframes stBump{0%{transform:scale(1)}40%{transform:scale(1.22);color:#fff;border-color:#ffd77a;box-shadow:0 0 14px rgba(248,169,0,.7)}100%{transform:scale(1)}}
+/* reset button: shine sweep */
+.st-reset{position:relative;overflow:hidden;transition:color .15s,border-color .15s,background .15s,box-shadow .2s,transform .2s var(--ease)}
+.st-reset::after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.55) 50%,transparent 65%);transform:translateX(-130%)}
+.st-reset:hover::after{transform:translateX(130%);transition:transform .6s ease}
+.st-reset:hover{transform:translateY(-1px)}
+.st-reset:active{transform:scale(.95)}
+/* title-bar settings button: the hex tips and the sliders glide */
+#sbtn svg{transition:transform .5s var(--ease)}
+#sbtn:hover svg{transform:rotate(60deg)}
+#sbtn.on svg{transform:rotate(120deg)}
+#sbtn .gk{transition:transform .5s var(--ease)}
+#sbtn.on .gk:nth-of-type(1){transform:translateX(2px)}
+#sbtn.on .gk:nth-of-type(2){transform:translateX(-2px)}
+@media (prefers-reduced-motion:reduce){#spanel *,#spanel::before,#spanel::after{animation:none!important}}
+</style>
 </head>
 <body>
 <script>try{if((JSON.parse(localStorage.getItem('tft.settings.v1')||'{}')).fx===false)document.documentElement.classList.add('fx-off')}catch(e){}</script>
@@ -1451,7 +1571,8 @@ html.fx-off .hexfly{display:none!important}
 (function(){
   var de=document.documentElement, intro=document.getElementById('intro');
   if(!intro) return;
-  if(matchMedia('(prefers-reduced-motion:reduce)').matches||de.classList.contains('fx-off')){intro.remove();return;}
+  var skip=false;try{skip=JSON.parse(localStorage.getItem('tft.settings.v1')||'{}').skipIntro===true}catch(e){}
+  if(skip||matchMedia('(prefers-reduced-motion:reduce)').matches||de.classList.contains('fx-off')){intro.remove();return;}
   de.classList.add('introOn');
   var grid=document.getElementById('introGrid');
   var W=innerWidth,H=innerHeight;
@@ -1477,7 +1598,8 @@ html.fx-off .hexfly{display:none!important}
 })();
 </script>
 <div id="app" >
-<video id="bg" src="video/background_loop_lux.mp4" autoplay muted loop playsinline preload="auto" aria-hidden="true"></video>
+<!-- Home background loop. Previous clip = video/background_loop.mp4 ; if that file is missing it falls back to the _lux clip -->
+<video id="bg" src="video/background_loop.mp4" autoplay muted loop playsinline preload="auto" aria-hidden="true" onerror="if(!this.dataset.fb){this.dataset.fb=1;this.src='video/background_loop_lux.mp4';this.play&&this.play().catch(function(){})}else{this.style.display='none'}"></video>
 <div id="bgshade"></div>
 <div id="drag"></div>
 <button id="upill" type="button" aria-label="Check for updates" title="Check for updates" aria-haspopup="dialog">
@@ -1876,7 +1998,6 @@ document.getElementById('wClose').onclick = () => rt()?.Quit();
 const bg = document.getElementById('bg');
 bg.play().catch(() => {});
 document.addEventListener('visibilitychange', () => { if (!document.hidden) bg.play().catch(() => {}); });
-bg.onerror = () => bg.style.display = 'none';
 
 // ---------- Set detail view ----------
 const dt = document.getElementById('detail'), dbody = document.getElementById('dbody');
@@ -3333,21 +3454,35 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
   const KEY = 'tft.settings.v1';
   const SFX_SRC = 'audio/league-of-legend-client-button.mp3';
   const MUSIC_SRC = 'audio/1-teamfight-tactics-runeterra-reforged.mp3';
-  const D = { sfx: true, sfxVol: 1, music: true, musicVol: .12, bg: true, fx: true };   // music default is quiet on purpose
+  const D = { v: 2, sfx: true, sfxVol: .3, music: true, musicVol: .05, bg: true, fx: true, skipIntro: false };   // effects 30%, music 5%
   let S = { ...D }; try { S = { ...D, ...JSON.parse(localStorage.getItem(KEY) || '{}') }; } catch {}
+  if (S.v !== 2) { S.v = 2; S.sfxVol = D.sfxVol; S.musicVol = D.musicVol; try { localStorage.setItem(KEY, JSON.stringify(S)); } catch {} }   // one-time: apply the new volume defaults
   const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch {} };
   const clamp = v => Math.min(1, Math.max(0, +v || 0));
   const el = id => document.getElementById(id);
 
   /* ---------- Sound effects: menu buttons ---------- */
   const pool = Array.from({ length: 4 }, () => { const a = new Audio(SFX_SRC); a.preload = 'auto'; return a; });
-  let pi = 0;
+  let pi = 0, lastSfx = 0;
   function playSfx() {
     if (!S.sfx || clamp(S.sfxVol) <= 0) return;
+    const now = performance.now(); if (now - lastSfx < 60) return; lastSfx = now;   // one click = one sound (labels fire two clicks)
     const a = pool[pi++ % pool.length];
     try { a.volume = clamp(S.sfxVol); a.currentTime = 0; const p = a.play(); if (p && p.catch) p.catch(() => {}); } catch {}
   }
-  document.addEventListener('click', e => { if (e.target.closest && e.target.closest('.nv')) playSfx(); }, true);
+  /* Click sound on EVERYTHING clickable (home, all categories, popups, panels): real controls + anything that shows the pointer cursor */
+  const CLICK_SEL = 'button,a[href],summary,select,label[for],[role=button],[role=tab],[role=switch],[role=option],[role=menuitem],input[type=checkbox],input[type=radio],.nv,.tcat,.card,.st-line,[onclick]';
+  const NO_SEL = 'input[type=range],input[type=text],input[type=search],input[type=file],textarea,#intro';
+  function clickable(t) {
+    if (!t || t.nodeType !== 1 || t.closest(NO_SEL)) return false;
+    for (let n = t, d = 0; n && n.nodeType === 1 && d < 8; n = n.parentElement, d++) {
+      if (n.disabled || n.getAttribute('aria-disabled') === 'true') return false;
+      if (n.matches(CLICK_SEL)) return true;
+      if (getComputedStyle(n).cursor === 'pointer') return true;
+    }
+    return false;
+  }
+  document.addEventListener('click', e => { if (e.isTrusted !== false && clickable(e.target)) playSfx(); }, true);
 
   /* ---------- Background music (looping, quiet, fades in) ---------- */
   const music = new Audio(MUSIC_SRC); music.loop = true; music.preload = 'auto'; music.volume = 0;
@@ -3397,19 +3532,20 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
 
   /* ---------- Settings: title-bar button + drop-down panel ---------- */
   const TXT = {
-    en: { settings: 'Settings', sound: 'Sound', sfx: 'Sound effects', music: 'Music', gfx: 'Graphics', bg: 'Animated background', bgD: 'Looping video behind the menu', fx: 'Animated effects', fxD: 'Intro, hover sparks and motion', reset: 'Reset to defaults' },
-    sk: { settings: 'Nastavenia', sound: 'Zvuk', sfx: 'Zvukové efekty', music: 'Hudba', gfx: 'Grafika', bg: 'Animované pozadie', bgD: 'Opakované video za menu', fx: 'Animované efekty', fxD: 'Intro, iskry pri nabehnutí a pohyb', reset: 'Obnoviť predvolené' },
-    cs: { settings: 'Nastavení', sound: 'Zvuk', sfx: 'Zvukové efekty', music: 'Hudba', gfx: 'Grafika', bg: 'Animované pozadí', bgD: 'Opakující se video za menu', fx: 'Animované efekty', fxD: 'Intro, jiskry při najetí a pohyb', reset: 'Obnovit výchozí' },
-    tr: { settings: 'Ayarlar', sound: 'Ses', sfx: 'Ses efektleri', music: 'Müzik', gfx: 'Grafikler', bg: 'Animasyonlu arka plan', bgD: 'Menünün arkasında döngülü video', fx: 'Animasyonlu efektler', fxD: 'Giriş, üzerine gelme kıvılcımları ve hareket', reset: 'Varsayılana sıfırla' },
-    pt: { settings: 'Definições', sound: 'Som', sfx: 'Efeitos sonoros', music: 'Música', gfx: 'Gráficos', bg: 'Fundo animado', bgD: 'Vídeo em loop atrás do menu', fx: 'Efeitos animados', fxD: 'Intro, faíscas ao passar o rato e movimento', reset: 'Repor predefinições' },
-    zh: { settings: '设置', sound: '声音', sfx: '音效', music: '音乐', gfx: '图形', bg: '动态背景', bgD: '菜单后方的循环视频', fx: '动画效果', fxD: '开场动画、悬停火花与动效', reset: '恢复默认' },
-    ja: { settings: '設定', sound: 'サウンド', sfx: '効果音', music: '音楽', gfx: 'グラフィック', bg: 'アニメーション背景', bgD: 'メニュー背景のループ動画', fx: 'アニメーション効果', fxD: 'イントロ、ホバー演出、モーション', reset: '初期設定に戻す' }
+    en: { settings: 'Settings', sound: 'Sound', sfx: 'Sound effects', music: 'Music', gfx: 'Graphics', bg: 'Animated background', bgD: 'Looping video behind the menu', fx: 'Animated effects', fxD: 'Intro, hover sparks and motion', start: 'Startup', skipIntro: 'Skip intro', skipIntroD: 'Go straight to the menu on launch', reset: 'Reset to defaults' },
+    sk: { settings: 'Nastavenia', sound: 'Zvuk', sfx: 'Zvukové efekty', music: 'Hudba', gfx: 'Grafika', bg: 'Animované pozadie', bgD: 'Opakované video za menu', fx: 'Animované efekty', fxD: 'Intro, iskry pri nabehnutí a pohyb', start: 'Spustenie', skipIntro: 'Preskočiť intro', skipIntroD: 'Pri spustení rovno do menu', reset: 'Obnoviť predvolené' },
+    cs: { settings: 'Nastavení', sound: 'Zvuk', sfx: 'Zvukové efekty', music: 'Hudba', gfx: 'Grafika', bg: 'Animované pozadí', bgD: 'Opakující se video za menu', fx: 'Animované efekty', fxD: 'Intro, jiskry při najetí a pohyb', start: 'Spuštění', skipIntro: 'Přeskočit intro', skipIntroD: 'Po spuštění rovnou do menu', reset: 'Obnovit výchozí' },
+    tr: { settings: 'Ayarlar', sound: 'Ses', sfx: 'Ses efektleri', music: 'Müzik', gfx: 'Grafikler', bg: 'Animasyonlu arka plan', bgD: 'Menünün arkasında döngülü video', fx: 'Animasyonlu efektler', fxD: 'Giriş, üzerine gelme kıvılcımları ve hareket', start: 'Başlangıç', skipIntro: 'Girişi atla', skipIntroD: 'Açılışta doğrudan menüye geç', reset: 'Varsayılana sıfırla' },
+    pt: { settings: 'Definições', sound: 'Som', sfx: 'Efeitos sonoros', music: 'Música', gfx: 'Gráficos', bg: 'Fundo animado', bgD: 'Vídeo em loop atrás do menu', fx: 'Efeitos animados', fxD: 'Intro, faíscas ao passar o rato e movimento', start: 'Arranque', skipIntro: 'Saltar intro', skipIntroD: 'Ir direto para o menu ao abrir', reset: 'Repor predefinições' },
+    zh: { settings: '设置', sound: '声音', sfx: '音效', music: '音乐', gfx: '图形', bg: '动态背景', bgD: '菜单后方的循环视频', fx: '动画效果', fxD: '开场动画、悬停火花与动效', start: '启动', skipIntro: '跳过开场动画', skipIntroD: '启动时直接进入菜单', reset: '恢复默认' },
+    ja: { settings: '設定', sound: 'サウンド', sfx: '効果音', music: '音楽', gfx: 'グラフィック', bg: 'アニメーション背景', bgD: 'メニュー背景のループ動画', fx: 'アニメーション効果', fxD: 'イントロ、ホバー演出、モーション', start: '起動', skipIntro: 'イントロをスキップ', skipIntroD: '起動時に直接メニューへ', reset: '初期設定に戻す' }
   };
   const ICO = {
     sfx: '<path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/>',
     music: '<path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/>',
     bg: '<rect x="3" y="5" width="18" height="14" rx="3"/><path d="M10 9.5v5l4.5-2.5z"/>',
-    fx: '<path d="M12 3l1.8 4.7L18.5 9.5l-4.7 1.8L12 16l-1.8-4.7L5.5 9.5l4.7-1.8z"/><path d="M19 15l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8z"/>'
+    fx: '<path d="M12 3l1.8 4.7L18.5 9.5l-4.7 1.8L12 16l-1.8-4.7L5.5 9.5l4.7-1.8z"/><path d="M19 15l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8z"/>',
+    skipIntro: '<path d="M5 5l9 7-9 7z"/><path d="M18 5v14"/>'
   };
   const card = (k, sub, slider) => `
     <div class="st-card" data-c="${k}">
@@ -3444,6 +3580,10 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
         ${card('bg', true)}
         ${card('fx', true)}
       </section>
+      <section class="st-sec">
+        <div class="st-h" id="stH3">Startup</div>
+        ${card('skipIntro', true)}
+      </section>
       <div class="st-foot"><button class="st-reset" type="button" id="stReset">Reset to defaults</button></div>
     </div>`;
   app.append(btn, panel);
@@ -3461,9 +3601,9 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
   function lang() {
     const T = TXT[(document.documentElement.lang || 'en').slice(0, 2)] || TXT.en;
     btn.title = T.settings; btn.setAttribute('aria-label', T.settings); el('stX').setAttribute('aria-label', T.settings);
-    el('stTitle').textContent = T.settings; el('stH1').textContent = T.sound; el('stH2').textContent = T.gfx; el('stReset').textContent = T.reset;
-    ['sfx', 'music', 'bg', 'fx'].forEach(k => el('stl-' + k).textContent = T[k]);
-    el('stl-bgD').textContent = T.bgD; el('stl-fxD').textContent = T.fxD;
+    el('stTitle').textContent = T.settings; el('stH1').textContent = T.sound; el('stH2').textContent = T.gfx; el('stH3').textContent = T.start; el('stReset').textContent = T.reset;
+    ['sfx', 'music', 'bg', 'fx', 'skipIntro'].forEach(k => el('stl-' + k).textContent = T[k]);
+    el('stl-bgD').textContent = T.bgD; el('stl-fxD').textContent = T.fxD; el('stl-skipIntroD').textContent = T.skipIntroD;
   }
   new MutationObserver(lang).observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
 
@@ -3471,7 +3611,7 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
     panel.hidden = !o; btn.classList.toggle('on', o); btn.setAttribute('aria-expanded', String(o));
     if (o) { const lm = el('lmenu'); if (lm) lm.hidden = true; const lb = el('lbtn'); if (lb) lb.classList.remove('on'); }
   };
-  btn.addEventListener('click', () => { open(panel.hidden); playSfx(); });
+  btn.addEventListener('click', () => open(panel.hidden));
   el('stX').addEventListener('click', () => open(false));
   document.addEventListener('click', e => { if (!panel.hidden && !panel.contains(e.target) && !btn.contains(e.target)) open(false); }, true);
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && !panel.hidden) { open(false); btn.focus(); } });
@@ -3480,6 +3620,7 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
     const line = e.target.closest('.st-line'); if (!line) return;
     const b = line.querySelector('.st-sw'), k = b.dataset.k;
     S[k] = !S[k]; save(); paint();
+    const cd = line.closest('.st-card'); if (cd) { cd.classList.remove('pop'); void cd.offsetWidth; cd.classList.add('pop'); }
     if (k === 'sfx') playSfx();
     else if (k === 'music') syncMusic(1500);
     else if (k === 'bg') applyBg();
@@ -3488,10 +3629,11 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
   panel.addEventListener('input', e => {
     const r = e.target.closest('.st-r'); if (!r) return;
     S[r.dataset.v] = r.value / 100; save(); paint();
+    const ou = r.nextElementSibling; if (ou) { ou.classList.remove('bump'); void ou.offsetWidth; ou.classList.add('bump'); }
     if (r.dataset.v === 'musicVol') { if (!music.paused) { clearInterval(fadeT); music.volume = target(); } else syncMusic(800); }
   });
   panel.addEventListener('change', e => { if (e.target.dataset && e.target.dataset.v === 'sfxVol') playSfx(); });   // preview on release
-  el('stReset').addEventListener('click', () => { S = { ...D }; save(); paint(); applyBg(); applyFx(); syncMusic(1200); playSfx(); });
+  el('stReset').addEventListener('click', () => { S = { ...D }; save(); paint(); applyBg(); applyFx(); syncMusic(1200); });
 
   /* ---------- Start ---------- */
   paint(); lang(); applyFx(); if (!S.bg) applyBg(); syncMusic(2500);
