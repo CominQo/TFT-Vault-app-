@@ -1,18 +1,29 @@
 name: Build Windows exe
 
+# Every push to main builds the app and publishes it as the next GitHub Release
+# (0.1.2 -> 0.1.3 -> ...). The in-app updater reads the latest release, so users get the
+# "Update available" popup shortly after. You can still tag a version by hand (git tag v0.2.0 && git push --tags).
+# To push WITHOUT releasing, put [skip ci] in the commit message. Docs-only pushes never release.
 on:
   push:
     branches: [ main ]
-    tags: [ 'v*' ]        # pushing a tag like v0.1.3 publishes a GitHub Release (this is what the in-app updater reads)
+    paths-ignore: [ '**.md', '.gitignore', 'LICENSE' ]
+    tags: [ 'v*' ]
 
 permissions:
   contents: write         # needed to create the release
+
+concurrency:
+  group: release          # one release at a time, so two quick pushes can't pick the same version number
+  cancel-in-progress: false
 
 jobs:
   build:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # we need the tags to work out the next version
 
       - name: Set up Go
         uses: actions/setup-go@v5
@@ -22,13 +33,27 @@ jobs:
       - name: Install Wails
         run: go install github.com/wailsapp/wails/v2/cmd/wails@latest
 
+      - name: Work out the version
+        id: ver
+        shell: bash
+        run: |
+          if [[ "$GITHUB_REF_TYPE" == "tag" ]]; then
+            V="${GITHUB_REF_NAME#v}"                       # tag v0.2.0 -> 0.2.0
+          else
+            # highest existing X.Y.Z (with or without a leading "v") + 1 on the patch number
+            LAST=$(git tag -l | sed 's/^v//' | grep -E '^[0-9]+\.[0-9]+\.[0-9]+$' | sort -V | tail -n1)
+            LAST=${LAST:-0.1.0}
+            IFS=. read -r MA MI PA <<< "$LAST"
+            V="$MA.$MI.$((PA+1))"
+          fi
+          echo "version=$V" >> "$GITHUB_OUTPUT"
+          echo "Building version $V"
+
       - name: Build exe
         shell: bash
         run: |
-          # Tag v0.1.3 -> version 0.1.3 baked into the app. Normal pushes build "dev" (updates are off in dev builds).
-          if [[ "$GITHUB_REF_TYPE" == "tag" ]]; then VERSION="${GITHUB_REF_NAME#v}"; else VERSION="dev"; fi
           go mod tidy
-          wails build -platform windows/amd64 -o TFT-Vault.exe -clean -s -ldflags "-X main.version=$VERSION"
+          wails build -platform windows/amd64 -o TFT-Vault.exe -clean -s -ldflags "-X main.version=${{ steps.ver.outputs.version }}"
           cd build/bin
           sha256sum TFT-Vault.exe > TFT-Vault.exe.sha256
 
@@ -41,9 +66,11 @@ jobs:
             build/bin/TFT-Vault.exe.sha256
 
       - name: Publish release
-        if: startsWith(github.ref, 'refs/tags/v')
         uses: softprops/action-gh-release@v2
         with:
+          tag_name: v${{ steps.ver.outputs.version }}
+          target_commitish: ${{ github.sha }}
+          name: v${{ steps.ver.outputs.version }}
           files: |
             build/bin/TFT-Vault.exe
             build/bin/TFT-Vault.exe.sha256
