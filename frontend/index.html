@@ -908,14 +908,20 @@ body.dens .gem.tgem{width:20px;height:20px;margin-left:-10px;top:-11px}
 body.dens .tname{font-size:10px}
 
 /* ---- Auto-update: refresh button (bottom bar) + update popup ---- */
-#upill{padding:0;width:36px;justify-content:center;gap:0;overflow:hidden;transition:width .35s var(--ease),padding .35s var(--ease),color .2s,border-color .2s,background .2s}
-#upill svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
-#upill .ua,#upill #upilltxt{display:none}
-#upill #upilltxt{white-space:nowrap;margin-left:8px}
-#upill.has{width:auto;padding:0 14px 0 12px;color:var(--gold);border-color:var(--gold);background:rgba(248,169,0,.12);animation:upPulse 2.4s ease-in-out infinite}
+#upill{position:absolute;z-index:100;top:3px;right:150px;height:28px;min-width:28px;padding:0 6px;display:inline-flex;align-items:center;justify-content:center;gap:0;border:1px solid transparent;border-radius:9px;background:transparent;color:var(--muted);cursor:pointer;font:700 12px/1 var(--body);letter-spacing:.02em;--wails-draggable:no-drag;transition:color .2s,background .2s,border-color .2s,transform .2s var(--ease)}
+#upill:hover,#upill:focus-visible{color:var(--gold);background:rgba(248,169,0,.12);outline:none;transform:translateY(-1px)}
+#upill svg{width:20px;height:20px;flex:none;overflow:visible;filter:drop-shadow(0 1px 3px rgba(0,0,0,.55))}
+#upill .hx{fill:rgba(255,255,255,.04);stroke:currentColor;stroke-width:1.7;stroke-linejoin:round;transition:fill .25s}
+#upill .ur path,#upill .ua{fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+#upill .ur{transform-box:fill-box;transform-origin:center}
+#upill .ua,#upill #upilltxt,#upill .udot{display:none}
+#upill #upilltxt{white-space:nowrap;margin:0 4px 0 7px}
+#upill.has{color:var(--gold);padding:0 8px 0 6px;border-color:rgba(248,169,0,.55);background:rgba(248,169,0,.14);animation:upPulse 2.4s ease-in-out infinite}
+#upill.has .hx{fill:rgba(248,169,0,.22)}
 #upill.has .ur{display:none}
 #upill.has .ua{display:block}
 #upill.has #upilltxt{display:block}
+#upill.has .udot{display:block;position:absolute;top:-2px;right:-2px;width:8px;height:8px;border-radius:50%;background:#ff5a4d;box-shadow:0 0 0 2px #10141b}
 #upill.spin .ur{animation:upSpin .8s linear infinite}
 @keyframes upSpin{to{transform:rotate(360deg)}}
 @keyframes upPulse{50%{box-shadow:0 0 0 4px rgba(248,169,0,.16),0 0 20px rgba(248,169,0,.38)}}
@@ -949,25 +955,32 @@ body.dens .tname{font-size:10px}
 .ugo{border:0;border-radius:13px;padding:11px 26px;background:linear-gradient(180deg,#ffbe2e,#e29400);color:#1c1300;font:800 14px var(--body);cursor:pointer;box-shadow:0 8px 22px rgba(248,169,0,.3);transition:transform .2s var(--ease),box-shadow .25s}
 .ugo:hover,.ugo:focus-visible{transform:translateY(-2px);box-shadow:0 12px 30px rgba(248,169,0,.46);outline:none}
 #uvtxt{margin-top:12px}
+#umodal.stat #ubody{display:none}
+#umodal.stat .ufoot{padding-top:6px}
+#umodal.stat .nhead>svg path.ar{opacity:0}
+#umodal.ok .nhead>svg{stroke:#4ade80;fill:rgba(74,222,128,.14)}
 @media (prefers-reduced-motion:reduce){#upill.has,#upill.spin .ur,.ubar i.ind{animation:none!important}}
 </style>
 <style id="introCss">
 /* ---- Intro: TFT-style hexagon build + dissolve over the live home-screen video (GPU-only: transform/opacity) ---- */
 #intro{position:fixed;inset:0;z-index:99999;overflow:hidden;cursor:pointer;contain:strict;animation:introGone .01s linear 3s forwards}
+#introBlur{position:absolute;inset:0;backdrop-filter:blur(14px) saturate(1.15);-webkit-backdrop-filter:blur(14px) saturate(1.15);background:rgba(9,13,20,.18);will-change:opacity;animation:blurIn .5s ease-out backwards,blurOut .65s ease-in 1.5s forwards}
 #introGrid{position:absolute;inset:0}
 .ih{position:absolute;background:var(--gold,#f8a900);clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);
   will-change:transform,opacity;backface-visibility:hidden;
   animation:ihIn .5s cubic-bezier(.2,.8,.2,1) var(--d) backwards,ihOut .55s cubic-bezier(.5,0,.9,.4) var(--o) forwards}
-.ih::before{content:"";position:absolute;inset:2px;background:rgba(9,13,20,.5);clip-path:inherit}
-.ih::after{content:"";position:absolute;inset:2px;background:var(--gold,#f8a900);clip-path:inherit;animation:ihFlash .7s ease-out var(--d) backwards;opacity:0}
+.ih::before{content:"";position:absolute;inset:2px;background:linear-gradient(145deg,rgba(255,255,255,.14),rgba(255,255,255,.03));clip-path:inherit}
+.ih::after{content:"";position:absolute;inset:2px;background:rgba(248,169,0,.85);clip-path:inherit;animation:ihFlash .7s ease-out var(--d) backwards;opacity:0}
 @keyframes ihIn{0%{transform:scale(.15) rotate(-30deg);opacity:0}60%{transform:scale(1.1) rotate(4deg);opacity:1}100%{transform:none;opacity:1}}
 @keyframes ihFlash{0%{opacity:1}100%{opacity:0}}
 @keyframes ihOut{to{transform:scale(0) rotate(40deg);opacity:0}}
+@keyframes blurIn{from{opacity:0}}
+@keyframes blurOut{to{opacity:0}}
 @keyframes introGone{to{visibility:hidden;pointer-events:none}}
 #introHero{position:absolute;left:50%;top:50%;width:min(34vmin,260px);aspect-ratio:1/1.1547;margin:calc(min(34vmin,260px)*-.577) 0 0 calc(min(34vmin,260px)*-.5);display:grid;place-items:center;z-index:2;
   will-change:transform,opacity;animation:heroOut .5s ease-in 1.5s forwards}
 #introHero svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
-#introHero polygon{fill:rgba(9,13,20,.55);stroke:var(--gold,#f8a900);stroke-width:3;stroke-linejoin:round;stroke-dasharray:420;stroke-dashoffset:420;animation:heroDraw .7s ease-out .35s forwards}
+#introHero polygon{fill:rgba(255,255,255,.1);stroke:var(--gold,#f8a900);stroke-width:3;stroke-linejoin:round;stroke-dasharray:420;stroke-dashoffset:420;animation:heroDraw .7s ease-out .35s forwards}
 #introHero img{position:relative;width:62%;opacity:0;animation:heroLogo .5s ease-out .85s forwards}
 @keyframes heroDraw{to{stroke-dashoffset:0}}
 @keyframes heroLogo{from{opacity:0;transform:scale(.7)}to{opacity:1;transform:none}}
@@ -980,6 +993,7 @@ html.introFade #app>*:not(#bg):not(#bgshade){transition:opacity .7s ease!importa
 </head>
 <body>
 <div id="intro" aria-hidden="true">
+  <div id="introBlur"></div>
   <div id="introGrid"></div>
   <div id="introHero">
     <svg viewBox="0 0 100 115.47"><polygon points="50,2 98,29.7 98,85.8 50,113.5 2,85.8 2,29.7"/></svg>
@@ -1019,6 +1033,14 @@ html.introFade #app>*:not(#bg):not(#bgshade){transition:opacity .7s ease!importa
 <video id="bg" src="video/background.mp4" autoplay muted loop playsinline preload="auto" aria-hidden="true"></video>
 <div id="bgshade"></div>
 <div id="drag"></div>
+<button id="upill" type="button" aria-label="Check for updates" title="Check for updates" aria-haspopup="dialog">
+  <svg class="uhex" viewBox="0 0 24 24" aria-hidden="true">
+    <path class="hx" d="M12 2.6 20.3 7.3v9.4L12 21.4 3.7 16.7V7.3z"/>
+    <g class="ur"><path d="M16 10.6a4.2 4.2 0 0 0-7.6-1M8 7.4v2.4h2.4M8 13.4a4.2 4.2 0 0 0 7.6 1M16 16.6v-2.4h-2.4"/></g>
+    <path class="ua" d="M12 16V8.4M9 11.2l3-3 3 3"/>
+  </svg>
+  <span id="upilltxt"></span><i class="udot"></i>
+</button>
 <div id="winctl">
   <button id="wMin" aria-label="Minimize"><svg viewBox="0 0 10 10"><path d="M0 5.5h10"/></svg></button>
   <button id="wMax" aria-label="Maximize"><svg viewBox="0 0 10 10"><rect x=".5" y=".5" width="9" height="9"/></svg></button>
@@ -1088,11 +1110,6 @@ html.introFade #app>*:not(#bg):not(#bgshade){transition:opacity .7s ease!importa
     </ul>
   </div>
   <button id="donate" class="pill"><svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.6-9.3C.9 8.4 2.7 5 6 5c2 0 3.4 1.1 4 2.3h4C14.6 6.1 16 5 18 5c3.3 0 5.1 3.400 3.600 6.700C19.500 16.400 12 21 12 21z" transform="translate(0 -.5)"/></svg><span data-i18n="donate">Donate</span></button>
-  <button id="upill" class="pill" aria-label="Check for updates" title="Check for updates">
-    <svg class="ur" viewBox="0 0 24 24"><path d="M20 11a8 8 0 1 0-2.3 5.7M20 4v7h-7"/></svg>
-    <svg class="ua" viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
-    <span id="upilltxt"></span>
-  </button>
 </div>
 <main id="main">
   <section id="home" class="view">
@@ -1178,7 +1195,7 @@ html.introFade #app>*:not(#bg):not(#bgshade){transition:opacity .7s ease!importa
   <div class="np up" role="dialog" aria-modal="true" aria-labelledby="umt">
     <div class="nhead">
       <svg viewBox="0 0 24 24"><path d="M12 2.6 20.3 7.3v9.4L12 21.4 3.7 16.7V7.3z"/><path class="ar" d="M12 16.2V8.2M9 11l3-3 3 3"/></svg>
-      <div><h2 id="umt" data-i18n="updTitle">Update available</h2><p id="usub" data-i18n="updSub">A new version of TFT Vault is ready.</p></div>
+      <div><h2 id="umt">Update available</h2><p id="usub">A new version of TFT Vault is ready.</p></div>
       <button id="uclose" aria-label="Close">×</button>
     </div>
     <div id="ubody">
@@ -2544,7 +2561,7 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
   const api = () => window.go && window.go.main && window.go.main.App;
   const tc = k => { const v = tt(k); return v != null ? v : (I18N.en[k] != null ? I18N.en[k] : k); };
   const fmt = (k, o) => tc(k).replace(/\{(\w+)\}/g, (_, x) => o[x]);
-  const U = { info: null, version: '', busy: false, installing: false, shownFor: '', stage: 'idle', pct: 0, err: '' };
+  const U = { info: null, version: '', busy: false, installing: false, shownFor: '', stage: 'idle', pct: 0, err: '', view: 'status', status: 'uptodate' };
   const pill = $('upill'), modal = $('umodal');
   const WORKING = ['dl', 'verify', 'install', 'restart'];
 
@@ -2563,7 +2580,22 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
     $('uvtxt').textContent = U.version ? fmt('updVer', { v: U.version }) + (U.info && U.info.dev ? ' · dev' : '') : '';
   }
   function paintModal() {
-    const i = U.info; if (!i) return;
+    const i = U.info, upd = U.view === 'update' && i && i.available;
+    modal.classList.toggle('stat', !upd);
+    modal.classList.toggle('ok', !upd && (U.status === 'uptodate' || U.status === 'dev'));
+    if (!upd) {
+      const st = U.status;
+      $('umt').textContent = { checking: tc('updChecking'), nonet: tc('updNoNet'), desktop: tc('updDesktop'), dev: tc('updDev') }[st] || tc('updUpToDate');
+      $('usub').textContent = U.version ? fmt('updVer', { v: U.version }) : '';
+      $('ulater').textContent = tt('close') != null ? tt('close') : 'Close';
+      $('ulater').disabled = $('uclose').disabled = false;
+      $('ugo').hidden = st === 'checking' || st === 'dev' || st === 'desktop';
+      $('ugo').textContent = tc('updCheck');
+      $('uweb').hidden = true;
+      return;
+    }
+    $('umt').textContent = tc('updTitle'); $('usub').textContent = tc('updSub');
+    $('ulater').textContent = tc('updLater');
     const working = WORKING.includes(U.stage), err = U.stage === 'err';
     $('ucur').textContent = i.current; $('unew').textContent = i.latest;
     $('usz').textContent = i.size ? (i.size / 1048576).toFixed(1) + ' MB' : '';
@@ -2580,24 +2612,28 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
   }
 
   const anyModalOpen = () => [...document.querySelectorAll('[id$="modal"]')].some(m => m !== modal && !m.hidden);
-  function openModal() { U.stage = 'idle'; U.err = ''; U.pct = 0; U.shownFor = U.info.latest; paintModal(); modal.hidden = false; $('ugo').hidden ? $('ulater').focus() : $('ugo').focus(); }
+  function showModal() { paintModal(); modal.hidden = false; ($('ugo').hidden ? $('ulater') : $('ugo')).focus(); }
+  function openModal() { U.view = 'update'; U.stage = 'idle'; U.err = ''; U.pct = 0; U.shownFor = U.info.latest; showModal(); }
   function closeModal() { if (!U.installing) modal.hidden = true; }
 
   async function check(manual) {
-    if (U.busy || U.installing) return;
+    if (U.installing) return;
+    if (U.busy) { if (manual) { U.view = 'status'; U.status = 'checking'; showModal(); } return; }
     const a = api();
-    if (!a) { if (manual) toast(tc('updDesktop')); return; }
+    if (!a) { if (manual) { U.view = 'status'; U.status = 'desktop'; showModal(); } return; }
     U.busy = true; paintPill();
+    if (manual) { U.view = 'status'; U.status = 'checking'; showModal(); }
     try {
       if (!U.version) { U.version = await a.GetVersion(); paintVersion(); }
       const info = await a.CheckUpdate();
       U.info = info; paintVersion();
       if (info.available) {
-        if (manual) openModal();
+        if (manual) { if (!modal.hidden) openModal(); }
         else if (U.shownFor !== info.latest) { if (anyModalOpen()) setTimeout(() => check(false), 20000); else openModal(); }
-      } else if (manual) toast(info.dev ? tc('updDev') : tc('updUpToDate'));
-    } catch { if (manual) toast(tc('updNoNet')); }
+      } else if (manual) U.status = info.dev ? 'dev' : 'uptodate';
+    } catch { if (manual) U.status = 'nonet'; }
     U.busy = false; paintPill();
+    if (!modal.hidden && U.view === 'status') paintModal();
   }
 
   async function install() {
@@ -2616,8 +2652,8 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
     window.runtime.EventsOn('update:stage', s => { if (U.installing) { U.stage = s === 'download' ? 'dl' : s; paintModal(); } });
   } catch {}
 
-  pill.onclick = () => (U.info && U.info.available ? openModal() : check(true));
-  $('ugo').onclick = install;
+  pill.onclick = () => { if (U.info && U.info.available) openModal(); else if (U.busy || !U.info) check(true); else { U.view = 'status'; U.status = U.info.dev ? 'dev' : 'uptodate'; showModal(); } };
+  $('ugo').onclick = () => (U.view === 'update' ? install() : check(true));
   $('ulater').onclick = $('uclose').onclick = closeModal;
   $('uweb').onclick = () => { if (U.info) openExt(U.info.pageUrl); };
   modal.addEventListener('mousedown', e => { if (e.target === modal) closeModal(); });
