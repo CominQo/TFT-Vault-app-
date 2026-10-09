@@ -966,22 +966,26 @@ body.dens .tname{font-size:10px}
 #intro{position:fixed;inset:0;z-index:99999;overflow:hidden;cursor:pointer;contain:strict;animation:introGone .01s linear 3s forwards}
 #introBlur{position:absolute;inset:0;backdrop-filter:blur(14px) saturate(1.15);-webkit-backdrop-filter:blur(14px) saturate(1.15);background:rgba(9,13,20,.18);will-change:opacity;animation:blurIn .5s ease-out backwards,blurOut .65s ease-in 1.5s forwards}
 #introGrid{position:absolute;inset:0}
-.ih{position:absolute;background:var(--gold,#f8a900);clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);
+.ih{position:absolute;background:linear-gradient(145deg,rgba(255,255,255,.13),rgba(255,255,255,.03));clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);
   will-change:transform,opacity;backface-visibility:hidden;
   animation:ihIn .5s cubic-bezier(.2,.8,.2,1) var(--d) backwards,ihOut .55s cubic-bezier(.5,0,.9,.4) var(--o) forwards}
-.ih::before{content:"";position:absolute;inset:2px;background:linear-gradient(145deg,rgba(255,255,255,.14),rgba(255,255,255,.03));clip-path:inherit}
-.ih::after{content:"";position:absolute;inset:2px;background:rgba(248,169,0,.85);clip-path:inherit;animation:ihFlash .7s ease-out var(--d) backwards;opacity:0}
+/* thin gold outline only (a ring), so the video stays visible through the hex */
+.ih::after{content:"";position:absolute;inset:0;background:var(--gold,#f8a900);opacity:.6;
+  clip-path:polygon(evenodd,50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%,50% 0,50% 2.5%,2.5% 26.2%,2.5% 73.8%,50% 97.5%,97.5% 73.8%,97.5% 26.2%,50% 2.5%)}
+/* soft white flash when each hex lands */
+.ih::before{content:"";position:absolute;inset:0;background:rgba(255,255,255,.55);clip-path:inherit;opacity:0;animation:ihFlash .6s ease-out var(--d) backwards}
 @keyframes ihIn{0%{transform:scale(.15) rotate(-30deg);opacity:0}60%{transform:scale(1.1) rotate(4deg);opacity:1}100%{transform:none;opacity:1}}
-@keyframes ihFlash{0%{opacity:1}100%{opacity:0}}
+@keyframes ihFlash{0%{opacity:.8}100%{opacity:0}}
 @keyframes ihOut{to{transform:scale(0) rotate(40deg);opacity:0}}
 @keyframes blurIn{from{opacity:0}}
 @keyframes blurOut{to{opacity:0}}
 @keyframes introGone{to{visibility:hidden;pointer-events:none}}
-#introHero{position:absolute;left:50%;top:50%;width:min(34vmin,260px);aspect-ratio:1/1.1547;margin:calc(min(34vmin,260px)*-.577) 0 0 calc(min(34vmin,260px)*-.5);display:grid;place-items:center;z-index:2;
+#introHero{position:absolute;left:50%;top:50%;width:min(38vmin,300px);aspect-ratio:1/1.1547;margin:calc(min(38vmin,300px)*-.577) 0 0 calc(min(38vmin,300px)*-.5);display:grid;place-items:center;z-index:2;
   will-change:transform,opacity;animation:heroOut .5s ease-in 1.5s forwards}
 #introHero svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
-#introHero polygon{fill:rgba(255,255,255,.1);stroke:var(--gold,#f8a900);stroke-width:3;stroke-linejoin:round;stroke-dasharray:420;stroke-dashoffset:420;animation:heroDraw .7s ease-out .35s forwards}
-#introHero img{position:relative;width:62%;opacity:0;animation:heroLogo .5s ease-out .85s forwards}
+#introHero svg{filter:drop-shadow(0 0 18px rgba(0,0,0,.55))}
+#introHero polygon{fill:rgba(9,13,20,.78);stroke:var(--gold,#f8a900);stroke-width:3;stroke-linejoin:round;stroke-dasharray:420;stroke-dashoffset:420;animation:heroDraw .7s ease-out .35s forwards}
+#introHero img{position:relative;width:70%;opacity:0;animation:heroLogo .5s ease-out .85s forwards}
 @keyframes heroDraw{to{stroke-dashoffset:0}}
 @keyframes heroLogo{from{opacity:0;transform:scale(.7)}to{opacity:1;transform:none}}
 @keyframes heroOut{to{opacity:0;transform:scale(1.6)}}
