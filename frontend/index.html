@@ -956,10 +956,18 @@ body.dens .tname{font-size:10px}
 .ugo:hover,.ugo:focus-visible{transform:translateY(-2px);box-shadow:0 12px 30px rgba(248,169,0,.46);outline:none}
 #uvtxt{margin-top:12px}
 #umodal.stat #ubody{display:none}
+.uchk{padding:6px 22px 4px}
+.uchk[hidden]{display:none}
+.uchk .ubar i{width:0;animation:uChkFill 3s cubic-bezier(.45,.1,.35,1) forwards}
+@keyframes uChkFill{to{width:100%}}
+#umodal.chk .nhead>svg{stroke:var(--gold);fill:rgba(248,169,0,.16);filter:drop-shadow(0 0 10px rgba(248,169,0,.55));animation:uHexSpin 1.3s cubic-bezier(.55,0,.45,1) infinite}
+@keyframes uHexSpin{50%{transform:rotate(180deg) scale(.86)}100%{transform:rotate(360deg) scale(1)}}
+#umodal.pop .nhead>svg{animation:uHexPop .6s cubic-bezier(.2,1.5,.3,1)}
+@keyframes uHexPop{0%{transform:scale(.6) rotate(-40deg)}100%{transform:none}}
 #umodal.stat .ufoot{padding-top:6px}
 #umodal.stat .nhead>svg path.ar{opacity:0}
 #umodal.ok .nhead>svg{stroke:#4ade80;fill:rgba(74,222,128,.14)}
-@media (prefers-reduced-motion:reduce){#upill.has,#upill.spin .ur,.ubar i.ind{animation:none!important}}
+@media (prefers-reduced-motion:reduce){#upill.has,#upill.spin .ur,.ubar i.ind,#umodal.chk .nhead>svg,#umodal.pop .nhead>svg{animation:none!important}.uchk .ubar i{animation-duration:.01s!important}}
 </style>
 <style id="introCss">
 /* ---- Intro: TFT-style hexagon build + dissolve over the live home-screen video (GPU-only: transform/opacity) ---- */
@@ -1014,6 +1022,52 @@ html.introFade #app>*:not(#bg):not(#bgshade){transition:opacity .7s ease!importa
   border-color:rgba(214,186,124,.95);box-shadow:inset 0 0 0 1.5px rgba(10,20,32,.55),0 6px 16px rgba(0,0,0,.35),0 0 18px -6px rgba(111,183,230,.6)}
 #bpass .bp-tag{background:rgba(10,18,28,.62);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
 #bpass.bp-prem .bp-rw{border-color:#f8a900;box-shadow:inset 0 0 0 1.5px rgba(10,20,32,.55),0 6px 16px rgba(0,0,0,.35),0 0 20px -4px rgba(248,169,0,.6)}
+</style>
+<style id="reworkCss">
+/* ===== Bottom battle-pass dock: fade in/out instead of flying away ===== */
+.pt-dock{transform-origin:50% 100%;transition:opacity .5s ease,transform .6s cubic-bezier(.2,.9,.2,1),visibility 0s linear 0s}
+.pt-dock.pt-closed{opacity:0;visibility:hidden;transform:translateY(26px) scale(.97);pointer-events:none;
+  transition:opacity .35s ease,transform .45s cubic-bezier(.4,0,.8,.4),visibility 0s linear .45s}
+/* ===== Top battle-pass card: fade when it hides on other views ===== */
+#bpass{animation:bp-in .7s cubic-bezier(.2,.9,.25,1.08) backwards;
+  transition:transform .3s cubic-bezier(.2,.9,.25,1.2),box-shadow .3s,border-color .3s,opacity .4s ease,visibility 0s linear 0s}
+#bpass[hidden]{display:flex;opacity:0;visibility:hidden;pointer-events:none;transform:translateY(-12px) scale(.96);
+  transition:opacity .3s ease,transform .35s ease,visibility 0s linear .35s}
+/* ===== News popup: new open / close ===== */
+#nmodal{background:rgba(3,5,9,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+#nmodal:not([hidden]){animation:nwBg .35s ease-out}
+#nmodal.out{animation:nwBgOut .24s ease-in forwards}
+#nmodal .np{position:relative;background:linear-gradient(160deg,rgba(24,30,40,.9),rgba(14,18,25,.88));border-color:rgba(255,255,255,.12);
+  box-shadow:0 34px 80px rgba(0,0,0,.6),0 0 0 1px rgba(248,169,0,.06),inset 0 1px 0 rgba(255,255,255,.07);
+  animation:nwPanel .55s cubic-bezier(.2,.9,.25,1.04) both}
+#nmodal.out .np{animation:nwPanelOut .24s cubic-bezier(.5,0,.9,.5) forwards}
+#nmodal .np::before{content:"";position:absolute;z-index:2;left:0;top:0;right:0;height:2px;pointer-events:none;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);transform:scaleX(0);animation:nwTop .9s cubic-bezier(.2,.8,.2,1) .15s forwards}
+#nmodal .nhead>svg{fill:rgba(248,169,0,0);animation:nwFill .5s ease .55s forwards}
+#nmodal .nhead>svg path{stroke-dasharray:64;stroke-dashoffset:64;animation:nwDraw .75s cubic-bezier(.4,.1,.2,1) .15s forwards}
+#nmodal .nhead>svg polyline{opacity:0;animation:nwLn .3s ease forwards}
+#nmodal .nhead>svg polyline:nth-of-type(1){animation-delay:.6s}
+#nmodal .nhead>svg polyline:nth-of-type(2){animation-delay:.7s}
+#nmodal .nhead>svg polyline:nth-of-type(3){animation-delay:.8s}
+#nmodal .nhead h2{animation:nwTxt .5s var(--ease) .25s backwards}
+#nmodal .nhead p{animation:nwTxt .5s var(--ease) .35s backwards}
+#nmodal #nclose{animation:nwPop .5s cubic-bezier(.2,1.5,.3,1) .3s backwards}
+#nbody .nitem{animation:nwItem .55s var(--ease) calc(.3s + var(--i,0)*.09s) both}
+#nbody .nitem li{animation:nwItem .45s var(--ease) calc(.45s + var(--i,0)*.09s + var(--j,0)*.05s) both}
+#nbody .nitem .nb{animation:nwBadge 2.2s ease-in-out 1s infinite}
+@keyframes nwBg{from{opacity:0}to{opacity:1}}
+@keyframes nwBgOut{to{opacity:0}}
+@keyframes nwPanel{from{opacity:0;transform:translateY(38px) scale(.93)}to{opacity:1;transform:none}}
+@keyframes nwPanelOut{to{opacity:0;transform:translateY(20px) scale(.96)}}
+@keyframes nwTop{to{transform:scaleX(1)}}
+@keyframes nwDraw{to{stroke-dashoffset:0}}
+@keyframes nwFill{to{fill:rgba(248,169,0,.14)}}
+@keyframes nwLn{to{opacity:1}}
+@keyframes nwTxt{from{opacity:0;transform:translateY(10px)}}
+@keyframes nwPop{from{opacity:0;transform:scale(.4) rotate(-90deg)}}
+@keyframes nwItem{from{opacity:0;transform:translateX(24px)}to{opacity:1;transform:none}}
+@keyframes nwBadge{50%{box-shadow:0 0 0 3px rgba(248,169,0,.22),0 0 14px rgba(248,169,0,.5)}}
+@media (prefers-reduced-motion:reduce){#nmodal,#nmodal *,#bpass,.pt-dock{animation-duration:.01s!important;animation-delay:0s!important;transition-duration:.01s!important}}
 </style>
 </head>
 <body>
@@ -1223,6 +1277,7 @@ html.introFade #app>*:not(#bg):not(#bgshade){transition:opacity .7s ease!importa
       <div><h2 id="umt">Update available</h2><p id="usub">A new version of TFT Vault is ready.</p></div>
       <button id="uclose" aria-label="Close">×</button>
     </div>
+    <div class="uchk" id="uchk" hidden><div class="ubar"><i></i></div></div>
     <div id="ubody">
       <div class="uvers"><span id="ucur"></span><i>→</i><b id="unew"></b><em id="usz"></em></div>
       <div id="unwrap"><div class="unh" data-i18n="updNotes">What's new</div><div class="unotes" id="unotes"></div></div>
@@ -1576,34 +1631,49 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape' && !pmenu.hid
 const openExt = u => { try { window.runtime.BrowserOpenURL(u); } catch { window.open(u, '_blank'); } };
 // Add new entries at the TOP of this list. d = date (YYYY-MM-DD), new = show the NEW badge.
 const APP_NEWS = [
-  { d: '2026-10-07', t: 'Big redesign', new: true, items: [
-    'New minimal menu: Home, Collections, Comp Builder and Match History.',
-    'Your profile now lives at the top-left: avatar, name#tag and a friends list you can open and close.',
-    'Language switcher with English, Slovak, Czech, Turkish, Portuguese, Chinese and Japanese.',
-    'Hexagon click effects on the menu icons.',
-    'Animated Launch trailer card on the home screen.',
-    'New Donate button to support the app.'
+  { d: '2026-10-09', t: 'Auto update', new: true, items: [
+    'New update button in the top bar, next to the window controls.',
+    'The app checks for a new version on launch and every 6 hours by itself.',
+    'Click the button any time to see your version, check again, or read what is new.',
+    'One click on "Update now" downloads, installs and restarts the app.'
+  ] },
+  { d: '2026-10-09', t: 'Opening animation', new: true, items: [
+    'New hexagon intro when the app starts: a glass hex grid builds over the blurred home video.',
+    'The logo appears in the centre and the hexagons dissolve to reveal the app.',
+    'Click anywhere to skip it. It is turned off if reduced motion is enabled.'
+  ] },
+  { d: '2026-10-09', t: 'Better battle pass', new: true, items: [
+    'The pass card at the top right is now glassy and more transparent, and sits a bit lower.',
+    'The bottom pass panel now fades in and out smoothly when you show or hide it.',
+    'The News window has a new opening and closing animation.'
   ] }
 ];
+
 function renderAppNews() {
   const lang = document.documentElement.lang || 'en', body = $('nbody'); body.textContent = '';
   APP_NEWS.forEach((e, i) => {
-    const box = document.createElement('article'); box.className = 'nitem'; box.style.animationDelay = (0.12 + i * 0.07) + 's';
+    const box = document.createElement('article'); box.className = 'nitem'; box.style.setProperty('--i', i);
     let d = e.d; try { d = new Date(e.d + 'T12:00:00').toLocaleDateString(lang, { day: 'numeric', month: 'long', year: 'numeric' }); } catch {}
     const h = document.createElement('h3'); h.textContent = e.t;
     if (e.new) { const b = document.createElement('span'); b.className = 'nb'; b.textContent = 'NEW'; h.append(b); }
     const dt = document.createElement('small'); dt.textContent = d;
-    const ul = document.createElement('ul'); e.items.forEach(x => { const li = document.createElement('li'); li.textContent = x; ul.append(li); });
+    const ul = document.createElement('ul'); e.items.forEach((x, k) => { const li = document.createElement('li'); li.textContent = x; li.style.setProperty('--j', k); ul.append(li); });
     box.append(h, dt, ul); body.append(box);
   });
 }
 const nmodal = $('nmodal');
 function openNews() {
-  nmodal.hidden = false;
+  clearTimeout(openNews.t); nmodal.classList.remove('out'); nmodal.hidden = false;
+  $('nbody').scrollTop = 0;
   document.querySelectorAll('.nv').forEach(b => b.classList.toggle('on', b === $('navNews')));
   $('nclose').focus();
 }
-function closeNews() { if (nmodal.hidden) return; nmodal.hidden = true; showView(showView.cur || 'home'); }
+function closeNews() {
+  if (nmodal.hidden || nmodal.classList.contains('out')) return;
+  nmodal.classList.add('out');                                   // fade/slide out, then really hide
+  openNews.t = setTimeout(() => { nmodal.hidden = true; nmodal.classList.remove('out'); }, 240);
+  showView(showView.cur || 'home');
+}
 $('navNews').onclick = openNews; $('nclose').onclick = closeNews;
 nmodal.onclick = e => { if (e.target === nmodal) closeNews(); };
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeNews(); });
@@ -2607,6 +2677,7 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
   function paintModal() {
     const i = U.info, upd = U.view === 'update' && i && i.available;
     modal.classList.toggle('stat', !upd);
+    const chk = !upd && U.status === 'checking'; modal.classList.toggle('chk', chk); $('uchk').hidden = !chk;
     modal.classList.toggle('ok', !upd && (U.status === 'uptodate' || U.status === 'dev'));
     if (!upd) {
       const st = U.status;
@@ -2647,18 +2718,21 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
     const a = api();
     if (!a) { if (manual) { U.view = 'status'; U.status = 'desktop'; showModal(); } return; }
     U.busy = true; paintPill();
+    const t0 = Date.now();
+    const hold = async () => { const w = 3000 - (Date.now() - t0); if (manual && w > 0) await new Promise(r => setTimeout(r, w)); };
     if (manual) { U.view = 'status'; U.status = 'checking'; showModal(); }
     try {
       if (!U.version) { U.version = await a.GetVersion(); paintVersion(); }
       const info = await a.CheckUpdate();
+      await hold();
       U.info = info; paintVersion();
       if (info.available) {
         if (manual) { if (!modal.hidden) openModal(); }
         else if (U.shownFor !== info.latest) { if (anyModalOpen()) setTimeout(() => check(false), 20000); else openModal(); }
       } else if (manual) U.status = info.dev ? 'dev' : 'uptodate';
-    } catch { if (manual) U.status = 'nonet'; }
+    } catch { await hold(); if (manual) U.status = 'nonet'; }
     U.busy = false; paintPill();
-    if (!modal.hidden && U.view === 'status') paintModal();
+    if (!modal.hidden) { paintModal(); if (manual) { modal.classList.add('pop'); setTimeout(() => modal.classList.remove('pop'), 700); } }
   }
 
   async function install() {
