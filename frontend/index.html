@@ -1378,8 +1378,67 @@ html.introFade #app>*:not(#bg):not(#bgshade){transition:opacity .7s ease!importa
 @media (prefers-reduced-motion:reduce){#pav::before,.pavb::before,#phead::before,#phead::after{animation:none!important}}
 </style>
 
+<style id="stCss">
+/* ===== Settings: hex button in the title bar (next to the updater) + drop-down panel ===== */
+#upill{right:188px}
+#sbtn{position:absolute;z-index:100;top:3px;right:150px;width:28px;height:28px;padding:0;display:inline-flex;align-items:center;justify-content:center;border:1px solid transparent;border-radius:9px;background:transparent;color:var(--muted);cursor:pointer;--wails-draggable:no-drag;transition:color .2s,background .2s,border-color .2s,transform .2s var(--ease)}
+#sbtn:hover,#sbtn:focus-visible,#sbtn.on{color:var(--gold);background:rgba(248,169,0,.12);outline:none}
+#sbtn:hover{transform:translateY(-1px)}
+#sbtn svg{width:20px;height:20px;overflow:visible;filter:drop-shadow(0 1px 3px rgba(0,0,0,.55))}
+#sbtn .hx{fill:rgba(255,255,255,.04);stroke:currentColor;stroke-width:1.7;stroke-linejoin:round;transition:fill .25s}
+#sbtn.on .hx{fill:rgba(248,169,0,.22)}
+#sbtn .gl{fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round}
+#sbtn .gk{fill:currentColor;stroke:none}
+#spanel{position:absolute;z-index:96;top:44px;right:136px;width:min(364px,calc(100vw - 24px));border-radius:20px;background:linear-gradient(180deg,rgba(25,31,42,.95),rgba(11,15,21,.97));border:1px solid rgba(255,255,255,.1);box-shadow:0 26px 60px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.07);backdrop-filter:blur(18px) saturate(1.2);-webkit-backdrop-filter:blur(18px) saturate(1.2);transform-origin:calc(100% - 28px) 0;--wails-draggable:no-drag}
+#spanel[hidden]{display:none}
+#spanel:not([hidden]){animation:stIn .26s var(--ease)}
+#spanel::before{content:"";position:absolute;top:-7px;right:22px;width:12px;height:12px;transform:rotate(45deg);background:rgba(25,31,42,.95);border-left:1px solid rgba(255,255,255,.1);border-top:1px solid rgba(255,255,255,.1);border-radius:3px 0 0 0}
+@keyframes stIn{from{opacity:0;transform:translateY(-8px) scale(.96)}to{opacity:1;transform:none}}
+.st-body{max-height:calc(100vh - 76px);overflow:auto;border-radius:inherit;scrollbar-width:thin;scrollbar-color:#2a323d transparent}
+.st-top{display:flex;align-items:center;gap:12px;padding:16px 14px 6px 16px}
+.st-hex{width:36px;height:40px;flex:none;display:grid;place-items:center;color:var(--gold);background:rgba(248,169,0,.15);clip-path:var(--cb-hx)}
+.st-hex svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round}
+.st-hex .gk{fill:currentColor;stroke:none}
+.st-top h3{flex:1;margin:0;font-family:var(--head);font-size:21px;font-weight:700;letter-spacing:.07em;line-height:1;text-transform:uppercase;color:#f3efe3}
+.st-x{width:30px;height:30px;display:grid;place-items:center;padding:0;border:0;border-radius:50%;background:transparent;color:var(--muted);cursor:pointer;transition:background .15s,color .15s}
+.st-x:hover,.st-x:focus-visible{background:rgba(255,255,255,.1);color:#fff;outline:none}
+.st-x svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
+.st-sec{padding:0 14px}
+#spanel:not([hidden]) .st-sec{animation:pmRise .4s var(--ease) both}
+#spanel:not([hidden]) .st-sec:nth-of-type(2){animation-delay:.06s}
+.st-h{display:flex;align-items:center;gap:10px;margin:12px 2px 9px;color:var(--gold);font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase}
+.st-h::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,rgba(248,169,0,.35),transparent)}
+.st-card{margin-bottom:8px;padding:11px 12px;border-radius:14px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);transition:border-color .2s,background .2s}
+.st-card.on{border-color:rgba(248,169,0,.28);background:rgba(248,169,0,.05)}
+.st-line{display:flex;align-items:center;gap:12px;cursor:pointer;user-select:none}
+.st-ico{width:34px;height:38px;flex:none;display:grid;place-items:center;clip-path:var(--cb-hx);background:rgba(255,255,255,.07);color:#8d95a3;transition:background .2s,color .2s}
+.st-card.on .st-ico{background:rgba(248,169,0,.18);color:var(--gold)}
+.st-ico svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.st-txt{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px}
+.st-lab{color:#ece9e1;font-size:14px;font-weight:700}
+.st-sub{color:var(--muted);font-size:12px;font-weight:500;line-height:1.3}
+.st-sl{display:flex;align-items:center;gap:10px;margin:11px 0 1px 46px;transition:opacity .2s}
+.st-sl.off{opacity:.3;pointer-events:none}
+.st-sl output{flex:none;min-width:42px;padding:3px 0;text-align:center;border-radius:8px;background:rgba(255,255,255,.07);color:#cdd3de;font-size:12px;font-weight:700;font-variant-numeric:tabular-nums}
+.st-r{flex:1;min-width:0;-webkit-appearance:none;appearance:none;height:6px;border-radius:999px;background:linear-gradient(90deg,var(--gold) var(--p,50%),rgba(255,255,255,.14) var(--p,50%));outline:none;cursor:pointer}
+.st-r::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:16px;height:16px;border-radius:50%;background:#fff;border:2px solid var(--gold);box-shadow:0 2px 6px rgba(0,0,0,.5)}
+.st-r::-moz-range-thumb{width:12px;height:12px;border-radius:50%;background:#fff;border:2px solid var(--gold)}
+.st-r:focus-visible{outline:2px solid var(--gold);outline-offset:4px}
+.st-sw{position:relative;flex:none;width:42px;height:24px;padding:0;border-radius:999px;border:1px solid #2a323d;background:#1c232d;cursor:pointer;transition:background .2s,border-color .2s}
+.st-sw::after{content:"";position:absolute;top:2px;left:2px;width:18px;height:18px;border-radius:50%;background:#9aa3b0;transition:transform .22s var(--ease),background .2s}
+.st-sw[aria-checked="true"]{background:rgba(248,169,0,.22);border-color:var(--gold)}
+.st-sw[aria-checked="true"]::after{transform:translateX(18px);background:var(--gold)}
+.st-sw:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.st-foot{display:flex;justify-content:flex-end;padding:4px 14px 14px}
+.st-reset{padding:8px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.12);background:transparent;color:#9aa3b0;font:700 12px/1 var(--body);cursor:pointer;transition:color .15s,border-color .15s,background .15s}
+.st-reset:hover,.st-reset:focus-visible{color:var(--gold);border-color:var(--gold);background:rgba(248,169,0,.08);outline:none}
+/* ===== Graphics: "Animated effects" OFF -> every animation/transition finishes instantly (final state is kept) ===== */
+html.fx-off *,html.fx-off *::before,html.fx-off *::after{animation-duration:.001s!important;animation-delay:0s!important;animation-iteration-count:1!important;transition-duration:.001s!important;transition-delay:0s!important;scroll-behavior:auto!important}
+html.fx-off .hexfly{display:none!important}
+</style>
 </head>
 <body>
+<script>try{if((JSON.parse(localStorage.getItem('tft.settings.v1')||'{}')).fx===false)document.documentElement.classList.add('fx-off')}catch(e){}</script>
 <div id="intro" aria-hidden="true">
   <div id="introBlur"></div>
   <div id="introGrid"></div>
@@ -1392,7 +1451,7 @@ html.introFade #app>*:not(#bg):not(#bgshade){transition:opacity .7s ease!importa
 (function(){
   var de=document.documentElement, intro=document.getElementById('intro');
   if(!intro) return;
-  if(matchMedia('(prefers-reduced-motion:reduce)').matches){intro.remove();return;}
+  if(matchMedia('(prefers-reduced-motion:reduce)').matches||de.classList.contains('fx-off')){intro.remove();return;}
   de.classList.add('introOn');
   var grid=document.getElementById('introGrid');
   var W=innerWidth,H=innerHeight;
@@ -1418,7 +1477,7 @@ html.introFade #app>*:not(#bg):not(#bgshade){transition:opacity .7s ease!importa
 })();
 </script>
 <div id="app" >
-<video id="bg" src="video/background.mp4" autoplay muted loop playsinline preload="auto" aria-hidden="true"></video>
+<video id="bg" src="video/background_loop_lux.mp4" autoplay muted loop playsinline preload="auto" aria-hidden="true"></video>
 <div id="bgshade"></div>
 <div id="drag"></div>
 <button id="upill" type="button" aria-label="Check for updates" title="Check for updates" aria-haspopup="dialog">
@@ -1787,7 +1846,7 @@ function open(s, card) {
   inner.innerHTML = `<h2>${s.name}</h2>${dates ? `<div class="d">${dates}</div>` : ''}${s.blurb ? `<p>${s.blurb}</p>` : ''}
     <div class="chips">${s.info ? '<button data-t="overview">Overview</button><button data-t="champions">Champions</button><button data-t="traits">Traits</button>' : '<button>Traits</button><button>Champions</button><button>Augments</button><button>Items</button>'}</div>`;
   if (s.info) inner.querySelectorAll('[data-t]').forEach(b => b.onclick = () => openDetail(s, b.dataset.t));
-  vid.onerror = () => { if (!vid.src.endsWith('video/background.mp4')) vid.src = 'video/background.mp4'; else vid.style.display = 'none'; };
+  vid.onerror = () => { if (!vid.src.endsWith('video/background_loop_lux.mp4')) vid.src = 'video/background_loop_lux.mp4'; else vid.style.display = 'none'; };
   vid.style.display = ''; vid.src = s.video; vid.play().catch(() => {});
   place(card.getBoundingClientRect());
   ov.hidden = false;
@@ -3266,6 +3325,176 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
   setTimeout(() => check(false), 5000);                     // shortly after launch...
   setInterval(() => check(false), 6 * 60 * 60 * 1000);      // ...and every 6 hours while the app stays open
   addEventListener('online', () => check(false));
+})();
+</script>
+<script id="stJs">
+/* ================= SETTINGS: sound effects, music, graphics ================= */
+(() => {
+  const KEY = 'tft.settings.v1';
+  const SFX_SRC = 'audio/league-of-legend-client-button.mp3';
+  const MUSIC_SRC = 'audio/1-teamfight-tactics-runeterra-reforged.mp3';
+  const D = { sfx: true, sfxVol: 1, music: true, musicVol: .12, bg: true, fx: true };   // music default is quiet on purpose
+  let S = { ...D }; try { S = { ...D, ...JSON.parse(localStorage.getItem(KEY) || '{}') }; } catch {}
+  const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch {} };
+  const clamp = v => Math.min(1, Math.max(0, +v || 0));
+  const el = id => document.getElementById(id);
+
+  /* ---------- Sound effects: menu buttons ---------- */
+  const pool = Array.from({ length: 4 }, () => { const a = new Audio(SFX_SRC); a.preload = 'auto'; return a; });
+  let pi = 0;
+  function playSfx() {
+    if (!S.sfx || clamp(S.sfxVol) <= 0) return;
+    const a = pool[pi++ % pool.length];
+    try { a.volume = clamp(S.sfxVol); a.currentTime = 0; const p = a.play(); if (p && p.catch) p.catch(() => {}); } catch {}
+  }
+  document.addEventListener('click', e => { if (e.target.closest && e.target.closest('.nv')) playSfx(); }, true);
+
+  /* ---------- Background music (looping, quiet, fades in) ---------- */
+  const music = new Audio(MUSIC_SRC); music.loop = true; music.preload = 'auto'; music.volume = 0;
+  let fadeT = 0, trailerOpen = false, armed = false;
+  const target = () => clamp(S.musicVol);
+  function fadeTo(v, ms, done) {
+    clearInterval(fadeT);
+    const from = music.volume, t0 = performance.now();
+    fadeT = setInterval(() => {
+      const k = Math.min(1, (performance.now() - t0) / Math.max(1, ms));
+      music.volume = clamp(from + (v - from) * k);
+      if (k >= 1) { clearInterval(fadeT); if (done) done(); }
+    }, 40);
+  }
+  const wantMusic = () => S.music && target() > 0 && !trailerOpen && !document.hidden;
+  function armUnlock() {                       // browsers may block autoplay until the first click/key
+    if (armed) return; armed = true;
+    const ev = ['pointerdown', 'keydown', 'touchstart'];
+    const go = () => { ev.forEach(n => document.removeEventListener(n, go, true)); armed = false; syncMusic(2500); };
+    ev.forEach(n => document.addEventListener(n, go, true));
+  }
+  function syncMusic(ms) {
+    if (wantMusic()) {
+      if (music.paused) {
+        music.volume = 0;
+        const p = music.play();
+        if (p && p.then) p.then(() => fadeTo(target(), ms)).catch(armUnlock);
+      } else fadeTo(target(), Math.min(ms, 400));
+    } else if (!music.paused) {
+      fadeTo(0, Math.min(ms, 600), () => music.pause());
+    }
+  }
+  document.addEventListener('visibilitychange', () => syncMusic(700));
+  const tm = el('tmodal');
+  if (tm) new MutationObserver(() => { const open = !tm.hidden; if (open !== trailerOpen) { trailerOpen = open; syncMusic(open ? 400 : 1500); } })
+    .observe(tm, { attributes: true, attributeFilter: ['hidden'] });
+
+  /* ---------- Graphics ---------- */
+  const bgv = el('bg');
+  if (bgv) { const op = bgv.play.bind(bgv); bgv._play = op; bgv.play = () => S.bg ? op() : Promise.resolve(); }   // the page's own "keep playing" code respects the toggle
+  function applyBg() {
+    if (!bgv) return;
+    if (S.bg) { bgv._play().catch(() => {}); }
+    else { bgv.removeAttribute('autoplay'); bgv.pause(); }
+  }
+  function applyFx() { document.documentElement.classList.toggle('fx-off', !S.fx); }
+
+  /* ---------- Settings: title-bar button + drop-down panel ---------- */
+  const TXT = {
+    en: { settings: 'Settings', sound: 'Sound', sfx: 'Sound effects', music: 'Music', gfx: 'Graphics', bg: 'Animated background', bgD: 'Looping video behind the menu', fx: 'Animated effects', fxD: 'Intro, hover sparks and motion', reset: 'Reset to defaults' },
+    sk: { settings: 'Nastavenia', sound: 'Zvuk', sfx: 'Zvukové efekty', music: 'Hudba', gfx: 'Grafika', bg: 'Animované pozadie', bgD: 'Opakované video za menu', fx: 'Animované efekty', fxD: 'Intro, iskry pri nabehnutí a pohyb', reset: 'Obnoviť predvolené' },
+    cs: { settings: 'Nastavení', sound: 'Zvuk', sfx: 'Zvukové efekty', music: 'Hudba', gfx: 'Grafika', bg: 'Animované pozadí', bgD: 'Opakující se video za menu', fx: 'Animované efekty', fxD: 'Intro, jiskry při najetí a pohyb', reset: 'Obnovit výchozí' },
+    tr: { settings: 'Ayarlar', sound: 'Ses', sfx: 'Ses efektleri', music: 'Müzik', gfx: 'Grafikler', bg: 'Animasyonlu arka plan', bgD: 'Menünün arkasında döngülü video', fx: 'Animasyonlu efektler', fxD: 'Giriş, üzerine gelme kıvılcımları ve hareket', reset: 'Varsayılana sıfırla' },
+    pt: { settings: 'Definições', sound: 'Som', sfx: 'Efeitos sonoros', music: 'Música', gfx: 'Gráficos', bg: 'Fundo animado', bgD: 'Vídeo em loop atrás do menu', fx: 'Efeitos animados', fxD: 'Intro, faíscas ao passar o rato e movimento', reset: 'Repor predefinições' },
+    zh: { settings: '设置', sound: '声音', sfx: '音效', music: '音乐', gfx: '图形', bg: '动态背景', bgD: '菜单后方的循环视频', fx: '动画效果', fxD: '开场动画、悬停火花与动效', reset: '恢复默认' },
+    ja: { settings: '設定', sound: 'サウンド', sfx: '効果音', music: '音楽', gfx: 'グラフィック', bg: 'アニメーション背景', bgD: 'メニュー背景のループ動画', fx: 'アニメーション効果', fxD: 'イントロ、ホバー演出、モーション', reset: '初期設定に戻す' }
+  };
+  const ICO = {
+    sfx: '<path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/>',
+    music: '<path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/>',
+    bg: '<rect x="3" y="5" width="18" height="14" rx="3"/><path d="M10 9.5v5l4.5-2.5z"/>',
+    fx: '<path d="M12 3l1.8 4.7L18.5 9.5l-4.7 1.8L12 16l-1.8-4.7L5.5 9.5l4.7-1.8z"/><path d="M19 15l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8z"/>'
+  };
+  const card = (k, sub, slider) => `
+    <div class="st-card" data-c="${k}">
+      <div class="st-line">
+        <i class="st-ico"><svg viewBox="0 0 24 24" aria-hidden="true">${ICO[k]}</svg></i>
+        <span class="st-txt"><span class="st-lab" id="stl-${k}"></span>${sub ? `<span class="st-sub" id="stl-${k}D"></span>` : ''}</span>
+        <button class="st-sw" type="button" role="switch" data-k="${k}" aria-checked="false" aria-labelledby="stl-${k}"></button>
+      </div>
+      ${slider ? `<div class="st-sl" data-sl="${slider}"><input class="st-r" type="range" min="0" max="100" step="1" data-v="${slider}" aria-labelledby="stl-${k}"><output></output></div>` : ''}
+    </div>`;
+
+  const app = el('app') || document.body;
+  const btn = document.createElement('button');
+  btn.id = 'sbtn'; btn.type = 'button'; btn.setAttribute('aria-haspopup', 'dialog'); btn.setAttribute('aria-expanded', 'false');
+  btn.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path class="hx" d="M12 2.6 20.3 7.3v9.4L12 21.4 3.7 16.7V7.3z"/><path class="gl" d="M8.4 10h7.2M8.4 14h7.2"/><circle class="gk" cx="10.6" cy="10" r="1.5"/><circle class="gk" cx="13.4" cy="14" r="1.5"/></svg>';
+  const panel = document.createElement('div');
+  panel.id = 'spanel'; panel.setAttribute('role', 'dialog'); panel.setAttribute('aria-labelledby', 'stTitle'); panel.hidden = true;
+  panel.innerHTML = `
+    <div class="st-body">
+      <div class="st-top">
+        <i class="st-hex"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h14M5 17h14" /><circle class="gk" cx="9" cy="7" r="2.2"/><circle class="gk" cx="15" cy="17" r="2.2"/></svg></i>
+        <h3 id="stTitle">Settings</h3>
+        <button class="st-x" type="button" id="stX"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+      </div>
+      <section class="st-sec">
+        <div class="st-h" id="stH1">Sound</div>
+        ${card('sfx', false, 'sfxVol')}
+        ${card('music', false, 'musicVol')}
+      </section>
+      <section class="st-sec">
+        <div class="st-h" id="stH2">Graphics</div>
+        ${card('bg', true)}
+        ${card('fx', true)}
+      </section>
+      <div class="st-foot"><button class="st-reset" type="button" id="stReset">Reset to defaults</button></div>
+    </div>`;
+  app.append(btn, panel);
+
+  function paint() {
+    panel.querySelectorAll('.st-sw').forEach(b => b.setAttribute('aria-checked', String(!!S[b.dataset.k])));
+    panel.querySelectorAll('.st-card').forEach(c => c.classList.toggle('on', !!S[c.dataset.c]));
+    panel.querySelectorAll('.st-r').forEach(r => {
+      const v = Math.round(clamp(S[r.dataset.v]) * 100);
+      r.value = v; r.style.setProperty('--p', v + '%'); r.nextElementSibling.textContent = v + '%';
+    });
+    panel.querySelector('[data-sl="sfxVol"]').classList.toggle('off', !S.sfx);
+    panel.querySelector('[data-sl="musicVol"]').classList.toggle('off', !S.music);
+  }
+  function lang() {
+    const T = TXT[(document.documentElement.lang || 'en').slice(0, 2)] || TXT.en;
+    btn.title = T.settings; btn.setAttribute('aria-label', T.settings); el('stX').setAttribute('aria-label', T.settings);
+    el('stTitle').textContent = T.settings; el('stH1').textContent = T.sound; el('stH2').textContent = T.gfx; el('stReset').textContent = T.reset;
+    ['sfx', 'music', 'bg', 'fx'].forEach(k => el('stl-' + k).textContent = T[k]);
+    el('stl-bgD').textContent = T.bgD; el('stl-fxD').textContent = T.fxD;
+  }
+  new MutationObserver(lang).observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
+
+  const open = o => {
+    panel.hidden = !o; btn.classList.toggle('on', o); btn.setAttribute('aria-expanded', String(o));
+    if (o) { const lm = el('lmenu'); if (lm) lm.hidden = true; const lb = el('lbtn'); if (lb) lb.classList.remove('on'); }
+  };
+  btn.addEventListener('click', () => { open(panel.hidden); playSfx(); });
+  el('stX').addEventListener('click', () => open(false));
+  document.addEventListener('click', e => { if (!panel.hidden && !panel.contains(e.target) && !btn.contains(e.target)) open(false); }, true);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && !panel.hidden) { open(false); btn.focus(); } });
+
+  panel.addEventListener('click', e => {                         // click anywhere on a row to flip its switch
+    const line = e.target.closest('.st-line'); if (!line) return;
+    const b = line.querySelector('.st-sw'), k = b.dataset.k;
+    S[k] = !S[k]; save(); paint();
+    if (k === 'sfx') playSfx();
+    else if (k === 'music') syncMusic(1500);
+    else if (k === 'bg') applyBg();
+    else if (k === 'fx') applyFx();
+  });
+  panel.addEventListener('input', e => {
+    const r = e.target.closest('.st-r'); if (!r) return;
+    S[r.dataset.v] = r.value / 100; save(); paint();
+    if (r.dataset.v === 'musicVol') { if (!music.paused) { clearInterval(fadeT); music.volume = target(); } else syncMusic(800); }
+  });
+  panel.addEventListener('change', e => { if (e.target.dataset && e.target.dataset.v === 'sfxVol') playSfx(); });   // preview on release
+  el('stReset').addEventListener('click', () => { S = { ...D }; save(); paint(); applyBg(); applyFx(); syncMusic(1200); playSfx(); });
+
+  /* ---------- Start ---------- */
+  paint(); lang(); applyFx(); if (!S.bg) applyBg(); syncMusic(2500);
 })();
 </script>
 </body>
