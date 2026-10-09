@@ -1287,6 +1287,97 @@ html.introFade #app>*:not(#bg):not(#bgshade){transition:opacity .7s ease!importa
 #pview-out::after{width:70px;height:81px;background:rgba(75,224,242,.07)!important}
 @media (prefers-reduced-motion:reduce){#pmenu::before,#pmenu::after,#pview-out::before,#pview-out::after,#pmenu *::before,#pmenu *::after,#pav::before,#pbtn::after,.sdot::after{animation:none!important}}
 </style>
+
+<style id="profileCss3">
+/* ===== Profile v3: "Hex Card" ===== */
+:root{--hx:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);--hxrim:linear-gradient(135deg,#fff0b8 0%,#f8a900 42%,#9a5a00 72%,#ffd978 100%)}
+/* hex avatar: trigger + panel */
+#pav,.pavb{position:relative;display:block;border:0;border-radius:0;background:none;box-shadow:none;isolation:isolate}
+#pav{width:50px;height:56px;font-size:0}
+#pav::before,.pavb::before{content:"";position:absolute;inset:0;z-index:-2;border-radius:0;clip-path:var(--hx);background:var(--hxrim);background-size:260% 260%;-webkit-mask:none;mask:none;opacity:1;animation:pxRim 5s ease-in-out infinite alternate}
+#pav::after,.pavb::after{content:"";position:absolute;inset:3px;z-index:-1;border:0;border-radius:0;opacity:1;clip-path:var(--hx);background:var(--pengu) center 58%/56% no-repeat,radial-gradient(circle at 50% 28%,#35507a,#0f141c 78%);animation:none}
+#pbtn.pop #pav::after{animation:none}
+#pbtn:hover #pav,#pbtn:focus-visible #pav,#pbtn[aria-expanded="true"] #pav{box-shadow:none;filter:drop-shadow(0 0 9px rgba(248,169,0,.65))}
+#pav .sdot,.pavb .sdot{position:absolute;z-index:2;right:-4px;bottom:7px;width:15px;height:15px;border-radius:5px;border:2.5px solid #0d1117;transform:rotate(45deg)}
+.pavb .sdot{right:-3px;bottom:12px;width:19px;height:19px;border-width:3px}
+.sdot::after{border-radius:6px}
+#pstat .sdot,#pstlist .sdot{transform:none;border-radius:50%}
+#pstat .sdot::after,#pstlist .sdot::after{border-radius:50%}
+/* trigger: hex avatar leaning out of a glass capsule */
+#pbtn{position:relative;isolation:isolate;overflow:visible;display:grid;grid-template-columns:auto 1fr auto;align-items:center;column-gap:12px;height:60px;padding:0 18px 0 0;border:0;border-radius:0;background:none;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none}
+#pbtn:hover,#pbtn:focus-visible,#pbtn[aria-expanded="true"]{background:none;border-color:transparent}
+#pbtn::before{content:"";position:absolute;left:26px;right:0;top:9px;bottom:9px;z-index:-1;border-radius:999px;background:linear-gradient(100deg,rgba(18,28,40,.86),rgba(9,13,19,.74));border:1px solid rgba(255,255,255,.1);box-shadow:0 10px 26px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.07);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);transition:border-color .25s,box-shadow .25s}
+#pbtn:hover::before,#pbtn:focus-visible::before,#pbtn[aria-expanded="true"]::before{border-color:rgba(248,169,0,.55);box-shadow:0 10px 28px rgba(0,0,0,.4),0 0 24px -6px rgba(248,169,0,.55),inset 0 1px 0 rgba(255,255,255,.1)}
+#pbtn::after{display:none}
+/* no capsule/border: only the hex icon + name */
+#pbtn::before,#pbtn:hover::before,#pbtn:focus-visible::before,#pbtn[aria-expanded="true"]::before{display:none}
+#pbtn{padding-right:6px;column-gap:10px}
+#pshow{text-shadow:0 2px 12px rgba(0,0,0,.8)}
+#pshow{display:block;max-width:160px;text-align:left;font:800 15px/1.15 var(--body);padding-right:2px}
+#pshow i{display:none}
+#pbig i{display:block;margin-top:3px;font-size:12.5px;font-weight:600;letter-spacing:.02em;text-shadow:none}
+#pshow::after{display:block;margin-top:3px;font:800 9.5px/1 var(--body);letter-spacing:.14em;text-transform:uppercase;color:var(--sc)}
+#profile[data-st="online"] #pshow::after{content:"Online"}
+#profile[data-st="away"] #pshow::after{content:"Away"}
+#profile[data-st="invisible"] #pshow::after{content:"Invisible"}
+#profile[data-st="off"] #pshow::after{content:"Tap to log in"}
+/* panel */
+#pmenu{top:76px;width:364px;height:min(620px,calc(100vh - 110px));border-radius:28px;background:linear-gradient(172deg,rgba(22,30,42,.95),rgba(9,12,18,.97));border:1px solid rgba(248,169,0,.24);box-shadow:0 30px 70px rgba(0,0,0,.6),0 0 50px -18px rgba(248,169,0,.35),inset 0 1px 0 rgba(255,255,255,.08)}
+#pmenu::before{background:radial-gradient(circle,rgba(70,210,140,.22),transparent 65%)}
+#pmenu::after{background:radial-gradient(circle,rgba(150,105,255,.2),transparent 65%)}
+/* header banner */
+#phead{position:relative;isolation:isolate;display:grid;grid-template-columns:auto 1fr;align-items:end;gap:0 16px;padding:54px 18px 12px 20px}
+#phead::before{content:"";position:absolute;left:0;right:0;top:0;height:108px;z-index:-2;pointer-events:none;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='49' viewBox='0 0 28 49'%3E%3Cg fill='%23ffffff' fill-opacity='.09' fill-rule='evenodd'%3E%3Cpath d='M13.99 9.25l13 7.5v15l-13 7.5L1 31.75v-15l12.99-7.5zM3 17.9v12.7l10.99 6.34 11-6.35V17.9l-11-6.34L3 17.9zM0 15l12.98-7.5V0h-2v6.35L0 12.69v2.3zm0 18.5L12.98 41v8h-2v-6.85L0 35.81v-2.3zM15 0v7.5L27.99 15H28v-2.31h-.01L17 6.35V0h-2zm0 49v-8l12.99-7.5H28v2.31h-.01L17 42.15V49h-2z'/%3E%3C/g%3E%3C/svg%3E") 0 0/42px 73px,radial-gradient(circle at 84% 18%,rgba(255,224,130,.5),transparent 42%),radial-gradient(circle at 8% 100%,rgba(70,220,150,.42),transparent 55%),linear-gradient(118deg,#1b5a45,#26408a 58%,#59309a);-webkit-mask-image:linear-gradient(#000 52%,transparent);mask-image:linear-gradient(#000 52%,transparent);animation:pxBanner 12s ease-in-out infinite alternate}
+#phead::after{content:"";position:absolute;left:0;right:0;top:0;height:100px;z-index:-1;pointer-events:none;background:radial-gradient(circle at 18% 30%,#fff 0 1.4px,transparent 2px),radial-gradient(circle at 62% 20%,#fff 0 1px,transparent 1.6px),radial-gradient(circle at 90% 52%,#ffe9a3 0 1.6px,transparent 2.2px),radial-gradient(circle at 42% 58%,#bfe9ff 0 1px,transparent 1.6px),radial-gradient(circle at 74% 70%,#fff 0 1.2px,transparent 1.8px);animation:pxTwinkle 3.2s ease-in-out infinite alternate}
+.pavb{width:84px;height:94px;align-self:end}
+.pid{align-self:end;padding-bottom:8px;min-width:0}
+#pbig{display:block;font:800 23px/1.1 var(--body);letter-spacing:.005em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 2px 12px rgba(0,0,0,.55)}
+#pstat{margin-top:8px;padding:5px 11px 5px 8px;color:var(--sc);background:color-mix(in srgb,var(--sc) 15%,rgba(6,9,14,.55));border:1px solid color-mix(in srgb,var(--sc) 40%,transparent)}
+#pstat:hover,#pstat:focus-visible{background:color-mix(in srgb,var(--sc) 26%,rgba(6,9,14,.55));color:var(--sc)}
+#pclose{position:absolute;top:12px;right:12px;width:32px;height:32px;border-radius:50%;background:rgba(0,0,0,.34);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);color:rgba(255,255,255,.75)}
+#pstlist{top:150px;left:120px;border-radius:16px;background:rgba(16,21,29,.96);border:1px solid rgba(248,169,0,.25)}
+/* stats strip */
+#pstats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:2px 14px 12px}
+#pstats div{padding:9px 6px 8px;border-radius:14px;text-align:center;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);transition:transform .25s var(--ease),border-color .25s,background .25s}
+#pstats div:hover{transform:translateY(-2px);border-color:rgba(248,169,0,.35);background:rgba(248,169,0,.07)}
+#pstats b{display:block;font:800 18px/1.1 var(--body);color:#fff;font-variant-numeric:tabular-nums}
+#pstats span{display:block;margin-top:3px;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+#pmenu:not([hidden]):not(.out) #pstats div{animation:pvIn .4s var(--ease) backwards}
+#pmenu:not([hidden]):not(.out) #pstats div:nth-child(2){animation-delay:.07s}
+#pmenu:not([hidden]):not(.out) #pstats div:nth-child(3){animation-delay:.14s}
+/* tabs */
+#pftabs{border-radius:18px;background:rgba(6,9,14,.6)}
+#pind{background:linear-gradient(180deg,rgba(248,169,0,.24),rgba(248,169,0,.07));border:1px solid rgba(248,169,0,.34);box-shadow:0 0 18px -4px rgba(248,169,0,.5)}
+.pftab.on{color:var(--gold)}
+.pftitle::before{content:"";width:10px;height:11px;flex:none;clip-path:var(--hx);background:var(--hxrim)}
+/* friends / messages as cards with hex avatars */
+.fa{position:relative;isolation:isolate;width:40px;height:45px;border:0;border-radius:0;background:none;font-weight:800;font-size:15px}
+.fa::before{content:"";position:absolute;inset:0;z-index:-2;clip-path:var(--hx);background:var(--hxrim)}
+.fa::after{content:"";position:absolute;inset:2.5px;z-index:-1;clip-path:var(--hx);background:radial-gradient(circle at 50% 28%,#35507a,#10141b 80%)}
+#flist .fa{width:40px;height:45px;border-width:0}
+#chead .fa{width:34px;height:38px}
+#flist li,.pfrow{margin-bottom:6px;padding:7px 10px 7px 10px;border-radius:16px;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.05)}
+#flist li:hover,.pfrow:hover{background:rgba(248,169,0,.07);border-color:rgba(248,169,0,.28)}
+#flist li:hover .fa,.pfrow:hover .fa{border-color:transparent;box-shadow:none;filter:drop-shadow(0 0 7px rgba(248,169,0,.7))}
+#flist li::before,.pfrow::before{left:-1px}
+#pmenu input{border-radius:999px;padding-left:16px}
+#pmenu #fsearch{padding-left:38px}
+#fgoadd,#lgbtn{border-radius:999px}
+#csend{border-radius:50%}
+#fplus{border-radius:50%}
+/* footer + logged-out */
+#pfoot{background:linear-gradient(0deg,rgba(0,0,0,.4),transparent)}
+#plogout{border-radius:999px}
+#pview-out{padding:34px 26px 28px}
+#pview-out .pavb{align-self:center;width:92px;height:104px;border:0;border-radius:0;background:none;filter:grayscale(.85);opacity:.92;animation:pfFloat 3.4s ease-in-out infinite}
+#pview-out .pavb .sdot{width:21px;height:21px}
+#pview-out h3{margin-top:20px}
+@keyframes pxRim{to{background-position:100% 100%}}
+@keyframes pxBanner{to{filter:hue-rotate(28deg) saturate(1.15)}}
+@keyframes pxTwinkle{from{opacity:.35}to{opacity:1}}
+@media (prefers-reduced-motion:reduce){#pav::before,.pavb::before,#phead::before,#phead::after{animation:none!important}}
+</style>
+
 </head>
 <body>
 <div id="intro" aria-hidden="true">
@@ -1360,6 +1451,7 @@ html.introFade #app>*:not(#bg):not(#bgshade){transition:opacity .7s ease!importa
           <li role="option" data-s="away" style="--c:#f5a524"><i class="sdot"></i>Away</li>
           <li role="option" data-s="invisible" style="--c:#7b8494"><i class="sdot"></i>Invisible</li>
         </ul>
+        <div id="pstats"><div><b id="ps1">0</b><span>Friends</span></div><div><b id="ps2">0</b><span>Owned</span></div><div><b id="ps3">0</b><span>Chats</span></div></div>
         <div id="pftabs" role="tablist">
           <i id="pind"></i>
           <button class="pftab on" data-t="friends" role="tab" aria-label="Friends" title="Friends"><svg viewBox="0 0 24 24"><path d="M8.5 6H20M8.5 12H20M8.5 18H20M4 6h.01M4 12h.01M4 18h.01"/></svg></button>
@@ -1948,9 +2040,14 @@ function renderFriends() {
     li.append(mkAv(f), fn, fm, x); ul.append(li);
   });
   const fc = $('fcount'); if (fc.textContent !== String(friends.length)) { fc.textContent = friends.length; fc.classList.remove('bump'); void fc.offsetWidth; fc.classList.add('bump'); }
-  $('fempty').hidden = friends.length > 0; $('fnone').hidden = !(friends.length && !list.length);
+  $('fempty').hidden = friends.length > 0; $('fnone').hidden = !(friends.length && !list.length); if (typeof paintPStats === 'function') paintPStats();
 }
 function saveFriends() { store.set('tft.friends', JSON.stringify(friends)); }
+function paintPStats() {
+  let owned = 0; try { owned = (JSON.parse(localStorage.getItem('tftvault.owned.v1') || '[]') || []).length; } catch {}
+  $('ps1').textContent = friends.length; $('ps2').textContent = owned.toLocaleString('en-US'); $('ps3').textContent = Object.keys(chats).length;
+}
+pbtn.addEventListener('click', paintPStats); paintPStats();
 function addFriend() {
   const v = $('fname').value.trim().replace(/\s+/g, ' ');
   if (!v) return;
