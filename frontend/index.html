@@ -1069,6 +1069,221 @@ html.introFade #app>*:not(#bg):not(#bgshade){transition:opacity .7s ease!importa
 @keyframes nwBadge{50%{box-shadow:0 0 0 3px rgba(248,169,0,.22),0 0 14px rgba(248,169,0,.5)}}
 @media (prefers-reduced-motion:reduce){#nmodal,#nmodal *,#bpass,.pt-dock{animation-duration:.01s!important;animation-delay:0s!important;transition-duration:.01s!important}}
 </style>
+<style id="profileCss">
+/* ===== Profile redesign: glass panel, tabs, status, log in/out, friends, messages ===== */
+#profile{--sc:#3ddc84}
+#profile[data-st="away"]{--sc:#f5a524}
+#profile[data-st="invisible"],#profile[data-st="off"]{--sc:#7b8494}
+.sdot{display:block;flex:none;box-sizing:border-box;width:13px;height:13px;border-radius:50%;background:var(--sc,#3ddc84);border:2.5px solid #12161d;transition:background .3s}
+#pav .sdot{position:absolute;right:-2px;bottom:-2px;z-index:1}
+/* collapsed pill */
+#pbtn{gap:10px;padding:4px 14px 4px 4px;border-radius:999px;background:rgba(10,14,20,.34);border:1px solid rgba(255,255,255,.09);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 8px 24px rgba(0,0,0,.28);
+  transition:background .25s,border-color .25s,box-shadow .25s}
+#pbtn:hover,#pbtn:focus-visible{background:rgba(10,14,20,.52);border-color:rgba(248,169,0,.4)}
+#pbtn[aria-expanded="true"]{background:rgba(10,14,20,.6);border-color:rgba(248,169,0,.55)}
+/* panel */
+#pmenu{top:70px;left:0;width:344px;height:min(540px,calc(100vh - 110px));padding:0;border-radius:24px;overflow:hidden;
+  background:linear-gradient(165deg,rgba(27,33,45,.9),rgba(12,16,23,.9));border:1px solid rgba(255,255,255,.1);
+  backdrop-filter:blur(22px) saturate(1.4);-webkit-backdrop-filter:blur(22px) saturate(1.4);
+  box-shadow:0 26px 60px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.08);
+  display:flex;flex-direction:column;transform-origin:28px 0;animation:pfIn .32s cubic-bezier(.2,.9,.25,1.05)}
+#pmenu[hidden]{display:none}
+#pmenu:not([hidden])>*{animation:none}
+#pmenu.out{animation:pfOut .2s ease-in forwards}
+#profile[data-logged="0"] #pmenu{height:auto}
+#pview-in,#pview-out{display:flex;flex-direction:column;flex:1;min-height:0}
+#profile[data-logged="0"] #pview-in,#profile[data-logged="1"] #pview-out{display:none}
+#pmenu.swap>div{animation:pvIn .4s var(--ease)}
+@keyframes pfIn{from{opacity:0;transform:translateY(-10px) scale(.94)}to{opacity:1;transform:none}}
+@keyframes pfOut{to{opacity:0;transform:translateY(-8px) scale(.96)}}
+@keyframes pvIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+#pmenu:not([hidden]):not(.out) #phead{animation:pvIn .4s var(--ease) .04s backwards}
+#pmenu:not([hidden]):not(.out) #pftabs{animation:pvIn .4s var(--ease) .1s backwards}
+#pmenu:not([hidden]):not(.out) #pfoot{animation:pvIn .4s var(--ease) .2s backwards}
+/* header */
+#phead{display:flex;align-items:center;gap:13px;padding:18px 16px 14px 18px;margin:0;border:0}
+.pavb{position:relative;flex:none;width:58px;height:58px}
+.pavb .sdot{position:absolute;right:-1px;bottom:-1px;width:17px;height:17px;border-width:3px;z-index:1}
+.pid{flex:1;min-width:0}
+#pbig{font-size:18px;line-height:1.15}
+#pstat{display:inline-flex;align-items:center;gap:7px;margin-top:6px;padding:4px 9px 4px 7px;border:1px solid transparent;border-radius:999px;background:rgba(255,255,255,.06);color:var(--muted);font:600 12px/1 var(--body);cursor:pointer;transition:background .2s,color .2s}
+#pstat:hover,#pstat:focus-visible{background:rgba(255,255,255,.11);color:var(--text);outline:none}
+#pstat .sdot{width:10px;height:10px;border-width:2px;border-color:transparent}
+#pstat svg{width:11px;height:11px;stroke:currentColor;fill:none;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+#pclose{flex:none;align-self:flex-start;width:34px;height:34px;display:grid;place-items:center;border:0;border-radius:10px;background:rgba(255,255,255,.06);color:var(--muted);cursor:pointer;transition:background .15s,color .15s}
+#pclose:hover,#pclose:focus-visible{background:rgba(248,169,0,.16);color:var(--gold);outline:none}
+#pclose svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+#pstlist{position:absolute;z-index:5;top:76px;left:88px;margin:0;padding:6px;list-style:none;min-width:156px;border-radius:14px;background:#171c25;border:1px solid #2a323d;box-shadow:0 14px 34px rgba(0,0,0,.5);animation:pmIn .18s var(--ease)}
+#pstlist[hidden]{display:none}
+#pstlist li{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:9px;font-size:13px;cursor:pointer}
+#pstlist li:hover,#pstlist li.on{background:rgba(255,255,255,.07)}
+#pstlist .sdot{width:10px;height:10px;border-width:2px;border-color:transparent;background:var(--c)}
+/* tabs */
+#pftabs{position:relative;display:grid;grid-template-columns:repeat(4,1fr);margin:0 14px;padding:4px;border-radius:16px;background:rgba(0,0,0,.28);border:1px solid rgba(255,255,255,.06)}
+.pftab{position:relative;z-index:1;height:42px;display:grid;place-items:center;border:0;border-radius:12px;background:none;color:var(--muted);cursor:pointer;transition:color .2s}
+.pftab:hover,.pftab.on,.pftab:focus-visible{color:var(--text);outline:none}
+.pftab svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.pfbadge{position:absolute;top:3px;left:calc(50% + 4px);min-width:16px;height:16px;padding:0 4px;border-radius:99px;background:var(--gold);color:#10141b;font:800 10px/16px var(--body);text-align:center}
+.pfbadge[hidden]{display:none}
+#pind{position:absolute;left:4px;bottom:4px;width:calc((100% - 8px)/4);height:42px;border-radius:12px;background:rgba(255,255,255,.08);transition:transform .35s cubic-bezier(.3,1.2,.4,1);pointer-events:none}
+#pind::after{content:"";position:absolute;left:26%;right:26%;bottom:3px;height:2px;border-radius:2px;background:var(--gold);box-shadow:0 0 8px rgba(248,169,0,.6)}
+/* panes */
+.pfpane{flex:1;min-height:0;display:flex;flex-direction:column;padding:12px 14px 0}
+.pfpane[hidden]{display:none}
+.pfpane.in{animation:pvIn .32s var(--ease)}
+.pfscroll{flex:1;min-height:0;overflow-y:auto;padding-bottom:10px;scrollbar-width:thin;scrollbar-color:rgba(var(--sb-rgb),var(--sb-a)) transparent}
+.pftitle{display:flex;align-items:center;gap:8px;margin:12px 2px 6px;font:700 14px/1 var(--head);letter-spacing:.07em;text-transform:uppercase}
+.pftitle b{padding:2px 7px;border-radius:99px;background:rgba(248,169,0,.16);color:var(--gold);font:700 11px/1.3 var(--body);letter-spacing:0}
+#pfsw{position:relative}
+#pfsw svg{position:absolute;left:12px;top:50%;margin-top:-8px;width:16px;height:16px;fill:none;stroke:var(--muted);stroke-width:2;stroke-linecap:round;pointer-events:none}
+#pmenu #fsearch{padding-left:37px;background:rgba(0,0,0,.25)}
+/* friends list */
+#flist{margin:0;max-height:none;overflow:visible}
+#flist li{padding:8px;gap:11px;animation:pvIn .32s var(--ease) both;animation-delay:calc(var(--n,0)*.035s)}
+.fa{flex:none;width:38px;height:38px;border-radius:50%;border:2px solid rgba(248,169,0,.7);background:#10141b;display:grid;place-items:center;font-weight:700;font-size:15px}
+#flist .fa{width:38px;height:38px;border-width:2px;font-size:15px}
+#flist .fn{font-size:14.5px}
+#flist .fm{flex:none;width:30px;height:30px;display:grid;place-items:center;border:0;border-radius:9px;background:none;color:var(--muted);cursor:pointer;opacity:0;transition:opacity .15s,color .15s,background .15s}
+#flist .fm svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+#flist li:hover .fm,#flist .fm:focus-visible{opacity:1}
+#flist .fm:hover,#flist .fm:focus-visible{color:var(--gold);background:rgba(248,169,0,.14);outline:none}
+#fempty,#pfnomsg{text-align:center;padding:26px 10px;color:var(--muted)}
+#fempty[hidden],#pfnomsg[hidden]{display:none}
+#fempty p,#pfnomsg p{margin:0 0 12px;font-size:13.5px}
+#pfnomsg small{margin:0}
+#fgoadd{padding:9px 18px;border:0;border-radius:12px;background:var(--gold);color:#10141b;font:700 13px var(--body);cursor:pointer;transition:transform .15s,filter .2s}
+#fgoadd:hover{filter:brightness(1.12);transform:translateY(-1px)}
+#fnone{margin:16px 0;text-align:center;color:var(--muted);font-size:13px}
+#fnone[hidden]{display:none}
+.pfpane[data-p="add"] #fadd{margin-top:2px}
+/* messages */
+#pfclist,#cchat{flex:1;min-height:0;display:flex;flex-direction:column}
+#pfclist[hidden],#cchat[hidden]{display:none}
+.pfrow{display:flex;align-items:center;gap:11px;padding:9px 8px;border-radius:14px;cursor:pointer;animation:pvIn .32s var(--ease) both;animation-delay:calc(var(--n,0)*.035s);transition:background .15s}
+.pfrow:hover,.pfrow:focus-visible{background:rgba(255,255,255,.07);outline:none}
+.pfmid{flex:1;min-width:0}
+.pfmid b{display:block;font-size:14px}
+.pfmid span{display:block;margin-top:2px;color:var(--muted);font-size:12.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pfrow time{flex:none;color:var(--muted);font-size:11px}
+.pfub{flex:none;min-width:18px;padding:0 6px;border-radius:99px;background:var(--gold);color:#10141b;font:800 11px/18px var(--body);text-align:center;font-style:normal}
+#chead{display:flex;align-items:center;gap:10px;padding:2px 0 10px}
+#chead .fa{width:34px;height:34px;font-size:14px}
+#chead .pid b{font-size:14.5px}
+#chead small{margin:2px 0 0;font-size:11.5px}
+#cback{flex:none;width:34px;height:34px;display:grid;place-items:center;border:0;border-radius:10px;background:rgba(255,255,255,.06);color:var(--muted);cursor:pointer;transition:background .15s,color .15s}
+#cback:hover,#cback:focus-visible{background:rgba(248,169,0,.16);color:var(--gold);outline:none}
+#cback svg,#csend svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+#cmsgs{flex:1;min-height:0;overflow-y:auto;display:flex;flex-direction:column;gap:6px;padding:4px 2px 8px;scrollbar-width:thin;scrollbar-color:rgba(var(--sb-rgb),var(--sb-a)) transparent}
+.pfhint{margin:auto;color:var(--muted);font-size:13px}
+.pfmsg{max-width:82%;padding:8px 12px;border-radius:16px;font-size:13.5px;line-height:1.4;overflow-wrap:anywhere;animation:pfMsg .28s var(--ease)}
+.pfmsg time{display:block;margin-top:3px;font-size:10px;opacity:.6}
+.pfmsg.me{align-self:flex-end;background:linear-gradient(135deg,#ffbe2e,#f8a900);color:#1c1300;border-bottom-right-radius:5px}
+.pfmsg.them{align-self:flex-start;background:rgba(255,255,255,.09);border-bottom-left-radius:5px}
+@keyframes pfMsg{from{opacity:0;transform:translateY(8px) scale(.96)}to{opacity:1;transform:none}}
+#ccomp{display:flex;gap:8px;padding:8px 0 12px}
+#ccomp input{flex:1;min-width:0}
+#csend{flex:none;width:42px;display:grid;place-items:center;border:0;border-radius:12px;background:var(--gold);color:#10141b;cursor:pointer;transition:transform .15s,filter .2s}
+#csend:hover{filter:brightness(1.12)}#csend:active{transform:scale(.94)}
+/* footer + signed-out view */
+#pfoot{padding:12px 14px 14px;border-top:1px solid rgba(255,255,255,.07);background:rgba(0,0,0,.18)}
+#plogout{width:100%;display:flex;align-items:center;justify-content:center;gap:9px;padding:11px;border:1px solid rgba(255,122,122,.35);border-radius:13px;background:rgba(255,122,122,.08);color:#ff9a9d;font:700 13.5px var(--body);cursor:pointer;transition:background .2s,transform .2s var(--ease)}
+#plogout:hover,#plogout:focus-visible{background:rgba(255,122,122,.18);transform:translateY(-1px);outline:none}
+#plogout svg,#lgbtn svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+#pview-out{align-items:center;text-align:center;padding:30px 24px 24px}
+#pview-out .pavb{width:78px;height:78px;border-radius:50%;border:2px solid var(--gold);background:#10141b var(--pengu) center/62% no-repeat;filter:grayscale(.75);opacity:.85}
+#pview-out .pavb .sdot{width:20px;height:20px}
+#pview-out h3{margin:16px 0 4px;font:700 20px/1.1 var(--head);letter-spacing:.06em;text-transform:uppercase}
+#pview-out p{margin:0 0 18px;color:var(--muted);font-size:13px;line-height:1.5}
+#lgname{text-align:center}
+#lgbtn{width:100%;margin-top:12px;display:flex;align-items:center;justify-content:center;gap:9px;padding:12px;border:0;border-radius:13px;background:linear-gradient(180deg,#ffbe2e,#e29400);color:#1c1300;font:800 14px var(--body);cursor:pointer;box-shadow:0 8px 22px rgba(248,169,0,.3);transition:transform .2s var(--ease),box-shadow .25s}
+#lgbtn:hover,#lgbtn:focus-visible{transform:translateY(-2px);box-shadow:0 12px 30px rgba(248,169,0,.46);outline:none}
+@media (prefers-reduced-motion:reduce){#pmenu,#pmenu *{animation-duration:.01s!important;animation-delay:0s!important;transition-duration:.01s!important}}
+</style>
+<style id="profileCss2">
+/* ===== Profile: more motion ===== */
+/* living background glow */
+#pview-in,#pview-out{position:relative;z-index:1}
+#pmenu::before,#pmenu::after{content:"";position:absolute;z-index:0;border-radius:50%;pointer-events:none;will-change:transform}
+#pmenu::before{width:280px;height:280px;left:-90px;top:-110px;background:radial-gradient(circle,rgba(248,169,0,.24),transparent 65%);animation:pfBlobA 9s ease-in-out infinite alternate}
+#pmenu::after{width:300px;height:300px;right:-100px;bottom:-120px;background:radial-gradient(circle,rgba(75,224,242,.17),transparent 65%);animation:pfBlobB 12s ease-in-out infinite alternate}
+@keyframes pfBlobA{to{transform:translate(110px,70px) scale(1.25)}}
+@keyframes pfBlobB{to{transform:translate(-90px,-80px) scale(1.2)}}
+/* avatar: rotating gold ring + pulsing status dot */
+.pavb::before,#pav::before{content:"";position:absolute;inset:-5px;border-radius:50%;pointer-events:none;
+  background:conic-gradient(from 0deg,var(--gold),rgba(248,169,0,0) 38%,var(--sc),rgba(248,169,0,0) 78%,var(--gold));
+  -webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 3px),#000 calc(100% - 2px));mask:radial-gradient(farthest-side,transparent calc(100% - 3px),#000 calc(100% - 2px));
+  animation:pfSpin 5s linear infinite}
+#pav::before{inset:-4px;opacity:0;transition:opacity .3s;animation-play-state:paused}
+#pbtn:hover #pav::before,#pbtn[aria-expanded="true"] #pav::before{opacity:1;animation-play-state:running}
+@keyframes pfSpin{to{transform:rotate(360deg)}}
+.sdot{position:relative}
+#pav .sdot,.pavb .sdot{position:absolute}
+.sdot::after{content:"";position:absolute;inset:-3px;border-radius:50%;border:2px solid var(--sc);opacity:0;pointer-events:none}
+#profile[data-st="online"] .sdot::after{animation:sdPulse 2.4s ease-out infinite}
+@keyframes sdPulse{0%{opacity:.8;transform:scale(.7)}100%{opacity:0;transform:scale(1.9)}}
+/* collapsed pill: light sweep on hover */
+#pbtn{position:relative;overflow:hidden}
+#pbtn::after{content:"";position:absolute;top:0;bottom:0;left:-60%;width:40%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.14),transparent);transform:skewX(-20deg);pointer-events:none}
+#pbtn:hover::after{animation:pfSweep .9s ease-out}
+@keyframes pfSweep{to{left:130%}}
+/* tabs */
+.pftab svg{transition:transform .25s var(--ease)}
+.pftab:hover svg{transform:translateY(-2px) scale(1.1)}
+.pftab.on svg{animation:pfTabPop .5s cubic-bezier(.2,1.6,.3,1)}
+@keyframes pfTabPop{0%{transform:scale(.6) rotate(-14deg)}100%{transform:none}}
+#pind::after{animation:pfGlow 2.4s ease-in-out infinite}
+@keyframes pfGlow{50%{box-shadow:0 0 14px rgba(248,169,0,.95)}}
+.pfbadge{animation:pfBadge 1.8s ease-in-out infinite}
+@keyframes pfBadge{50%{transform:scale(1.18)}}
+.pfpane.in{animation:pfSlide .38s var(--ease)}
+@keyframes pfSlide{from{opacity:0;transform:translateX(var(--dx,0))}to{opacity:1;transform:none}}
+/* status list */
+#pstlist{transform-origin:20px 0}
+#pstlist:not([hidden]) li{animation:pvIn .28s var(--ease) backwards}
+#pstlist:not([hidden]) li:nth-child(2){animation-delay:.04s}
+#pstlist:not([hidden]) li:nth-child(3){animation-delay:.08s}
+/* friends + conversations */
+#flist li,.pfrow{position:relative;animation:pvIn .34s var(--ease) backwards;animation-delay:calc(var(--n,0)*.04s);transition:background .2s,transform .28s var(--ease)}
+#flist li::before,.pfrow::before{content:"";position:absolute;left:0;top:22%;bottom:22%;width:3px;border-radius:3px;background:var(--gold);box-shadow:0 0 10px rgba(248,169,0,.7);transform:scaleY(0);transition:transform .28s var(--ease)}
+#flist li:hover,.pfrow:hover{transform:translateX(4px)}
+#flist li:hover::before,.pfrow:hover::before{transform:scaleY(1)}
+.fa{transition:transform .28s var(--ease),box-shadow .28s,border-color .28s}
+#flist li:hover .fa,.pfrow:hover .fa{transform:scale(1.1) rotate(-4deg);border-color:var(--gold);box-shadow:0 0 14px rgba(248,169,0,.55)}
+#flist li.fresh{animation:fFresh 1.4s ease-out}
+@keyframes fFresh{0%{opacity:0;transform:translateX(-26px) scale(.94);background:rgba(248,169,0,.35)}35%{opacity:1;transform:none;background:rgba(248,169,0,.22)}100%{background:transparent}}
+#flist li.gone{animation:fGone .26s ease-in forwards!important}
+@keyframes fGone{to{opacity:0;transform:translateX(34px) scale(.95)}}
+#fcount.bump,#pfmc.bump{animation:pfBump .45s cubic-bezier(.2,1.8,.3,1)}
+@keyframes pfBump{40%{transform:scale(1.5)}}
+#fgoadd{position:relative;overflow:hidden}
+#fgoadd::after,#lgbtn::after{content:"";position:absolute;top:0;bottom:0;left:-60%;width:40%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);transform:skewX(-20deg);animation:pfShine 3.2s ease-in-out infinite;pointer-events:none}
+@keyframes pfShine{0%,55%{left:-60%}100%{left:140%}}
+#pmenu input{transition:border-color .2s,box-shadow .25s,background .2s}
+#pmenu input:focus{box-shadow:0 0 0 3px rgba(248,169,0,.16),0 0 18px rgba(248,169,0,.14)}
+#fplus{transition:transform .25s var(--ease),filter .2s}
+#fplus:hover{transform:rotate(90deg) scale(1.08)}
+/* chat */
+#csend svg{transition:transform .25s}
+#csend.fly svg{animation:pfFly .55s ease}
+@keyframes pfFly{40%{transform:translate(16px,-16px) scale(.5);opacity:0}41%{transform:translate(-16px,16px) scale(.5);opacity:0}100%{transform:none;opacity:1}}
+#cmsgs .pfhint{animation:pfFloat 3s ease-in-out infinite}
+.pfmsg.me{transform-origin:100% 100%}.pfmsg.them{transform-origin:0 100%}
+/* footer + signed-out screen */
+#plogout svg{transition:transform .25s var(--ease)}
+#plogout:hover svg{transform:translateX(4px)}
+#pview-out{overflow:hidden}
+#pview-out::before,#pview-out::after{content:"";position:absolute;z-index:0;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);pointer-events:none;will-change:transform}
+#pview-out::before{width:120px;height:138px;left:-34px;top:-30px;background:rgba(248,169,0,.1);animation:pfDriftA 8s ease-in-out infinite alternate}
+#pview-out::after{width:84px;height:97px;right:-18px;bottom:-24px;background:rgba(75,224,242,.1);animation:pfDriftB 10s ease-in-out infinite alternate}
+@keyframes pfDriftA{to{transform:translate(40px,34px) rotate(30deg)}}
+@keyframes pfDriftB{to{transform:translate(-36px,-30px) rotate(-30deg)}}
+#pview-out .pavb{animation:pfFloat 3.4s ease-in-out infinite}
+#pview-out .pavb::before{animation-duration:9s;opacity:.55}
+#lgbtn{position:relative;overflow:hidden}
+@keyframes pfFloat{50%{transform:translateY(-6px)}}
+@media (prefers-reduced-motion:reduce){#pmenu::before,#pmenu::after,#pview-out::before,#pview-out::after,#pmenu *::before,#pmenu *::after,#pav::before,#pbtn::after,.sdot::after{animation:none!important}}
+</style>
 </head>
 <body>
 <div id="intro" aria-hidden="true">
@@ -1127,13 +1342,64 @@ html.introFade #app>*:not(#bg):not(#bgshade){transition:opacity .7s ease!importa
 </div>
 <nav id="side">
   <img id="logo" src="img/logo.png" alt="TFT Vault">
-  <div id="profile">
-    <button id="pbtn" aria-label="Profile" aria-expanded="false"><span id="pav"></span><span id="pshow">Summoner</span><svg class="pcar" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button>
-    <div id="pmenu" hidden>
-      <div id="phead"><span class="pavb"></span><div><b id="pbig">Summoner</b><small data-i18n="saved">Saved on this PC.</small></div></div>
-      <div><label for="pname" data-i18n="dname">Display name</label>
-      <input id="pname" maxlength="20" placeholder="Summoner" autocomplete="off"></div>
-      <div id="sbp"><label>Scrollbar</label>
+  <div id="profile" data-logged="1" data-st="online">
+    <button id="pbtn" aria-label="Profile" aria-expanded="false" aria-haspopup="dialog"><span id="pav"><i class="sdot"></i></span><span id="pshow">Summoner</span><svg class="pcar" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button>
+    <div id="pmenu" hidden role="dialog" aria-label="Profile">
+      <div id="pview-in">
+        <div id="phead">
+          <span class="pavb"><i class="sdot"></i></span>
+          <div class="pid"><b id="pbig">Summoner</b>
+            <button id="pstat" type="button" aria-haspopup="listbox"><i class="sdot"></i><span id="pstxt">Online</span><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button></div>
+          <button id="pclose" type="button" aria-label="Close"><svg viewBox="0 0 24 24"><path d="M4 12h11M11 7l5 5-5 5M20 5v14"/></svg></button>
+        </div>
+        <ul id="pstlist" role="listbox" hidden>
+          <li role="option" data-s="online" style="--c:#3ddc84"><i class="sdot"></i>Online</li>
+          <li role="option" data-s="away" style="--c:#f5a524"><i class="sdot"></i>Away</li>
+          <li role="option" data-s="invisible" style="--c:#7b8494"><i class="sdot"></i>Invisible</li>
+        </ul>
+        <div id="pftabs" role="tablist">
+          <i id="pind"></i>
+          <button class="pftab on" data-t="friends" role="tab" aria-label="Friends" title="Friends"><svg viewBox="0 0 24 24"><path d="M8.5 6H20M8.5 12H20M8.5 18H20M4 6h.01M4 12h.01M4 18h.01"/></svg></button>
+          <button class="pftab" data-t="msgs" role="tab" aria-label="Messages" title="Messages"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.5 8.5 0 0 1-12.4 7.5L3.5 20.5l1.6-4.6A8.5 8.5 0 1 1 21 11.5z"/></svg><span class="pfbadge" id="pfmb" hidden></span></button>
+          <button class="pftab" data-t="add" role="tab" aria-label="Add friend" title="Add friend"><svg viewBox="0 0 24 24"><path d="M15 20v-1.5a3.5 3.5 0 0 0-3.5-3.5h-4A3.5 3.5 0 0 0 4 18.5V20M9.5 11.5a3.2 3.2 0 1 0 0-6.4 3.2 3.2 0 0 0 0 6.4M19 8v6M16 11h6"/></svg></button>
+          <button class="pftab" data-t="set" role="tab" aria-label="Settings" title="Settings"><svg viewBox="0 0 24 24"><path d="M4 7h9M17 7h3M4 17h3M11 17h9M15 5v4M9 15v4"/></svg></button>
+        </div>
+
+        <section class="pfpane" data-p="friends">
+          <div id="pfsw"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg><input id="fsearch" maxlength="24" autocomplete="off" placeholder="Search friends"></div>
+          <div class="pftitle"><span data-i18n="friends">Friends</span><b id="fcount">0</b></div>
+          <div class="pfscroll">
+            <ul id="flist"></ul>
+            <div id="fempty"><p>No friends yet.</p><button type="button" id="fgoadd">Add a friend</button></div>
+            <p id="fnone" hidden>No friends match your search.</p>
+          </div>
+        </section>
+
+        <section class="pfpane" data-p="msgs" hidden>
+          <div id="pfclist">
+            <div class="pftitle"><span>Messages</span><b id="pfmc">0</b></div>
+            <div class="pfscroll"><div id="clist"></div>
+              <div id="pfnomsg"><p>No messages yet.</p><small>Press the chat button next to a friend to start.</small></div></div>
+          </div>
+          <div id="cchat" hidden>
+            <div id="chead"><button id="cback" type="button" aria-label="Back"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button><span class="fa" id="cav"></span><div class="pid"><b id="cname"></b><small id="csub"></small></div></div>
+            <div id="cmsgs"></div>
+            <div id="ccomp"><input id="cin" maxlength="500" autocomplete="off" placeholder="Write a message…"><button id="csend" type="button" aria-label="Send"><svg viewBox="0 0 24 24"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4z"/></svg></button></div>
+          </div>
+        </section>
+
+        <section class="pfpane" data-p="add" hidden>
+          <div class="pftitle"><span>Add a friend</span></div>
+          <div id="fadd"><input id="fname" maxlength="24" autocomplete="off" placeholder="Name#TAG" data-i18n-ph="fph"><button id="fplus" aria-label="Add">+</button></div>
+          <small>Type their name with the tag, for example Name#EUW.</small>
+        </section>
+
+        <section class="pfpane" data-p="set" hidden>
+          <div class="pfscroll">
+            <label for="pname" data-i18n="dname">Display name</label>
+            <input id="pname" maxlength="20" placeholder="Summoner" autocomplete="off">
+            <small data-i18n="saved">Saved on this PC.</small>
+            <div id="sbp"><label>Scrollbar</label>
         <div class="sbrow"><span>Color</span><div class="sw" id="sbsw">
           <button style="--c:248,169,0" data-c="248,169,0" aria-label="Orange"></button>
           <button style="--c:255,106,0" data-c="255,106,0" aria-label="Deep orange"></button>
@@ -1145,13 +1411,20 @@ html.introFade #app>*:not(#bg):not(#bgshade){transition:opacity .7s ease!importa
         <div class="sbrow"><span>Opacity</span><input id="sba" type="range" min="15" max="100" step="1"><output id="sbao"></output></div>
         <div class="sbfoot"><label><input id="sbsm" type="checkbox"> Smooth wheel</label><button id="sbreset" type="button">Reset</button></div>
       </div>
-      <button id="ftoggle" aria-expanded="true"><span data-i18n="friends">Friends</span><b id="fcount">0</b><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button>
-      <div id="fwrap"><div id="fbody">
-        <div id="fadd"><input id="fname" maxlength="24" autocomplete="off" placeholder="Name#TAG" data-i18n-ph="fph"><button id="fplus" aria-label="Add">+</button></div>
-        <ul id="flist"></ul>
-        <p id="fempty" data-i18n="fempty">No friends yet. Add one above.</p>
-      </div></div>
-      <small id="uvtxt"></small>
+            <small id="uvtxt"></small>
+          </div>
+        </section>
+
+        <div id="pfoot"><button id="plogout" type="button"><svg viewBox="0 0 24 24"><path d="M10 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h4M15 8l4 4-4 4M19 12H9"/></svg>Log out</button></div>
+      </div>
+
+      <div id="pview-out">
+        <span class="pavb"><i class="sdot"></i></span>
+        <h3>Signed out</h3>
+        <p>Log in to see your friends and messages. Everything stays saved on this PC.</p>
+        <input id="lgname" maxlength="20" autocomplete="off" placeholder="Name#TAG">
+        <button id="lgbtn" type="button"><svg viewBox="0 0 24 24"><path d="M15 4h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-3M10 8l4 4-4 4M14 12H4"/></svg>Log in</button>
+      </div>
     </div>
   </div>
   <div id="menu">
@@ -1583,33 +1856,96 @@ function closeTrailer() { tm.classList.remove('on'); $('tframe').innerHTML = '';
 $('tclose').onclick = closeTrailer;
 tm.onclick = e => { if (e.target === tm) closeTrailer(); };
 
-// Profile
-const pbtn = $('pbtn'), pmenu = $('pmenu'), pname = $('pname');
+// Profile (local profile stored on this PC: log in / log out, status, friends, messages)
+const pbtn = $('pbtn'), pmenu = $('pmenu'), pname = $('pname'), profileEl = $('profile');
 const store = { get: k => { try { return localStorage.getItem(k); } catch { return null; } }, set: (k, v) => { try { localStorage.setItem(k, v); } catch {} } };
 function setName(el, n) { el.textContent = ''; const k = n.indexOf('#'); if (k > 0) { el.append(n.slice(0, k)); const t = document.createElement('i'); t.textContent = n.slice(k); el.append(t); } else el.textContent = n; }
-function paintProfile() { const n = (pname.value || '').trim() || 'Summoner'; setName($('pshow'), n); setName($('pbig'), n); }
+let logged = store.get('tft.logged') !== '0', pstatus = store.get('tft.status');
+if (!['online', 'away', 'invisible'].includes(pstatus)) pstatus = 'online';
+const STL = { online: 'Online', away: 'Away', invisible: 'Invisible', off: 'Signed out' };
+function paintProfile() {
+  const n = (pname.value || '').trim() || 'Summoner', shown = logged ? n : 'Guest', st = logged ? pstatus : 'off';
+  setName($('pshow'), shown); setName($('pbig'), shown);
+  profileEl.dataset.st = st; profileEl.dataset.logged = logged ? '1' : '0'; $('pstxt').textContent = STL[st];
+  document.querySelectorAll('#pstlist li').forEach(li => li.classList.toggle('on', li.dataset.s === pstatus));
+}
 pname.value = store.get('tft.name') || ''; paintProfile();
 pname.oninput = () => { store.set('tft.name', pname.value); paintProfile(); };
 pbtn.addEventListener('click', () => { pbtn.classList.remove('pop'); void pbtn.offsetWidth; pbtn.classList.add('pop'); clearTimeout(pbtn._t); pbtn._t = setTimeout(() => pbtn.classList.remove('pop'), 700); });
-pbtn.onclick = e => { e.stopPropagation(); pmenu.hidden = !pmenu.hidden; pbtn.setAttribute('aria-expanded', String(!pmenu.hidden)); if (!pmenu.hidden) pname.focus(); };
-pmenu.onclick = e => e.stopPropagation();
-document.addEventListener('click', () => { pmenu.hidden = true; pbtn.setAttribute('aria-expanded', 'false'); });
+
+// ---- open / close with animation ----
+let ptab = 'friends';
+const TABS = ['friends', 'msgs', 'add', 'set'];
+function setTab(t) {
+  const dir = TABS.indexOf(t) - TABS.indexOf(ptab); ptab = t;
+  document.querySelectorAll('.pftab').forEach(b => { const on = b.dataset.t === t; b.classList.toggle('on', on); b.setAttribute('aria-selected', String(on)); });
+  $('pind').style.transform = 'translateX(' + (TABS.indexOf(t) * 100) + '%)';
+  document.querySelectorAll('.pfpane').forEach(p => {
+    const on = p.dataset.p === t;
+    if (on && p.hidden) { p.hidden = false; p.style.setProperty('--dx', (dir >= 0 ? 26 : -26) + 'px'); p.classList.remove('in'); void p.offsetWidth; p.classList.add('in'); } else if (!on) p.hidden = true;
+  });
+  if (t === 'msgs') paintChats();
+}
+function swapAnim() { pmenu.classList.remove('swap'); void pmenu.offsetWidth; pmenu.classList.add('swap'); }
+function openProfile() {
+  clearTimeout(openProfile.t); pmenu.classList.remove('out', 'swap'); pmenu.hidden = false; $('pstlist').hidden = true;
+  pbtn.setAttribute('aria-expanded', 'true'); setTab(ptab);
+  setTimeout(() => (logged ? (ptab === 'friends' ? $('fsearch') : null) : $('lgname')) && (logged ? $('fsearch') : $('lgname')).focus({ preventScroll: true }), 80);
+}
+function closeProfile() {
+  if (pmenu.hidden || pmenu.classList.contains('out')) return;
+  pmenu.classList.add('out'); pbtn.setAttribute('aria-expanded', 'false'); $('pstlist').hidden = true;
+  openProfile.t = setTimeout(() => { pmenu.hidden = true; pmenu.classList.remove('out'); }, 200);
+}
+pbtn.onclick = e => { e.stopPropagation(); (pmenu.hidden || pmenu.classList.contains('out')) ? openProfile() : closeProfile(); };
+pmenu.onclick = e => { e.stopPropagation(); if (!e.target.closest('#pstat,#pstlist')) $('pstlist').hidden = true; };
+$('pclose').onclick = closeProfile;
+document.addEventListener('click', closeProfile);
+document.addEventListener('keydown', e => {
+  if (e.key !== 'Escape' || pmenu.hidden) return;
+  if (!$('pstlist').hidden) { $('pstlist').hidden = true; return; }
+  closeProfile(); pbtn.focus();
+});
+document.querySelectorAll('.pftab').forEach(b => b.onclick = () => { if (b.dataset.t === 'msgs' && ptab === 'msgs') { curChat = null; paintChats(); } setTab(b.dataset.t); });
+
+// ---- status + log in / log out ----
+$('pstat').onclick = () => { $('pstlist').hidden = !$('pstlist').hidden; };
+$('pstlist').onclick = e => { const li = e.target.closest('li'); if (!li) return; pstatus = li.dataset.s; store.set('tft.status', pstatus); paintProfile(); $('pstlist').hidden = true; };
+$('plogout').onclick = () => { logged = false; store.set('tft.logged', '0'); curChat = null; paintProfile(); swapAnim(); $('lgname').value = (pname.value || '').trim(); setTimeout(() => $('lgname').focus(), 80); toast('Logged out'); };
+function doLogin() {
+  const v = $('lgname').value.trim().replace(/\s+/g, ' ');
+  if (v) { pname.value = v.slice(0, 20); store.set('tft.name', pname.value); }
+  logged = true; store.set('tft.logged', '1'); paintProfile(); swapAnim(); ptab = 'friends'; setTab('friends'); renderFriends();
+  toast('Welcome back, ' + ((pname.value || '').trim() || 'Summoner'));
+}
+$('lgbtn').onclick = doLogin; $('lgname').onkeydown = e => { if (e.key === 'Enter') doLogin(); };
+
 // ---------- Friends (stored on this PC) ----------
 const tt = k => (I18N[document.documentElement.lang] || I18N.en)[k];
 let friends = []; try { friends = JSON.parse(store.get('tft.friends') || '[]').filter(x => typeof x === 'string'); } catch {}
+let chats = {}; try { chats = JSON.parse(store.get('tft.chats') || '{}') || {}; } catch {}
+const unread = {}; let curChat = null;
+const fkey = f => f.toLowerCase(), splitName = f => { const k = f.lastIndexOf('#'); return k > 0 ? [f.slice(0, k), f.slice(k)] : [f, '']; };
+const saveChats = () => store.set('tft.chats', JSON.stringify(chats));
+const hhmm = ts => { try { return new Date(ts).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }); } catch { return ''; } };
+const mkAv = f => { const a = document.createElement('span'); a.className = 'fa'; a.textContent = (splitName(f)[0][0] || '?').toUpperCase(); return a; };
+const svgIcon = d => { const n = 'http://www.w3.org/2000/svg', s = document.createElementNS(n, 'svg'), p = document.createElementNS(n, 'path'); s.setAttribute('viewBox', '0 0 24 24'); p.setAttribute('d', d); s.append(p); return s; };
 function renderFriends() {
-  const ul = $('flist'); ul.textContent = '';
-  friends.forEach((f, i) => {
-    const k = f.lastIndexOf('#'), nm = k > 0 ? f.slice(0, k) : f, tag = k > 0 ? f.slice(k) : '';
-    const li = document.createElement('li');
-    const av = document.createElement('span'); av.className = 'fa'; av.textContent = (nm[0] || '?').toUpperCase();
+  const q = ($('fsearch').value || '').trim().toLowerCase(), ul = $('flist'); ul.textContent = '';
+  const list = friends.map((f, i) => ({ f, i })).filter(x => !q || x.f.toLowerCase().includes(q));
+  list.forEach(({ f, i }, n) => {
+    const [nm, tag] = splitName(f);
+    const li = document.createElement('li'); li.style.setProperty('--n', n);
     const fn = document.createElement('span'); fn.className = 'fn'; fn.textContent = nm;
     if (tag) { const t = document.createElement('i'); t.textContent = tag; fn.append(t); }
+    const fm = document.createElement('button'); fm.className = 'fm'; fm.title = fm.ariaLabel = 'Message'; fm.append(svgIcon('M21 11.5a8.5 8.5 0 0 1-12.4 7.5L3.5 20.5l1.6-4.6A8.5 8.5 0 1 1 21 11.5z'));
+    fm.onclick = () => openChat(f);
     const x = document.createElement('button'); x.className = 'fx'; x.textContent = '×'; x.title = x.ariaLabel = tt('frem');
-    x.onclick = () => { friends.splice(i, 1); saveFriends(); renderFriends(); };
-    li.append(av, fn, x); ul.append(li);
+    x.onclick = () => { li.classList.add('gone'); setTimeout(() => { const j = friends.indexOf(f); if (j > -1) friends.splice(j, 1); saveFriends(); renderFriends(); paintChats(); }, 260); };
+    li.append(mkAv(f), fn, fm, x); ul.append(li);
   });
-  $('fcount').textContent = friends.length; $('fempty').hidden = friends.length > 0;
+  const fc = $('fcount'); if (fc.textContent !== String(friends.length)) { fc.textContent = friends.length; fc.classList.remove('bump'); void fc.offsetWidth; fc.classList.add('bump'); }
+  $('fempty').hidden = friends.length > 0; $('fnone').hidden = !(friends.length && !list.length);
 }
 function saveFriends() { store.set('tft.friends', JSON.stringify(friends)); }
 function addFriend() {
@@ -1617,20 +1953,87 @@ function addFriend() {
   if (!v) return;
   if (friends.some(f => f.toLowerCase() === v.toLowerCase())) { toast(tt('fdup')); return; }
   if (friends.length >= 50) return;
-  friends.unshift(v); saveFriends(); $('fname').value = ''; renderFriends(); $('flist').scrollTop = 0;
+  friends.unshift(v); saveFriends(); $('fname').value = ''; $('fsearch').value = ''; renderFriends(); setTab('friends'); $('flist').scrollTop = 0;
+  const first = $('flist').firstElementChild; if (first) first.classList.add('fresh');
 }
 $('fplus').onclick = addFriend;
 $('fname').onkeydown = e => { if (e.key === 'Enter') addFriend(); };
-function setFriendsOpen(o) { $('fwrap').classList.toggle('closed', !o); $('ftoggle').setAttribute('aria-expanded', String(o)); store.set('tft.fopen', o ? '1' : '0'); }
-$('ftoggle').onclick = () => setFriendsOpen($('fwrap').classList.contains('closed'));
-if (store.get('tft.fopen') === '0') setFriendsOpen(false);
-document.addEventListener('keydown', e => { if (e.key === 'Escape' && !pmenu.hidden) { pmenu.hidden = true; pbtn.setAttribute('aria-expanded', 'false'); pbtn.focus(); } });
+$('fsearch').oninput = renderFriends;
+$('fgoadd').onclick = () => { setTab('add'); setTimeout(() => $('fname').focus(), 60); };
 
+// ---------- Messages ----------
+// Delivery hook: window.go.main.App.SendMessage(friend, text) and the 'chat:message' event {from,text,ts}.
+// Without a backend, messages are only saved on this PC.
+const chatLive = () => !!(window.go && window.go.main && window.go.main.App && window.go.main.App.SendMessage);
+function badges() {
+  const n = Object.values(unread).reduce((a, b) => a + b, 0), b = $('pfmb'); b.hidden = !n; b.textContent = n > 9 ? '9+' : n;
+}
+function paintChats() {
+  badges();
+  $('cchat').hidden = !curChat; $('pfclist').hidden = !!curChat;
+  if (curChat) { paintChat(); return; }
+  const box = $('clist'); box.textContent = '';
+  const keys = Object.keys(chats).filter(k => chats[k].length && friends.some(f => fkey(f) === k)).sort((a, b) => chats[b][chats[b].length - 1].ts - chats[a][chats[a].length - 1].ts);
+  keys.forEach((k, n) => {
+    const f = friends.find(x => fkey(x) === k), last = chats[k][chats[k].length - 1];
+    const row = document.createElement('div'); row.className = 'pfrow'; row.tabIndex = 0; row.style.setProperty('--n', n);
+    const mid = document.createElement('div'); mid.className = 'pfmid';
+    const nm = document.createElement('b'); nm.textContent = splitName(f)[0];
+    const pv = document.createElement('span'); pv.textContent = (last.me ? 'You: ' : '') + last.m;
+    mid.append(nm, pv);
+    const tm = document.createElement('time'); tm.textContent = hhmm(last.ts);
+    row.append(mkAv(f), mid, tm);
+    if (unread[k]) { const u = document.createElement('em'); u.className = 'pfub'; u.textContent = unread[k]; row.append(u); }
+    row.onclick = () => openChat(f); row.onkeydown = e => { if (e.key === 'Enter') openChat(f); };
+    box.append(row);
+  });
+  $('pfnomsg').hidden = keys.length > 0; $('pfmc').textContent = keys.length;
+}
+function openChat(f) { curChat = f; unread[fkey(f)] = 0; setTab('msgs'); paintChats(); setTimeout(() => $('cin').focus(), 60); }
+function paintChat(animLast) {
+  const f = curChat, k = fkey(f), [nm, tag] = splitName(f);
+  $('cname').textContent = nm + tag; $('csub').textContent = chatLive() ? 'Online chat' : 'Saved on this PC only';
+  const av = $('cav'); av.textContent = (nm[0] || '?').toUpperCase();
+  const box = $('cmsgs'); box.textContent = '';
+  const msgs = chats[k] || [];
+  if (!msgs.length) { const e = document.createElement('p'); e.className = 'pfhint'; e.textContent = 'Say hi to ' + nm + '!'; box.append(e); }
+  msgs.forEach((m, i) => {
+    const d = document.createElement('div'); d.className = 'pfmsg ' + (m.me ? 'me' : 'them'); if (!animLast || i < msgs.length - 1) d.style.animation = 'none';
+    d.append(document.createTextNode(m.m)); const t = document.createElement('time'); t.textContent = hhmm(m.ts); d.append(t); box.append(d);
+  });
+  box.scrollTop = box.scrollHeight; badges();
+}
+async function sendChat() {
+  const inp = $('cin'), v = inp.value.trim().slice(0, 500); if (!v || !curChat) return;
+  inp.value = ''; const k = fkey(curChat); (chats[k] = chats[k] || []).push({ m: v, me: 1, ts: Date.now() });
+  if (chats[k].length > 200) chats[k].splice(0, chats[k].length - 200);
+  saveChats(); paintChat(true);
+  const sb = $('csend'); sb.classList.remove('fly'); void sb.offsetWidth; sb.classList.add('fly');
+  try { await window.go.main.App.SendMessage(curChat, v); } catch {}
+}
+$('csend').onclick = sendChat; $('cin').onkeydown = e => { if (e.key === 'Enter') sendChat(); };
+$('cback').onclick = () => { curChat = null; paintChats(); };
+try {
+  window.runtime.EventsOn('chat:message', d => {
+    if (!d || !d.from || !d.text) return;
+    const f = friends.find(x => fkey(x) === fkey(String(d.from))); if (!f) return;
+    const k = fkey(f); (chats[k] = chats[k] || []).push({ m: String(d.text).slice(0, 500), me: 0, ts: d.ts || Date.now() }); saveChats();
+    if (!(curChat && fkey(curChat) === k && !pmenu.hidden)) unread[k] = (unread[k] || 0) + 1;
+    if (!pmenu.hidden && ptab === 'msgs') paintChats(); else badges();
+  });
+} catch {}
 
 // ---------- App news (popup) ----------
 const openExt = u => { try { window.runtime.BrowserOpenURL(u); } catch { window.open(u, '_blank'); } };
 // Add new entries at the TOP of this list. d = date (YYYY-MM-DD), new = show the NEW badge.
 const APP_NEWS = [
+  { d: '2026-10-09', t: 'Profile redesign', new: true, items: [
+    'New glass profile panel with a status dot and a status picker: Online, Away or Invisible.',
+    'Tabs for Friends, Messages, Add friend and Settings, with a sliding highlight.',
+    'Log in and Log out: signing out keeps your friends and messages saved on this PC.',
+    'Search your friends, and press the chat button on a friend to open a conversation.',
+    'More motion: animated glow background, spinning avatar ring, pulsing status dot and smooth tab slides.'
+  ] },
   { d: '2026-10-09', t: 'Auto update', new: true, items: [
     'New update button in the top bar, next to the window controls.',
     'The app checks for a new version on launch and every 6 hours by itself.',
