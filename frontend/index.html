@@ -994,6 +994,27 @@ html.introOn #app>*:not(#bg):not(#bgshade){opacity:0!important}
 html.introFade #app>*:not(#bg):not(#bgshade){transition:opacity .7s ease!important}
 @media (prefers-reduced-motion:reduce){#intro{display:none}html.introOn #app>*{opacity:1!important}}
 </style>
+<style id="bpassCss">
+/* ---- Battle pass card: lower, glassier, gradient edge ---- */
+#bpass{top:60px;right:26px;gap:14px;padding:11px 12px 11px 18px;border-radius:20px;
+  background:linear-gradient(135deg,rgba(34,48,68,.34),rgba(10,15,24,.26));
+  border:1px solid rgba(255,255,255,.1);
+  box-shadow:0 14px 36px rgba(0,0,0,.32),inset 0 1px 0 rgba(255,255,255,.1),inset 0 0 28px rgba(255,255,255,.025);
+  backdrop-filter:blur(20px) saturate(1.5);-webkit-backdrop-filter:blur(20px) saturate(1.5);
+  text-shadow:0 1px 6px rgba(0,0,0,.55)}
+#bpass::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;pointer-events:none;
+  background:linear-gradient(125deg,rgba(248,169,0,.55),rgba(255,255,255,0) 32%,rgba(255,255,255,0) 68%,rgba(75,224,242,.4));
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
+#bpass:hover{transform:translateY(-3px) scale(1.02);border-color:rgba(248,169,0,.35);
+  box-shadow:0 18px 40px rgba(0,0,0,.4),0 0 30px -8px rgba(248,169,0,.5),inset 0 1px 0 rgba(255,255,255,.14)}
+#bpass .bp-next{color:rgba(220,230,235,.78)}
+#bpass .bp-bar{background:rgba(8,22,36,.42);border-color:rgba(100,185,225,.55);box-shadow:inset 0 2px 5px rgba(0,0,0,.35),0 0 14px -4px rgba(75,224,242,.35)}
+#bpass .bp-bar span{background:rgba(35,90,130,.5)}
+#bpass .bp-rw{background:radial-gradient(circle at 50% 38%,rgba(120,195,240,.78),rgba(40,95,138,.6));
+  border-color:rgba(214,186,124,.95);box-shadow:inset 0 0 0 1.5px rgba(10,20,32,.55),0 6px 16px rgba(0,0,0,.35),0 0 18px -6px rgba(111,183,230,.6)}
+#bpass .bp-tag{background:rgba(10,18,28,.62);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+#bpass.bp-prem .bp-rw{border-color:#f8a900;box-shadow:inset 0 0 0 1.5px rgba(10,20,32,.55),0 6px 16px rgba(0,0,0,.35),0 0 20px -4px rgba(248,169,0,.6)}
+</style>
 </head>
 <body>
 <div id="intro" aria-hidden="true">
