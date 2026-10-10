@@ -1945,6 +1945,12 @@ button.lc-h:hover{background:rgba(255,255,255,.04)}button.lc-h small{margin-left
 @media (max-width:1100px){.lc-modes{grid-template-columns:1fr}.lc{grid-template-columns:1fr}.lc-ovt{grid-template-columns:repeat(3,1fr)}.lc-ova{grid-template-columns:1fr}.lc-row{grid-template-columns:100px 1fr 24px}}
 @media (prefers-reduced-motion:reduce){.lc-p,.lc-m,.lc-mt,.lc-p *,.lc-m *{animation-duration:.01s!important;animation-delay:0s!important}}
 </style>
+<style id="chonccCss">
+/* ===== Choncc 3D avatar (live WebGL model inside the hex profile icons) ===== */
+.a3d{position:absolute;inset:3px;width:calc(100% - 6px);height:calc(100% - 6px);z-index:0;display:block;clip-path:var(--hx);pointer-events:none}
+.has3d #pav::after,.has3d .pavb::after{background:radial-gradient(circle at 50% 30%,#4b6ea3,#101722 82%)}
+.has3d #pview-out .pavb{background:none}
+</style>
 </head>
 <body>
 <script>try{if((JSON.parse(localStorage.getItem('tft.settings.v1')||'{}')).fx===false)document.documentElement.classList.add('fx-off')}catch(e){}</script>
@@ -4311,6 +4317,281 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
   const sec = document.getElementById('history');
   new MutationObserver(() => { if (!sec.hidden && ALL.length) render(); }).observe(sec, { attributes: true, attributeFilter: ['hidden'] });
   load().then(r => { ALL = r; render(); });
+})();
+</script>
+<script>
+/* ===== Choncc 3D profile avatar: self-contained GLB + WebGL viewer (no libraries) ===== */
+(() => {
+'use strict';
+const GLB_URL = 'choncc.glb';                 // placed next to index.html
+const RW = 240, RH = 269;                     // offscreen render size (hex avatar aspect)
+const TARGET = [0, 0.61, 0], ELEV = 0.16, DIST = 3, FOVH = 1.05;
+const IDLE = 'IdleA', FLAVOR = ['IdleB', 'PetChoncc_Idle1.anm'];
+const R_HOVER = ['InteractA'], R_OPEN = ['InteractB', 'TauntLoop'], R_CLICK = ['Dance_Loop', 'TauntLoop', 'InteractC', 'InteractA'];
+const CLIPS = [IDLE, ...FLAVOR, ...R_HOVER, ...R_OPEN, ...R_CLICK];
+
+/* ---------- math (column-major mat4) ---------- */
+function mul(o, a, b) {
+  for (let c = 0; c < 4; c++) for (let r = 0; r < 4; r++)
+    o[c * 4 + r] = a[r] * b[c * 4] + a[4 + r] * b[c * 4 + 1] + a[8 + r] * b[c * 4 + 2] + a[12 + r] * b[c * 4 + 3];
+  return o;
+}
+function compose(m, T, Q, S, n) {
+  const x = Q[n * 4], y = Q[n * 4 + 1], z = Q[n * 4 + 2], w = Q[n * 4 + 3];
+  const x2 = x + x, y2 = y + y, z2 = z + z, xx = x * x2, xy = x * y2, xz = x * z2, yy = y * y2, yz = y * z2, zz = z * z2, wx = w * x2, wy = w * y2, wz = w * z2;
+  const sx = S[n * 3], sy = S[n * 3 + 1], sz = S[n * 3 + 2];
+  m[0] = (1 - (yy + zz)) * sx; m[1] = (xy + wz) * sx; m[2] = (xz - wy) * sx; m[3] = 0;
+  m[4] = (xy - wz) * sy; m[5] = (1 - (xx + zz)) * sy; m[6] = (yz + wx) * sy; m[7] = 0;
+  m[8] = (xz + wy) * sz; m[9] = (yz - wx) * sz; m[10] = (1 - (xx + yy)) * sz; m[11] = 0;
+  m[12] = T[n * 3]; m[13] = T[n * 3 + 1]; m[14] = T[n * 3 + 2]; m[15] = 1;
+}
+function slerp(o, oi, a, ai, b, bi, f) {
+  let ax = a[ai], ay = a[ai + 1], az = a[ai + 2], aw = a[ai + 3], bx = b[bi], by = b[bi + 1], bz = b[bi + 2], bw = b[bi + 3];
+  let d = ax * bx + ay * by + az * bz + aw * bw;
+  if (d < 0) { bx = -bx; by = -by; bz = -bz; bw = -bw; d = -d; }
+  let s0, s1;
+  if (d > 0.9995) { s0 = 1 - f; s1 = f; }
+  else { const th = Math.acos(d), sn = Math.sin(th); s0 = Math.sin((1 - f) * th) / sn; s1 = Math.sin(f * th) / sn; }
+  const x = s0 * ax + s1 * bx, y = s0 * ay + s1 * by, z = s0 * az + s1 * bz, w = s0 * aw + s1 * bw, l = 1 / Math.hypot(x, y, z, w);
+  o[oi] = x * l; o[oi + 1] = y * l; o[oi + 2] = z * l; o[oi + 3] = w * l;
+}
+function viewProj(yaw, pitch) {
+  const ce = Math.cos(ELEV + pitch), se = Math.sin(ELEV + pitch), cy = Math.cos(yaw), sy = Math.sin(yaw);
+  // world -> yaw about target -> pitch about X -> translate back by DIST
+  const ry = [cy, 0, -sy, 0, 0, 1, 0, 0, sy, 0, cy, 0, 0, 0, 0, 1];
+  const rx = [1, 0, 0, 0, 0, ce, se, 0, 0, -se, ce, 0, 0, 0, 0, 1];
+  const t0 = [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, -TARGET[0], -TARGET[1], -TARGET[2], 1];
+  const t1 = [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, -DIST, 1];
+  const k = DIST / (FOVH / 2), asp = RW / RH, n = 0.1, fa = 10;      // k = 1/tan(fovY/2)
+  const p = [k / asp, 0, 0, 0, 0, k, 0, 0, 0, 0, (fa + n) / (n - fa), -1, 0, 0, 2 * fa * n / (n - fa), 0];
+  let m = mul(new Float32Array(16), rx, ry); m = mul(new Float32Array(16), m, t0); m = mul(new Float32Array(16), t1, m);
+  return mul(new Float32Array(16), p, m);
+}
+
+/* ---------- GLB + rig ---------- */
+function parseGLB(ab) {
+  const dv = new DataView(ab);
+  if (dv.getUint32(0, true) !== 0x46546C67) throw new Error('not a GLB');
+  let off = 12, json = null, binOff = 0;
+  while (off < ab.byteLength) {
+    const len = dv.getUint32(off, true), type = dv.getUint32(off + 4, true); off += 8;
+    if (type === 0x4E4F534A) json = JSON.parse(new TextDecoder().decode(new Uint8Array(ab, off, len)));
+    else if (type === 0x004E4942) binOff = off;
+    off += len;
+  }
+  return { json, ab, binOff };
+}
+const CT = { 5120: Int8Array, 5121: Uint8Array, 5122: Int16Array, 5123: Uint16Array, 5125: Uint32Array, 5126: Float32Array };
+const NC = { SCALAR: 1, VEC2: 2, VEC3: 3, VEC4: 4, MAT4: 16 };
+function buildRig(g) {
+  const { json, ab, binOff } = g;
+  const acc = i => {
+    const a = json.accessors[i], bv = json.bufferViews[a.bufferView], C = CT[a.componentType], n = NC[a.type];
+    const off = binOff + (bv.byteOffset || 0) + (a.byteOffset || 0), es = C.BYTES_PER_ELEMENT * n, st = bv.byteStride || es;
+    let out;
+    if (st === es) out = new C(ab.slice(off, off + a.count * es));
+    else { out = new C(a.count * n); for (let k = 0; k < a.count; k++) out.set(new C(ab.slice(off + k * st, off + k * st + es)), k * n); }
+    if (a.normalized) { const d = a.componentType === 5121 ? 255 : 65535, f = new Float32Array(out.length); for (let k = 0; k < out.length; k++) f[k] = out[k] / d; out = f; }
+    return out;
+  };
+  const nodes = json.nodes, N = nodes.length, parent = new Int32Array(N).fill(-1);
+  nodes.forEach((nd, i) => (nd.children || []).forEach(c => parent[c] = i));
+  const ord = []; { const s2 = [...json.scenes[json.scene || 0].nodes].reverse(), sn = new Uint8Array(N); while (s2.length) { const i = s2.pop(); if (sn[i]) continue; sn[i] = 1; ord.push(i); (nodes[i].children || []).slice().reverse().forEach(c => s2.push(c)); } }
+  const rT = new Float32Array(N * 3), rQ = new Float32Array(N * 4), rS = new Float32Array(N * 3);
+  nodes.forEach((nd, i) => { rT.set(nd.translation || [0, 0, 0], i * 3); rQ.set(nd.rotation || [0, 0, 0, 1], i * 4); rS.set(nd.scale || [1, 1, 1], i * 3); });
+  const skin = json.skins[0], joints = skin.joints, ibm = acc(skin.inverseBindMatrices);
+  const mesh = json.meshes[0], at = mesh.primitives[0].attributes;
+  const pos0 = acc(at.POSITION), uv = acc(at.TEXCOORD_0), jid = acc(at.JOINTS_0), wt = acc(at.WEIGHTS_0), nv = pos0.length / 3;
+  const prims = mesh.primitives.map(p => {
+    const m = json.materials[p.material], tex = m.pbrMetallicRoughness.baseColorTexture.index;
+    return { idx: acc(p.indices), image: json.textures[tex].source, blend: m.alphaMode === 'BLEND', order: (m.extras && m.extras.renderOrder) || 0, eye: /eye/i.test(m.name || '') };
+  });
+  const clips = {};
+  function clip(name) {
+    if (clips[name] !== undefined) return clips[name];
+    const an = json.animations.find(a => a.name === name); if (!an) return (clips[name] = null);
+    let dur = 0;
+    const ch = an.channels.map(c => {
+      const s = an.samplers[c.sampler], t = acc(s.input), v = acc(s.output);
+      dur = Math.max(dur, t[t.length - 1]);
+      return { n: c.target.node, p: c.target.path, t, v, step: s.interpolation === 'STEP' };
+    });
+    return (clips[name] = { name, dur, ch });
+  }
+  function sample(c, time, T, Q, S) {
+    T.set(rT); Q.set(rQ); S.set(rS);
+    for (const h of c.ch) {
+      const ts = h.t, n = ts.length; let k = 0;
+      if (time >= ts[n - 1]) k = n - 1;
+      else if (time > ts[0]) { let lo = 0, hi = n - 1; while (hi - lo > 1) { const mid = (lo + hi) >> 1; if (ts[mid] <= time) lo = mid; else hi = mid; } k = lo; }
+      const k2 = Math.min(k + 1, n - 1); let f = 0;
+      if (k2 !== k && !h.step) f = (time - ts[k]) / (ts[k2] - ts[k]);
+      const v = h.v;
+      if (h.p === 'rotation') slerp(Q, h.n * 4, v, k * 4, v, k2 * 4, f);
+      else { const d = h.p === 'translation' ? T : S, o = h.n * 3; for (let j = 0; j < 3; j++) d[o + j] = v[k * 3 + j] * (1 - f) + v[k2 * 3 + j] * f; }
+    }
+  }
+  const T = new Float32Array(N * 3), Q = new Float32Array(N * 4), S = new Float32Array(N * 3);
+  const T2 = new Float32Array(N * 3), Q2 = new Float32Array(N * 4), S2 = new Float32Array(N * 3);
+  const Wm = Array.from({ length: N }, () => new Float32Array(16)), loc = new Float32Array(16), J = new Float32Array(joints.length * 16);
+  const ib = joints.map((_, k) => ibm.subarray(k * 16, k * 16 + 16)), tmp = new Float32Array(16);
+  const out = new Float32Array(nv * 3);
+  /** pose = cur@curT, optionally crossfaded from prev@prevT (w = weight of cur, 0..1) */
+  function pose(cur, curT, prev, prevT, w) {
+    sample(cur, curT, T, Q, S);
+    if (prev && w < 1) {
+      sample(prev, prevT, T2, Q2, S2);
+      for (let i = 0; i < T.length; i++) { T[i] = T2[i] + (T[i] - T2[i]) * w; S[i] = S2[i] + (S[i] - S2[i]) * w; }
+      for (let n = 0; n < N; n++) slerp(Q, n * 4, Q2, n * 4, Q, n * 4, w);
+    }
+    for (const n of ord) { compose(loc, T, Q, S, n); if (parent[n] >= 0) mul(Wm[n], Wm[parent[n]], loc); else Wm[n].set(loc); }
+    for (let k = 0; k < joints.length; k++) mul(J.subarray(k * 16, k * 16 + 16), Wm[joints[k]], ib[k]);
+    for (let v = 0; v < nv; v++) {
+      const px = pos0[v * 3], py = pos0[v * 3 + 1], pz = pos0[v * 3 + 2]; let ox = 0, oy = 0, oz = 0;
+      for (let k = 0; k < 4; k++) {
+        const wk = wt[v * 4 + k]; if (!wk) continue; const o = jid[v * 4 + k] * 16;
+        ox += wk * (J[o] * px + J[o + 4] * py + J[o + 8] * pz + J[o + 12]);
+        oy += wk * (J[o + 1] * px + J[o + 5] * py + J[o + 9] * pz + J[o + 13]);
+        oz += wk * (J[o + 2] * px + J[o + 6] * py + J[o + 10] * pz + J[o + 14]);
+      }
+      out[v * 3] = ox; out[v * 3 + 1] = oy; out[v * 3 + 2] = oz;
+    }
+    return out;
+  }
+  return { nv, uv, prims, clip, pose, json, ab, binOff };
+}
+if (typeof module !== 'undefined') { module.exports = { parseGLB, buildRig, viewProj }; return; }
+
+/* ---------- DOM / WebGL ---------- */
+const targets = [...document.querySelectorAll('#pav,.pavb')];
+if (!targets.length) return;
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const cvs = targets.map(el => {
+  const c = document.createElement('canvas'); c.className = 'a3d'; c.setAttribute('aria-hidden', 'true');
+  el.insertBefore(c, el.firstChild); return { el, c, ctx: c.getContext('2d'), panel: el.classList.contains('pavb') };
+});
+
+async function init() {
+  const res = await fetch(GLB_URL); if (!res.ok) throw new Error('GLB ' + res.status);
+  const rig = buildRig(parseGLB(await res.arrayBuffer()));
+  const clips = {}; CLIPS.forEach(n => { const c = rig.clip(n); if (c) clips[n] = c; });
+  if (!clips[IDLE]) throw new Error('idle clip missing');
+
+  const gl = document.createElement('canvas'); gl.width = RW; gl.height = RH;
+  const g = gl.getContext('webgl', { alpha: true, antialias: true, premultipliedAlpha: true, powerPreference: 'low-power' });
+  if (!g) throw new Error('no webgl');
+  const sh = (t, s) => { const o = g.createShader(t); g.shaderSource(o, s); g.compileShader(o); if (!g.getShaderParameter(o, g.COMPILE_STATUS)) throw new Error(g.getShaderInfoLog(o)); return o; };
+  const pr = g.createProgram();
+  g.attachShader(pr, sh(g.VERTEX_SHADER, 'attribute vec3 aPos;attribute vec2 aUV;uniform mat4 uVP;varying vec2 vUV;void main(){vUV=aUV;gl_Position=uVP*vec4(aPos,1.0);}'));
+  g.attachShader(pr, sh(g.FRAGMENT_SHADER, 'precision mediump float;uniform sampler2D uTex;uniform float uOpaque;varying vec2 vUV;void main(){vec4 c=texture2D(uTex,vUV);if(uOpaque<.5&&c.a<.02)discard;gl_FragColor=uOpaque>.5?vec4(c.rgb,1.0):c;}'));
+  g.linkProgram(pr); if (!g.getProgramParameter(pr, g.LINK_STATUS)) throw new Error(g.getProgramInfoLog(pr));
+  g.useProgram(pr);
+  const aPos = g.getAttribLocation(pr, 'aPos'), aUV = g.getAttribLocation(pr, 'aUV'), uVP = g.getUniformLocation(pr, 'uVP'), uOp = g.getUniformLocation(pr, 'uOpaque');
+  const pb = g.createBuffer(); g.bindBuffer(g.ARRAY_BUFFER, pb); g.bufferData(g.ARRAY_BUFFER, rig.nv * 12, g.DYNAMIC_DRAW);
+  g.enableVertexAttribArray(aPos); g.vertexAttribPointer(aPos, 3, g.FLOAT, false, 0, 0);
+  const ub = g.createBuffer(); g.bindBuffer(g.ARRAY_BUFFER, ub); g.bufferData(g.ARRAY_BUFFER, rig.uv, g.STATIC_DRAW);
+  g.enableVertexAttribArray(aUV); g.vertexAttribPointer(aUV, 2, g.FLOAT, false, 0, 0);
+  const loadTex = async (im, premul) => {
+    const j = rig.json, bv = j.bufferViews[j.images[im].bufferView], o = rig.binOff + (bv.byteOffset || 0);
+    const url = URL.createObjectURL(new Blob([rig.ab.slice(o, o + bv.byteLength)], { type: j.images[im].mimeType || 'image/png' }));
+    const img = new Image(); img.src = url; await img.decode(); URL.revokeObjectURL(url);
+    const t = g.createTexture(); g.bindTexture(g.TEXTURE_2D, t);
+    g.pixelStorei(g.UNPACK_PREMULTIPLY_ALPHA_WEBGL, premul); g.pixelStorei(g.UNPACK_FLIP_Y_WEBGL, false);
+    g.texImage2D(g.TEXTURE_2D, 0, g.RGBA, g.RGBA, g.UNSIGNED_BYTE, img);
+    g.generateMipmap(g.TEXTURE_2D);
+    g.texParameteri(g.TEXTURE_2D, g.TEXTURE_MIN_FILTER, g.LINEAR_MIPMAP_LINEAR); g.texParameteri(g.TEXTURE_2D, g.TEXTURE_MAG_FILTER, g.LINEAR);
+    g.texParameteri(g.TEXTURE_2D, g.TEXTURE_WRAP_S, g.REPEAT); g.texParameteri(g.TEXTURE_2D, g.TEXTURE_WRAP_T, g.REPEAT);
+    return t;
+  };
+  const draws = await Promise.all(rig.prims.map(async p => {
+    const ib = g.createBuffer(); g.bindBuffer(g.ELEMENT_ARRAY_BUFFER, ib);
+    const idx = p.idx instanceof Uint16Array ? p.idx : new Uint16Array(p.idx); g.bufferData(g.ELEMENT_ARRAY_BUFFER, idx, g.STATIC_DRAW);
+    return { ...p, ib, n: idx.length, tex: await loadTex(p.image, p.blend) };
+  }));
+  draws.sort((a, b) => (a.blend - b.blend) || (a.order - b.order));
+  g.enable(g.DEPTH_TEST); g.depthFunc(g.LEQUAL); g.disable(g.CULL_FACE);
+  g.blendFuncSeparate(g.ONE, g.ONE_MINUS_SRC_ALPHA, g.ONE, g.ONE_MINUS_SRC_ALPHA);
+  g.viewport(0, 0, RW, RH);
+
+  function render(verts, yaw, pitch) {
+    g.clearColor(0, 0, 0, 0); g.clear(g.COLOR_BUFFER_BIT | g.DEPTH_BUFFER_BIT);
+    g.bindBuffer(g.ARRAY_BUFFER, pb); g.bufferSubData(g.ARRAY_BUFFER, 0, verts);
+    g.bindBuffer(g.ARRAY_BUFFER, pb); g.vertexAttribPointer(aPos, 3, g.FLOAT, false, 0, 0);
+    g.bindBuffer(g.ARRAY_BUFFER, ub); g.vertexAttribPointer(aUV, 2, g.FLOAT, false, 0, 0);
+    g.uniformMatrix4fv(uVP, false, viewProj(yaw, pitch));
+    for (const d of draws) {
+      if (d.blend) { g.enable(g.BLEND); g.depthMask(!d.eye); if (d.eye) { g.enable(g.POLYGON_OFFSET_FILL); g.polygonOffset(-2, -2); } }
+      else { g.disable(g.BLEND); g.depthMask(true); g.disable(g.POLYGON_OFFSET_FILL); }
+      g.uniform1f(uOp, d.blend ? 0 : 1);
+      g.bindTexture(g.TEXTURE_2D, d.tex); g.bindBuffer(g.ELEMENT_ARRAY_BUFFER, d.ib);
+      g.drawElements(g.TRIANGLES, d.n, g.UNSIGNED_SHORT, 0);
+    }
+    g.disable(g.POLYGON_OFFSET_FILL); g.depthMask(true);
+  }
+
+  /* ---- animation state ---- */
+  const rnd = (a, b) => a + Math.random() * (b - a), pick = a => a[(Math.random() * a.length) | 0];
+  let cur = { c: clips[IDLE], t: 0.3, loop: true, idle: true }, prev = null, fadeT = 0, fadeD = 0.3, nextFlavor = performance.now() + rnd(5000, 9000), lastReact = 0;
+  function play(name, loop, idle, fade = 0.3) {
+    const c = clips[name]; if (!c) return;
+    prev = cur; prev.keep = true; fadeT = 0; fadeD = fade; cur = { c, t: 0, loop, idle: !!idle };
+  }
+  function react(list, cooldown = 2500) {
+    const now = performance.now(); if (reduce || now - lastReact < cooldown) return; lastReact = now; play(pick(list), false, false);
+  }
+  let yaw = 0, pitch = 0, yawT = 0, pitchT = 0;
+  const vis = () => cvs.filter(o => o.el.getClientRects().length > 0);
+  addEventListener('pointermove', e => {
+    if (reduce) return;
+    const v = vis(); if (!v.length) return;
+    const r = (v.find(o => o.panel) || v[0]).el.getBoundingClientRect();
+    const dx = (e.clientX - (r.left + r.width / 2)) / 260, dy = (e.clientY - (r.top + r.height / 2)) / 260;
+    yawT = Math.max(-1, Math.min(1, dx)) * 0.42; pitchT = Math.max(-1, Math.min(1, dy)) * 0.09;
+  }, { passive: true });
+  document.documentElement.addEventListener('pointerleave', () => { yawT = 0; pitchT = 0; });
+  cvs.forEach(o => {
+    const host = o.panel ? o.el : (o.el.closest('#pbtn') || o.el);
+    host.addEventListener('pointerenter', () => react(R_HOVER, 3500));
+    if (o.panel) { o.el.style.cursor = 'pointer'; o.el.addEventListener('click', () => react(R_CLICK, 600)); }
+  });
+  const pbtn = document.getElementById('pbtn');
+  if (pbtn) new MutationObserver(() => { if (pbtn.getAttribute('aria-expanded') === 'true') setTimeout(() => react(R_OPEN, 800), 120); }).observe(pbtn, { attributes: true, attributeFilter: ['aria-expanded'] });
+
+  function blit() {
+    const dpr = Math.min(devicePixelRatio || 1, 2);
+    for (const o of vis()) {
+      const w = Math.max(1, Math.round(o.c.clientWidth * dpr)), h = Math.max(1, Math.round(o.c.clientHeight * dpr));
+      if (o.c.width !== w || o.c.height !== h) { o.c.width = w; o.c.height = h; }
+      const da = w / h, sa = RW / RH; let sx = 0, sy = 0, sw = RW, sh = RH;
+      if (da > sa) sh = RW / da; else { sw = RH * da; sx = (RW - sw) / 2; }
+      o.ctx.clearRect(0, 0, w, h); o.ctx.imageSmoothingQuality = 'high'; o.ctx.drawImage(gl, sx, sy, sw, sh, 0, 0, w, h);
+    }
+  }
+  let last = 0, shown = false;
+  function frame(now) {
+    requestAnimationFrame(frame);
+    if (document.hidden) { last = 0; return; }
+    const v = vis(); if (!v.length) { last = 0; return; }
+    const minDt = reduce ? 800 : (v.some(o => o.panel) ? 15 : 30);
+    if (last && now - last < minDt) return;
+    const dt = reduce ? 0 : Math.min((now - (last || now)) / 1000, 0.1); last = now;
+    if (!reduce) {
+      cur.t += dt; if (prev) { prev.t += dt; fadeT += dt; if (fadeT >= fadeD) prev = null; }
+      if (cur.loop) cur.t %= cur.c.dur;
+      else if (cur.t >= cur.c.dur - 0.3) { play(IDLE, true, true); nextFlavor = now + rnd(6000, 11000); }
+      else if (cur.idle) { /* n/a */ }
+      if (cur.idle && now >= nextFlavor && !prev) { play(pick(FLAVOR), false, false); }
+      const k = 1 - Math.exp(-8 * dt); yaw += (yawT - yaw) * k; pitch += (pitchT - pitch) * k;
+    }
+    const w = prev ? Math.min(1, fadeT / fadeD) : 1, e = w * w * (3 - 2 * w);
+    render(rig.pose(cur.c, cur.t, prev && prev.c, prev ? prev.t % prev.c.dur : 0, e), yaw, pitch);
+    blit();
+    if (!shown) { shown = true; document.documentElement.classList.add('has3d'); }
+  }
+  gl.addEventListener('webglcontextlost', e => { e.preventDefault(); document.documentElement.classList.remove('has3d'); });
+  requestAnimationFrame(frame);
+}
+init().catch(err => console.warn('Choncc 3D avatar unavailable, keeping the 2D icon:', err));
 })();
 </script>
 </body>
