@@ -1808,129 +1808,142 @@ html.fx-off .hexfly{display:none!important}
 .pt-pill{width:24px;height:26px;border-radius:0;border:0;background:#ffffff33;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);color:#cfd6ff}
 .pt-node.pt-done .pt-pill{background:linear-gradient(180deg,#7ff0ff,#1aa7b8);color:#032a2a}
 .pt-node.pt-cur .pt-pill{background:linear-gradient(180deg,#ffe9a8,#f5a800);color:#2a1700;box-shadow:none;filter:drop-shadow(0 0 8px #f5a800)}
+.pt-dock{background:none!important;border:0!important;padding:0!important;border-radius:0!important;box-shadow:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;overflow:visible!important}
+.pt-dock::before,.pt-dock::after{display:none!important}
+.pt-amt{font-family:var(--body)!important;font-weight:900}
 @media (prefers-reduced-motion:reduce){.pt-dock *,.pt-dock::before{animation:none!important}}
 </style>
-<style id="mhCss">
-/* ===== Match History ===== */
-#mh{--g:#f5b942;--t:#5fe3d0;--r:#ff6b7d;--p:#b06cff;display:grid;gap:16px;padding-bottom:40px}
-#mh .glass{position:relative;border-radius:18px;background:linear-gradient(180deg,rgba(22,28,62,.78),rgba(9,12,30,.82));border:1px solid rgba(255,255,255,.09);box-shadow:0 14px 36px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.08);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);overflow:hidden}
-#mh .glass::before{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:linear-gradient(90deg,transparent,var(--g),#fff3c4,var(--g),transparent);background-size:200% 100%;animation:mh-top 5s linear infinite;opacity:.85}
-@keyframes mh-top{to{background-position:-200% 0}}
-#mh .demo{font-size:11px;letter-spacing:.08em;color:#aeb6df;display:flex;align-items:center;gap:8px}
-#mh .demo i{width:7px;height:7px;border-radius:50%;background:var(--g);box-shadow:0 0 10px var(--g);animation:mh-dot 1.6s infinite}
-@keyframes mh-dot{50%{opacity:.35}}
-.mh-sum{display:grid;grid-template-columns:minmax(220px,1fr) 2fr;gap:0}
-.mh-rank{padding:22px;display:grid;place-items:center;text-align:center;gap:6px;background:radial-gradient(circle at 50% 0,rgba(176,108,255,.3),transparent 70%)}
-.mh-hex{position:relative;width:96px;height:106px;display:grid;place-items:center;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:conic-gradient(from var(--pa,0deg),#f5b942,#fff3c4,#b06cff,#f5b942);animation:mh-spin 5s linear infinite}
-@property --pa{syntax:"<angle>";inherits:false;initial-value:0deg}
-@keyframes mh-spin{to{--pa:360deg}}
-.mh-hex::before{content:"";position:absolute;inset:4px;clip-path:inherit;background:radial-gradient(circle at 50% 28%,#34308a,#0a0d28 75%)}
-.mh-hex b{position:relative;font:800 30px var(--head);color:#fff;text-shadow:0 0 14px var(--g)}
-.mh-rank small{letter-spacing:.28em;font-size:10px;color:#f5c25a;font-weight:800}
-.mh-rank h3{margin:0;font:800 20px var(--head)}
-.mh-lp{font-size:12px;color:#aeb6df}.mh-lp em{font-style:normal;color:var(--t);font-weight:800}
-.mh-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,.06)}
-.mh-kpi{padding:16px 14px;background:rgba(9,12,30,.55);display:grid;gap:4px;align-content:center;transition:background .3s}
-.mh-kpi:hover{background:rgba(40,50,110,.5)}
-.mh-kpi span{font-size:10px;letter-spacing:.18em;color:#9aa3d0;font-weight:700;text-transform:uppercase}
-.mh-kpi b{font:800 26px var(--head);color:#fff}
-.mh-kpi b.g{color:var(--g)}.mh-kpi b.t{color:var(--t)}
-.mh-kpi small{font-size:11px;color:#8d96c6}
-.mh-mid{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:16px}
-.mh-box{padding:18px}
-.mh-box h4{margin:0 0 12px;font:700 11px var(--body);letter-spacing:.22em;color:#f5c25a;text-transform:uppercase}
-.mh-dist{display:flex;align-items:flex-end;gap:8px;height:120px}
-.mh-dist div{flex:1;display:grid;gap:5px;justify-items:center;align-content:end;height:100%}
-.mh-dist i{display:block;width:100%;border-radius:6px 6px 2px 2px;height:0;background:linear-gradient(180deg,var(--c),color-mix(in srgb,var(--c) 30%,#000));box-shadow:0 0 14px color-mix(in srgb,var(--c) 55%,transparent);animation:mh-grow .9s cubic-bezier(.2,.9,.2,1) forwards;animation-delay:calc(var(--k)*70ms)}
-@keyframes mh-grow{to{height:var(--h)}}
-.mh-dist span{font:700 11px var(--body);color:#aeb6df}.mh-dist em{font-style:normal;font-size:10px;color:#fff}
-.mh-spark svg{width:100%;height:120px;overflow:visible}
-.mh-spark path.l{fill:none;stroke:var(--g);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 6px var(--g));stroke-dasharray:1;stroke-dashoffset:1;animation:mh-draw 1.8s ease-out .3s forwards}
-@keyframes mh-draw{to{stroke-dashoffset:0}}
-.mh-spark path.a{fill:url(#mhg);opacity:0;animation:mh-fade 1s ease 1.2s forwards}@keyframes mh-fade{to{opacity:1}}
-.mh-list{display:grid;gap:8px}
-.mh-top3{display:grid;gap:9px}
-.mh-top3 div{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;font-size:13px}
-.mh-top3 .bar{height:6px;border-radius:4px;background:rgba(255,255,255,.08);overflow:hidden}.mh-top3 .bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--c),#fff8);animation:mh-w 1s ease forwards .4s}
-@keyframes mh-w{to{width:var(--w)}}
-.mh-bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-.mh-chip{border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.06);color:#cfd6ff;font:700 12px var(--body);padding:7px 14px;border-radius:99px;cursor:pointer;transition:.25s}
-.mh-chip:hover{transform:translateY(-2px);background:rgba(255,255,255,.12)}
-.mh-chip.on{background:linear-gradient(180deg,#ffe9a8,#f5a800);color:#2a1700;border-color:transparent;box-shadow:0 6px 18px rgba(245,168,0,.4)}
-/* match row */
-.mh-m{--c:var(--r);position:relative;border-radius:16px;background:linear-gradient(90deg,color-mix(in srgb,var(--c) 14%,rgba(14,18,44,.85)),rgba(10,13,32,.85) 40%);border:1px solid rgba(255,255,255,.08);overflow:hidden;opacity:0;transform:translateY(18px);transition:border-color .3s,box-shadow .3s,transform .3s}
-.mh-in .mh-m{animation:mh-up .6s cubic-bezier(.2,.9,.2,1) forwards;animation-delay:calc(var(--i)*55ms)}
-@keyframes mh-up{to{opacity:1;transform:none}}
-.mh-m::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--c);box-shadow:0 0 18px var(--c)}
-.mh-m::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(260px circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,.1),transparent 60%);opacity:0;transition:opacity .3s}
-.mh-m:hover{border-color:color-mix(in srgb,var(--c) 70%,#fff3);box-shadow:0 12px 30px rgba(0,0,0,.5),0 0 26px color-mix(in srgb,var(--c) 30%,transparent)}.mh-m:hover::after{opacity:1}
-.mh-m.p1{--c:#f5b942}.mh-m.pt{--c:#3fd0c0}.mh-m.pb{--c:#ff6b7d}
-.mh-m.p1::before{animation:mh-gold 2s ease-in-out infinite}@keyframes mh-gold{50%{box-shadow:0 0 30px #ffd76a}}
-.mh-row{display:grid;grid-template-columns:78px 150px minmax(240px,1.6fr) 150px 190px 24px;gap:14px;align-items:center;padding:12px 16px 12px 20px;cursor:pointer}
-.mh-pl{position:relative;width:54px;height:60px;display:grid;place-items:center;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:var(--c);font:800 24px var(--head);color:#1a1000}
-.mh-pl::before{content:"";position:absolute;inset:3px;clip-path:inherit;background:linear-gradient(180deg,color-mix(in srgb,var(--c) 35%,#10163a),#0a0d28)}.mh-pl b{position:relative;color:var(--c);text-shadow:0 0 10px var(--c)}
-.mh-m.p1 .mh-pl{animation:mh-glow 2s ease-in-out infinite}@keyframes mh-glow{50%{filter:drop-shadow(0 0 12px #f5b942)}}
-.mh-meta b{display:block;font-size:14px}.mh-meta span{display:block;font-size:11px;color:#8d96c6;margin-top:2px}
-.mh-meta .lp{font-weight:800}.lp.up{color:var(--t)}.lp.dn{color:var(--r)}
-.mh-champs{display:flex;gap:6px;flex-wrap:wrap}
-.mh-ch{position:relative;width:38px;height:38px;border-radius:9px;display:grid;place-items:center;font:800 14px var(--head);color:#fff;border:2px solid var(--cc);background:linear-gradient(160deg,color-mix(in srgb,var(--cc) 50%,#222a5c),#0a0d28);box-shadow:0 0 10px color-mix(in srgb,var(--cc) 40%,transparent);transition:transform .2s}
-.mh-ch:hover{transform:translateY(-5px) scale(1.12);z-index:3}
-.mh-ch s{position:absolute;top:-9px;left:50%;transform:translateX(-50%);text-decoration:none;font-size:9px;color:#ffd76a;text-shadow:0 0 5px #000;letter-spacing:-1px;white-space:nowrap}
-.mh-ch u{position:absolute;bottom:-4px;left:50%;transform:translateX(-50%);display:flex;gap:2px}.mh-ch u i{width:6px;height:6px;border-radius:50%;background:var(--ic);border:1px solid #0008}
-.mh-trs{display:flex;gap:5px;flex-wrap:wrap}
-.mh-tr{position:relative;width:30px;height:33px;display:grid;place-items:center;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:var(--tc);font:800 11px var(--head);color:#10163a}
-.mh-tr::before{content:"";position:absolute;inset:2px;clip-path:inherit;background:#0b1030}.mh-tr b{position:relative;color:var(--tc)}
-.mh-tr[title]:hover{filter:drop-shadow(0 0 8px var(--tc));transform:scale(1.15)}
-.mh-ag{display:flex;gap:6px}
-.mh-au{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font:800 12px var(--head);color:#fff;border:2px solid var(--ac);background:radial-gradient(circle at 35% 30%,color-mix(in srgb,var(--ac) 60%,#fff3),#0b1030 75%);box-shadow:0 0 12px color-mix(in srgb,var(--ac) 50%,transparent);transition:transform .25s}.mh-au:hover{transform:rotate(12deg) scale(1.2)}
-.mh-chev{width:18px;height:18px;fill:none;stroke:#aeb6df;stroke-width:3;stroke-linecap:round;transition:transform .35s var(--ease)}
-.mh-m.open .mh-chev{transform:rotate(180deg)}
-.mh-det{display:grid;grid-template-rows:0fr;transition:grid-template-rows .5s var(--ease)}.mh-m.open .mh-det{grid-template-rows:1fr}
-.mh-det>div{overflow:hidden}
-.mh-in2{padding:4px 20px 18px;display:grid;gap:14px}
-.mh-stats{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
-.mh-st{padding:10px 12px;border-radius:12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07)}.mh-st span{font-size:9px;letter-spacing:.16em;color:#9aa3d0;font-weight:700;text-transform:uppercase}.mh-st b{display:block;font:800 18px var(--head);margin-top:2px}
-.mh-augs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.mh-ad{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:center;padding:10px;border-radius:12px;background:rgba(255,255,255,.05);border:1px solid color-mix(in srgb,var(--ac) 50%,transparent)}
-.mh-ad b{font-size:13px}.mh-ad span{display:block;font-size:11px;color:#9aa3d0}
-.mh-lob h5{margin:0 0 8px;font:700 11px var(--body);letter-spacing:.2em;color:#f5c25a;text-transform:uppercase}
-.mh-pr{display:grid;grid-template-columns:30px 150px 54px 1fr 120px 70px;gap:10px;align-items:center;padding:7px 10px;border-radius:10px;font-size:12px;transition:background .2s}
-.mh-pr:hover{background:rgba(255,255,255,.07)}.mh-pr.me{background:linear-gradient(90deg,rgba(245,185,66,.2),rgba(245,185,66,.04));box-shadow:inset 0 0 0 1px rgba(245,185,66,.4)}
-.mh-pr .n{font:800 14px var(--head);color:var(--pc)}
-.mh-dm{height:8px;border-radius:5px;background:rgba(255,255,255,.07);overflow:hidden}.mh-dm i{display:block;height:100%;width:0;border-radius:5px;background:linear-gradient(90deg,var(--pc),#fff9)}
-.mh-open .mh-dm i{animation:mh-w .9s ease forwards}
-.mh-m.open .mh-dm i{width:var(--w);transition:width .9s var(--ease) .15s}
-.mh-empty{padding:40px;text-align:center;color:#8d96c6}
-@media (max-width:1100px){.mh-row{grid-template-columns:70px 1fr 24px}.mh-row .mh-trs,.mh-row .mh-ag,.mh-meta2{display:none}.mh-sum,.mh-mid{grid-template-columns:1fr}.mh-kpis{grid-template-columns:repeat(2,1fr)}.mh-stats{grid-template-columns:repeat(3,1fr)}.mh-pr{grid-template-columns:28px 1fr 50px}.mh-pr>:nth-child(n+4){display:none}}
-@media (prefers-reduced-motion:reduce){#mh *,#mh *::before{animation-duration:.01s!important;animation-delay:0s!important}}
+<style id="lcCss">
+/* ===== Match History (lolchess-style, home-screen palette: graphite + gold) ===== */
+#mh{--gd:#f8a900;--ok:#3fd0a0;--bad:#c9606c;--sf:rgba(23,27,34,.92);display:grid;gap:14px;padding-bottom:40px;font-family:var(--body)}
+#mh .demo{font-size:11px;letter-spacing:.06em;color:var(--muted);display:flex;align-items:center;gap:8px}#mh .demo i{width:6px;height:6px;border-radius:50%;background:var(--gd)}
+.lc-top{display:flex;align-items:center;gap:16px;padding:16px 18px;background:var(--sf);border:1px solid var(--line);border-radius:10px}
+.lc-av{position:relative;width:64px;height:64px;border-radius:50%;display:grid;place-items:center;font:800 24px var(--body);color:var(--gd);background:radial-gradient(circle at 50% 30%,#2a313c,#10141b);border:2px solid var(--gd)}
+.lc-av em{position:absolute;bottom:-8px;left:50%;transform:translateX(-50%);font:800 10px var(--body);font-style:normal;background:#10141b;color:var(--text);border:1px solid var(--line);border-radius:99px;padding:2px 7px}
+.lc-top h2{margin:0;font:800 22px var(--body);color:var(--text)}.lc-top h2 span{color:var(--muted);font-weight:600;font-size:15px}
+.lc-top p{margin:4px 0 0;font-size:12px;color:var(--muted)}
+.lc-pill{margin-left:auto;display:flex;gap:8px;align-items:center}
+.lc-pill b{font:700 12px var(--body);padding:7px 12px;border-radius:99px;border:1px solid var(--line);color:var(--text);background:#10141b}
+.lc-pill button{font:800 12px var(--body);padding:8px 16px;border-radius:99px;border:0;background:var(--gd);color:#1c1300;opacity:.5;cursor:not-allowed}
+.lc{display:grid;grid-template-columns:320px 1fr;gap:14px;align-items:start}
+.lc-side,.lc-main{display:grid;gap:14px}
+.lc-p{background:var(--sf);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.lc-h{display:flex;align-items:center;justify-content:space-between;padding:11px 16px;border-bottom:1px solid var(--line);font:800 13px var(--body);color:var(--text)}.lc-h small{font-weight:600;color:var(--muted);font-size:11px}
+.lc-rk{display:flex;align-items:center;gap:14px;padding:16px}
+.lc-em{flex:none;width:56px;height:62px;display:grid;place-items:center;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:var(--ec);position:relative;font:900 20px var(--body);color:var(--ec)}
+.lc-em::before{content:"";position:absolute;inset:3px;clip-path:inherit;background:#10141b}.lc-em i{position:relative;font-style:normal}
+.lc-rk b{display:block;font:800 20px var(--body);color:var(--text)}.lc-rk span{font-size:12px;color:var(--muted)}
+.lc-rb{height:5px;border-radius:3px;background:#262c36;margin-top:7px;overflow:hidden}.lc-rb i{display:block;height:100%;background:var(--ec);width:0;animation:lc-w .9s var(--ease) .2s forwards}@keyframes lc-w{to{width:var(--w)}}
+.lc-tiles{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line)}
+.lc-tile{padding:11px 12px;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}.lc-tile:nth-child(3n){border-right:0}.lc-tile:nth-last-child(-n+3){border-bottom:0}
+.lc-tile span{display:block;font-size:11px;color:var(--muted)}.lc-tile b{font:800 18px var(--body);color:var(--text)}.lc-tile b.g{color:var(--gd)}
+.lc-un{padding:16px;display:flex;align-items:center;gap:12px;color:var(--muted);font-size:13px}.lc-un .lc-em{width:40px;height:44px;font-size:14px}.lc-un b{display:block;font:800 15px var(--body);color:var(--text)}
+.lc-3{display:grid;grid-template-columns:repeat(3,1fr)}.lc-3>div+div{border-left:1px solid var(--line)}
+.lc-t{padding:6px 12px 12px}.lc-t h6{margin:8px 0 6px;font:700 11px var(--body);color:var(--muted);letter-spacing:.06em;text-transform:uppercase;display:grid;grid-template-columns:1fr 38px 40px;gap:6px}
+.lc-t h6 span+span{text-align:right}
+.lc-tr{display:grid;grid-template-columns:1fr 38px 40px;gap:6px;align-items:center;padding:5px 0;font-size:12px;color:var(--text);border-top:1px solid #1f242d}.lc-tr em{font-style:normal;text-align:right;color:var(--muted)}.lc-tr em.hi{color:var(--ok);font-weight:800}
+.lc-tr div{display:flex;align-items:center;gap:8px;min-width:0}.lc-tr b{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lc-tabs{display:flex;gap:2px;padding:0 10px;border-bottom:1px solid var(--line)}
+.lc-tab{position:relative;padding:12px 14px;font:700 13px var(--body);color:var(--muted);background:none;border:0;cursor:pointer;transition:color .2s}.lc-tab:hover{color:var(--text)}
+.lc-tab.on{color:var(--gd)}.lc-tab::after{content:"";position:absolute;left:10px;right:10px;bottom:-1px;height:2px;background:var(--gd);transform:scaleX(0);transition:transform .3s var(--ease)}.lc-tab.on::after{transform:scaleX(1)}
+.lc-sum{display:grid;grid-template-columns:auto 1fr;gap:18px;padding:14px 16px;align-items:center;border-bottom:1px solid var(--line)}
+.lc-kp{display:flex;gap:22px}.lc-kp div span{display:block;font-size:11px;color:var(--muted)}.lc-kp div b{font:800 22px var(--body);color:var(--text)}.lc-kp div b.g{color:var(--gd)}
+.lc-st{display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end}
+.lc-st i{width:24px;height:24px;border-radius:5px;display:grid;place-items:center;font:800 11px var(--body);font-style:normal;color:#10141b;background:var(--c);opacity:0;animation:lc-in .35s ease forwards;animation-delay:calc(var(--k)*25ms)}@keyframes lc-in{to{opacity:1}}
+.lc-lp{padding:10px 16px 14px;border-bottom:1px solid var(--line)}.lc-lp small{font-size:11px;color:var(--muted)}
+.lc-lp svg{width:100%;height:70px;display:block;margin-top:4px}.lc-lp path.l{fill:none;stroke:var(--gd);stroke-width:2;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1;animation:lc-dr 1.4s ease-out forwards}@keyframes lc-dr{to{stroke-dashoffset:0}}
+.lc-list{display:grid}
+.lc-m{--c:var(--bad);position:relative;border-bottom:1px solid var(--line);opacity:0;animation:lc-in .4s ease forwards;animation-delay:calc(var(--i)*30ms);transition:background .2s}
+.lc-m:last-child{border-bottom:0}.lc-m::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--c)}.lc-m.p1{--c:var(--gd)}.lc-m.pt{--c:var(--ok)}
+.lc-m:hover{background:rgba(255,255,255,.03)}
+.lc-row{display:grid;grid-template-columns:110px 112px 150px 1fr 20px;gap:14px;align-items:center;padding:11px 14px 11px 18px;cursor:pointer}
+.lc-pl b{display:block;font:900 24px var(--body);color:var(--c);line-height:1}.lc-pl span{display:block;font-size:11px;color:var(--muted);margin-top:4px}.lc-pl .u{color:var(--ok)}.lc-pl .d{color:var(--bad)}
+.lc-ag,.lc-trs,.lc-ch{display:flex;gap:5px;align-items:center}.lc-ch{flex-wrap:wrap}
+.lc-au{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font:800 10px var(--body);color:#fff;border:2px solid var(--ac);background:#10141b}
+.lc-tr2{position:relative;width:28px;height:31px;display:grid;place-items:center;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:var(--tc);font:800 10px var(--body);color:var(--tc)}.lc-tr2::before{content:"";position:absolute;inset:2px;clip-path:inherit;background:#10141b}.lc-tr2 b{position:relative}
+.lc-c{position:relative;width:34px;height:34px;border-radius:7px;display:grid;place-items:center;font:800 12px var(--body);color:var(--text);border:2px solid var(--cc);background:#10141b;transition:transform .15s}.lc-c:hover{transform:translateY(-3px)}
+.lc-c s{position:absolute;top:-9px;left:50%;transform:translateX(-50%);text-decoration:none;font-size:8px;color:var(--gd);white-space:nowrap;letter-spacing:-1px}
+.lc-c u{position:absolute;bottom:-4px;left:50%;transform:translateX(-50%);display:flex;gap:2px}.lc-c u i{width:5px;height:5px;border-radius:50%;background:var(--ic);border:1px solid #0008}
+.lc-chv{width:16px;height:16px;fill:none;stroke:var(--muted);stroke-width:3;stroke-linecap:round;transition:transform .3s var(--ease)}.lc-m.open .lc-chv{transform:rotate(180deg)}
+.lc-det{display:grid;grid-template-rows:0fr;transition:grid-template-rows .4s var(--ease)}.lc-m.open .lc-det{grid-template-rows:1fr}.lc-det>div{overflow:hidden}
+.lc-lob{margin:0 14px 14px 18px;border:1px solid var(--line);border-radius:8px;background:#10141b}
+.lc-tm{padding:6px 12px;font:800 10px var(--body);letter-spacing:.14em;text-transform:uppercase;color:var(--tc);background:#161b22;border-top:1px solid var(--line)}.lc-tm:first-child{border-top:0}
+.lc-pr{display:grid;grid-template-columns:26px 150px 1fr;gap:10px;align-items:center;padding:8px 12px;border-top:1px solid #1b2028}.lc-pr:first-child{border-top:0}
+.lc-pr.me{background:rgba(248,169,0,.08)}.lc-pr .n{font:900 15px var(--body);color:var(--pc)}
+.lc-pr b{font-size:13px;display:block;color:var(--text)}.lc-pr small{font-size:11px;color:var(--muted)}.lc-pr .pt{font-size:9px;color:var(--gd);letter-spacing:.1em}
+.lc-bd{display:flex;gap:14px;align-items:center;flex-wrap:wrap}.lc-bd .lc-c{width:28px;height:28px;font-size:10px}.lc-bd .lc-tr2{width:24px;height:27px;font-size:9px}.lc-bd .lc-au{width:24px;height:24px;font-size:9px}
+.lc-dm{margin-left:auto;display:flex;align-items:center;gap:8px;min-width:130px}.lc-dm div{flex:1;height:5px;border-radius:3px;background:#262c36;overflow:hidden}.lc-dm i{display:block;height:100%;width:var(--w);background:var(--pc)}.lc-dm span{font-size:11px;color:var(--muted);width:52px;text-align:right}
+.lc-ms{display:flex;gap:18px;flex-wrap:wrap;padding:0 18px 12px;font-size:12px;color:var(--muted)}.lc-ms b{color:var(--text);margin-left:4px}
+.lc-empty{padding:30px;text-align:center;color:var(--muted)}
+@media (max-width:1100px){.lc{grid-template-columns:1fr}.lc-row{grid-template-columns:90px 1fr 20px}.lc-row .lc-ag,.lc-row .lc-trs{display:none}.lc-3{grid-template-columns:1fr}.lc-3>div+div{border-left:0;border-top:1px solid var(--line)}.lc-pr{grid-template-columns:24px 1fr}.lc-dm{display:none}}
+@media (prefers-reduced-motion:reduce){#mh *{animation-duration:.01s!important;animation-delay:0s!important}}
 </style>
-<style id="mhCss2">
-#mh .mh-pl b,#mh .mh-pr .n,#mh .mh-hex b{font-family:var(--body);font-weight:900;font-variant-numeric:tabular-nums}
-.mh-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.mh-tab{position:relative;display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:16px;cursor:pointer;text-align:left;color:#cfd6ff;border:1px solid rgba(255,255,255,.09);background:linear-gradient(180deg,rgba(22,28,62,.7),rgba(9,12,30,.8));transition:transform .25s,border-color .3s,box-shadow .3s;overflow:hidden}
-.mh-tab:hover{transform:translateY(-3px);border-color:rgba(245,185,66,.5)}
-.mh-tab::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;background:linear-gradient(90deg,transparent,#f5b942,#fff3c4,#f5b942,transparent);transform:scaleX(0);transition:transform .45s var(--ease)}
-.mh-tab.on{color:#fff;border-color:rgba(245,185,66,.7);box-shadow:0 10px 30px rgba(0,0,0,.45),0 0 28px rgba(245,185,66,.22);background:linear-gradient(180deg,rgba(60,50,110,.7),rgba(12,14,38,.85))}
-.mh-tab.on::after{transform:scaleX(1)}
-.mh-tab b{display:block;font:800 15px var(--body)}.mh-tab span{display:block;font-size:11px;color:#9aa3d0;margin-top:2px}
-.mh-em{position:relative;flex:none;width:38px;height:42px;display:grid;place-items:center;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:var(--ec,#556);font:900 14px var(--body);color:#fff}
-.mh-em::before{content:"";position:absolute;inset:3px;clip-path:inherit;background:linear-gradient(180deg,color-mix(in srgb,var(--ec,#556) 40%,#10163a),#0a0d28)}.mh-em i{position:relative;font-style:normal;color:var(--ec);text-shadow:0 0 8px var(--ec)}
-.mh-hex.tier{background:conic-gradient(from var(--pa,0deg),var(--ec),#fff,var(--ec))}
-.mh-rank .tr{font:900 22px var(--body);color:var(--ec,#fff);text-shadow:0 0 16px var(--ec)}
-.mh-rb{width:80%;height:8px;border-radius:5px;background:rgba(255,255,255,.1);overflow:hidden;margin-top:2px}.mh-rb i{display:block;height:100%;width:0;border-radius:5px;background:linear-gradient(90deg,var(--ec),#fff);box-shadow:0 0 12px var(--ec);animation:mh-w 1.2s ease .3s forwards}
-.mh-form{display:flex;gap:6px;flex-wrap:wrap}
-.mh-form i{width:30px;height:33px;display:grid;place-items:center;font:900 12px var(--body);font-style:normal;color:#10163a;background:var(--c);clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);opacity:0;animation:mh-up .5s ease forwards;animation-delay:calc(var(--k)*60ms + .3s)}
-.mh-pp{border-radius:12px;padding:3px 0 6px;transition:background .2s}.mh-pp:hover{background:rgba(255,255,255,.04)}
-.mh-pp .mh-pr{grid-template-columns:30px 170px 54px 1fr 70px;padding-bottom:3px}.mh-pp .mh-pr:hover{background:none}
-.mh-pp.me{background:linear-gradient(90deg,rgba(245,185,66,.16),rgba(245,185,66,.03));box-shadow:inset 0 0 0 1px rgba(245,185,66,.4)}.mh-pp.me .mh-pr{background:none;box-shadow:none}
-.mh-bd{display:flex;gap:16px;align-items:center;flex-wrap:wrap;padding:2px 10px 2px 40px}
-.mh-bd .mh-champs,.mh-bd .mh-trs,.mh-bd .mh-ag{gap:5px;flex-wrap:nowrap}
-.mh-bd .mh-ch{width:30px;height:30px;font-size:11px;border-width:1.5px;border-radius:8px}.mh-bd .mh-ch s{font-size:8px;top:-8px}.mh-bd .mh-ch u i{width:5px;height:5px}
-.mh-bd .mh-tr{width:26px;height:29px;font-size:10px}.mh-bd .mh-au{width:28px;height:28px;font-size:10px}
-.mh-bd .sep{width:1px;height:26px;background:rgba(255,255,255,.12)}
-.mh-tm{display:flex;align-items:center;gap:10px;margin:10px 0 2px;font:800 11px var(--body);letter-spacing:.18em;text-transform:uppercase;color:var(--tc)}.mh-tm::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--tc),transparent)}
-.mh-ptn{font-size:10px;color:#f5c25a;letter-spacing:.1em}
-@media (max-width:1100px){.mh-tabs{grid-template-columns:1fr}.mh-bd{padding-left:10px}.mh-pp .mh-pr{grid-template-columns:28px 1fr 50px}.mh-pp .mh-pr>:nth-child(n+4){display:none}}
+<style id="lcCss2">
+/* ===== Match History v4: bigger cards, collapsible panels, sub-categories, more motion ===== */
+.lc{grid-template-columns:370px 1fr;gap:16px}
+.lc-p{position:relative;animation:lc-rise .7s var(--ease) both;animation-delay:calc(var(--o,0)*90ms);transition:border-color .3s,box-shadow .3s,transform .3s}
+@keyframes lc-rise{from{opacity:0;transform:translateY(22px) scale(.97);filter:blur(5px)}to{opacity:1;transform:none;filter:none}}
+.lc-p::before{content:"";position:absolute;left:0;right:0;top:0;height:2px;z-index:2;background:linear-gradient(90deg,transparent,var(--gd),#fff3c4,var(--gd),transparent);background-size:200% 100%;animation:lc-line 6s linear infinite;opacity:.6}
+@keyframes lc-line{to{background-position:-200% 0}}
+.lc-p::after,.lc-m::after,.lc-mt::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .3s;background:radial-gradient(320px circle at var(--mx,50%) var(--my,50%),rgba(248,169,0,.12),transparent 60%)}
+.lc-p:hover,.lc-mt:hover{border-color:rgba(248,169,0,.35);box-shadow:0 14px 34px rgba(0,0,0,.45)}.lc-p:hover::after,.lc-m:hover::after,.lc-mt:hover::after{opacity:1}
+button.lc-h{width:100%;gap:10px;background:none;border:0;border-bottom:1px solid var(--line);cursor:pointer;text-align:left;color:var(--text);font-size:14px;padding:14px 18px;transition:background .2s}
+button.lc-h:hover{background:rgba(255,255,255,.04)}button.lc-h small{margin-left:auto}
+.lc-h .lc-chv{transition:transform .4s var(--ease)}.lc-p.shut .lc-h .lc-chv{transform:rotate(-90deg)}.lc-p.shut button.lc-h{border-bottom-color:transparent}
+.lc-bw{display:grid;grid-template-rows:1fr;transition:grid-template-rows .5s var(--ease)}.lc-p.shut .lc-bw{grid-template-rows:0fr}.lc-bi{overflow:hidden;min-height:0}
+/* top profile dust */
+.lc-top{position:relative;overflow:hidden;animation:lc-rise .6s var(--ease) both}.lc-dust{position:absolute;inset:0;pointer-events:none}
+.lc-dust i{position:absolute;left:var(--x);bottom:-6px;width:4px;height:4px;border-radius:50%;background:var(--gd);opacity:0;box-shadow:0 0 8px var(--gd);animation:lc-up var(--t) ease-in var(--d) infinite}
+@keyframes lc-up{0%{opacity:0;transform:translateY(0)}15%{opacity:.8}100%{opacity:0;transform:translateY(-90px) translateX(14px)}}
+.lc-av{animation:lc-pulse 3s ease-in-out infinite}@keyframes lc-pulse{50%{box-shadow:0 0 0 6px rgba(248,169,0,.12),0 0 22px rgba(248,169,0,.4)}}
+/* big mode tabs */
+.lc-modes{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.lc-mt{position:relative;display:flex;align-items:center;gap:18px;padding:18px 20px;border-radius:12px;cursor:pointer;text-align:left;color:var(--text);background:var(--sf);border:1px solid var(--line);overflow:hidden;animation:lc-rise .6s var(--ease) both;animation-delay:calc(var(--o,0)*80ms);transition:transform .3s var(--ease),border-color .3s,box-shadow .3s}
+.lc-mt:hover{transform:translateY(-4px)}
+.lc-mt.on{border-color:var(--gd);box-shadow:0 0 0 1px var(--gd),0 14px 34px rgba(0,0,0,.5),0 0 34px rgba(248,169,0,.22);background:linear-gradient(135deg,rgba(248,169,0,.14),var(--sf) 60%)}
+.lc-mt.on::before{content:"";position:absolute;left:-60%;top:0;bottom:0;width:40%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.14),transparent);animation:lc-shine 3.6s ease-in-out infinite}
+@keyframes lc-shine{0%{left:-60%}55%,100%{left:130%}}
+.lc-mt .lc-em{width:62px;height:68px;font-size:22px}.lc-mt.on .lc-em{animation:lc-em 2.4s ease-in-out infinite}@keyframes lc-em{50%{filter:drop-shadow(0 0 12px var(--ec))}}
+.lc-mi{flex:1;min-width:0}.lc-mi b{display:block;font:800 18px var(--body)}.lc-mi span{display:block;font-size:13px;color:var(--muted);margin-top:2px}.lc-mi small{display:block;font-size:11px;color:var(--muted);margin-top:6px}
+.lc-mbar{height:5px;border-radius:3px;background:#262c36;margin-top:9px;overflow:hidden}.lc-mbar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--gd),#ffe29a);animation:lc-w 1s var(--ease) .3s forwards}
+/* bigger cards */
+.lc-rk{padding:22px;gap:20px}.lc-rk .lc-em{width:84px;height:92px;font-size:30px;animation:lc-em 3s ease-in-out infinite}.lc-rk b{font-size:28px}.lc-rk span{font-size:14px}.lc-rb{height:7px}
+.lc-tiles{grid-template-columns:repeat(3,1fr)}.lc-tile{padding:16px 14px;transition:background .25s}.lc-tile:hover{background:rgba(248,169,0,.07)}.lc-tile span{font-size:12px}.lc-tile b{font-size:24px}
+.lc-tile:nth-last-child(-n+3){border-bottom:0}
+.lc-c{width:46px;height:46px;font-size:15px;border-radius:10px}.lc-c s{font-size:10px;top:-11px}.lc-c u i{width:6px;height:6px}
+.lc-tr2{width:38px;height:42px;font-size:13px}.lc-au{width:40px;height:40px;font-size:12px;transition:transform .25s}.lc-au:hover{transform:rotate(14deg) scale(1.18)}
+.lc-row{grid-template-columns:140px 150px 190px 1fr 24px;gap:20px;padding:18px 20px 18px 24px}
+.lc-pl b{font-size:34px}.lc-pl span{font-size:12px}
+.lc-m{animation:lc-slide .55s var(--ease) both;animation-delay:calc(var(--i)*45ms)}@keyframes lc-slide{from{opacity:0;transform:translateX(-26px)}to{opacity:1;transform:none}}
+.lc-m:hover{transform:translateX(4px)}.lc-m:hover .lc-c{transform:translateY(-4px)}.lc-m:hover .lc-c:nth-child(2){transition-delay:.03s}.lc-m:hover .lc-c:nth-child(3){transition-delay:.06s}.lc-m:hover .lc-c:nth-child(4){transition-delay:.09s}.lc-m:hover .lc-c:nth-child(5){transition-delay:.12s}
+.lc-m.p1{background:linear-gradient(90deg,rgba(248,169,0,.1),transparent 45%)}.lc-m.p1 .lc-pl b{text-shadow:0 0 16px rgba(248,169,0,.7);animation:lc-gl 2.4s ease-in-out infinite}@keyframes lc-gl{50%{text-shadow:0 0 26px rgba(248,169,0,1)}}
+.lc-m.p1::before{box-shadow:0 0 16px var(--gd)}.lc-m.p1>.lc-row::after{content:"";position:absolute;top:0;bottom:0;left:-30%;width:22%;pointer-events:none;background:linear-gradient(100deg,transparent,rgba(255,226,154,.12),transparent);animation:lc-shine 5s ease-in-out infinite}
+.lc-row{position:relative;overflow:hidden}
+.lc-bd .lc-c{width:36px;height:36px;font-size:12px}.lc-bd .lc-tr2{width:30px;height:33px;font-size:11px}.lc-bd .lc-au{width:30px;height:30px;font-size:10px}
+.lc-pr{padding:12px 16px;transition:background .2s}.lc-pr:hover{background:rgba(255,255,255,.04)}
+/* sub-categories */
+.lc-sub,.lc-chips,.lc-stt{display:flex;gap:8px;flex-wrap:wrap;padding:12px 18px;border-bottom:1px solid var(--line)}
+.lc-sub{padding:10px 14px 4px;border:0}
+.lc-chip,.lc-sub button,.lc-stt button{position:relative;font:700 12px var(--body);padding:8px 16px;border-radius:99px;cursor:pointer;color:var(--muted);background:#10141b;border:1px solid var(--line);transition:transform .2s,color .2s,background .25s,border-color .25s,box-shadow .25s}
+.lc-chip:hover,.lc-sub button:hover,.lc-stt button:hover{color:var(--text);transform:translateY(-2px)}
+.lc-chip.on,.lc-stt button.on,.lc-m:not([data-v=ov]) .lc-sub button[data-v=lob],.lc-m[data-v=ov] .lc-sub button[data-v=ov]{background:var(--gd);border-color:var(--gd);color:#1c1300;box-shadow:0 6px 18px rgba(248,169,0,.35)}
+.lc-m:not([data-v=ov]) .lc-v-ov,.lc-m[data-v=ov] .lc-v-lob{display:none}
+.lc-chips .cnt{margin-left:auto;font-size:12px;color:var(--muted);align-self:center}
+.lc-v{animation:lc-in .4s ease both}
+.lc-ov{display:grid;gap:12px;padding:6px 18px 16px}.lc-ovt{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+.lc-ovt div{padding:12px;border-radius:8px;background:#10141b;border:1px solid var(--line)}.lc-ovt span{display:block;font-size:11px;color:var(--muted)}.lc-ovt b{font:800 20px var(--body)}
+.lc-ova{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.lc-ad{display:flex;align-items:center;gap:12px;padding:12px;border-radius:8px;background:#10141b;border:1px solid color-mix(in srgb,var(--ac) 45%,var(--line))}.lc-ad b{display:block;font-size:13px}.lc-ad span{font-size:11px;color:var(--muted)}
+.lc-tg{display:inline-block;margin:0 6px 6px 0;padding:6px 12px;border-radius:99px;font:700 12px var(--body);color:var(--tc);border:1px solid var(--tc);background:#10141b}
+/* stats list */
+.lc-sl{padding:6px 18px 16px}.lc-sl .lc-tr{position:relative;grid-template-columns:1fr 70px 70px;padding:11px 8px;font-size:14px;overflow:hidden;border-radius:6px}.lc-sl .lc-tr::before{content:"";position:absolute;left:0;top:0;bottom:0;width:0;background:rgba(248,169,0,.1);animation:lc-w .9s var(--ease) calc(var(--k)*70ms + .2s) forwards}.lc-sl .lc-tr>*{position:relative}
+.lc-sl .lc-tr:hover{background:rgba(255,255,255,.04)}.lc-sl h6{display:grid;grid-template-columns:1fr 70px 70px;margin:6px 8px;font:700 11px var(--body);color:var(--muted);letter-spacing:.08em;text-transform:uppercase}.lc-sl h6 span+span{text-align:right}
+/* form + chart */
+.lc-sum{grid-template-columns:1fr;gap:14px;padding:18px}.lc-st{justify-content:flex-start}.lc-st i{width:30px;height:30px;font-size:13px;border-radius:7px;animation:lc-pop .5s cubic-bezier(.2,1.6,.3,1) both;animation-delay:calc(var(--k)*35ms + .3s)}@keyframes lc-pop{from{opacity:0;transform:scale(.3) rotate(-30deg)}to{opacity:1;transform:none}}
+.lc-st i:hover{transform:translateY(-3px) scale(1.15)}.lc-kp div b{font-size:28px}
+.lc-lp svg{height:90px;overflow:visible}.lc-lp path.a{fill:url(#lcg);opacity:0;animation:lc-in 1s ease 1s forwards}.lc-lp circle{fill:var(--gd);animation:lc-dot 1.4s ease-in-out infinite;transform-box:fill-box;transform-origin:center}@keyframes lc-dot{50%{transform:scale(1.7);opacity:.5}}
+.lc-un{padding:22px}.lc-un .lc-em{width:64px;height:70px;font-size:22px}
+@media (max-width:1100px){.lc-modes{grid-template-columns:1fr}.lc{grid-template-columns:1fr}.lc-ovt{grid-template-columns:repeat(3,1fr)}.lc-ova{grid-template-columns:1fr}.lc-row{grid-template-columns:100px 1fr 24px}}
+@media (prefers-reduced-motion:reduce){.lc-p,.lc-m,.lc-mt,.lc-p *,.lc-m *{animation-duration:.01s!important;animation-delay:0s!important}}
 </style>
 </head>
 <body>
@@ -4215,7 +4228,7 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
   const CC = ['#9aa3b5', '#4fd37a', '#4aa8ff', '#b06cff', '#f5b942'], TC = ['#c27a46', '#c9d2e0', '#f5b942', '#b06cff'], AC = ['#4aa8ff', '#f5b942', '#b06cff'], IC = ['#ffd76a', '#ff6b7d', '#5fe3d0', '#b06cff', '#fff'];
   const PC = ['#f5b942', '#cdd6e8', '#d28a55', '#3fd0c0', '#7d89c9', '#8d7fb0', '#ff8a96', '#ff6b7d'];
   const MODES = { solo: { n: 'Solo Ranked', teams: 8, good: 4, goodN: 'Top 4' }, duo: { n: 'Double Up', teams: 4, good: 2, goodN: 'Top 2' }, normal: { n: 'Normal', teams: 8, good: 4, goodN: 'Top 4' } };
-  const RANK = { solo: { t: 'Diamond', d: 'II', lp: 54, c: '#6fb7ff', k: 'D', peak: 'Peak: Master · 112 LP' }, duo: { t: 'Emerald', d: 'I', lp: 23, c: '#3fd08a', k: 'E', peak: 'Peak: Diamond IV' } };
+  const RANK = { solo: { t: 'Gold', d: 'II', lp: 6, c: '#f0b84a', k: 'G' }, duo: { t: 'Gold', d: 'IV', lp: 0, c: '#f0b84a', k: 'G' } };
   const ord = p => ['', '1st', '2nd', '3rd', '4th', '5th', '6th', '7th', '8th'][p];
   const bld = () => ({ comp: shuf(CH).slice(0, ri(7, 9)).map(c => ({ n: c[0], c: c[1] - 1, s: ri(1, 3), it: Array.from({ length: ri(0, 3) }, () => ri(0, 4)) })), traits: shuf(TR).slice(0, 5).map(t => ({ n: t[0], k: t[1], t: ri(0, 3), c: ri(2, 6) })).sort((a, b) => b.t - a.t), augs: shuf(AU).slice(0, 3).map((a, k) => ({ n: a[0], k: a[1], t: k })) });
   function demo() {
@@ -4232,66 +4245,69 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
     });
   }
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-  const chs = c => c.map(x => `<div class="mh-ch" title="${esc(x.n)}" style="--cc:${CC[x.c]}"><s>${'★'.repeat(x.s)}</s>${esc(x.n.slice(0, 2))}<u>${x.it.map(i => `<i style="--ic:${IC[i]}"></i>`).join('')}</u></div>`).join('');
-  const trs = (t, n = 6) => t.slice(0, n).map(x => `<div class="mh-tr" title="${esc(x.n)} ${x.c}" style="--tc:${TC[x.t]}"><b>${x.c}</b></div>`).join('');
-  const ags = a => a.map(x => `<div class="mh-au" title="${esc(x.n)}" style="--ac:${AC[x.t]}">${x.k}</div>`).join('');
-  const sz = m => MODES[m.mode], good = m => m.place <= sz(m).good, cls = m => m.place === 1 ? 'p1' : good(m) ? 'pt' : 'pb';
+  const chs = c => c.map(x => `<div class="lc-c" title="${esc(x.n)}" style="--cc:${CC[x.c]}"><s>${'★'.repeat(x.s)}</s>${esc(x.n.slice(0, 2))}<u>${x.it.map(i => `<i style="--ic:${IC[i]}"></i>`).join('')}</u></div>`).join('');
+  const trs = (t, n = 5) => t.slice(0, n).map(x => `<div class="lc-tr2" title="${esc(x.n)} ${x.c}" style="--tc:${TC[x.t]}"><b>${x.c}</b></div>`).join('');
+  const ags = a => a.map(x => `<div class="lc-au" title="${esc(x.n)}" style="--ac:${AC[x.t]}">${x.k}</div>`).join('');
+  const good = m => m.place <= MODES[m.mode].good, cls = m => m.place === 1 ? 'p1' : good(m) ? 'pt' : 'pb', pcol = m => m.place === 1 ? '#f8a900' : good(m) ? '#3fd0a0' : '#c9606c';
   function lobbyHTML(m) {
     const mx = Math.max(...m.lobby.map(x => x.dmg)); let last = 0;
     return m.lobby.map(x => {
-      const head = m.mode === 'duo' && x.team !== last ? `<div class="mh-tm" style="--tc:${PC[x.team - 1]}">Team ${x.team} · ${ord(x.team)} place</div>` : ''; last = x.team;
-      return head + `<div class="mh-pp${x.me ? ' me' : ''}" style="--pc:${PC[x.place - 1]}"><div class="mh-pr" style="--pc:${PC[x.place - 1]};--w:${Math.round(x.dmg / mx * 100)}%"><span class="n">${x.place}</span><b>${esc(x.n)}${x.partner ? ' <span class="mh-ptn">PARTNER</span>' : ''}</b><span>Lv ${x.lvl}</span><div class="mh-dm"><i></i></div><span>${x.dmg} dmg</span></div>
-        <div class="mh-bd"><div class="mh-champs">${chs(x.comp)}</div><div class="sep"></div><div class="mh-trs">${trs(x.traits, 5)}</div><div class="sep"></div><div class="mh-ag">${ags(x.augs)}</div></div></div>`;
+      const head = m.mode === 'duo' && x.team !== last ? `<div class="lc-tm" style="--tc:${PC[x.team - 1]}">Team ${x.team} · ${ord(x.team)} place</div>` : ''; last = x.team;
+      return head + `<div class="lc-pr${x.me ? ' me' : ''}" style="--pc:${PC[x.place - 1]};--w:${Math.round(x.dmg / mx * 100)}%"><span class="n">${x.place}</span><div><b>${esc(x.n)}${x.partner ? ' <span class="pt">PARTNER</span>' : ''}</b><small>Lv ${x.lvl}</small></div>
+        <div class="lc-bd"><div class="lc-ch">${chs(x.comp)}</div><div class="lc-trs">${trs(x.traits)}</div><div class="lc-ag">${ags(x.augs)}</div><div class="lc-dm"><div><i></i></div><span>${x.dmg} dmg</span></div></div></div>`;
     }).join('');
   }
-  const rowHTML = (m, i) => `<article class="mh-m ${cls(m)}" style="--i:${i}"><div class="mh-row"><div class="mh-pl"><b>${m.place}</b></div>
-    <div class="mh-meta"><b>${ord(m.place)} place</b><span>${MODES[m.mode].n} · ${m.ago}</span>${m.partner ? `<span>with ${m.partner}</span>` : ''}<span class="lp ${m.lp > 0 ? 'up' : 'dn'}">${m.lp ? (m.lp > 0 ? '+' : '') + m.lp + ' LP' : 'No LP'}</span></div>
-    <div class="mh-champs">${chs(m.comp)}</div><div class="mh-trs">${trs(m.traits)}</div><div class="mh-ag">${ags(m.augs)}</div>
-    <svg class="mh-chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></div>
-    <div class="mh-det"><div><div class="mh-in2">
-      <div class="mh-stats">${[['Damage', m.dmg], ['Level', m.lvl], ['Eliminations', m.elim], ['Gold left', m.gold], ['Rounds', m.rounds], ['Length', m.len + ' min']].map(x => `<div class="mh-st"><span>${x[0]}</span><b>${x[1]}</b></div>`).join('')}</div>
-      <div class="mh-augs">${m.augs.map(a => `<div class="mh-ad" style="--ac:${AC[a.t]}"><div class="mh-au" style="--ac:${AC[a.t]}">${a.k}</div><div><b>${esc(a.n)}</b><span>${['Silver', 'Gold', 'Prismatic'][a.t]} augment · stage ${a.t + 2}-1</span></div></div>`).join('')}</div>
-      <div class="mh-lob"><h5>Lobby, opponents &amp; their builds</h5>${lobbyHTML(m)}</div></div></div></div></article>`;
-  function sum(L, mode) {
-    const g = MODES[mode].good, n = L.length || 1, avg = L.reduce((a, m) => a + m.place, 0) / n, gd = L.filter(m => m.place <= g).length, win = L.filter(m => m.place === 1).length;
-    const dist = Array(MODES[mode].teams).fill(0); L.forEach(m => dist[m.place - 1]++);
-    const tally = (f) => { const o = {}; L.forEach(m => f(m).forEach(t => { (o[t.n] = o[t.n] || { n: 0, p: 0 }).n++; o[t.n].p += m.place; })); return Object.entries(o); };
-    let best = 0, run = 0; L.slice().reverse().forEach(m => { run = m.place <= g ? run + 1 : 0; best = Math.max(best, run); });
-    let lp = 0; const pts = [0, ...L.slice().reverse().map(m => lp += m.lp)], av = f => L.reduce((a, m) => a + f(m), 0) / n;
-    return { n: L.length, avg, gd, win, g, dist, best, lp, pts, dmg: av(m => m.dmg), elim: av(m => m.elim), lvl: av(m => m.lvl), gold: av(m => m.gold), len: av(m => m.len), time: L.reduce((a, m) => a + m.len, 0) / 60,
-      traits: tally(m => m.traits.slice(0, 2)).sort((a, b) => b[1].n - a[1].n).slice(0, 4), champs: tally(m => m.comp).sort((a, b) => b[1].n - a[1].n).slice(0, 4), augs: tally(m => m.augs).filter(x => x[1].n > 1).sort((a, b) => a[1].p / a[1].n - b[1].p / b[1].n).slice(0, 4) };
-  }
+  const ls = { get: k => { try { return localStorage.getItem(k); } catch { return null; } }, set: (k, v) => { try { localStorage.setItem(k, v); } catch {} } };
+  let shut = {}; try { shut = JSON.parse(ls.get('tft.mh.shut') || '{}'); } catch {}
+  let ALL = [], mode = 'solo', sub = 'all', stat = 'champs';
+  const chev = '<svg class="lc-chv" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>';
+  const panel = (id, title, small, body, o) => `<section class="lc-p${shut[id] ? ' shut' : ''}" style="--o:${o}" data-id="${id}"><button class="lc-h" data-tg="${id}"><span>${title}</span><small>${small || ''}</small>${chev}</button><div class="lc-bw"><div class="lc-bi">${body}</div></div></section>`;
+  const ms = L => { const n = L.length || 1, f = g => L.reduce((a, m) => a + g(m), 0) / n; return { n: L.length, win: L.filter(m => m.place === 1).length, top: L.filter(good).length, avg: f(m => m.place), dmg: f(m => m.dmg), elim: f(m => m.elim), lvl: f(m => m.lvl) }; };
+  const ovHTML = m => `<div class="lc-ov"><div class="lc-ovt">${[['Damage', m.dmg], ['Level', m.lvl], ['Eliminations', m.elim], ['Gold left', m.gold], ['Rounds', m.rounds], ['Length', m.len + ' min']].map(x => `<div><span>${x[0]}</span><b>${x[1]}</b></div>`).join('')}</div>
+    <div class="lc-ova">${m.augs.map(a => `<div class="lc-ad" style="--ac:${AC[a.t]}"><div class="lc-au" style="--ac:${AC[a.t]}">${a.k}</div><div><b>${esc(a.n)}</b><span>${['Silver', 'Gold', 'Prismatic'][a.t]} augment · stage ${a.t + 2}-1</span></div></div>`).join('')}</div>
+    <div>${m.traits.map(t => `<span class="lc-tg" style="--tc:${TC[t.t]}">${esc(t.n)} ${t.c}</span>`).join('')}${m.partner ? `<span class="lc-tg" style="--tc:#f8a900">Partner · ${esc(m.partner)}</span>` : ''}</div></div>`;
+  const rowHTML = (m, i) => `<article class="lc-m ${cls(m)}" style="--i:${Math.min(i, 14)}" data-v="lob"><div class="lc-row"><div class="lc-pl"><b>#${m.place}</b><span>${MODES[m.mode].n} · ${m.ago}</span>${m.lp ? `<span class="${m.lp > 0 ? 'u' : 'd'}">${m.lp > 0 ? '+' : ''}${m.lp} LP</span>` : ''}</div>
+    <div class="lc-ag">${ags(m.augs)}</div><div class="lc-trs">${trs(m.traits, 4)}</div><div class="lc-ch">${chs(m.comp)}</div>${chev}</div>
+    <div class="lc-det"><div><div class="lc-sub"><button data-v="lob">Lobby &amp; builds</button><button data-v="ov">Overview</button></div><div class="lc-v lc-v-lob"><div class="lc-lob">${lobbyHTML(m)}</div></div><div class="lc-v lc-v-ov">${ovHTML(m)}</div></div></div></article>`;
+  const tally = (L, f) => { const o = {}; L.forEach(m => f(m).forEach(t => { (o[t.n] = o[t.n] || { n: 0, p: 0, c: t.c, t: t.t, k: t.k }).n++; o[t.n].p += m.place; })); return Object.entries(o).sort((a, b) => b[1].n - a[1].n || a[1].p - b[1].p).slice(0, 7); };
   function spark(pts) {
-    const W = 300, H = 110, mn = Math.min(...pts), mx = Math.max(...pts), r = (mx - mn) || 1, X = i => i / Math.max(1, pts.length - 1) * W, Y = v => H - 8 - (v - mn) / r * (H - 18);
+    const W = 400, H = 90, mn = Math.min(...pts), mx = Math.max(...pts), r = (mx - mn) || 1, X = i => i / Math.max(1, pts.length - 1) * W, Y = v => H - 8 - (v - mn) / r * (H - 18);
     const d = pts.map((v, i) => (i ? 'L' : 'M') + X(i).toFixed(1) + ' ' + Y(v).toFixed(1)).join(' ');
-    return `<svg viewBox="0 0 ${W} ${H}"><defs><linearGradient id="mhg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f5b942" stop-opacity=".4"/><stop offset="1" stop-color="#f5b942" stop-opacity="0"/></linearGradient></defs><path class="a" d="${d} L${W} ${H} L0 ${H} Z"/><path class="l" pathLength="1" d="${d}"/></svg>`;
+    return `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none"><defs><linearGradient id="lcg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f8a900" stop-opacity=".35"/><stop offset="1" stop-color="#f8a900" stop-opacity="0"/></linearGradient></defs><path class="a" d="${d} L${W} ${H} L0 ${H} Z"/><path class="l" pathLength="1" vector-effect="non-scaling-stroke" d="${d}"/><circle cx="${W - 3}" cy="${Y(pts[pts.length - 1]).toFixed(1)}" r="4"/></svg>`;
   }
-  function count(el, to, dec, suf) { const t0 = performance.now(); (function f(t) { const k = Math.min(1, (t - t0) / 1100), e = 1 - Math.pow(1 - k, 3); el.textContent = (to * e).toFixed(dec) + suf; if (k < 1) requestAnimationFrame(f); })(t0); }
-  let ALL = [], mode = 'solo', filt = 'all';
+  const cu = (v, d, suf, pre) => `<b class="cu" data-c="${v}" data-d="${d}" data-s="${suf || ''}" data-p="${pre || ''}">${pre || ''}0${suf || ''}</b>`;
+  const SEASON = [['Wins', 4, 0, '', 1], ['Win rate', 11.8, 1, '%', 1], ['Top 4', 19, 0, ''], ['Top 4 rate', 55.9, 1, '%'], ['Games', 34, 0, ''], ['Avg placement', 4.21, 2, '', 0, '#']];   // Set 18 season totals from lolchess.gg until the Riot API is connected
   async function load() { try { const r = await window.go.main.App.GetMatchHistory(''); if (r && r.length) return r; } catch {} return demo(); }
   function render() {
-    const MM = ALL.filter(m => m.mode === mode), S = sum(MM, mode), R = RANK[mode], mx = Math.max(...S.dist, 1), cfg = MODES[mode];
-    const L = MM.filter(m => filt === 'all' || (filt === 'top' && m.place <= S.g) || (filt === 'win' && m.place === 1));
-    const tabs = Object.keys(MODES).map(k => { const c = ALL.filter(m => m.mode === k), r = RANK[k]; return `<button class="mh-tab${k === mode ? ' on' : ''}" data-m="${k}"><div class="mh-em" style="--ec:${r ? r.c : '#8d96c6'}"><i>${r ? r.k : 'N'}</i></div><div><b>${MODES[k].n}</b><span>${r ? r.t + ' ' + r.d + ' · ' + r.lp + ' LP' : 'Unranked queue'} · ${c.length} games</span></div></button>`; }).join('');
-    const kp = [['Win rate', S.win / S.n * 100, 'g', '%', S.win + ' wins', 1], [cfg.goodN + ' rate', S.gd / S.n * 100, 't', '%', S.gd + ' of ' + S.n, 1], ['Avg placement', S.avg, '', '', 'lower is better', 2], ['Best streak', S.best, 'g', '', cfg.goodN.toLowerCase() + ' in a row', 0], ['Avg damage', S.dmg, '', '', 'per game', 0], ['Avg eliminations', S.elim, '', '', 'players', 1], ['Avg level', S.lvl, '', '', 'at the end', 1], ['Play time', S.time, '', ' h', S.n + ' games · ' + Math.round(S.len) + ' min avg', 1]];
-    root.innerHTML = `<div class="demo"><i></i>Demo data · connects to your Riot account when the API is available</div><div class="mh-tabs">${tabs}</div>
-    <div class="glass mh-sum"><div class="mh-rank" style="--ec:${R ? R.c : '#8d96c6'}"><div class="mh-hex tier"><b>${S.avg.toFixed(1)}</b></div><small>AVG PLACEMENT</small>${R ? `<div class="tr">${R.t} ${R.d}</div><div class="mh-lp"><em>${R.lp} LP</em> · ${S.lp > 0 ? '+' : ''}${S.lp} this session</div><div class="mh-rb"><i style="--w:${R.lp}%"></i></div><div class="mh-lp">${R.peak}</div>` : `<h3>Normal games</h3><div class="mh-lp">No LP, just practice</div>`}</div>
-      <div class="mh-kpis">${kp.map(k => `<div class="mh-kpi"><span>${k[0]}</span><b class="${k[2]}" data-c="${k[1]}" data-d="${k[5]}" data-s="${k[3]}">0</b><small>${k[4]}</small></div>`).join('')}</div></div>
-    <div class="mh-mid"><div class="glass mh-box"><h4>Placement distribution</h4><div class="mh-dist">${S.dist.map((v, i) => `<div><em>${v}</em><i style="--c:${PC[i]};--k:${i};--h:${Math.max(4, v / mx * 84)}px"></i><span>${i + 1}</span></div>`).join('')}</div></div>
-      <div class="glass mh-box mh-spark"><h4>${R ? 'LP trend' : 'Placement trend'}</h4>${spark(R ? S.pts : MM.slice().reverse().map(m => cfg.teams + 1 - m.place))}</div>
-      <div class="glass mh-box"><h4>Recent form</h4><div class="mh-form">${MM.slice(0, 10).map((m, k) => `<i style="--c:${PC[m.place - 1]};--k:${k}" title="${ord(m.place)}">${m.place}</i>`).join('')}</div><h4 style="margin-top:16px">Best augments</h4><div class="mh-top3">${S.augs.slice(0, 2).map((a, i) => `<div><b>${esc(a[0])}</b><span class="bar"><i style="--c:${AC[i]};--w:${Math.round(100 - a[1].p / a[1].n * 10)}%"></i></span><span>${(a[1].p / a[1].n).toFixed(1)}</span></div>`).join('') || '<span>Play more games</span>'}</div></div></div>
-    <div class="mh-mid" style="grid-template-columns:1fr 1fr"><div class="glass mh-box"><h4>Most played traits</h4><div class="mh-top3">${S.traits.map((t, i) => `<div><b>${t[0]}</b><span class="bar"><i style="--c:${TC[i % 4]};--w:${Math.min(100, Math.round(t[1].n / S.n * 220))}%"></i></span><span>${t[1].n}× · ${(t[1].p / t[1].n).toFixed(1)} avg</span></div>`).join('')}</div></div>
-      <div class="glass mh-box"><h4>Most played champions</h4><div class="mh-top3">${S.champs.map((c, i) => `<div><b>${c[0]}</b><span class="bar"><i style="--c:${CC[i + 1]};--w:${Math.round(c[1].n / S.n * 100)}%"></i></span><span>${c[1].n} games</span></div>`).join('')}</div></div></div>
-    <div class="mh-bar">${[['all', 'All games'], ['top', cfg.goodN], ['win', 'Wins']].map(f => `<button class="mh-chip${filt === f[0] ? ' on' : ''}" data-f="${f[0]}">${f[1]}</button>`).join('')}<span class="demo" style="margin-left:auto">${L.length} games</span></div>
-    <div class="mh-list mh-in">${L.map(rowHTML).join('') || '<div class="mh-empty">No games match this filter.</div>'}</div>`;
-    root.querySelectorAll('.mh-kpi b').forEach(b => count(b, +b.dataset.c, +b.dataset.d, b.dataset.s));
+    const L = ALL.filter(m => m.mode === mode), S = ms(L), R = RANK[mode], cfg = MODES[mode], R20 = L.slice(0, 20), S20 = ms(R20), gn = cfg.goodN;
+    const LF = L.filter(m => sub === 'all' || (sub === 'win' && m.place === 1) || (sub === 'top' && good(m)) || (sub === 'low' && !good(m)));
+    const tiles = (mode === 'solo' ? SEASON : [['Wins', S.win, 0, '', 1], ['Win rate', S.win / S.n * 100, 1, '%', 1], [gn, S.top, 0, ''], [gn + ' rate', S.top / S.n * 100, 1, '%'], ['Games', S.n, 0, ''], ['Avg placement', S.avg, 2, '', 0, '#']]).concat([['Avg damage', S.dmg, 0, ''], ['Avg eliminations', S.elim, 1, ''], ['Avg level', S.lvl, 1, '']]);
+    const mt = (k, o) => { const c = ALL.filter(m => m.mode === k), r = RANK[k], s = ms(c), p = Math.round(s.top / (s.n || 1) * 100); return `<button class="lc-mt${k === mode ? ' on' : ''}" data-m="${k}" style="--ec:${r ? r.c : '#8d95a3'};--o:${o}"><div class="lc-em"><i>${r ? r.k : 'N'}</i></div><div class="lc-mi"><b>${MODES[k].n}</b><span>${r ? r.t + ' ' + r.d + ' · ' + r.lp + ' LP' : 'Unranked queue'}</span><div class="lc-mbar"><i style="--w:${p}%"></i></div><small>${c.length} games · ${p}% ${MODES[k].goodN}</small></div></button>`; };
+    const rows = stat === 'champs' ? tally(R20, m => m.comp) : stat === 'traits' ? tally(R20, m => m.traits.slice(0, 3)) : tally(R20, m => m.augs), mxn = Math.max(1, ...rows.map(r => r[1].n));
+    const ico = x => stat === 'champs' ? `<div class="lc-c" style="--cc:${CC[x.c]};width:30px;height:30px;font-size:11px"></div>` : stat === 'traits' ? `<div class="lc-tr2" style="--tc:${TC[x.t]};width:28px;height:31px"><b>${x.c}</b></div>` : `<div class="lc-au" style="--ac:${AC[x.t]};width:30px;height:30px;font-size:10px">${x.k}</div>`;
+    let t = 0; const lpPts = [0, ...R20.filter(m => m.lp).reverse().map(m => t += m.lp)];
+    const side = panel('rank', 'Rank', cfg.n, R ? `<div class="lc-rk" style="--ec:${R.c}"><div class="lc-em"><i>${R.k}</i></div><div style="flex:1"><b>${R.t} ${R.d}</b><span>${R.lp} LP${S20.n ? ' · ' + (lpPts[lpPts.length - 1] > 0 ? '+' : '') + lpPts[lpPts.length - 1] + ' recent' : ''}</span><div class="lc-rb"><i style="--w:${Math.max(R.lp, 3)}%"></i></div></div></div>` : `<div class="lc-un" style="--ec:#8d95a3"><div class="lc-em"><i>N</i></div><div><b>Unranked queue</b>Normal games give no LP</div></div>`, 0)
+      + panel('over', 'Season overview', mode === 'solo' ? 'Set 18' : 'Recent games', `<div class="lc-tiles">${tiles.map(x => `<div class="lc-tile"><span>${x[0]}</span>${cu(x[1], x[2], x[3], x[5])}</div>`).join('')}</div>`, 1)
+      + panel('form', 'Recent form', R20.length + ' games', `<div class="lc-sum"><div class="lc-kp"><div><span>Avg placement</span><b class="g">#${S20.avg.toFixed(1)}</b></div><div><span>1st places</span><b>${S20.win}</b></div><div><span>${gn}</span><b>${S20.top}</b></div></div><div class="lc-st">${R20.map((m, k) => `<i style="--c:${pcol(m)};--k:${k}" title="${ord(m.place)}">${m.place}</i>`).join('')}</div></div>${R && lpPts.length > 2 ? `<div class="lc-lp"><small>LP change</small>${spark(lpPts)}</div>` : ''}`, 2);
+    const main = panel('stats', 'Recent ' + R20.length + ' matches', cfg.n, `<div class="lc-stt">${[['champs', 'Champions'], ['traits', 'Traits'], ['augs', 'Augments']].map(x => `<button class="${stat === x[0] ? 'on' : ''}" data-s="${x[0]}">${x[1]}</button>`).join('')}</div><div class="lc-sl"><h6><span>${{ champs: 'Champion', traits: 'Trait', augs: 'Augment' }[stat]}</span><span>Games</span><span>Avg</span></h6>${rows.map((r, k) => `<div class="lc-tr" style="--k:${k};--w:${Math.round(r[1].n / mxn * 100)}%"><div>${ico(r[1])}<b>${esc(r[0])}</b></div><em>${r[1].n}</em><em class="${r[1].p / r[1].n <= cfg.good ? 'hi' : ''}">${(r[1].p / r[1].n).toFixed(1)}</em></div>`).join('') || '<div class="lc-empty">No games</div>'}</div>`, 1)
+      + panel('matches', 'Match history', LF.length + ' games', `<div class="lc-chips">${[['all', 'All games'], ['win', 'Wins'], ['top', gn], ['low', 'Bottom']].map(x => `<button class="lc-chip${sub === x[0] ? ' on' : ''}" data-c="${x[0]}">${x[1]}</button>`).join('')}</div><div class="lc-list">${LF.map(rowHTML).join('') || '<div class="lc-empty">No games here yet.</div>'}</div>`, 2);
+    root.innerHTML = `<div class="demo"><i></i>Demo data · connects to your Riot account when the API is available</div>
+    <div class="lc-top"><div class="lc-dust">${[8, 22, 36, 50, 64, 78, 90].map((x, k) => `<i style="--x:${x}%;--t:${3 + k % 3}s;--d:${k * .7}s"></i>`).join('')}</div><div class="lc-av">C<em>874</em></div><div><h2>CominQo<span>#EUNE</span></h2><p>EUNE · Set 18 Overview</p></div><div class="lc-pill"><b>Set 18 · Enchanted Wilds</b><button disabled title="Available when the Riot API is connected">Update</button></div></div>
+    <div class="lc-modes">${mt('solo', 0)}${mt('duo', 1)}${mt('normal', 2)}</div>
+    <div class="lc"><div class="lc-side">${side}</div><div class="lc-main">${main}</div></div>`;
+    root.querySelectorAll('.cu').forEach(b => { const to = +b.dataset.c, d = +b.dataset.d, t0 = performance.now(); (function f(now) { const k = Math.min(1, (now - t0) / 1100), e = 1 - Math.pow(1 - k, 3); b.textContent = b.dataset.p + (to * e).toFixed(d) + b.dataset.s; if (k < 1) requestAnimationFrame(f); })(t0); });
   }
   root.addEventListener('click', e => {
-    const t = e.target.closest('.mh-tab'); if (t) { mode = t.dataset.m; filt = 'all'; render(); return; }
-    const f = e.target.closest('.mh-chip'); if (f) { filt = f.dataset.f; render(); return; }
-    const r = e.target.closest('.mh-row'); if (r) r.parentElement.classList.toggle('open');
+    const q = (sel) => e.target.closest(sel);
+    let x;
+    if (x = q('.lc-mt')) { mode = x.dataset.m; sub = 'all'; render(); return; }
+    if (x = q('[data-tg]')) { const p = x.closest('.lc-p'); p.classList.toggle('shut'); shut[x.dataset.tg] = p.classList.contains('shut'); ls.set('tft.mh.shut', JSON.stringify(shut)); return; }
+    if (x = q('.lc-stt button')) { stat = x.dataset.s; render(); return; }
+    if (x = q('.lc-chip')) { sub = x.dataset.c; render(); return; }
+    if (x = q('.lc-sub button')) { x.closest('.lc-m').dataset.v = x.dataset.v; return; }
+    if (x = q('.lc-row')) x.parentElement.classList.toggle('open');
   });
-  root.addEventListener('pointermove', e => { const m = e.target.closest('.mh-m'); if (!m) return; const b = m.getBoundingClientRect(); m.style.setProperty('--mx', e.clientX - b.left + 'px'); m.style.setProperty('--my', e.clientY - b.top + 'px'); });
+  root.addEventListener('pointermove', e => { const m = e.target.closest('.lc-p,.lc-m,.lc-mt'); if (!m) return; const b = m.getBoundingClientRect(); m.style.setProperty('--mx', e.clientX - b.left + 'px'); m.style.setProperty('--my', e.clientY - b.top + 'px'); });
   const sec = document.getElementById('history');
   new MutationObserver(() => { if (!sec.hidden && ALL.length) render(); }).observe(sec, { attributes: true, attributeFilter: ['hidden'] });
   load().then(r => { ALL = r; render(); });
