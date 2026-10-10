@@ -588,6 +588,61 @@ background:linear-gradient(160deg,#ffffff1c,#ffffff08);border:1.5px solid color-
 .rc-none{padding:18px 6px;color:var(--muted);font-size:13px;line-height:1.5;text-align:center}
 @media (max-width:1640px){.cb-main{grid-template-columns:230px minmax(0,1fr)}.cb-recs{grid-column:1/-1;max-height:none}.rc-list{grid-template-columns:repeat(auto-fill,minmax(310px,1fr));max-height:640px}}
 @media (prefers-reduced-motion:reduce){.rc-card{animation:none}.rc-bar i{transition:none}}
+/* ---- Emblems / Augments / Random Emblem mode ---- */
+.em-bagw{margin:10px 0}
+.em-bag{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-height:56px;padding:10px 12px;border:1.5px dashed rgba(255,255,255,.2);border-radius:16px;background:rgba(255,255,255,.03);transition:border-color .2s,background .2s}
+.em-bag.over{border-color:var(--gold);background:rgba(248,169,0,.12)}
+.em-hint{color:var(--muted);font-size:13px}
+.em-chip{display:inline-flex;align-items:center;gap:8px;padding:5px 6px 5px 5px;border-radius:99px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);font:600 13px var(--body);animation:rcIn .25s var(--ease) both}
+.em-chip button{width:20px;height:20px;border-radius:50%;border:0;background:rgba(255,255,255,.1);color:var(--text);cursor:pointer;line-height:1}
+.em-chip button:hover{background:#ff5f6d}
+.em-d{flex:none;display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--c) center/cover;color:#14100a;font:800 10px var(--body);box-shadow:0 0 12px -3px var(--c)}
+.em-pick{display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:10px;margin:12px 0 18px}
+.em-p{display:flex;flex-direction:column;align-items:center;gap:6px;padding:10px 6px;border-radius:14px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03);cursor:grab;font:600 12px var(--body);text-align:center;transition:transform .2s var(--ease),border-color .2s}
+.em-p:hover{transform:translateY(-3px);border-color:var(--gold)}
+.em-p .em-d{width:38px;height:38px;font-size:12px}
+.pl-src{margin:6px 0 12px;color:var(--muted);font-size:12px}
+.pl-src a,.pl-src button{color:var(--gold);background:none;border:0;padding:0;font:inherit;text-decoration:underline;cursor:pointer}
+.pl-sum{padding:12px 14px;margin:6px 0 12px;border-radius:14px;background:rgba(248,169,0,.08);border:1px solid rgba(248,169,0,.25);font-size:13.5px;line-height:1.5}
+.pl-sh{display:flex;align-items:center;gap:10px;margin:16px 0 10px;font:800 13px var(--body);letter-spacing:.1em;text-transform:uppercase;color:var(--tc)}
+.pl-sh span{padding:2px 9px;border-radius:99px;background:color-mix(in srgb,var(--tc) 18%,transparent);font-size:12px}
+.pl-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px}
+.pl-card{display:grid;gap:8px;padding:12px;border-radius:16px;border:1px solid color-mix(in srgb,var(--tc) 35%,rgba(255,255,255,.08));background:linear-gradient(180deg,color-mix(in srgb,var(--tc) 8%,transparent),rgba(255,255,255,.02));animation:rcIn .28s var(--ease) both}
+.pl-h{display:flex;gap:10px;align-items:center}
+.pl-t{flex:none;min-width:30px;height:30px;padding:0 6px;display:grid;place-items:center;border-radius:9px;font:800 14px var(--head);color:#14100a;background:var(--tc)}
+.pl-n b{display:block;font-size:14px;line-height:1.2}.pl-n small{color:var(--muted);font-size:11.5px}
+.pl-tags{display:flex;flex-wrap:wrap;gap:5px}
+.pl-tag{padding:2px 8px;border-radius:99px;font:600 11px var(--body);background:rgba(255,255,255,.06);color:var(--muted)}
+.pl-tag.e{background:rgba(93,183,242,.18);color:#7fd2ff}.pl-tag.up{background:rgba(248,169,0,.2);color:var(--gold)}.pl-tag.q{background:rgba(255,95,109,.16);color:#ff8a94}
+.pl-act{display:flex;gap:8px}
+.pl-act .cb-btn{padding:6px 12px;font-size:12px}
+.pl-d summary{cursor:pointer;color:var(--muted);font-size:12px}
+.pl-ag{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
+.pl-ag span,.ag-i b{color:var(--ac)}
+.pl-ag span{padding:2px 8px;border-radius:7px;font:600 11px var(--body);background:color-mix(in srgb,var(--ac) 14%,transparent);border:1px solid color-mix(in srgb,var(--ac) 35%,transparent)}
+.rn-ctl{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:10px 0}
+.rn-n{display:inline-flex;align-items:center;gap:2px;padding:2px;border-radius:12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1)}
+.rn-n button{width:30px;height:30px;border:0;border-radius:9px;background:none;color:var(--text);font-size:17px;cursor:pointer}.rn-n button:hover{background:rgba(255,255,255,.1)}
+.rn-n b{min-width:26px;text-align:center;font:800 16px var(--head)}
+.rn-rank{display:grid;gap:8px;margin:8px 0 6px}
+.rn-r{display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:12px;background:rgba(255,255,255,.04)}
+.rn-r small{margin-left:auto;color:var(--muted);font-size:12px;text-align:right}
+@keyframes rnRoll{0%{transform:rotate(-8deg) scale(.6);opacity:0}60%{transform:rotate(4deg) scale(1.12)}100%{transform:none;opacity:1}}
+.rolled .em-chip{animation:rnRoll .45s var(--ease) both}
+.ag-slots{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:10px 0}
+.ag-slot{position:relative;display:grid;gap:3px;padding:10px 12px;border-radius:14px;border:1.5px dashed rgba(255,255,255,.18);color:var(--muted)}
+.ag-slot small{font:700 10.5px var(--body);letter-spacing:.1em;text-transform:uppercase}
+.ag-slot b{font-size:14px}
+.ag-slot.f{border:1.5px solid var(--ac);background:color-mix(in srgb,var(--ac) 12%,transparent);color:var(--text);cursor:pointer}
+.ag-slot.f b{color:var(--ac)}.ag-slot em{position:absolute;top:8px;right:12px;font-style:normal;opacity:.6}
+.ag-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:8px;margin:12px 0 18px}
+.ag-i{display:grid;gap:2px;text-align:left;padding:9px 12px;border-radius:12px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03);color:var(--text);cursor:pointer;font:inherit;transition:transform .2s var(--ease),border-color .2s}
+.ag-i:hover{transform:translateY(-2px);border-color:var(--ac)}
+.ag-i.on{border-color:var(--ac);background:color-mix(in srgb,var(--ac) 14%,transparent)}
+.ag-i b{font-size:13px}.ag-i small{color:var(--muted);font-size:11px}
+.ag-i.rec::after{content:"★";position:absolute;right:10px;color:var(--gold)}
+.ag-i{position:relative}
+@media (prefers-reduced-motion:reduce){.em-chip,.pl-card,.rolled .em-chip{animation:none}}
 /* ---- Cosmetic collections (redesign) ---- */
 @keyframes cUp{from{opacity:0;transform:translateY(16px) scale(.97)}to{opacity:1;transform:none}}
 @keyframes cFade{from{opacity:0}to{opacity:1}}
@@ -2790,7 +2845,7 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
       <div class="cb-panel"><div class="cb-h">Saved comps</div><div class="cb-saved" id="cb-sv"></div></div>
       <div class="cb-main"><div class="cb-panel"><div class="cb-h">Traits</div><div class="cb-traits" id="cb-tr"></div></div>
         <div class="cb-panel cb-board"><div id="cb-bd"></div><div class="cb-rm" id="cb-rm">Drop here to remove</div></div>${recShell()}</div>
-      <div class="cb-panel"><div class="cb-hd"><div class="cb-seg"><button class="on" data-tab="c">Champions</button><button data-tab="i">Items</button><button data-tab="t">Traits</button></div></div>
+      <div class="cb-panel"><div class="cb-hd"><div class="cb-seg"><button class="on" data-tab="c">Champions</button><button data-tab="i">⚔️ Items</button><button data-tab="e">🎖 Emblems</button><button data-tab="a">✨ Augments</button><button data-tab="r">🎲 Random Emblems</button><button data-tab="t">Traits</button></div></div>
         <div id="cb-cp"><div class="cb-bar"><input id="cb-q" placeholder="Search champions or traits">
           <div class="cb-seg">${[0,1,2,3,4,5].map(c => `<button data-c="${c}" class="${c === costF ? 'on' : ''}">${c || 'All'}</button>`).join('')}</div>
           <select id="cb-tf"><option value="">All traits</option>${tr.map(t => `<option>${esc(t.name)}</option>`).join('')}</select>
@@ -2800,7 +2855,7 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
           <div class="cb-grid" id="cb-il"></div></div>
         <div id="cb-tp" hidden><div class="cb-hint">Click a trait to filter the champion list by it.</div>
           <div class="cb-bar"><input id="cb-tq" placeholder="Search traits"><div class="cb-chips" id="cb-tcc"></div></div>
-          <div class="cb-tgrid" id="cb-tl"></div></div></div>`;
+          <div class="cb-tgrid" id="cb-tl"></div></div>${extraPanels()}</div>`;
     $('cb-bd').innerHTML = [0,1,2,3].map(r => `<div class="cb-row${r % 2 ? ' o' : ''}">${Array.from({ length: 7 }, (_, k) => `<div class="cb-hex" style="z-index:${4 - r}" data-i="${r * 7 + k}"></div>`).join('')}</div>`).join('');
   }
   function paintSaved() {
@@ -2885,23 +2940,26 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
   function wire() {
     root.addEventListener('dragstart', e => {
       const el = e.target.closest('[draggable]'); if (!el) return;
-      const k = el.classList.contains('cb-p') ? 'champ' : el.classList.contains('cb-u') ? 'unit' : el.classList.contains('cb-i') ? 'item' : 'pin';
+      const k = el.classList.contains('cb-p') ? 'champ' : el.classList.contains('cb-u') ? 'unit' : el.classList.contains('cb-i') ? 'item' : el.classList.contains('em-p') ? 'emblem' : 'pin';
       drag = { kind: k, name: el.dataset.n, from: el.dataset.i != null ? +el.dataset.i : null, k: +el.dataset.k };
       root.dataset.drag = k; e.dataTransfer.setData('text/plain', drag.name || 'x'); e.dataTransfer.effectAllowed = 'move';
       e.dataTransfer.setDragImage(el, el.offsetWidth / 2, el.offsetHeight / 2);
     });
     root.addEventListener('dragover', e => {
       if (!drag) return;
-      const h = e.target.closest('.cb-hex'), rm = e.target.closest('.cb-rm'), out = drag.kind === 'unit' || drag.kind === 'pin';
-      const ok = h ? (drag.kind === 'champ' || drag.kind === 'unit' || !!board[+h.dataset.i]) : out;
+      const h = e.target.closest('.cb-hex'), rm = e.target.closest('.cb-rm'), bg = e.target.closest('.em-bag'), out = drag.kind === 'unit' || drag.kind === 'pin';
+      const isEm = drag.kind === 'emblem' || (drag.kind === 'item' && !!gearTrait(drag.name));
+      const ok = bg ? isEm : h ? (drag.kind === 'champ' || drag.kind === 'unit' || !!board[+h.dataset.i]) : out;
       clearOver();
-      if (ok) { e.preventDefault(); if (h) h.classList.add('over'); else if (rm) rm.classList.add('over'); }
+      if (ok) { e.preventDefault(); if (h) h.classList.add('over'); else if (rm) rm.classList.add('over'); else if (bg) bg.classList.add('over'); }
     });
     const done = () => { drag = null; root.dataset.drag = ''; clearOver(); };
     root.addEventListener('dragend', done);
     root.addEventListener('drop', e => {
       if (!drag) return; e.preventDefault();
       const h = e.target.closest('.cb-hex'), i = h && +h.dataset.i, d = drag; done();
+      if (e.target.closest('.em-bag')) { addBag(d.kind === 'emblem' ? d.name : gearTrait(d.name)); return; }
+      if (d.kind === 'emblem') { if (h) { const em = emInfo(d.name); if (em.item) addItem(i, em.item); else say('That emblem item is not in the item list'); } return; }
       if (d.kind === 'champ' || d.kind === 'unit') { if (h) place(d.name, i, d.kind === 'unit' ? d.from : null); else if (d.kind === 'unit') remove(d.from); }
       else if (d.kind === 'item') { if (h) addItem(i, d.name); }
       else if (h) moveItem(d.from, d.k, i); else removeItem(d.from, d.k);
@@ -2916,7 +2974,7 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
       else if (u) remove(+u.dataset.i);
       else if (p) { const i = board.indexOf(null); if (i >= 0 && !board.includes(p.dataset.n)) place(p.dataset.n, i, null); }
       else if (c) { costF = +c.dataset.c; c.parentNode.querySelectorAll('button').forEach(x => x.classList.toggle('on', x === c)); paintPool(); }
-      else if (tb) { tab = tb.dataset.tab; tb.parentNode.querySelectorAll('button').forEach(x => x.classList.toggle('on', x === tb)); $('cb-cp').hidden = tab !== 'c'; $('cb-ip').hidden = tab !== 'i'; $('cb-tp').hidden = tab !== 't'; }
+      else if (tb) { tab = tb.dataset.tab; tb.parentNode.querySelectorAll('button').forEach(x => x.classList.toggle('on', x === tb)); showPanels(); }
       else if (del) { comps = comps.filter(x => String(x.id) !== del.dataset.del); saveComps(); paintSaved(); }
       else if (sc) { const s = comps.find(x => String(x.id) === sc.dataset.id); if (s) { push(); board = valid(s.board); gear = fixGear(s.gear, board); $('cb-name').value = s.name; paintBoard(); } }
       else if (b && b.id === 'cb-save') saveComp();
@@ -2947,7 +3005,7 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
     });
     return cnt;
   }
-  const boardEmblems = () => { const s = new Set(); board.forEach((n, i) => n && (gear[i] || []).forEach(g => { const t = gearTrait(g); if (t) s.add(norm(t)); })); return s; };
+  const boardEmblems = () => { const s = new Set(bag.map(norm)); board.forEach((n, i) => n && (gear[i] || []).forEach(g => { const t = gearTrait(g); if (t) s.add(norm(t)); })); return s; };
 
   // +2 per matched champ, +3 per completed trait, +2 per matched emblem
   function scoreComp(c, cur, onBoard, emb) {
@@ -3038,6 +3096,157 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
     root.addEventListener('input', e => { if (e.target.id === 'rc-q') { rq = e.target.value; paintRecs(); } });
   }
 
+  /* ---------- emblems / augments / random emblem mode (TFT Flow meta snapshot) ---------- */
+  const TR = ['S+', 'S', 'A', 'B', 'C', 'D'], TRC = { 'S+': '#ff4d6d', S: '#ff7a59', A: '#f5b942', B: '#5db7f2', C: '#8d95a3', D: '#6b7280' };
+  const AUGCOL = { Silver: '#b7c0cc', Gold: '#f5b942', Prismatic: '#d58cff' };
+  const BKEY = 'tft.bag18', AKEY = 'tft.aug18', BAGMAX = 12;
+  let META = null, EMC = null, bag = [], augPicks = [null, null, null], emQ = '', agQ = '', agF = '', agRec = false, rnN = 3;
+  try { const b = JSON.parse(store.get(BKEY) || '[]'); if (Array.isArray(b)) bag = b.slice(0, BAGMAX); } catch {}
+  try { const a = JSON.parse(store.get(AKEY) || '[]'); if (Array.isArray(a)) augPicks = [0, 1, 2].map(i => a[i] || null); } catch {}
+  const rankOf = t => { const i = TR.indexOf(t); return i < 0 ? 99 : i; };
+  const openUrl = u => { try { window.runtime.BrowserOpenURL(u); } catch { window.open(u, '_blank', 'noopener'); } };
+  const saveBag = () => store.set(BKEY, JSON.stringify(bag)), saveAug = () => store.set(AKEY, JSON.stringify(augPicks));
+  const hue = s => `hsl(${[...s].reduce((a, c) => a + c.charCodeAt(0) * 7, 0) % 360},62%,58%)`;
+  const augR = a => META?.augments?.[a] || 'Gold', augColor = a => AUGCOL[augR(a)] || '#f5b942';
+
+  function EMBS() {
+    if (EMC) return EMC;
+    const m = new Map();
+    ITEMS.forEach(it => { if (it.tags.includes('emblem')) { const t = it.trait || embTrait(it.name); m.set(norm(t), { t, icon: it.icon || '', item: it.name }); } });
+    (META?.emblems || []).forEach(t => { if (!m.has(norm(t))) m.set(norm(t), { t, icon: '', item: '' }); });
+    return EMC = [...m.values()].sort((a, b) => a.t.localeCompare(b.t));
+  }
+  const emInfo = t => EMBS().find(e => norm(e.t) === norm(t)) || { t, icon: '' };
+  const emDisc = e => `<b class="em-d" style="--c:${hue(e.t)};${e.icon ? `background-image:url('${esc(e.icon).replace(/'/g, '%27')}')` : ''}">${e.icon ? '' : esc(e.t.slice(0, 2).toUpperCase())}</b>`;
+  const sty = s => /Fast 8/.test(s) ? 0 : /Fast 9/.test(s) ? 1 : 2;
+
+  // which meta comps can you play with these emblems, and at which tier
+  function plan(traits) {
+    const have = new Set(traits.map(norm)), out = [];
+    (META?.comps || []).forEach(c => {
+      if ((c.requires || []).some(r => !have.has(norm(r)))) return;
+      let best = { tier: c.base, via: [] };
+      const hits = [];
+      (c.lines || []).forEach(l => {
+        const via = (l.emblems || []).filter(e => have.has(norm(e)));
+        if (via.length) { hits.push({ tier: l.tier, via }); if (rankOf(l.tier) < rankOf(best.tier)) best = { tier: l.tier, via }; }
+      });
+      out.push({ c, best, hits, boosted: rankOf(best.tier) < rankOf(c.base) });
+    });
+    return out.sort((a, b) => rankOf(a.best.tier) - rankOf(b.best.tier) || b.boosted - a.boosted || sty(a.c.style) - sty(b.c.style) || a.c.name.localeCompare(b.c.name));
+  }
+  function ranking(traits) {
+    return [...new Set(traits.map(norm))].map(k => {
+      const t = traits.find(x => norm(x) === k), r = plan([t]).filter(x => x.hits.length), b = r[0];
+      return { t, n: r.length, tier: b ? b.best.tier : null, top: b ? b.c.name : '' };
+    }).sort((a, b) => rankOf(a.tier) - rankOf(b.tier) || b.n - a.n);
+  }
+
+  function planCard(r) {
+    const c = r.c;
+    return `<div class="pl-card" style="--tc:${TRC[r.best.tier] || '#8d95a3'}"><div class="pl-h"><span class="pl-t">${r.best.tier}</span><div class="pl-n"><b>${esc(c.name)}</b><small>${esc(c.style)} · ${esc(c.dmg)}</small></div></div>
+      <div class="pl-tags">${r.boosted ? `<span class="pl-tag up">▲ from ${c.base}</span>` : `<span class="pl-tag">base ${c.base}</span>`}${r.best.via.map(t => `<span class="pl-tag e">${esc(t)} Emblem</span>`).join('')}${(c.requires || []).map(t => `<span class="pl-tag q">uses ${esc(t)} Emblem</span>`).join('')}${c.note ? `<span class="pl-tag">${esc(c.note)}</span>` : ''}</div>
+      <div class="pl-act"><button class="cb-btn" data-open="${esc(c.url)}">TFT Flow ↗</button></div>
+      ${(c.augments || []).length ? `<details class="pl-d"><summary>Augments (${c.augments.length})</summary><div class="pl-ag">${c.augments.map(a => `<span style="--ac:${augColor(a)}">${esc(a)}</span>`).join('')}</div></details>` : ''}</div>`;
+  }
+  function planHTML(traits, compact) {
+    if (!META) return '<p class="cb-hint">Loading meta…</p>';
+    if (!META.comps.length) return '<p class="cb-hint">meta.json not found next to sets.json.</p>';
+    const list = plan(traits), by = ts => list.filter(r => ts.includes(r.best.tier));
+    const S = by(['S+', 'S']), A = by(['A']), B = by(['B']), O = by(['C', 'D']);
+    const sec = (label, arr, tc) => arr.length ? `<div class="pl-sh" style="--tc:${tc}">${label}<span>${arr.length}</span></div><div class="pl-grid">${arr.map(planCard).join('')}</div>` : '';
+    const more = (label, arr) => arr.length ? `<details class="pl-d" style="margin-top:14px"><summary>${label} (${arr.length})</summary><div class="pl-grid" style="margin-top:10px">${arr.map(planCard).join('')}</div></details>` : '';
+    return `<div class="pl-src">Meta from <button data-open="${esc(META.sourceUrl)}">TFT Flow</button> · patch ${esc(META.patch)} snapshot — tiers can change, check the site for live updates.</div>
+      <div class="pl-sum">${traits.length ? `With ${traits.map(t => `<b>${esc(t)}</b>`).join(', ')} you can play <b>${list.length}</b> comps: <b>${S.length}</b> in S tier, <b>${A.length}</b> in A tier${B.length ? `, ${B.length} in B` : ''}.` : 'No emblems yet. This is the meta without emblems. Add the emblems you have to see what they unlock.'}</div>`
+      + sec('S Tier options', S, TRC.S) + sec('A Tier options', A, TRC.A) + (compact ? more('B tier and below', [...B, ...O]) : sec('B Tier', B, TRC.B) + more('Playable, lower tier', O));
+  }
+
+  /* ----- bag + tabs ----- */
+  const bagHTML = () => `<div class="em-bag">${bag.length ? bag.map((t, i) => `<span class="em-chip">${emDisc(emInfo(t))}${esc(t)}<button data-bagx="${i}" aria-label="Remove ${esc(t)}">×</button></span>`).join('') : '<span class="em-hint">Drag emblems here, or click them to add</span>'}</div>`;
+  const paintBags = () => document.querySelectorAll('.em-bagw').forEach(el => el.innerHTML = bagHTML());
+  const bagChanged = () => { saveBag(); paintEmblems(); paintRandom(); paintAugs(); recalc(); };
+  function addBag(t) { if (!t) return; if (bag.length >= BAGMAX) return say('Bag is full'); bag.push(t); bagChanged(); }
+
+  function paintEmblems() {
+    if (!$('cb-ep')) return; paintBags();
+    const k = emQ.trim().toLowerCase();
+    $('em-pick').innerHTML = EMBS().filter(e => !k || e.t.toLowerCase().includes(k)).map(e => `<div class="em-p" draggable="true" data-n="${esc(e.t)}" data-em="${esc(e.t)}" title="${esc(e.t)} Emblem">${emDisc(e)}<span>${esc(e.t)}</span></div>`).join('') || '<span class="cb-hint">No emblems match.</span>';
+    $('em-plan').innerHTML = planHTML(bag, false);
+  }
+  function paintRandom() {
+    if (!$('cb-rp')) return; paintBags(); $('rn-n').textContent = rnN;
+    const rk = ranking(bag);
+    $('rn-rank').innerHTML = rk.length ? rk.map(r => `<div class="rn-r"><span class="pl-t" style="--tc:${TRC[r.tier] || '#555'}">${r.tier || '–'}</span><b>${esc(r.t)} Emblem</b><small>${r.n ? `${r.n} comp${r.n > 1 ? 's' : ''} · best: ${esc(r.top)}` : 'no meta line uses it'}</small></div>`).join('') : '<p class="cb-hint">Roll or add emblems to see which ones matter most.</p>';
+    $('rn-plan').innerHTML = planHTML(bag, true);
+  }
+  function roll(add) {
+    const pool = EMBS(); if (!pool.length) return say('Emblem list not loaded yet');
+    const out = add ? bag.slice() : [], target = Math.min(BAGMAX, add ? bag.length + 1 : rnN);
+    const cand = pool.filter(e => !out.some(x => norm(x) === norm(e.t)));
+    while (out.length < target && cand.length) out.push(cand.splice(Math.floor(Math.random() * cand.length), 1)[0].t);
+    bag = out; saveBag(); paintEmblems(); paintRandom(); paintAugs(); recalc();
+    document.querySelectorAll('.em-bagw').forEach(el => { el.classList.remove('rolled'); void el.offsetWidth; el.classList.add('rolled'); });
+  }
+
+  /* ----- augments ----- */
+  function AUGS() {
+    const m = new Map(Object.entries(META?.augments || {}).map(([n, r]) => [n, { name: n, r }]));
+    if (Array.isArray(D.augments)) D.augments.forEach(a => { const n = a.name || a; if (n && !m.has(n)) m.set(n, { name: n, r: a.rarity || a.tier || 'Gold' }); });
+    return [...m.values()];
+  }
+  function paintAugs() {
+    if (!$('cb-ap') || !META) return;
+    const use = {}; META.comps.forEach(c => (c.augments || []).forEach(a => (use[a] = use[a] || []).push(c)));
+    const topSet = new Set(); plan(bag).filter(r => rankOf(r.best.tier) <= 2).forEach(r => (r.c.augments || []).forEach(a => topSet.add(a)));
+    $('ag-slots').innerHTML = ['2-1', '3-2', '4-2'].map((s, i) => augPicks[i] ? `<div class="ag-slot f" style="--ac:${augColor(augPicks[i])}" data-agx="${i}" title="Click to remove"><small>${s} · ${augR(augPicks[i])}</small><b>${esc(augPicks[i])}</b><em>×</em></div>` : `<div class="ag-slot"><small>${s}</small><b>Pick an augment</b></div>`).join('');
+    $('ag-r').innerHTML = ['', 'Silver', 'Gold', 'Prismatic'].map(r => `<button class="cb-chip${agF === r ? ' on' : ''}" data-agr="${r}">${r || 'All'}</button>`).join('') + `<button class="cb-chip${agRec ? ' on' : ''}" data-agrec="1">★ Fits S/A comps</button>`;
+    const k = agQ.trim().toLowerCase();
+    const list = AUGS().filter(a => (!agF || a.r === agF) && (!k || a.name.toLowerCase().includes(k)) && (!agRec || topSet.has(a.name)))
+      .sort((a, b) => (use[b.name]?.length || 0) - (use[a.name]?.length || 0) || a.name.localeCompare(b.name));
+    $('ag-list').innerHTML = list.map(a => `<button class="ag-i${augPicks.includes(a.name) ? ' on' : ''}${topSet.has(a.name) ? ' rec' : ''}" style="--ac:${AUGCOL[a.r] || '#f5b942'}" data-ag="${esc(a.name)}" title="${esc((use[a.name] || []).map(c => c.name).join(', '))}"><b>${esc(a.name)}</b><small>${esc(a.r)} · ${use[a.name]?.length || 0} comp${(use[a.name]?.length || 0) === 1 ? '' : 's'}</small></button>`).join('') || '<span class="cb-hint">No augments match.</span>';
+    const picks = augPicks.filter(Boolean), pm = new Map(plan(bag).map(r => [r.c.id, r]));
+    const fit = picks.length ? META.comps.map(c => ({ c, m: picks.filter(a => (c.augments || []).includes(a)).length })).filter(x => x.m && pm.has(x.c.id)).sort((a, b) => b.m - a.m || rankOf(pm.get(a.c.id).best.tier) - rankOf(pm.get(b.c.id).best.tier)) : [];
+    $('ag-fit').innerHTML = picks.length ? `<div class="pl-sh" style="--tc:${TRC.A}">Comps that like your augments<span>${fit.length}</span></div><div class="pl-grid">${fit.slice(0, 12).map(x => planCard(pm.get(x.c.id))).join('') || ''}</div>` : '<p class="cb-hint">Pick augments above to see which meta comps use them.</p>';
+  }
+
+  const PANELS = { c: 'cb-cp', i: 'cb-ip', e: 'cb-ep', a: 'cb-ap', r: 'cb-rp', t: 'cb-tp' };
+  function showPanels() { Object.keys(PANELS).forEach(k => { $(PANELS[k]).hidden = tab !== k; }); if (tab === 'e') paintEmblems(); else if (tab === 'a') paintAugs(); else if (tab === 'r') paintRandom(); }
+  async function loadMeta() {
+    try { const r = await fetch('meta.json'); if (!r.ok) throw 0; META = await r.json(); } catch { META = { comps: [], emblems: [], augments: {}, sourceUrl: 'https://tftflow.com/' }; }
+    EMC = null; paintEmblems(); paintRandom(); paintAugs();
+  }
+  const extraPanels = () => `
+        <div id="cb-ep" hidden><div class="cb-hint">Drop the emblems you own into the bag. The planner shows which meta comps you can play and in which tier.</div>
+          <div class="em-bagw"></div>
+          <div class="cb-bar"><input id="em-q" placeholder="Search emblems" autocomplete="off"><button class="cb-btn" data-bagclear="1">Clear bag</button></div>
+          <div class="em-pick" id="em-pick"></div><div id="em-plan"></div></div>
+        <div id="cb-ap" hidden><div class="cb-hint">Pick your augments (2-1, 3-2, 4-2). ★ marks augments that S and A tier comps for your emblems like.</div>
+          <div class="ag-slots" id="ag-slots"></div>
+          <div class="cb-bar"><input id="ag-q" placeholder="Search augments" autocomplete="off"><div class="cb-chips" id="ag-r"></div></div>
+          <div class="ag-list" id="ag-list"></div><div id="ag-fit"></div></div>
+        <div id="cb-rp" hidden><div class="cb-hint">Random Emblem Mode: got random emblems? Roll them or add the ones you got, and see what you can play.</div>
+          <div class="rn-ctl"><div class="rn-n"><button data-nem="-1" aria-label="Fewer">−</button><b id="rn-n">3</b><button data-nem="1" aria-label="More">+</button></div>
+            <button class="cb-btn pri" data-roll="new">🎲 Roll random emblems</button><button class="cb-btn" data-roll="add">+ Add one more</button><button class="cb-btn" data-bagclear="1">Clear</button></div>
+          <div class="em-bagw"></div>
+          <div class="cb-h" style="margin-top:12px">Your emblems, ranked</div><div class="rn-rank" id="rn-rank"></div><div id="rn-plan"></div></div>`;
+  function wireExtra() {
+    root.addEventListener('click', e => {
+      const T = e.target, c = s => T.closest(s);
+      let el;
+      if ((el = c('[data-open]'))) openUrl(el.dataset.open);
+      else if ((el = c('[data-em]'))) addBag(el.dataset.em);
+      else if ((el = c('[data-bagx]'))) { bag.splice(+el.dataset.bagx, 1); bagChanged(); }
+      else if (c('[data-bagclear]')) { bag = []; bagChanged(); }
+      else if ((el = c('[data-nem]'))) { rnN = Math.min(BAGMAX, Math.max(1, rnN + +el.dataset.nem)); paintRandom(); }
+      else if ((el = c('[data-roll]'))) roll(el.dataset.roll === 'add');
+      else if ((el = c('[data-ag]'))) { const n = el.dataset.ag, i = augPicks.indexOf(n); if (i >= 0) augPicks[i] = null; else { const f = augPicks.indexOf(null); if (f < 0) return say('All 3 augment slots are used'); augPicks[f] = n; } saveAug(); paintAugs(); }
+      else if ((el = c('[data-agx]'))) { augPicks[+el.dataset.agx] = null; saveAug(); paintAugs(); }
+      else if ((el = c('[data-agr]'))) { agF = el.dataset.agr; paintAugs(); }
+      else if (c('[data-agrec]')) { agRec = !agRec; paintAugs(); }
+    });
+    root.addEventListener('input', e => { if (e.target.id === 'em-q') { emQ = e.target.value; paintEmblems(); } else if (e.target.id === 'ag-q') { agQ = e.target.value; paintAugs(); } });
+  }
+
   async function init() {
     if (started) return; started = true;
     try { D = await (await fetch('comp18/comp18.json')).json(); if (!D || !D.champions) throw 0; }   // full data pack: all champions, traits and items with icons
@@ -3052,7 +3261,7 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
       .map((x, i) => ({ name: x.name, ab: x.abbr || x.name.split(/\s+/).map(w => w[0]).join('').slice(0, 2).toUpperCase(), color: x.color || (x.tags && TAGC[x.tags[0]]) || HUES[i % HUES.length], icon: x.icon || x.img || x.image || '', tags: x.tags || [], desc: x.desc || '', trait: x.trait || '' }));
     try { const b = JSON.parse(store.get(KEY) || '[]'); if (Array.isArray(b) && b.length === N) board = valid(b); gear = fixGear(JSON.parse(store.get(GKEY) || '[]'), board); } catch {}
     try { const s = JSON.parse(store.get(SKEY) || '[]'); if (Array.isArray(s)) comps = s; } catch {}
-    shell(); wire(); wireRecs(); paintSaved(); paintItems(); paintTraits(); paintPool(); loadRecs();
+    shell(); wire(); wireRecs(); wireExtra(); paintSaved(); paintItems(); paintTraits(); paintPool(); loadRecs(); loadMeta();
   }
   $('navComp').addEventListener('click', init);
   if (showView.cur === 'comp') init();

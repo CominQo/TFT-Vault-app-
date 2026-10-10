@@ -1,0 +1,1334 @@
+{
+ "source": "TFT Flow",
+ "sourceUrl": "https://tftflow.com/tier-list",
+ "patch": "18.4",
+ "set": 18,
+ "emblems": [
+  "Blackthorn",
+  "Blossom",
+  "Brawler",
+  "Defender",
+  "Elderwood",
+  "Executioner",
+  "Fae",
+  "Flora Fatalis",
+  "Hunter",
+  "Inferno",
+  "Invoker",
+  "Juggernaut",
+  "Lunar",
+  "Primal",
+  "Rapidfire",
+  "Ravager",
+  "Spellweaver",
+  "Vanguard"
+ ],
+ "augments": {
+  "Focused Fire": "Silver",
+  "Glass Cannon I": "Silver",
+  "Verticality I": "Silver",
+  "Pandora's Bench": "Silver",
+  "Find Your Center": "Silver",
+  "Healing Orbs I": "Silver",
+  "Slice of Life": "Silver",
+  "Carve a Path": "Silver",
+  "One, Two, Five!": "Silver",
+  "Capital Gains I": "Silver",
+  "Feeling Lucky": "Silver",
+  "Late Game Specialist": "Silver",
+  "Good For Something I": "Silver",
+  "Kick Start": "Silver",
+  "Patience Is A Virtue": "Silver",
+  "Slightly Magic Roll": "Silver",
+  "Team Building": "Silver",
+  "Boxing Lessons": "Silver",
+  "Residual Magic": "Silver",
+  "Branching Out": "Silver",
+  "Small Grab Bag": "Silver",
+  "Component Buffet": "Silver",
+  "Pandora's Items I": "Silver",
+  "Item Grab Bag I": "Silver",
+  "Missed Connections": "Silver",
+  "Rolling For Days": "Silver",
+  "Latent Forge": "Silver",
+  "Caretaker's Chosen I": "Silver",
+  "Swordsmith": "Gold",
+  "Bronze For Life I": "Gold",
+  "Early Learnings": "Gold",
+  "NO SCOUT NO PIVOT": "Gold",
+  "Glass Cannon II": "Gold",
+  "Verticality II": "Gold",
+  "Omega Riftbeast": "Gold",
+  "Trade Sector": "Gold",
+  "Healing Orbs II": "Gold",
+  "Solo Plate": "Gold",
+  "Item Extraction": "Gold",
+  "Epic Rolldown": "Gold",
+  "Explosive Growth": "Gold",
+  "Money Hungry": "Gold",
+  "Money Hungry+": "Gold",
+  "Patient Study": "Gold",
+  "Slammin'": "Gold",
+  "Cooking Pot": "Gold",
+  "Beast Within": "Gold",
+  "Late Game Scaling": "Gold",
+  "Capital Gains II": "Gold",
+  "Advanced Loan+": "Gold",
+  "Seraphim's Staff": "Gold",
+  "Bodyguard Training": "Gold",
+  "Plot Armor": "Gold",
+  "Makeshift Armor II": "Gold",
+  "Clockwork Accelerator": "Gold",
+  "Ascension": "Gold",
+  "Arcane Viktor-y": "Gold",
+  "Spreading Roots": "Gold",
+  "Heroic Grab Bag": "Gold",
+  "Big Grab Bag": "Gold",
+  "Staffsmith": "Gold",
+  "Exclusive Customization": "Gold",
+  "Pandora's Items II": "Gold",
+  "Heart of Steel": "Gold",
+  "Woven Magic": "Gold",
+  "Legion Of Threes": "Gold",
+  "Portable Forge": "Gold",
+  "Solo Leveling": "Gold",
+  "Consuming Flora": "Gold",
+  "Birthday Reunion": "Gold",
+  "Rivals to Friends": "Gold",
+  "Golden Gamble+": "Gold",
+  "U.R.F": "Gold",
+  "Deadlier Blades": "Prismatic",
+  "Sword Overflow": "Prismatic",
+  "Bronze For Life II": "Prismatic",
+  "Comeback Story": "Prismatic",
+  "Verticality III": "Prismatic",
+  "Prismatic Ticket": "Prismatic",
+  "Retribution": "Prismatic",
+  "Golden Gamble": "Prismatic",
+  "Buried Treasures III": "Prismatic",
+  "Commerce Core": "Prismatic",
+  "Shopping Spree": "Prismatic",
+  "Birthday Present": "Prismatic",
+  "Hedge Fund": "Prismatic",
+  "Invested+": "Prismatic",
+  "Level Up!": "Prismatic",
+  "Money Monsoon": "Prismatic",
+  "Upward Mobility": "Prismatic",
+  "Going Long": "Prismatic",
+  "Wand Overflow": "Prismatic",
+  "Hold the Line": "Prismatic",
+  "Baron's Lair": "Prismatic",
+  "Giant and Mighty": "Prismatic",
+  "Soul Awakening": "Prismatic",
+  "The Trait Tree": "Prismatic",
+  "We Stick Together": "Prismatic",
+  "Luxury Subscription": "Prismatic",
+  "Urf's Grab Bag": "Prismatic",
+  "Forged In Strength": "Prismatic",
+  "Living Forge": "Prismatic",
+  "Nesting Anvils": "Prismatic",
+  "Sweet Treats": "Prismatic",
+  "Pandora's Items III": "Prismatic",
+  "Radiant Relics": "Prismatic",
+  "Shimmerscale Essence": "Prismatic",
+  "Cursed Crown": "Prismatic"
+ },
+ "comps": [
+  {
+   "id": "nidalee-aphelios",
+   "name": "Nidalee Aphelios",
+   "url": "https://tftflow.com/composition/set18/nidalee-aphelios",
+   "style": "Fast 8",
+   "dmg": "AD",
+   "base": "A",
+   "requires": [],
+   "note": "",
+   "lines": [
+    {
+     "tier": "S",
+     "emblems": [
+      "Ravager"
+     ]
+    }
+   ],
+   "augments": [
+    "Deadlier Blades",
+    "Sword Overflow",
+    "Swordsmith",
+    "Bronze For Life II",
+    "Focused Fire",
+    "Comeback Story",
+    "Commerce Core",
+    "Epic Rolldown",
+    "Explosive Growth",
+    "Money Hungry",
+    "Patient Study",
+    "Rolling For Days",
+    "Slammin'",
+    "Slice of Life",
+    "Carve a Path",
+    "Bronze For Life I"
+   ]
+  },
+  {
+   "id": "rapidfire-bramble",
+   "name": "Rapidfire Bramble",
+   "url": "https://tftflow.com/composition/set18/rapidfire-bramble",
+   "style": "Fast 8",
+   "dmg": "AD",
+   "base": "A",
+   "requires": [
+    "Rapidfire"
+   ],
+   "note": "",
+   "lines": [],
+   "augments": [
+    "Commerce Core",
+    "Epic Rolldown",
+    "Explosive Growth",
+    "Money Hungry",
+    "Patient Study",
+    "Rolling For Days",
+    "Shopping Spree",
+    "Slammin'",
+    "Slice of Life",
+    "Cooking Pot"
+   ]
+  },
+  {
+   "id": "sivir-hunters",
+   "name": "Ashe Sivir",
+   "url": "https://tftflow.com/composition/set18/sivir-hunters",
+   "style": "Fast 9",
+   "dmg": "AD",
+   "base": "A",
+   "requires": [],
+   "note": "",
+   "lines": [
+    {
+     "tier": "S+",
+     "emblems": [
+      "Juggernaut"
+     ]
+    },
+    {
+     "tier": "S",
+     "emblems": [
+      "Fae",
+      "Inferno"
+     ]
+    }
+   ],
+   "augments": [
+    "Commerce Core",
+    "Epic Rolldown",
+    "Explosive Growth",
+    "Money Hungry",
+    "Patient Study",
+    "Rolling For Days",
+    "Shopping Spree",
+    "Slammin'",
+    "Slice of Life",
+    "Beast Within"
+   ]
+  },
+  {
+   "id": "draven-fast-9",
+   "name": "Draven Fast 9",
+   "url": "https://tftflow.com/composition/set18/draven-fast-9",
+   "style": "Fast 9",
+   "dmg": "AD",
+   "base": "A",
+   "requires": [],
+   "note": "Needs a strong economy",
+   "lines": [
+    {
+     "tier": "S",
+     "emblems": [
+      "Executioner"
+     ]
+    }
+   ],
+   "augments": [
+    "One, Two, Five!",
+    "Birthday Present",
+    "Capital Gains I",
+    "Explosive Growth",
+    "Feeling Lucky",
+    "Hedge Fund",
+    "Invested+",
+    "Late Game Scaling",
+    "Late Game Specialist",
+    "Level Up!",
+    "Money Hungry",
+    "Money Monsoon",
+    "Rolling For Days",
+    "Slammin'",
+    "Slice of Life",
+    "Upward Mobility",
+    "Birthday Reunion"
+   ]
+  },
+  {
+   "id": "riftbeast-tempo",
+   "name": "Riftbeast Tempo",
+   "url": "https://tftflow.com/composition/set18/riftbeast-tempo",
+   "style": "3-cost reroll",
+   "dmg": "AD",
+   "base": "A",
+   "requires": [],
+   "note": "Needs Riftbeast units",
+   "lines": [],
+   "augments": [
+    "Omega Riftbeast",
+    "Verticality I",
+    "Verticality II",
+    "Verticality III",
+    "Pandora's Bench",
+    "Trade Sector",
+    "Missed Connections",
+    "Find Your Center",
+    "Healing Orbs I",
+    "Healing Orbs II",
+    "Solo Plate",
+    "Explosive Growth",
+    "Money Hungry",
+    "Rolling For Days",
+    "Shopping Spree",
+    "Slammin'",
+    "Slice of Life",
+    "Going Long"
+   ]
+  },
+  {
+   "id": "akali-reroll",
+   "name": "Akali Reroll",
+   "url": "https://tftflow.com/composition/set18/akali-reroll",
+   "style": "1-cost reroll",
+   "dmg": "AD",
+   "base": "A",
+   "requires": [],
+   "note": "",
+   "lines": [],
+   "augments": [
+    "Missed Connections",
+    "Early Learnings",
+    "NO SCOUT NO PIVOT",
+    "Prismatic Ticket",
+    "Retribution",
+    "Find Your Center",
+    "Healing Orbs I",
+    "Healing Orbs II",
+    "Solo Plate",
+    "Golden Gamble",
+    "Big Grab Bag",
+    "Small Grab Bag",
+    "Item Grab Bag I"
+   ]
+  },
+  {
+   "id": "invoker-ahri",
+   "name": "Invoker Ahri",
+   "url": "https://tftflow.com/composition/set18/invoker-ahri",
+   "style": "Fast 8",
+   "dmg": "AP",
+   "base": "A",
+   "requires": [],
+   "note": "",
+   "lines": [
+    {
+     "tier": "S+",
+     "emblems": [
+      "Invoker"
+     ]
+    }
+   ],
+   "augments": [
+    "Glass Cannon I",
+    "Glass Cannon II",
+    "Commerce Core",
+    "Epic Rolldown",
+    "Explosive Growth",
+    "Money Hungry",
+    "Patient Study",
+    "Rolling For Days",
+    "Shopping Spree",
+    "Slammin'",
+    "Slice of Life"
+   ]
+  },
+  {
+   "id": "blossom-fast-9",
+   "name": "Blossom Fast 9",
+   "url": "https://tftflow.com/composition/set18/blossom-fast-9",
+   "style": "Fast 9",
+   "dmg": "AP",
+   "base": "A",
+   "requires": [],
+   "note": "Needs a strong economy",
+   "lines": [
+    {
+     "tier": "S",
+     "emblems": [
+      "Executioner"
+     ]
+    }
+   ],
+   "augments": [
+    "One, Two, Five!",
+    "Birthday Present",
+    "Capital Gains I",
+    "Explosive Growth",
+    "Feeling Lucky",
+    "Hedge Fund",
+    "Invested+",
+    "Late Game Scaling",
+    "Level Up!",
+    "Money Hungry",
+    "Money Monsoon",
+    "Rolling For Days",
+    "Slammin'",
+    "Upward Mobility"
+   ]
+  },
+  {
+   "id": "khazix-reroll",
+   "name": "Kha'Zix Reroll",
+   "url": "https://tftflow.com/composition/set18/khazix-reroll",
+   "style": "3-cost reroll",
+   "dmg": "AP",
+   "base": "A",
+   "requires": [],
+   "note": "",
+   "lines": [
+    {
+     "tier": "S+",
+     "emblems": [
+      "Executioner"
+     ]
+    }
+   ],
+   "augments": [
+    "Heroic Grab Bag",
+    "Patience Is A Virtue",
+    "Prismatic Ticket",
+    "Rolling For Days",
+    "Team Building",
+    "Find Your Center",
+    "Healing Orbs I",
+    "Healing Orbs II",
+    "Solo Plate"
+   ]
+  },
+  {
+   "id": "rammus-azir",
+   "name": "Rammus Azir",
+   "url": "https://tftflow.com/composition/set18/rammus-azir",
+   "style": "3-cost reroll",
+   "dmg": "AP",
+   "base": "A",
+   "requires": [],
+   "note": "",
+   "lines": [
+    {
+     "tier": "S+",
+     "emblems": [
+      "Executioner"
+     ]
+    }
+   ],
+   "augments": [
+    "Heroic Grab Bag",
+    "Patience Is A Virtue",
+    "Prismatic Ticket",
+    "Rolling For Days",
+    "Team Building",
+    "Find Your Center",
+    "Healing Orbs I",
+    "Healing Orbs II",
+    "Solo Plate",
+    "Item Extraction"
+   ]
+  },
+  {
+   "id": "blossom-executioners",
+   "name": "Blossom Executioners",
+   "url": "https://tftflow.com/composition/set18/blossom-executioners",
+   "style": "Fast 8",
+   "dmg": "AD",
+   "base": "B",
+   "requires": [],
+   "note": "",
+   "lines": [
+    {
+     "tier": "S",
+     "emblems": [
+      "Executioner"
+     ]
+    }
+   ],
+   "augments": [
+    "Golden Gamble",
+    "Buried Treasures III",
+    "Commerce Core",
+    "Epic Rolldown",
+    "Explosive Growth",
+    "Money Hungry",
+    "Patient Study",
+    "Rolling For Days",
+    "Shopping Spree",
+    "Slammin'",
+    "Staffsmith",
+    "Small Grab Bag",
+    "Big Grab Bag"
+   ]
+  },
+  {
+   "id": "vanguard-aphelios",
+   "name": "Vanguard Aphelios",
+   "url": "https://tftflow.com/composition/set18/vanguard-aphelios",
+   "style": "Fast 8",
+   "dmg": "AD",
+   "base": "B",
+   "requires": [],
+   "note": "",
+   "lines": [],
+   "augments": [
+    "Commerce Core",
+    "Epic Rolldown",
+    "Explosive Growth",
+    "Money Hungry",
+    "Patient Study",
+    "Rolling For Days",
+    "Shopping Spree",
+    "Slammin'",
+    "Slice of Life"
+   ]
+  },
+  {
+   "id": "caitlyn-reroll",
+   "name": "Caitlyn Reroll",
+   "url": "https://tftflow.com/composition/set18/caitlyn-reroll",
+   "style": "2-cost reroll",
+   "dmg": "AD",
+   "base": "B",
+   "requires": [],
+   "note": "",
+   "lines": [],
+   "augments": [
+    "Good For Something I",
+    "Advanced Loan+",
+    "Capital Gains I",
+    "Capital Gains II",
+    "Feeling Lucky",
+    "Kick Start",
+    "Patience Is A Virtue",
+    "Prismatic Ticket",
+    "Rolling For Days",
+    "Slightly Magic Roll"
+   ]
+  },
+  {
+   "id": "solar-yunara",
+   "name": "Solar Yunara",
+   "url": "https://tftflow.com/composition/set18/solar-yunara",
+   "style": "2-cost reroll",
+   "dmg": "AD",
+   "base": "B",
+   "requires": [],
+   "note": "",
+   "lines": [
+    {
+     "tier": "S",
+     "emblems": [
+      "Executioner"
+     ]
+    }
+   ],
+   "augments": [
+    "Good For Something I",
+    "Advanced Loan+",
+    "Capital Gains I",
+    "Capital Gains II",
+    "Feeling Lucky",
+    "Kick Start",
+    "Patience Is A Virtue",
+    "Prismatic Ticket",
+    "Rolling For Days",
+    "Slightly Magic Roll"
+   ]
+  },
+  {
+   "id": "blossom",
+   "name": "Blossom",
+   "url": "https://tftflow.com/composition/set18/blossom",
+   "style": "Fast 8",
+   "dmg": "AP",
+   "base": "B",
+   "requires": [],
+   "note": "",
+   "lines": [
+    {
+     "tier": "S",
+     "emblems": [
+      "Executioner",
+      "Juggernaut",
+      "Blossom"
+     ]
+    },
+    {
+     "tier": "A",
+     "emblems": [
+      "Brawler"
+     ]
+    }
+   ],
+   "augments": [
+    "Branching Out",
+    "Spreading Roots",
+    "The Trait Tree",
+    "Seraphim's Staff",
+    "Commerce Core",
+    "Epic Rolldown",
+    "Explosive Growth",
+    "Money Hungry",
+    "Patient Study",
+    "Rolling For Days",
+    "Shopping Spree",
+    "Slammin'",
+    "We Stick Together"
+   ]
+  },
+  {
+   "id": "invoker-brambleback",
+   "name": "Invoker Brambleback",
+   "url": "https://tftflow.com/composition/set18/invoker-brambleback",
+   "style": "Fast 8",
+   "dmg": "AP",
+   "base": "B",
+   "requires": [],
+   "note": "",
+   "lines": [
+    {
+     "tier": "S",
+     "emblems": [
+      "Invoker"
+     ]
+    },
+    {
+     "tier": "A",
+     "emblems": [
+      "Spellweaver"
+     ]
+    }
+   ],
+   "augments": [
+    "Commerce Core",
+    "Epic Rolldown",
+    "Explosive Growth",
+    "Money Hungry",
+    "Patient Study",
+    "Rolling For Days",
+    "Shopping Spree",
+    "Slammin'",
+    "Small Grab Bag",
+    "Big Grab Bag",
+    "Exclusive Customization",
+    "Swordsmith"
+   ]
+  },
+  {
+   "id": "juggernaut-zyra",
+   "name": "Juggernaut Zyra",
+   "url": "https://tftflow.com/composition/set18/juggernaut-zyra",
+   "style": "Fast 8",
+   "dmg": "AP",
+   "base": "B",
+   "requires": [],
+   "note": "",
+   "lines": [
+    {
+     "tier": "S",
+     "emblems": [
+      "Executioner",
+      "Juggernaut"
+     ]
+    }
+   ],
+   "augments": [
+    "Hold the Line",
+    "Boxing Lessons",
+    "Bodyguard Training",
+    "Seraphim's Staff",
+    "Baron's Lair",
+    "One, Two, Five!",
+    "Soul Awakening",
+    "Residual Magic",
+    "Arcane Viktor-y",
+    "Ascension",
+    "Clockwork Accelerator",
+    "Makeshift Armor II",
+    "Plot Armor",
+    "Giant and Mighty"
+   ]
+  },
+  {
+   "id": "soraka-zyra",
+   "name": "Soraka Flex",
+   "url": "https://tftflow.com/composition/set18/soraka-zyra",
+   "style": "Fast 8",
+   "dmg": "AP",
+   "base": "B",
+   "requires": [],
+   "note": "",
+   "lines": [
+    {
+     "tier": "S",
+     "emblems": [
+      "Executioner"
+     ]
+    },
+    {
+     "tier": "A",
+     "emblems": [
+      "Spellweaver"
+     ]
+    }
+   ],
+   "augments": [
+    "Wand Overflow",
+    "Item Extraction",
+    "Solo Plate",
+    "Seraphim's Staff",
+    "Commerce Core",
+    "Find Your Center",
+    "Healing Orbs I",
+    "Healing Orbs II",
+    "Buried Treasures III",
+    "Big Grab Bag",
+    "Staffsmith",
+    "Golden Gamble"
+   ]
+  },
+  {
+   "id": "spellweaver-ahri",
+   "name": "Spellweaver Ahri",
+   "url": "https://tftflow.com/composition/set18/spellweaver-ahri",
+   "style": "Fast 8",
+   "dmg": "AP",
+   "base": "B",
+   "requires": [],
+   "note": "",
+   "lines": [],
+   "augments": [
+    "Bronze For Life I",
+    "Bronze For Life II",
+    "Luxury Subscription",
+    "Commerce Core",
+    "Epic Rolldown",
+    "Explosive Growth",
+    "Money Hungry",
+    "Patient Study",
+    "Rolling For Days",
+    "Shopping Spree",
+    "Slammin'"
+   ]
+  },
+  {
+   "id": "azir-reroll",
+   "name": "Azir Reroll",
+   "url": "https://tftflow.com/composition/set18/azir-reroll",
+   "style": "3-cost reroll",
+   "dmg": "AP",
+   "base": "B",
+   "requires": [],
+   "note": "",
+   "lines": [
+    {
+     "tier": "S",
+     "emblems": [
+      "Executioner"
+     ]
+    },
+    {
+     "tier": "A",
+     "emblems": [
+      "Primal"
+     ]
+    }
+   ],
+   "augments": [
+    "Heroic Grab Bag",
+    "Patience Is A Virtue",
+    "Prismatic Ticket",
+    "Rolling For Days",
+    "Team Building",
+    "Find Your Center",
+    "Healing Orbs I",
+    "Healing Orbs II",
+    "Solo Plate",
+    "Item Extraction"
+   ]
+  },
+  {
+   "id": "defender-cassiopeia",
+   "name": "Defender Cassiopeia",
+   "url": "https://tftflow.com/composition/set18/defender-cassiopeia",
+   "style": "3-cost reroll",
+   "dmg": "AP",
+   "base": "B",
+   "requires": [],
+   "note": "",
+   "lines": [
+    {
+     "tier": "S",
+     "emblems": [
+      "Defender"
+     ]
+    }
+   ],
+   "augments": [
+    "Find Your Center",
+    "Baron's Lair",
+    "Giant and Mighty",
+    "Hold the Line",
+    "Heroic Grab Bag",
+    "Patience Is A Virtue",
+    "Prismatic Ticket",
+    "Rolling For Days",
+    "Team Building",
+    "Component Buffet",
+    "Pandora's Items I",
+    "Pandora's Items II",
+    "Pandora's Items III"
+   ]
+  },
+  {
+   "id": "dark-ritual-coven",
+   "name": "Dark Ritual Coven",
+   "url": "https://tftflow.com/composition/set18/dark-ritual-coven",
+   "style": "2-cost reroll",
+   "dmg": "AP",
+   "base": "B",
+   "requires": [],
+   "note": "",
+   "lines": [],
+   "augments": [
+    "Heroic Grab Bag",
+    "Prismatic Ticket",
+    "Rolling For Days",
+    "Team Building",
+    "Commerce Core",
+    "Epic Rolldown",
+    "Explosive Growth",
+    "Find Your Center",
+    "Healing Orbs I",
+    "Healing Orbs II",
+    "Solo Plate",
+    "Advanced Loan+",
+    "Feeling Lucky"
+   ]
+  },
+  {
+   "id": "eclipse",
+   "name": "Eclipse",
+   "url": "https://tftflow.com/composition/set18/eclipse",
+   "style": "2-cost reroll",
+   "dmg": "AP",
+   "base": "B",
+   "requires": [],
+   "note": "",
+   "lines": [
+    {
+     "tier": "S",
+     "emblems": [
+      "Lunar"
+     ]
+    }
+   ],
+   "augments": [
+    "Baron's Lair",
+    "Good For Something I",
+    "Advanced Loan+",
+    "Capital Gains I",
+    "Capital Gains II",
+    "Feeling Lucky",
+    "Kick Start",
+    "Patience Is A Virtue",
+    "Prismatic Ticket",
+    "Rolling For Days",
+    "Slightly Magic Roll"
+   ]
+  },
+  {
+   "id": "elderwood-veigar",
+   "name": "Elderwood Veigar",
+   "url": "https://tftflow.com/composition/set18/elderwood-veigar",
+   "style": "1-cost reroll",
+   "dmg": "AP",
+   "base": "B",
+   "requires": [],
+   "note": "",
+   "lines": [
+    {
+     "tier": "S",
+     "emblems": [
+      "Flora Fatalis"
+     ]
+    }
+   ],
+   "augments": [
+    "Golden Gamble",
+    "Golden Gamble+",
+    "Missed Connections"
+   ]
+  },
+  {
+   "id": "elderwood-aphelios",
+   "name": "Elderwood Aphelios",
+   "url": "https://tftflow.com/composition/set18/elderwood-aphelios",
+   "style": "Fast 8",
+   "dmg": "AD",
+   "base": "C",
+   "requires": [],
+   "note": "",
+   "lines": [
+    {
+     "tier": "B",
+     "emblems": [
+      "Elderwood",
+      "Rapidfire"
+     ]
+    }
+   ],
+   "augments": [
+    "Commerce Core",
+    "Epic Rolldown",
+    "Explosive Growth",
+    "Money Hungry",
+    "Patient Study",
+    "Rolling For Days",
+    "Shopping Spree",
+    "Slammin'",
+    "Spreading Roots",
+    "Branching Out",
+    "The Trait Tree",
+    "Hold the Line",
+    "Bronze For Life I",
+    "Bronze For Life II"
+   ]
+  },
+  {
+   "id": "sivir-nidalee",
+   "name": "Sivir Nidalee",
+   "url": "https://tftflow.com/composition/set18/sivir-nidalee",
+   "style": "Fast 8",
+   "dmg": "AD",
+   "base": "C",
+   "requires": [],
+   "note": "",
+   "lines": [
+    {
+     "tier": "B",
+     "emblems": [
+      "Hunter",
+      "Primal"
+     ]
+    }
+   ],
+   "augments": [
+    "Swordsmith",
+    "Sword Overflow",
+    "Commerce Core",
+    "Epic Rolldown",
+    "Explosive Growth",
+    "Money Hungry",
+    "Patient Study",
+    "Rolling For Days",
+    "Shopping Spree",
+    "Slammin'",
+    "Bronze For Life I",
+    "Bronze For Life II"
+   ]
+  },
+  {
+   "id": "master-yi-reroll",
+   "name": "Master Yi Reroll",
+   "url": "https://tftflow.com/composition/set18/master-yi-reroll",
+   "style": "3-cost reroll",
+   "dmg": "AD",
+   "base": "C",
+   "requires": [],
+   "note": "",
+   "lines": [
+    {
+     "tier": "A",
+     "emblems": [
+      "Brawler"
+     ]
+    }
+   ],
+   "augments": [
+    "Find Your Center",
+    "Healing Orbs I",
+    "Healing Orbs II",
+    "Solo Plate",
+    "Forged In Strength",
+    "Latent Forge",
+    "Living Forge",
+    "Nesting Anvils",
+    "Portable Forge",
+    "Sweet Treats",
+    "Heroic Grab Bag",
+    "Patience Is A Virtue",
+    "Prismatic Ticket",
+    "Rolling For Days",
+    "Team Building",
+    "Solo Leveling",
+    "Component Buffet"
+   ]
+  },
+  {
+   "id": "rengar-reroll-3",
+   "name": "Rengar Reroll",
+   "url": "https://tftflow.com/composition/set18/rengar-reroll-3",
+   "style": "3-cost reroll",
+   "dmg": "AD",
+   "base": "C",
+   "requires": [],
+   "note": "",
+   "lines": [
+    {
+     "tier": "A",
+     "emblems": [
+      "Rapidfire"
+     ]
+    },
+    {
+     "tier": "B",
+     "emblems": [
+      "Ravager"
+     ]
+    }
+   ],
+   "augments": [
+    "Heroic Grab Bag",
+    "Patience Is A Virtue",
+    "Prismatic Ticket",
+    "Rolling For Days",
+    "Team Building",
+    "Component Buffet",
+    "Pandora's Items I",
+    "Pandora's Items II",
+    "Pandora's Items III",
+    "Solo Leveling"
+   ]
+  },
+  {
+   "id": "tristana-reroll-2",
+   "name": "Tristana Reroll",
+   "url": "https://tftflow.com/composition/set18/tristana-reroll-2",
+   "style": "3-cost reroll",
+   "dmg": "AD",
+   "base": "C",
+   "requires": [],
+   "note": "",
+   "lines": [
+    {
+     "tier": "A",
+     "emblems": [
+      "Vanguard"
+     ]
+    },
+    {
+     "tier": "B",
+     "emblems": [
+      "Fae",
+      "Brawler",
+      "Rapidfire"
+     ]
+    }
+   ],
+   "augments": [
+    "Urf's Grab Bag",
+    "Swordsmith",
+    "U.R.F",
+    "Heroic Grab Bag",
+    "Patience Is A Virtue",
+    "Prismatic Ticket",
+    "Rolling For Days",
+    "Team Building",
+    "Cooking Pot",
+    "Small Grab Bag",
+    "Legion Of Threes",
+    "Exclusive Customization",
+    "Big Grab Bag",
+    "Woven Magic",
+    "Buried Treasures III",
+    "Deadlier Blades",
+    "Golden Gamble"
+   ]
+  },
+  {
+   "id": "unrivaled-khazix-rengar",
+   "name": "Unrivaled Kha'Zix & Rengar",
+   "url": "https://tftflow.com/composition/set18/unrivaled-khazix-rengar",
+   "style": "3-cost reroll",
+   "dmg": "AD",
+   "base": "C",
+   "requires": [],
+   "note": "Needs the Rivals to Friends augment",
+   "lines": [
+    {
+     "tier": "A",
+     "emblems": [
+      "Executioner",
+      "Rapidfire"
+     ]
+    }
+   ],
+   "augments": [
+    "Rivals to Friends",
+    "Heroic Grab Bag",
+    "Patience Is A Virtue",
+    "Prismatic Ticket",
+    "Rolling For Days",
+    "Team Building",
+    "Forged In Strength",
+    "Latent Forge",
+    "Living Forge",
+    "Nesting Anvils",
+    "Portable Forge",
+    "Sweet Treats",
+    "Component Buffet",
+    "Pandora's Items I",
+    "Pandora's Items II",
+    "Pandora's Items III",
+    "Solo Plate"
+   ]
+  },
+  {
+   "id": "yunara-executioner-reroll",
+   "name": "Yunara Executioner Reroll",
+   "url": "https://tftflow.com/composition/set18/yunara-executioner-reroll",
+   "style": "2-cost reroll",
+   "dmg": "AD",
+   "base": "C",
+   "requires": [],
+   "note": "",
+   "lines": [
+    {
+     "tier": "B",
+     "emblems": [
+      "Executioner"
+     ]
+    }
+   ],
+   "augments": [
+    "Deadlier Blades",
+    "Cooking Pot",
+    "Solo Plate",
+    "Carve a Path",
+    "Sword Overflow",
+    "Good For Something I",
+    "Advanced Loan+",
+    "Capital Gains I",
+    "Capital Gains II",
+    "Feeling Lucky",
+    "Kick Start",
+    "Prismatic Ticket",
+    "Rolling For Days",
+    "Heart of Steel",
+    "Woven Magic",
+    "Golden Gamble",
+    "Buried Treasures III",
+    "Radiant Relics"
+   ]
+  },
+  {
+   "id": "invoker-nidalee",
+   "name": "Invoker Nidalee",
+   "url": "https://tftflow.com/composition/set18/invoker-nidalee",
+   "style": "Fast 8",
+   "dmg": "AP",
+   "base": "C",
+   "requires": [],
+   "note": "",
+   "lines": [
+    {
+     "tier": "A",
+     "emblems": [
+      "Invoker",
+      "Vanguard"
+     ]
+    },
+    {
+     "tier": "B",
+     "emblems": [
+      "Spellweaver"
+     ]
+    }
+   ],
+   "augments": [
+    "Commerce Core",
+    "Epic Rolldown",
+    "Explosive Growth",
+    "Money Hungry",
+    "Patient Study",
+    "Rolling For Days",
+    "Shopping Spree",
+    "Slammin'"
+   ]
+  },
+  {
+   "id": "blackthorn-khazix",
+   "name": "Blackthorn Kha'Zix",
+   "url": "https://tftflow.com/composition/set18/blackthorn-khazix",
+   "style": "3-cost reroll",
+   "dmg": "AP",
+   "base": "C",
+   "requires": [
+    "Blackthorn"
+   ],
+   "note": "",
+   "lines": [],
+   "augments": [
+    "Heroic Grab Bag",
+    "Patience Is A Virtue",
+    "Prismatic Ticket",
+    "Rolling For Days",
+    "Team Building"
+   ]
+  },
+  {
+   "id": "elderwood-kayle-reroll",
+   "name": "Elderwood Kayle Reroll",
+   "url": "https://tftflow.com/composition/set18/elderwood-kayle-reroll",
+   "style": "½-cost reroll",
+   "dmg": "AP",
+   "base": "C",
+   "requires": [],
+   "note": "",
+   "lines": [],
+   "augments": [
+    "Prismatic Ticket",
+    "Good For Something I",
+    "Advanced Loan+",
+    "Capital Gains I",
+    "Feeling Lucky",
+    "Kick Start",
+    "Patience Is A Virtue",
+    "Rolling For Days",
+    "Slightly Magic Roll",
+    "Missed Connections",
+    "Shimmerscale Essence",
+    "Cursed Crown"
+   ]
+  },
+  {
+   "id": "veigar-reroll",
+   "name": "Veigar Reroll",
+   "url": "https://tftflow.com/composition/set18/veigar-reroll",
+   "style": "1-cost reroll",
+   "dmg": "AP",
+   "base": "C",
+   "requires": [],
+   "note": "",
+   "lines": [
+    {
+     "tier": "A",
+     "emblems": [
+      "Flora Fatalis"
+     ]
+    },
+    {
+     "tier": "B",
+     "emblems": [
+      "Brawler"
+     ]
+    }
+   ],
+   "augments": [
+    "Consuming Flora",
+    "Golden Gamble",
+    "Golden Gamble+",
+    "Missed Connections",
+    "Portable Forge",
+    "Living Forge",
+    "Nesting Anvils"
+   ]
+  },
+  {
+   "id": "warwick-reroll",
+   "name": "Warwick Reroll",
+   "url": "https://tftflow.com/composition/set18/warwick-reroll",
+   "style": "2-cost reroll",
+   "dmg": "AD",
+   "base": "D",
+   "requires": [],
+   "note": "Needs a Warwick opener",
+   "lines": [],
+   "augments": [
+    "Caretaker's Chosen I",
+    "Good For Something I",
+    "Advanced Loan+",
+    "Capital Gains I",
+    "Feeling Lucky",
+    "Kick Start",
+    "Patience Is A Virtue",
+    "Prismatic Ticket",
+    "Rolling For Days",
+    "Slightly Magic Roll",
+    "Component Buffet",
+    "Pandora's Items I",
+    "Pandora's Items II",
+    "Pandora's Items III"
+   ]
+  },
+  {
+   "id": "inferno-kayle-reroll",
+   "name": "Inferno Kayle Reroll",
+   "url": "https://tftflow.com/composition/set18/inferno-kayle-reroll",
+   "style": "½-cost reroll",
+   "dmg": "AP",
+   "base": "D",
+   "requires": [],
+   "note": "",
+   "lines": [
+    {
+     "tier": "B",
+     "emblems": [
+      "Lunar",
+      "Rapidfire"
+     ]
+    }
+   ],
+   "augments": [
+    "Prismatic Ticket",
+    "Good For Something I",
+    "Advanced Loan+",
+    "Capital Gains I",
+    "Feeling Lucky",
+    "Kick Start",
+    "Patience Is A Virtue",
+    "Rolling For Days",
+    "Slightly Magic Roll",
+    "Forged In Strength",
+    "Living Forge",
+    "Nesting Anvils"
+   ]
+  },
+  {
+   "id": "pebbles-reroll",
+   "name": "Pebbles Reroll",
+   "url": "https://tftflow.com/composition/set18/pebbles-reroll",
+   "style": "1-cost reroll",
+   "dmg": "AP",
+   "base": "D",
+   "requires": [],
+   "note": "",
+   "lines": [],
+   "augments": []
+  }
+ ]
+}
