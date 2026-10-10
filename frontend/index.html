@@ -1951,20 +1951,20 @@ button.lc-h:hover{background:rgba(255,255,255,.04)}button.lc-h small{margin-left
 .has3d #pav::after,.has3d .pavb::after{background:radial-gradient(circle at 50% 30%,#4b6ea3,#101722 82%)}
 .has3d #pview-out .pavb{background:none}
 /* ---- bigger hex profile: larger icon, larger panel header ---- */
-#pav{width:88px;height:98px}
-#pbtn{height:106px;column-gap:12px}
-#pav .sdot{right:-4px;bottom:14px;width:20px;height:20px;border-width:3px}
+#pav{width:78px;height:87px}
+#pbtn{height:96px;column-gap:12px}
+#pav .sdot{right:-4px;bottom:12px;width:18px;height:18px;border-width:3px}
 #pshow{font-size:18px;max-width:150px}
 #pshow::after{font-size:10.5px}
-#pmenu{top:112px;height:min(620px,calc(100vh - 220px))}
+#pmenu{top:104px;width:404px;height:min(690px,calc(100vh - 208px))}
 #phead{padding:46px 18px 12px 20px;gap:0 18px}
 #phead::before{height:132px}
 #phead::after{height:126px}
-#phead .pavb{width:132px;height:148px}
-#phead .pavb .sdot{right:-4px;bottom:18px;width:24px;height:24px;border-width:3.5px}
+#phead .pavb{width:118px;height:132px}
+#phead .pavb .sdot{right:-4px;bottom:16px;width:22px;height:22px;border-width:3.5px}
 #pbig{font-size:26px}
-#pstlist{top:210px;left:172px}
-#pview-out .pavb{width:128px;height:143px}
+#pstlist{top:196px;left:160px}
+#pview-out .pavb{width:118px;height:132px}
 #pview-out .pavb .sdot{width:24px;height:24px}
 </style>
 </head>
@@ -4342,7 +4342,7 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
 'use strict';
 const GLB_URL = 'choncc.glb';                 // placed next to index.html
 const RW = 320, RH = 358;                     // offscreen render size (hex avatar aspect)
-const TARGET = [0, 0.50, 0], ELEV = 0.26, DIST = 3, FOVH = 1.20;
+const TARGET = [0, 0.50, 0], ELEV = 0.26, DIST = 3, FOVH = 1.14;
 const IDLE = 'IdleA', FLAVOR = ['IdleB', 'PetChoncc_Idle1.anm'];
 const R_HOVER = ['InteractA'], R_OPEN = ['InteractB', 'TauntLoop'], R_CLICK = ['Dance_Loop', 'TauntLoop', 'InteractC', 'InteractA'];
 const CLIPS = [IDLE, ...FLAVOR, ...R_HOVER, ...R_OPEN, ...R_CLICK];
@@ -4577,6 +4577,16 @@ async function init() {
   const pbtn = document.getElementById('pbtn');
   if (pbtn) new MutationObserver(() => { if (pbtn.getAttribute('aria-expanded') === 'true') setTimeout(() => react(R_OPEN, 800), 120); }).observe(pbtn, { attributes: true, attributeFilter: ['aria-expanded'] });
 
+const bgv = document.getElementById('bg');
+  function drawBg(ctx, w, h) {     // the home-screen loop, zoomed, with a soft vignette so the rim stays crisp
+    if (!bgv || bgv.readyState < 2 || !bgv.videoWidth) return;
+    const vw = bgv.videoWidth, vh = bgv.videoHeight, da = w / h, z = 1.6; let sw, sh;
+    if (vw / vh > da) { sh = vh / z; sw = sh * da; } else { sw = vw / z; sh = sw / da; }
+    try { ctx.drawImage(bgv, (vw - sw) * 0.5, (vh - sh) * 0.4, sw, sh, 0, 0, w, h); } catch { return; }
+    const g = ctx.createRadialGradient(w / 2, h * 0.6, h * 0.1, w / 2, h * 0.55, h * 0.78);
+    g.addColorStop(0, 'rgba(8,12,20,0)'); g.addColorStop(1, 'rgba(6,9,15,.66)');
+    ctx.fillStyle = g; ctx.fillRect(0, 0, w, h);
+  }
   function blit() {
     const dpr = Math.min(devicePixelRatio || 1, 2);
     for (const o of vis()) {
@@ -4584,7 +4594,9 @@ async function init() {
       if (o.c.width !== w || o.c.height !== h) { o.c.width = w; o.c.height = h; }
       const da = w / h, sa = RW / RH; let sx = 0, sy = 0, sw = RW, sh = RH;
       if (da > sa) sh = RW / da; else { sw = RH * da; sx = (RW - sw) / 2; }
-      o.ctx.clearRect(0, 0, w, h); o.ctx.imageSmoothingQuality = 'high'; o.ctx.drawImage(gl, sx, sy, sw, sh, 0, 0, w, h);
+      o.ctx.clearRect(0, 0, w, h); o.ctx.imageSmoothingQuality = 'high';
+      drawBg(o.ctx, w, h);
+      o.ctx.drawImage(gl, sx, sy, sw, sh, 0, 0, w, h);
     }
   }
   let last = 0, shown = false;
