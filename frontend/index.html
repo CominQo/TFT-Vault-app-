@@ -957,6 +957,31 @@ body.dens .tname{font-size:10px}
 #umodal.stat .nhead>svg path.ar{opacity:0}
 #umodal.ok .nhead>svg{stroke:#4ade80;fill:rgba(74,222,128,.14)}
 @media (prefers-reduced-motion:reduce){#upill.has,#upill.spin .ur,.ubar i.ind,#umodal.chk .nhead>svg,#umodal.pop .nhead>svg{animation:none!important}.uchk .ubar i{animation-duration:.01s!important}}
+
+/* ---- Comp Builder: 3D board ---- */
+.cb-board.is3d{display:block;position:relative;padding:0;overflow:hidden;background:radial-gradient(ellipse at 50% 35%,rgba(248,169,0,.10),transparent 68%),rgba(8,11,20,.72)}
+.cb-3d{position:relative;width:100%;height:clamp(340px,52vh,480px)}
+.cb3-canvas{display:block;width:100%;height:100%;touch-action:none;outline:none}
+.cb3-ov{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.cb3-pins{position:absolute;left:0;top:0;display:flex;gap:2px;z-index:3;pointer-events:auto;will-change:transform}
+.cb3-tag{position:absolute;left:0;top:0;z-index:5;pointer-events:auto;min-width:96px;max-width:210px;padding:7px 10px 7px 12px;border-radius:14px;background:rgba(12,15,24,.92);border:1px solid color-mix(in srgb,var(--c) 70%,transparent);box-shadow:0 8px 22px rgba(0,0,0,.5),0 0 18px color-mix(in srgb,var(--c) 30%,transparent);backdrop-filter:blur(8px);will-change:transform}
+.cb3-tag[hidden]{display:none}
+.cb3-tag .t1{display:flex;align-items:center;gap:7px}
+.cb3-tag b{font-size:13px;white-space:nowrap}
+.cb3-tag em{font:800 11px var(--body);font-style:normal;color:#10131c;background:var(--c);border-radius:99px;padding:1px 7px}
+.cb3-tag button{margin-left:auto;width:20px;height:20px;border:0;border-radius:50%;background:rgba(255,255,255,.1);color:#cdd3de;font-size:15px;line-height:1;cursor:pointer;transition:background .15s,color .15s}
+.cb3-tag button:hover{background:#e5484d;color:#fff}
+.cb3-tag .t2{margin-top:3px;font-size:10.5px;line-height:1.3;color:var(--muted)}
+.cb3-ctl{position:absolute;right:12px;top:12px;z-index:6;display:flex;gap:8px}
+.cb3-b{display:flex;align-items:center;gap:7px;height:34px;padding:0 13px;border-radius:99px;border:1px solid rgba(255,255,255,.16);background:rgba(12,15,24,.7);backdrop-filter:blur(8px);color:var(--text);font:700 12.5px var(--body);cursor:pointer;transition:border-color .2s,background .2s,transform .2s var(--ease)}
+.cb3-b svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.cb3-b:hover{border-color:var(--gold);transform:translateY(-1px)}
+.cb3-b.on{background:rgba(248,169,0,.2);border-color:var(--gold);color:var(--gold)}
+.cb3-hint{position:absolute;left:14px;bottom:10px;z-index:2;font-size:11.5px;color:rgba(205,211,222,.55);pointer-events:none;max-width:70%}
+.cb-board.is3d .cb-rm{position:absolute;left:50%;bottom:14px;transform:translate(-50%,8px)}
+#cbx[data-drag=unit] .cb-board.is3d .cb-rm,#cbx[data-drag=pin] .cb-board.is3d .cb-rm{transform:translate(-50%,0)}
+.cb-board.is3d .cb-rm.over{transform:translate(-50%,0) scale(1.05)}
+.cb3-ov .cb-it{pointer-events:auto}
 </style>
 <style id="introCss">
 /* ---- Intro: TFT-style hexagon build + dissolve over the live home-screen video (GPU-only: transform/opacity) ---- */
@@ -2159,6 +2184,7 @@ html.pf-busy *,html.pf-busy *::before,html.pf-busy *::after{animation-play-state
 </style>
 </head>
 <body>
+<script src="lib/cb3d.js"></script>
 <script>try{if((JSON.parse(localStorage.getItem('tft.settings.v1')||'{}')).fx===false)document.documentElement.classList.add('fx-off')}catch(e){}</script>
 <div id="intro" aria-hidden="true">
   <div id="introBlur"></div>
@@ -3374,7 +3400,12 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
   const TAGN = { ad: 'Damage', ap: 'AP', tank: 'Tanky', util: 'Utility', emblem: 'Emblems' }, TAGC = { ad: '#ef6b5f', ap: '#a678f0', tank: '#52c7a0', util: '#5db7f2', emblem: '#e9b44c' }, TAGS = { ad: 'AD', ap: 'AP', tank: 'TANK', util: 'UTIL', emblem: 'EMBLEM' };
   const champ = n => D.champions.find(c => c.name === n);
   const item = n => ITEMS.find(i => i.name === n);
-  const img = c => c.icon || c.img || c.image || c.portrait || '';
+  // 3D board: needs WebGL; otherwise the classic 2D board below keeps working
+  const OK3D = !!(window.CB3D && CB3D.supported());
+  let B3 = null, MF3 = null, tagIdx = -1, tagTimer = 0, tagHold = false;
+  const slug3 = n => (window.CB3D ? CB3D.slugOf(n) : '');
+  const portrait = c => (MF3 && MF3[slug3(c.name)] ? 'models/portraits/' + slug3(c.name) + '.webp' : '');   // icons rendered from the 3D models
+  const img = c => c.icon || c.img || c.image || c.portrait || portrait(c);
   const esc = s => String(s).replace(/[&<>"]/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[m]);
   const snap = () => ({ b: board.slice(), g: gear.map(x => x ? x.slice() : null) });
   const push = () => { hist.push(snap()); if (hist.length > 50) hist.shift(); };
@@ -3388,7 +3419,9 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
     root.innerHTML = `<div class="cb-top"><input id="cb-name" maxlength="24" placeholder="Comp name">${btn('cb-save', 'Save comp', 'pri')}${btn('cb-undo', 'Undo')}${btn('cb-clear', 'Clear')}<span class="cb-n" id="cb-count"></span></div>
       <div class="cb-panel"><div class="cb-h">Saved comps</div><div class="cb-saved" id="cb-sv"></div></div>
       <div class="cb-main"><div class="cb-panel"><div class="cb-h">Traits</div><div class="cb-traits" id="cb-tr"></div></div>
-        <div class="cb-panel cb-board"><div id="cb-bd"></div><div class="cb-rm" id="cb-rm">Drop here to remove</div></div>${recShell()}</div>
+        <div class="cb-panel cb-board${OK3D ? ' is3d' : ''}">${OK3D ? `<div class="cb-3d" id="cb-3d"><div class="cb3-ov" id="cb3-ov"><div class="cb3-tag" id="cb3-tag" hidden></div></div>
+          <div class="cb3-ctl"><button class="cb3-b" data-cel title="Make everyone dance"><svg viewBox="0 0 24 24"><path d="M9 18V6l11-2v12M9 18a3 3 0 11-3-3 3 3 0 013 3zm11-2a3 3 0 11-3-3 3 3 0 013 3z"/></svg>Celebrate</button><button class="cb3-b" data-rv title="Reset camera (or double-click the board)"><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 109-9M3 4v5h5"/></svg></button></div>
+          <div class="cb3-hint">Drag champions onto the board · drag a champion to move it · drag the background to rotate · scroll to zoom</div></div>` : '<div id="cb-bd"></div>'}<div class="cb-rm" id="cb-rm">Drop here to remove</div></div>${recShell()}</div>
       <div class="cb-panel"><div class="cb-hd"><div class="cb-seg"><button class="on" data-tab="c">Champions</button><button data-tab="i">⚔️ Items</button><button data-tab="e">🎖 Emblems</button><button data-tab="a">✨ Augments</button><button data-tab="r">🎲 Random Emblems</button><button data-tab="t">Traits</button></div></div>
         <div id="cb-cp"><div class="cb-bar"><input id="cb-q" placeholder="Search champions or traits">
           <div class="cb-seg">${[0,1,2,3,4,5].map(c => `<button data-c="${c}" class="${c === costF ? 'on' : ''}">${c || 'All'}</button>`).join('')}</div>
@@ -3400,7 +3433,7 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
         <div id="cb-tp" hidden><div class="cb-hint">Click a trait to filter the champion list by it.</div>
           <div class="cb-bar"><input id="cb-tq" placeholder="Search traits"><div class="cb-chips" id="cb-tcc"></div></div>
           <div class="cb-tgrid" id="cb-tl"></div></div>${extraPanels()}</div>`;
-    $('cb-bd').innerHTML = [0,1,2,3].map(r => `<div class="cb-row${r % 2 ? ' o' : ''}">${Array.from({ length: 7 }, (_, k) => `<div class="cb-hex" style="z-index:${4 - r}" data-i="${r * 7 + k}"></div>`).join('')}</div>`).join('');
+    if (OK3D) mount3d(); else $('cb-bd').innerHTML = [0,1,2,3].map(r => `<div class="cb-row${r % 2 ? ' o' : ''}">${Array.from({ length: 7 }, (_, k) => `<div class="cb-hex" style="z-index:${4 - r}" data-i="${r * 7 + k}"></div>`).join('')}</div>`).join('');
   }
   function paintSaved() {
     $('cb-sv').innerHTML = comps.length ? comps.map(c => `<div class="cb-sc" data-id="${c.id}"><b>${esc(c.name)}</b><div>${valid(c.board).filter(Boolean).map(n => `<i style="--c:${COST[champ(n).cost]}"></i>`).join('')}</div><em data-del="${c.id}">×</em></div>`).join('')
@@ -3410,7 +3443,8 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
   const pin = (n, i, k) => { const it = item(n); return `<span class="cb-it${fresh && fresh.p && fresh.p[0] === i && fresh.p[1] === k ? ' n' : ''}" draggable="true" data-i="${i}" data-k="${k}" data-n="${esc(n)}" title="${esc(n)}" style="--c:${it.color};${it.icon ? `background-image:url(${it.icon})` : ''}">${it.icon ? '' : it.ab}</span>`; };
   const tierColor = r => !r.tier ? '#555' : r.bp.length === 1 ? '#e0a82e' : r.tier === r.bp.length ? 'linear-gradient(135deg,#b06cff,#4ea1ff)' : r.tier / r.bp.length <= .34 ? '#b8793f' : r.tier / r.bp.length <= .67 ? '#c3ccd8' : '#e0a82e';
   function paintBoard() {
-    document.querySelectorAll('.cb-hex').forEach(h => {
+    if (B3) sync3d();
+    else document.querySelectorAll('.cb-hex').forEach(h => {
       const i = +h.dataset.i, c = board[i] && champ(board[i]);
       h.innerHTML = c ? unit(c, i) + `<div class="cb-pins">${(gear[i] || []).map((g, k) => pin(g, i, k)).join('')}</div>` : '';
       h.classList.toggle('f', !!c); if (c) h.style.setProperty('--c', COST[c.cost]);
@@ -3480,7 +3514,48 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
     if (old) { old.board = s.b; old.gear = s.g; } else comps.push({ id: Date.now(), name, board: s.b, gear: s.g });
     saveComps(); paintSaved(); toast((old ? 'Updated ' : 'Saved ') + name);
   }
-  const clearOver = () => root.querySelectorAll('.over').forEach(x => x.classList.remove('over'));
+  const clearOver = () => { root.querySelectorAll('.over').forEach(x => x.classList.remove('over')); if (B3) B3.setDropHover(-1); };
+
+  /* ---------- 3D board ---------- */
+  // which board cell is under the pointer (3D: ray-cast onto the board; 2D: the hex element). -1 = none
+  const hexOf = e => {
+    if (B3) { const el = e.target.closest && e.target.closest('#cb-3d'); return el ? B3.pick(e.clientX, e.clientY) : -1; }
+    const hx = e.target.closest('.cb-hex'); return hx ? +hx.dataset.i : -1;
+  };
+  function mount3d() {
+    const el = $('cb-3d');
+    B3 = CB3D.create(el, {
+      modelsUrl: 'models/', costColor: c => COST[c], onFrame: frame3d,
+      onHoverUnit: i => { clearTimeout(tagTimer); if (i >= 0) { tagIdx = i; paintTag(); } else tagTimer = setTimeout(() => { if (!tagHold) { tagIdx = -1; paintTag(); } }, 280); },
+      onUnitClick: i => { tagIdx = i; paintTag(); },
+      onDragStart: () => { root.dataset.drag = 'unit'; tagIdx = -1; paintTag(); },
+      onDragHover: i => $('cb-rm').classList.toggle('over', i < 0),
+      onDragEnd: (from, to) => { root.dataset.drag = ''; $('cb-rm').classList.remove('over'); const n = board[from]; if (!n) return; if (to < 0) remove(from); else if (to !== from) place(n, to, from); },
+    });
+    window.__cb3 = B3;     // handy for debugging in the console
+    const tg = $('cb3-tag');
+    tg.addEventListener('mouseenter', () => { tagHold = true; clearTimeout(tagTimer); });
+    tg.addEventListener('mouseleave', () => { tagHold = false; tagTimer = setTimeout(() => { tagIdx = -1; paintTag(); }, 200); });
+    new IntersectionObserver(es => { if (es[0].isIntersecting && !document.hidden) B3.start(); else B3.stop(); }).observe(el);   // no GPU use while the builder is off-screen
+    document.addEventListener('visibilitychange', () => { if (document.hidden) B3.stop(); else if (el.offsetParent) B3.start(); });
+  }
+  function sync3d() {
+    B3.setBoard(board, champ);
+    const ov = $('cb3-ov'); ov.querySelectorAll('.cb3-pins').forEach(x => x.remove());
+    board.forEach((n, i) => { if (n && gear[i] && gear[i].length) { const d = document.createElement('div'); d.className = 'cb3-pins'; d.dataset.i = i; d.innerHTML = gear[i].map((g, k) => pin(g, i, k)).join(''); ov.appendChild(d); } });
+    if (tagIdx >= 0 && !board[tagIdx]) tagIdx = -1; paintTag();
+  }
+  function paintTag() {
+    const t = $('cb3-tag'); if (!t) return;
+    const c = tagIdx >= 0 && board[tagIdx] && champ(board[tagIdx]);
+    t.hidden = !c; if (!c) return;
+    t.style.setProperty('--c', COST[c.cost]);
+    t.innerHTML = `<div class="t1"><b>${esc(c.name)}</b><em>${c.cost}</em><button data-rm="${tagIdx}" title="Remove from board">×</button></div><div class="t2">${c.traits.map(esc).join(' · ')}</div>`;
+  }
+  function frame3d() {     // keep the DOM overlays (item pins, name tag) glued to the champions
+    document.querySelectorAll('#cb3-ov .cb3-pins').forEach(p => { const s = B3.screenOf(+p.dataset.i); if (s) p.style.transform = `translate(${s.x.toFixed(1)}px,${(s.y + 3).toFixed(1)}px) translate(-50%,0)`; });
+    if (tagIdx >= 0) { const s = B3.screenOf(tagIdx), t = $('cb3-tag'); if (s && t) t.style.transform = `translate(${s.topX.toFixed(1)}px,${(s.topY - 4).toFixed(1)}px) translate(-50%,-100%)`; }
+  }
   function wire() {
     root.addEventListener('dragstart', e => {
       const el = e.target.closest('[draggable]'); if (!el) return;
@@ -3491,17 +3566,17 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
     });
     root.addEventListener('dragover', e => {
       if (!drag) return;
-      const h = e.target.closest('.cb-hex'), rm = e.target.closest('.cb-rm'), bg = e.target.closest('.em-bag'), out = drag.kind === 'unit' || drag.kind === 'pin';
+      const hi = hexOf(e), h = hi >= 0, rm = e.target.closest('.cb-rm'), bg = e.target.closest('.em-bag'), out = drag.kind === 'unit' || drag.kind === 'pin';
       const isEm = drag.kind === 'emblem' || (drag.kind === 'item' && !!gearTrait(drag.name));
-      const ok = bg ? isEm : h ? (drag.kind === 'champ' || drag.kind === 'unit' || !!board[+h.dataset.i]) : out;
+      const ok = bg ? isEm : h ? (drag.kind === 'champ' || drag.kind === 'unit' || !!board[hi]) : out;
       clearOver();
-      if (ok) { e.preventDefault(); if (h) h.classList.add('over'); else if (rm) rm.classList.add('over'); else if (bg) bg.classList.add('over'); }
+      if (ok) { e.preventDefault(); if (h) { if (B3) B3.setDropHover(hi); else e.target.closest('.cb-hex').classList.add('over'); } else if (rm) rm.classList.add('over'); else if (bg) bg.classList.add('over'); }
     });
     const done = () => { drag = null; root.dataset.drag = ''; clearOver(); };
     root.addEventListener('dragend', done);
     root.addEventListener('drop', e => {
       if (!drag) return; e.preventDefault();
-      const h = e.target.closest('.cb-hex'), i = h && +h.dataset.i, d = drag; done();
+      const i = hexOf(e), h = i >= 0, d = drag; done();
       if (e.target.closest('.em-bag')) { addBag(d.kind === 'emblem' ? d.name : gearTrait(d.name)); return; }
       if (d.kind === 'emblem') { if (h) { const em = emInfo(d.name); if (em.item) addItem(i, em.item); else say('That emblem item is not in the item list'); } return; }
       if (d.kind === 'champ' || d.kind === 'unit') { if (h) place(d.name, i, d.kind === 'unit' ? d.from : null); else if (d.kind === 'unit') remove(d.from); }
@@ -3511,7 +3586,11 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
     root.addEventListener('click', e => {
       const g = e.target, it = g.closest('.cb-it'), u = g.closest('.cb-u'), p = g.closest('.cb-p'), c = g.closest('[data-c]'), tb = g.closest('[data-tab]'), fc = g.closest('[data-f]'), cc = g.closest('[data-cat]'), tcd = g.closest('[data-trait]');
       const del = g.closest('[data-del]'), sc = g.closest('.cb-sc'), b = g.closest('.cb-btn');
-      if (fc) { itemF = fc.dataset.f; paintItems(); }
+      const rm3 = g.closest('[data-rm]'), cel = g.closest('[data-cel]'), rv = g.closest('[data-rv]');
+      if (rm3) { remove(+rm3.dataset.rm); tagIdx = -1; paintTag(); }
+      else if (cel && B3) { B3.celebrate(!B3.isCelebrating()); cel.classList.toggle('on', B3.isCelebrating()); }
+      else if (rv && B3) B3.resetView();
+      else if (fc) { itemF = fc.dataset.f; paintItems(); }
       else if (cc) { catF = cc.dataset.cat; paintTraits(); }
       else if (tcd) { traitF = tcd.dataset.trait; const sel = $('cb-tf'); if (sel) sel.value = traitF; root.querySelector('[data-tab="c"]').click(); paintPool(); }
       else if (it) removeItem(+it.dataset.i, +it.dataset.k);
@@ -3805,6 +3884,7 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
       .map((x, i) => ({ name: x.name, ab: x.abbr || x.name.split(/\s+/).map(w => w[0]).join('').slice(0, 2).toUpperCase(), color: x.color || (x.tags && TAGC[x.tags[0]]) || HUES[i % HUES.length], icon: x.icon || x.img || x.image || '', tags: x.tags || [], desc: x.desc || '', trait: x.trait || '' }));
     try { const b = JSON.parse(store.get(KEY) || '[]'); if (Array.isArray(b) && b.length === N) board = valid(b); gear = fixGear(JSON.parse(store.get(GKEY) || '[]'), board); } catch {}
     try { const s = JSON.parse(store.get(SKEY) || '[]'); if (Array.isArray(s)) comps = s; } catch {}
+    try { MF3 = await (await fetch('models/manifest.json')).json(); } catch { MF3 = null; }   // which champions have 3D models / icons
     shell(); wire(); wireRecs(); wireExtra(); paintSaved(); paintItems(); paintTraits(); paintPool(); loadRecs(); loadMeta();
   }
   $('navComp').addEventListener('click', init);

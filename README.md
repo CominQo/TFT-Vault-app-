@@ -90,3 +90,29 @@ The workflow builds `TFT-Vault.exe`, bakes in the version, and publishes a Relea
 `.sha256` checksum. The app only installs a release that has both, and only if the checksum matches.
 Release notes (auto-generated from commits) are shown in the update popup. Local/untagged builds are
 `dev` and never offer updates. Auto-install works on Windows; elsewhere the popup links to the release page.
+
+## 3D Comp Builder
+
+The Comp Builder board is rendered in 3D (three.js) with the Set 18 champion models and their animations
+(idle, attack, run, dance, spell). If a computer has no WebGL, the classic 2D board is used automatically.
+
+What ships in the app:
+
+| Path | What |
+|---|---|
+| `frontend/lib/cb3d.js` | the 3D board, bundled (three.js + loaders) from `tools/cb3d/main.js` |
+| `frontend/models/*.glb.gz` | the 65 champions, optimized (157 MB originals -> 16 MB) and gzipped; decompressed in the app on demand |
+| `frontend/models/manifest.json` | which animation clip plays for which role, per champion |
+| `frontend/models/portraits/*.webp` | champion icons rendered from the 3D models (used in the pool, recommendations, saved comps) |
+
+Rebuilding (only needed when models or the 3D code change; the original `Champions - SET18.zip` is not in the repo):
+
+```
+cd tools && npm install
+node optimize-models.mjs "<folder with the original *_(tft_set_18).glb files>"   # -> frontend/models
+npm run build:js                                                                    # -> frontend/lib/cb3d.js
+python3 render_portraits.py                                                         # -> frontend/models/portraits (needs playwright + pillow)
+```
+
+Controls: click a champion tile to add it, or drag it onto the board. Drag a champion to move/swap it, drag it off
+the board to remove it. Drag the background to rotate, scroll to zoom, double-click to reset the view.

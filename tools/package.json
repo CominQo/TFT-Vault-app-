@@ -1,0 +1,20 @@
+{
+  "name": "tft-vault-3d-tools",
+  "private": true,
+  "type": "module",
+  "description": "Build tools for the 3D comp builder (not shipped in the app): model optimizer, portrait renderer, JS bundler.",
+  "scripts": {
+    "build:js": "node build-js.mjs",
+    "models": "node optimize-models.mjs",
+    "portraits": "node render-portraits.mjs"
+  },
+  "devDependencies": {
+    "@gltf-transform/core": "^4.1.0",
+    "@gltf-transform/extensions": "^4.1.0",
+    "@gltf-transform/functions": "^4.1.0",
+    "esbuild": "^0.24.0",
+    "meshoptimizer": "^0.22.0",
+    "sharp": "^0.33.5",
+    "three": "^0.170.0"
+  }
+}
