@@ -982,6 +982,27 @@ body.dens .tname{font-size:10px}
 #cbx[data-drag=unit] .cb-board.is3d .cb-rm,#cbx[data-drag=pin] .cb-board.is3d .cb-rm{transform:translate(-50%,0)}
 .cb-board.is3d .cb-rm.over{transform:translate(-50%,0) scale(1.05)}
 .cb3-ov .cb-it{pointer-events:auto}
+/* ---- Comp Builder: TFT-style hex tiles (flat-top, cyan glow; cost-coloured when a champion is placed) ---- */
+:root{--cb-fx:polygon(25% 0,75% 0,100% 50%,75% 100%,25% 100%,0 50%)}
+#cb-bd{container-type:inline-size;width:100%;display:grid;justify-content:center}
+.cb-row{--hw:78px;gap:calc(var(--hw)*.14);margin-top:calc(var(--hw)*.121)}
+@supports (width:1cqw){.cb-row{--hw:min(92px,11.2cqw)}}
+.cb-row.o{margin-left:calc(var(--hw)*.57)}
+.cb-hex{width:var(--hw);height:calc(var(--hw)*.866);--rim:#2fd3ff}
+.cb-hex:before,.cb-hex:after{display:none}
+.cb-svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none;filter:drop-shadow(0 0 5px color-mix(in srgb,var(--rim) 65%,transparent));transition:filter .2s}
+.cb-svg .t{fill:rgba(32,104,196,.34);stroke:var(--rim);stroke-width:3.4;stroke-linejoin:round;transition:fill .2s,stroke .2s}
+.cb-svg .r{fill:none;stroke:var(--rim);stroke-width:.9;opacity:.4}
+.cb-svg .p{fill:none;stroke:#8aeaff;stroke-width:2.8;stroke-linecap:round;opacity:.9}
+.cb-hex:hover:not(.f) .t{fill:rgba(46,136,230,.46)}
+.cb-hex.f{--rim:var(--c);filter:none}
+.cb-hex.f .t{fill:color-mix(in srgb,var(--c) 24%,rgba(8,14,30,.78))}
+.cb-hex.f .p{display:none}
+.cb-hex.f .cb-svg{filter:drop-shadow(0 0 8px color-mix(in srgb,var(--c) 75%,transparent))}
+.cb-hex.over{--rim:var(--gold)}
+.cb-hex.over .t{fill:rgba(248,169,0,.22)}.cb-hex.over .p{stroke:var(--gold)}
+.cb-u{inset:calc(var(--hw)*.07) calc(var(--hw)*.082);clip-path:var(--cb-fx)}
+.cb-u b{inset:2.5px;clip-path:var(--cb-fx)}
 </style>
 <style id="introCss">
 /* ---- Intro: TFT-style hexagon build + dissolve over the live home-screen video (GPU-only: transform/opacity) ---- */
@@ -3401,7 +3422,7 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
   const champ = n => D.champions.find(c => c.name === n);
   const item = n => ITEMS.find(i => i.name === n);
   // 3D board: needs WebGL; otherwise the classic 2D board below keeps working
-  const OK3D = !!(window.CB3D && CB3D.supported());
+  const OK3D = !!(window.CB3D && CB3D.supported()) && !/[?&]board=2d\b/.test(location.search);
   let B3 = null, MF3 = null, tagIdx = -1, tagTimer = 0, tagHold = false;
   const slug3 = n => (window.CB3D ? CB3D.slugOf(n) : '');
   const portrait = c => (MF3 && MF3[slug3(c.name)] ? 'models/portraits/' + slug3(c.name) + '.webp' : '');   // icons rendered from the 3D models
@@ -3414,6 +3435,7 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
   const valid = b => b.map(n => n && champ(n) ? n : null);
   const fixGear = (g, b) => Array.from({ length: N }, (_, i) => b[i] && Array.isArray(g && g[i]) ? g[i].filter(item).slice(0, MAXI) : null);
 
+  const HEX_SVG = '<svg class="cb-svg" viewBox="0 0 100 86.6" aria-hidden="true"><polygon class="t" points="25.98,1.7 74.02,1.7 98.04,43.3 74.02,84.9 25.98,84.9 1.96,43.3"/><polygon class="r" points="30,8.66 70,8.66 90,43.3 70,77.94 30,77.94 10,43.3"/><path class="p" d="M50 34.8v17M41.5 43.3h17"/></svg>';
   function shell() {
     const tr = D.traits.filter(t => t.kind !== 'hidden');
     root.innerHTML = `<div class="cb-top"><input id="cb-name" maxlength="24" placeholder="Comp name">${btn('cb-save', 'Save comp', 'pri')}${btn('cb-undo', 'Undo')}${btn('cb-clear', 'Clear')}<span class="cb-n" id="cb-count"></span></div>
@@ -3433,7 +3455,7 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
         <div id="cb-tp" hidden><div class="cb-hint">Click a trait to filter the champion list by it.</div>
           <div class="cb-bar"><input id="cb-tq" placeholder="Search traits"><div class="cb-chips" id="cb-tcc"></div></div>
           <div class="cb-tgrid" id="cb-tl"></div></div>${extraPanels()}</div>`;
-    if (OK3D) mount3d(); else $('cb-bd').innerHTML = [0,1,2,3].map(r => `<div class="cb-row${r % 2 ? ' o' : ''}">${Array.from({ length: 7 }, (_, k) => `<div class="cb-hex" style="z-index:${4 - r}" data-i="${r * 7 + k}"></div>`).join('')}</div>`).join('');
+    if (OK3D) mount3d(); else $('cb-bd').innerHTML = [0,1,2,3].map(r => `<div class="cb-row${r % 2 ? ' o' : ''}">${Array.from({ length: 7 }, (_, k) => `<div class="cb-hex" style="z-index:${4 - r}" data-i="${r * 7 + k}">${HEX_SVG}</div>`).join('')}</div>`).join('');
   }
   function paintSaved() {
     $('cb-sv').innerHTML = comps.length ? comps.map(c => `<div class="cb-sc" data-id="${c.id}"><b>${esc(c.name)}</b><div>${valid(c.board).filter(Boolean).map(n => `<i style="--c:${COST[champ(n).cost]}"></i>`).join('')}</div><em data-del="${c.id}">×</em></div>`).join('')
@@ -3446,7 +3468,8 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
     if (B3) sync3d();
     else document.querySelectorAll('.cb-hex').forEach(h => {
       const i = +h.dataset.i, c = board[i] && champ(board[i]);
-      h.innerHTML = c ? unit(c, i) + `<div class="cb-pins">${(gear[i] || []).map((g, k) => pin(g, i, k)).join('')}</div>` : '';
+      [...h.children].forEach(n => { if (!n.classList.contains('cb-svg')) n.remove(); });
+      if (c) h.insertAdjacentHTML('beforeend', unit(c, i) + `<div class="cb-pins">${(gear[i] || []).map((g, k) => pin(g, i, k)).join('')}</div>`);
       h.classList.toggle('f', !!c); if (c) h.style.setProperty('--c', COST[c.cost]);
     });
     fresh = null; $('cb-undo').disabled = !hist.length;
