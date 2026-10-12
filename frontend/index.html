@@ -2329,6 +2329,57 @@ html.pf-busy *,html.pf-busy *::before,html.pf-busy *::after{animation-play-state
 @keyframes celEq{0%,100%{transform:scaleY(.25)}50%{transform:scaleY(1)}}
 @media (prefers-reduced-motion:reduce){#cbx .cb-hex .cb-svg,#cbx .cb3-b.cel,#cbx .cb3-b.cel::after,.cel-ic svg,.cel-eq i{animation:none!important}}
 </style>
+<style id="cbxV6">
+/* ===== Comp Builder v6: merged search header, denser tray, hex items, item-drop slots ===== */
+#compb.cbfs:not([hidden]){--dock:clamp(250px,39vh,400px)}
+#cbx .cb-p.cd{width:100px;height:100px}
+#cbx #cb-pl{gap:22px 11px;padding:6px 4px 18px}
+#cbx .cb-p.cd .cd-nm{padding:24px 5px 16px;font-size:14px}
+#cbx .cb-p.cd small{width:26px;height:26px;font-size:12px;bottom:-13px}
+/* header row: tabs + search + filters in one line */
+#cbx .cb-hd{flex-wrap:wrap;gap:10px 14px;justify-content:flex-start}
+#cbx .cb-hbar{flex:1;min-width:280px;display:flex;align-items:center}
+#cbx .cb-hbar[hidden]{display:none}
+#cbx .cb-hbar .cb-bar{position:static;flex:1;margin:0;padding:0;background:none;border:0;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none;flex-wrap:nowrap;gap:8px}
+#cbx .cb-hbar .cb-bar input{min-width:140px}
+#cbx.fs>.cb-panel:nth-child(4) .cb-hd{padding:9px 16px}
+@media (max-width:1100px){#cbx .cb-hbar .cb-bar{flex-wrap:wrap}}
+
+/* --- hexagon items (tray, pins on champions, slots) --- */
+.hx{--hxp:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);position:relative;display:inline-grid;place-items:center;width:34px;height:38px;background:linear-gradient(160deg,color-mix(in srgb,var(--c) 85%,#fff),var(--c) 55%,color-mix(in srgb,var(--c) 55%,#000));clip-path:var(--hxp);color:#10131c;font:800 11px var(--body)}
+.hx::before{content:"";position:absolute;inset:2.5px;clip-path:var(--hxp);background:var(--im,none) center/cover no-repeat,radial-gradient(circle at 35% 25%,color-mix(in srgb,var(--c) 55%,#2a3042),#0d1118 85%)}
+.hx::after{content:"";position:absolute;inset:2.5px;clip-path:var(--hxp);background:linear-gradient(155deg,rgba(255,255,255,.28),transparent 42%)}
+.hx>em{position:relative;z-index:1;font-style:normal;color:#fff;text-shadow:0 1px 3px #000,0 0 6px #000;letter-spacing:.02em}
+#cbx .cb-it.hx{width:30px;height:34px;border:0;border-radius:0;box-shadow:none;margin-left:-3px;transition:transform .16s var(--ease)}
+#cbx .cb-it.hx:first-child{margin-left:0}
+#cbx .cb-it.hx:hover{transform:translateY(-3px) scale(1.18);z-index:4}
+#cbx .cb-it.hx.n{animation:cbxPinPop .55s cubic-bezier(.2,1.5,.3,1)}
+@keyframes cbxPinPop{0%{transform:scale(.2) translateY(-18px);filter:brightness(2.2)}60%{transform:scale(1.25);filter:brightness(1.5)}100%{transform:none;filter:none}}
+#cbx .cb3-pins,#cbx .cb-pins{filter:drop-shadow(0 3px 5px rgba(0,0,0,.75));gap:0}
+/* tray item tiles */
+#cbx .cb-i{width:84px;gap:6px;font-size:11.5px;color:#cdd3de;transition:transform .18s var(--ease)}
+#cbx .cb-i .hx{width:54px;height:60px;transition:transform .18s var(--ease),filter .18s;filter:drop-shadow(0 4px 7px rgba(0,0,0,.55))}
+#cbx .cb-i .hx>em{font-size:14px}
+#cbx .cb-i:hover .hx{transform:translateY(-4px) scale(1.1);filter:drop-shadow(0 8px 12px rgba(0,0,0,.6)) drop-shadow(0 0 8px var(--c))}
+#cbx .cb-i .cb-in{font-weight:700;line-height:1.15;max-width:84px}
+#cbx .cb-i .cb-tg{font-style:normal;font-size:9px;font-weight:800;letter-spacing:.1em;color:var(--tg)}
+#cbx .cb-i b.hx{border:0;border-radius:0;box-shadow:none;width:54px;height:60px;background:linear-gradient(160deg,color-mix(in srgb,var(--c) 85%,#fff),var(--c) 55%,color-mix(in srgb,var(--c) 55%,#000));font:800 14px var(--body)}
+/* slots shown above a champion while an item is dragged over it */
+#cbx .cb3-slots{position:absolute;left:0;top:0;z-index:6;pointer-events:none;display:grid;justify-items:center;gap:6px;will-change:transform;animation:slIn .22s var(--ease)}
+#cbx .cb3-slots[hidden]{display:none}
+@keyframes slIn{from{opacity:0;margin-top:8px}to{opacity:1;margin-top:0}}
+.sl-row{display:flex;padding:7px 12px 9px;border-radius:99px;background:rgba(10,14,24,.82);border:1px solid rgba(255,201,74,.55);box-shadow:0 8px 22px rgba(0,0,0,.55),0 0 22px rgba(255,201,74,.3);backdrop-filter:blur(8px)}
+.sl-row .hx{width:34px;height:38px;margin-left:-3px}.sl-row .hx:first-child{margin-left:0}
+.hx.sl.e{--c:#566179;background:rgba(255,255,255,.14)}.hx.sl.e::before{background:rgba(10,14,24,.9)}.hx.sl.e::after{display:none}
+.hx.sl.e>em{font-size:20px;color:#ffc94a;text-shadow:none}
+.hx.sl.nx{background:linear-gradient(160deg,#ffe29a,#ffc94a);animation:slNx 1s ease-in-out infinite}
+@keyframes slNx{0%,100%{filter:drop-shadow(0 0 2px #ffc94a);transform:scale(1)}50%{filter:drop-shadow(0 0 9px #ffc94a);transform:scale(1.12)}}
+.sl-t{font:700 11.5px var(--body);color:#ffe29a;background:rgba(10,14,24,.8);border-radius:99px;padding:3px 10px;letter-spacing:.03em}
+.cb3-slots.full .sl-row{border-color:rgba(255,107,107,.65);box-shadow:0 8px 22px rgba(0,0,0,.55),0 0 22px rgba(255,107,107,.3)}.cb3-slots.full .sl-t{color:#ff9d9d}
+/* 2D board: item over a hex = gold */
+#cbx .cb-hex.iover{--rim:#ffc94a}#cbx .cb-hex.iover .t{fill:rgba(255,201,74,.28)}#cbx .cb-hex.iover .cb-svg{filter:drop-shadow(0 0 12px #ffc94a)}
+@media (prefers-reduced-motion:reduce){.hx.sl.nx,#cbx .cb3-slots{animation:none}}
+</style>
 </head>
 <body>
 <script src="lib/cb3d.js"></script>
@@ -3579,7 +3630,7 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
     root.innerHTML = `<div class="cb-top"><input id="cb-name" maxlength="24" placeholder="Comp name">${btn('cb-save', 'Save comp', 'pri')}${btn('cb-undo', 'Undo')}${btn('cb-clear', 'Clear')}${btn('cb-fs', 'Exit fullscreen')}<span class="cb-n" id="cb-count"></span></div>
       <div class="cb-panel"><div class="cb-h">Saved comps</div><div class="cb-saved" id="cb-sv"></div></div>
       <div class="cb-main"><div class="cb-panel"><div class="cb-h">Traits</div><div class="cb-traits" id="cb-tr"></div></div>
-        <div class="cb-panel cb-board${OK3D ? ' is3d' : ''}">${OK3D ? `<div class="cb-3d" id="cb-3d"><div class="cb3-ov" id="cb3-ov"><div class="cb3-tag" id="cb3-tag" hidden></div></div>
+        <div class="cb-panel cb-board${OK3D ? ' is3d' : ''}">${OK3D ? `<div class="cb-3d" id="cb-3d"><div class="cb3-ov" id="cb3-ov"><div class="cb3-tag" id="cb3-tag" hidden></div><div class="cb3-slots" id="cb3-slots" hidden></div></div>
           <div class="cb3-ctl"><button class="cb3-b cel" data-cel title="Make everyone dance"><span class="cel-ic"><svg viewBox="0 0 24 24"><path d="M4 20l4.5-12.5L16 15.5z"/><path d="M12 4v2M19 8l-1.5 1.2M20 14h-2M15 3.5l-.8 1.6"/></svg></span><span class="cel-tx"><span class="t-off">Celebrate</span><span class="t-on">Stop party</span></span><span class="cel-eq"><i></i><i></i><i></i><i></i></span></button><button class="cb3-b rv" data-rv title="Reset camera (or double-click the board)"><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 109-9M3 4v5h5"/></svg></button></div>
           <div class="cb3-hint">Drag champions onto the board · drag a champion to move it · drag the background to rotate · scroll to zoom</div></div>` : '<div id="cb-bd"></div>'}<div class="cb-rm" id="cb-rm">Drop here to remove</div></div>${recShell()}</div>
       <div class="cb-panel"><div class="cb-hd"><div class="cb-seg"><button class="on" data-tab="c">Champions</button><button data-tab="i">⚔️ Items</button><button data-tab="e">🎖 Emblems</button><button data-tab="a">✨ Augments</button><button data-tab="r">🎲 Random Emblems</button><button data-tab="t">Traits</button></div></div>
@@ -3601,7 +3652,9 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
       : '<span class="cb-none">No saved comps yet. Build a team and press Save comp.</span>';
   }
   const unit = (c, i) => `<div class="cb-u${fresh && fresh.u === i ? ' n' : ''}" draggable="true" data-i="${i}" data-n="${esc(c.name)}" style="--c:${COST[c.cost]}"><b style="${img(c) ? `background-image:url(${img(c)})` : ''}">${img(c) ? '' : esc(c.name)}</b></div>`;
-  const pin = (n, i, k) => { const it = item(n); return `<span class="cb-it${fresh && fresh.p && fresh.p[0] === i && fresh.p[1] === k ? ' n' : ''}" draggable="true" data-i="${i}" data-k="${k}" data-n="${esc(n)}" title="${esc(n)}" style="--c:${it.color};${it.icon ? `background-image:url(${it.icon})` : ''}">${it.icon ? '' : it.ab}</span>`; };
+  const hxSt = it => `--c:${it.color};${it.icon ? `--im:url(${it.icon})` : ''}`;
+  const hexItem = (n, cls = '') => { const it = item(n) || { name: n, ab: String(n).slice(0, 2).toUpperCase(), color: '#8a93a3' }; return `<span class="hx ${cls}" title="${esc(it.name)}" style="${hxSt(it)}"><em>${it.icon ? '' : esc(it.ab)}</em></span>`; };
+  const pin = (n, i, k) => { const it = item(n) || { name: n, ab: String(n).slice(0, 2).toUpperCase(), color: '#8a93a3' }; return `<span class="cb-it hx${fresh && fresh.p && fresh.p[0] === i && fresh.p[1] === k ? ' n' : ''}" draggable="true" data-i="${i}" data-k="${k}" data-n="${esc(n)}" title="${esc(n)} (click to remove)" style="${hxSt(it)}"><em>${it.icon ? '' : esc(it.ab)}</em></span>`; };
   const tierColor = r => !r.tier ? '#555' : r.bp.length === 1 ? '#e0a82e' : r.tier === r.bp.length ? 'linear-gradient(135deg,#b06cff,#4ea1ff)' : r.tier / r.bp.length <= .34 ? '#b8793f' : r.tier / r.bp.length <= .67 ? '#c3ccd8' : '#e0a82e';
   function paintBoard() {
     if (B3) sync3d();
@@ -3631,7 +3684,7 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
     const list = ITEMS.filter(i => (!itemF || i.tags.includes(itemF)) && (!k || i.name.toLowerCase().includes(k) || i.trait.toLowerCase().includes(k)));
     $('cb-il').innerHTML = list.length ? list.map(i => {
       const tg = i.tags.map(t => TAGS[t]).join(' · '), tip = [i.name, tg, i.desc].filter(Boolean).join(' — ');
-      return `<div class="cb-i" draggable="true" data-n="${esc(i.name)}" title="${esc(tip)}" style="--tg:${TAGC[i.tags[0]] || '#8a93a3'}"><b style="--c:${i.color};${i.icon ? `background-image:url(${i.icon})` : ''}">${i.icon ? '' : i.ab}</b>${esc(i.name)}<em>${tg}</em></div>`;
+      return `<div class="cb-i" draggable="true" data-n="${esc(i.name)}" title="${esc(tip)}" style="--tg:${TAGC[i.tags[0]] || '#8a93a3'}"><b class="hx" style="${hxSt(i)}"><em>${i.icon ? '' : esc(i.ab)}</em></b><span class="cb-in">${esc(i.name)}</span><em class="cb-tg">${tg}</em></div>`;
     }).join('') : '<span class="cb-none">No items match.</span>';
   }
   function paintTraits() {
@@ -3656,18 +3709,18 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
     push();
     if (from != null) { [board[to], board[from]] = [name, board[to]]; [gear[to], gear[from]] = [gear[from], gear[to]]; }
     else { const old = board.indexOf(name), g = old >= 0 ? gear[old] : null; if (old >= 0) { board[old] = null; gear[old] = null; } board[to] = name; gear[to] = g; }
-    fresh = { u: to }; paintBoard();
+    fresh = { u: to }; paintBoard(); if (B3) B3.fx(to, 'place');
   }
   const remove = i => { push(); board[i] = null; gear[i] = null; paintBoard(); };
   function addItem(i, name) {
     if (!board[i]) return;
     if ((gear[i] || []).length >= MAXI) return toast('Max ' + MAXI + ' items per champion');
-    push(); (gear[i] = gear[i] || []).push(name); fresh = { p: [i, gear[i].length - 1] }; paintBoard();
+    push(); (gear[i] = gear[i] || []).push(name); fresh = { p: [i, gear[i].length - 1] }; paintBoard(); if (B3) B3.fx(i, 'item');
   }
   function moveItem(from, k, to) {
     if (from === to || !board[to]) return;
     if ((gear[to] || []).length >= MAXI) return toast('Max ' + MAXI + ' items per champion');
-    push(); const [it] = gear[from].splice(k, 1); (gear[to] = gear[to] || []).push(it); fresh = { p: [to, gear[to].length - 1] }; paintBoard();
+    push(); const [it] = gear[from].splice(k, 1); (gear[to] = gear[to] || []).push(it); fresh = { p: [to, gear[to].length - 1] }; paintBoard(); if (B3) B3.fx(to, 'item');
   }
   const removeItem = (i, k) => { push(); gear[i].splice(k, 1); paintBoard(); };
   function saveComp() {
@@ -3676,7 +3729,7 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
     if (old) { old.board = s.b; old.gear = s.g; } else comps.push({ id: Date.now(), name, board: s.b, gear: s.g });
     saveComps(); paintSaved(); toast((old ? 'Updated ' : 'Saved ') + name);
   }
-  const clearOver = () => { root.querySelectorAll('.over').forEach(x => x.classList.remove('over')); if (B3) B3.setDropHover(-1); };
+  const clearOver = () => { root.querySelectorAll('.over').forEach(x => x.classList.remove('over', 'iover')); if (B3) { B3.setDropHover(-1); setSlots(-1); } };
 
   /* ---------- 3D board ---------- */
   // which board cell is under the pointer (3D: ray-cast onto the board; 2D: the hex element). -1 = none
@@ -3716,6 +3769,7 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
   }
   function frame3d() {     // keep the DOM overlays (item pins, name tag) glued to the champions
     document.querySelectorAll('#cb3-ov .cb3-pins').forEach(p => { const s = B3.screenOf(+p.dataset.i); if (s) p.style.transform = `translate(${s.x.toFixed(1)}px,${(s.y + 3).toFixed(1)}px) translate(-50%,0)`; });
+    if (slotIdx >= 0) { const s = B3.screenOf(slotIdx), el = $('cb3-slots'); if (s && el) el.style.transform = `translate(${s.x.toFixed(1)}px,${(s.y + 12).toFixed(1)}px) translate(-50%,0)`; }
     if (tagIdx >= 0) { const s = B3.screenOf(tagIdx), t = $('cb3-tag'), ov = $('cb3-ov'); if (s && t && ov) { const w = t.offsetWidth, h = t.offsetHeight, W = ov.clientWidth; const x = Math.max(w / 2 + 6, Math.min(W - w / 2 - 6, s.topX)); let y = s.topY - 8, below = y - h < 6; if (below) y = s.y + 16; t.style.transform = `translate(${x.toFixed(1)}px,${y.toFixed(1)}px) translate(-50%,${below ? '0' : '-100%'})`; } }
   }
   function wire() {
@@ -3732,7 +3786,9 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
       const isEm = drag.kind === 'emblem' || (drag.kind === 'item' && !!gearTrait(drag.name));
       const ok = bg ? isEm : h ? (drag.kind === 'champ' || drag.kind === 'unit' || !!board[hi]) : out;
       clearOver();
-      if (ok) { e.preventDefault(); if (h) { if (B3) B3.setDropHover(hi); else e.target.closest('.cb-hex').classList.add('over'); } else if (rm) rm.classList.add('over'); else if (bg) bg.classList.add('over'); }
+      const itemDrag = drag.kind === 'item' || drag.kind === 'emblem';
+      if (B3) B3.setDropKind(itemDrag ? 'item' : '');
+      if (ok) { e.preventDefault(); if (h) { if (B3) { B3.setDropHover(hi); if (itemDrag && board[hi]) setSlots(hi); } else { const hx = e.target.closest('.cb-hex'); hx.classList.add('over'); if (itemDrag) hx.classList.add('iover'); } } else if (rm) rm.classList.add('over'); else if (bg) bg.classList.add('over'); }
     });
     const done = () => { drag = null; root.dataset.drag = ''; clearOver(); };
     root.addEventListener('dragend', done);
@@ -3996,7 +4052,7 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
   }
 
   const PANELS = { c: 'cb-cp', i: 'cb-ip', e: 'cb-ep', a: 'cb-ap', r: 'cb-rp', t: 'cb-tp' };
-  function showPanels() { Object.keys(PANELS).forEach(k => { $(PANELS[k]).hidden = tab !== k; }); if (tab === 'e') paintEmblems(); else if (tab === 'a') paintAugs(); else if (tab === 'r') paintRandom(); }
+  function showPanels() { Object.keys(PANELS).forEach(k => { $(PANELS[k]).hidden = tab !== k; }); dockBar(); if (tab === 'e') paintEmblems(); else if (tab === 'a') paintAugs(); else if (tab === 'r') paintRandom(); }
   async function loadMeta() {
     try { const r = await fetch('meta.json'); if (!r.ok) throw 0; META = await r.json(); } catch { META = { comps: [], emblems: [], augments: {}, sourceUrl: 'https://tftflow.com/' }; }
     EMC = null; paintEmblems(); paintRandom(); paintAugs();
@@ -4094,6 +4150,26 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
     if (btn.classList.contains('on')) { burst(44); partyT = setInterval(() => btn.classList.contains('on') ? burst(14) : clearInterval(partyT), 2200); }
   }
 
+  /* ---------- v6: item-drop slots HUD, hex search header ---------- */
+  let slotIdx = -1, slotKey = '';
+  function setSlots(i) {
+    const el = $('cb3-slots'); if (!el) return;
+    slotIdx = i; el.hidden = i < 0; if (i < 0) return;
+    const g = gear[i] || [], key = i + '|' + g.join(',');
+    if (key === slotKey) return; slotKey = key;
+    el.classList.toggle('full', g.length >= MAXI);
+    el.innerHTML = `<div class="sl-row">${Array.from({ length: MAXI }, (_, k) => k < g.length ? hexItem(g[k], 'sl') : `<span class="hx sl e${k === g.length ? ' nx' : ''}"><em>${k === g.length ? '+' : ''}</em></span>`).join('')}</div><div class="sl-t">${g.length >= MAXI ? `Full ${MAXI}/${MAXI}` : `Drop to equip · ${g.length}/${MAXI}`}</div>`;
+  }
+  const DOCK = { c: 'cb-cp', i: 'cb-ip', t: 'cb-tp' };
+  function dockBar() {
+    const hd = root.querySelector('.cb-hd'); if (!hd) return;
+    let hb = hd.querySelector('.cb-hbar'); if (!hb) { hb = document.createElement('div'); hb.className = 'cb-hbar'; hd.appendChild(hb); }
+    hb.querySelectorAll('.cb-bar').forEach(b => { const h = $(b.dataset.home); if (h) h.prepend(b); });
+    const id = DOCK[tab], p = id && $(id), bar = p && p.querySelector(':scope>.cb-bar');
+    if (bar) { bar.dataset.home = id; hb.appendChild(bar); }
+    hb.hidden = !hb.children.length;
+  }
+
   async function init() {
     if (started) return; started = true;
     try { D = await (await fetch('comp18/comp18.json')).json(); if (!D || !D.champions) throw 0; }   // full data pack: all champions, traits and items with icons
@@ -4109,7 +4185,7 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
     try { const b = JSON.parse(store.get(KEY) || '[]'); if (Array.isArray(b) && b.length === N) board = valid(b); gear = fixGear(JSON.parse(store.get(GKEY) || '[]'), board); } catch {}
     try { const s = JSON.parse(store.get(SKEY) || '[]'); if (Array.isArray(s)) comps = s; } catch {}
     try { MF3 = await (await fetch('models/manifest.json')).json(); } catch { MF3 = null; }   // which champions have 3D models / icons
-    shell(); wire(); wireRecs(); wireExtra(); paintSaved(); paintItems(); paintTraits(); paintPool(); loadRecs(); loadMeta(); setupTip();
+    shell(); wire(); wireRecs(); wireExtra(); paintSaved(); paintItems(); paintTraits(); paintPool(); loadRecs(); loadMeta(); setupTip(); dockBar();
   }
   $('navComp').addEventListener('click', init);
   if (showView.cur === 'comp') init();
