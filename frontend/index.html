@@ -2380,6 +2380,85 @@ html.pf-busy *,html.pf-busy *::before,html.pf-busy *::after{animation-play-state
 #cbx .cb-hex.iover{--rim:#ffc94a}#cbx .cb-hex.iover .t{fill:rgba(255,201,74,.28)}#cbx .cb-hex.iover .cb-svg{filter:drop-shadow(0 0 12px #ffc94a)}
 @media (prefers-reduced-motion:reduce){.hx.sl.nx,#cbx .cb3-slots{animation:none}}
 </style>
+<style id="cbxV7">
+/* ===== Comp Builder v7: TFT arena hex look, ornate card frames with rarity gems, TFT buttons, hide UI, team code ===== */
+:root{--tfc-ch:polygon(var(--ch) 0,calc(100% - var(--ch)) 0,100% var(--ch),100% calc(100% - var(--ch)),calc(100% - var(--ch)) 100%,var(--ch) 100%,0 calc(100% - var(--ch)),0 var(--ch));--gold1:#f6dc9a;--gold2:#c89a3e;--gold3:#8e6420}
+/* --- TFT Celebrate button --- */
+#cbx .cb3-ctl{gap:14px;align-items:center}
+#cbx .cel-w,#cbx .tf-w{position:relative;display:block;filter:drop-shadow(0 6px 12px rgba(0,0,0,.55)) drop-shadow(0 0 10px rgba(240,200,110,.2));transition:filter .25s}
+#cbx .cel-w:hover,#cbx .tf-w:hover{filter:drop-shadow(0 6px 12px rgba(0,0,0,.55)) drop-shadow(0 0 18px rgba(255,214,120,.55))}
+#cbx .cel-w:has(.tfc.on){filter:drop-shadow(0 6px 12px rgba(0,0,0,.55)) drop-shadow(0 0 22px rgba(255,200,90,.8));animation:tfcGlow 1.4s ease-in-out infinite}
+@keyframes tfcGlow{50%{filter:drop-shadow(0 6px 12px rgba(0,0,0,.55)) drop-shadow(0 0 32px rgba(255,214,120,1))}}
+#cbx .cb3-ctl .cb3-b.tfc{--ch:12px;position:relative;display:flex;align-items:center;height:54px;padding:0 30px 0 12px;gap:12px;border:0;border-radius:0;background:linear-gradient(180deg,var(--gold1),var(--gold2) 50%,var(--gold3));clip-path:var(--tfc-ch);box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none;color:#f3d890;font:800 17px var(--head);letter-spacing:.14em;text-transform:uppercase;cursor:pointer;transition:transform .18s var(--ease);overflow:visible}
+#cbx .cb3-ctl .cb3-b.tfc:hover{transform:translateY(-2px);border:0}#cbx .cb3-ctl .cb3-b.tfc:active{transform:scale(.98)}
+#cbx .cb3-b.tfc::before{content:"";position:absolute;inset:2px;z-index:0;--ch:10px;clip-path:var(--tfc-ch);background:#0b101b}
+#cbx .cb3-b.tfc::after{content:"";position:absolute;inset:4px;z-index:1;--ch:8px;clip-path:var(--tfc-ch);background:rgba(224,190,110,.55);transform:none;animation:none;width:auto;left:4px}
+.tfc-in{position:absolute;inset:5px;z-index:2;--ch:7px;clip-path:var(--tfc-ch);background:linear-gradient(180deg,#1f2a41,#0d1320);overflow:hidden;transition:background .25s}
+.tfc-in::before{content:"";position:absolute;top:0;bottom:0;width:34%;left:-50%;background:linear-gradient(100deg,transparent,rgba(255,226,150,.28),transparent);transform:skewX(-20deg);animation:tfcShine 3.6s ease-in-out infinite}
+@keyframes tfcShine{0%,55%{left:-50%}100%{left:130%}}
+#cbx .cb3-b.tfc:hover .tfc-in{background:linear-gradient(180deg,#2a3857,#111a2b)}
+.tfc-ic,.tfc-tx,.tfc-eq{position:relative;z-index:3}
+.tfc-ic{width:34px;height:38px;flex:none;display:grid;place-items:center;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:linear-gradient(160deg,var(--gold1),#a9772a)}
+.tfc-ic::before{content:"";position:absolute;inset:2px;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:#0e1422}
+.tfc-ic svg{position:relative;width:19px;height:19px;fill:var(--gold1);stroke:var(--gold1);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;animation:celWig 2.6s ease-in-out infinite;transform-origin:30% 80%}
+.tfc-tx{display:grid;text-shadow:0 1px 2px #000}.tfc-tx>span{grid-area:1/1;transition:opacity .2s,transform .25s var(--ease)}.tfc-tx .t-on{opacity:0;transform:translateY(8px)}
+.tfc-eq{display:none;align-items:flex-end;gap:3px;height:18px}.tfc-eq i{width:4px;height:100%;border-radius:1px;background:#2a1700;transform-origin:bottom;animation:celEq .7s ease-in-out infinite}
+.tfc-eq i:nth-child(2){animation-delay:.15s}.tfc-eq i:nth-child(3){animation-delay:.3s}.tfc-eq i:nth-child(4){animation-delay:.45s}
+#cbx .cb3-ctl .cb3-b.tfc.on{color:#2a1700}
+#cbx .cb3-b.tfc.on .tfc-in{background:linear-gradient(180deg,#ffe6a2,#e3aa3a 55%,#b9781c)}
+#cbx .cb3-b.tfc.on .tfc-tx{text-shadow:0 1px 0 rgba(255,255,255,.4)}
+#cbx .cb3-b.tfc.on .t-off{opacity:0;transform:translateY(-8px)}#cbx .cb3-b.tfc.on .t-on{opacity:1;transform:none}
+#cbx .cb3-b.tfc.on .tfc-eq{display:flex}#cbx .cb3-b.tfc.on .tfc-ic::before{background:#2a1700}
+/* small TFT icon buttons */
+#cbx .cb3-ctl .cb3-b.tf{--ch:9px;position:relative;width:48px;height:48px;padding:0;display:grid;place-items:center;border:0;border-radius:0;background:linear-gradient(180deg,var(--gold1),var(--gold2) 50%,var(--gold3));clip-path:var(--tfc-ch);box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none;color:var(--gold1);cursor:pointer;transition:transform .18s var(--ease)}
+#cbx .cb3-ctl .cb3-b.tf:hover{transform:translateY(-2px);border:0}
+#cbx .cb3-b.tf::before{content:"";position:absolute;inset:2px;--ch:7px;clip-path:var(--tfc-ch);background:linear-gradient(180deg,#1f2a41,#0d1320);transition:background .2s}
+#cbx .cb3-b.tf:hover::before{background:linear-gradient(180deg,#2c3b5c,#111a2b)}
+#cbx .cb3-b.tf svg{position:relative;width:21px;height:21px;fill:none;stroke:var(--gold1);stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+#cbx .cb3-b.tf .sl{opacity:0}#cbx .cb3-b.tf.on .sl{opacity:1}#cbx .cb3-b.tf.on::before{background:linear-gradient(180deg,#4a3410,#2a1c06)}
+#cbx:not(.fs) .tf-w:has([data-hud]){display:none}
+
+/* --- hide UI --- */
+#cbx.fs .cb-top,#cbx.fs>.cb-panel:nth-child(2),#cbx.fs .cb-main>.cb-panel:first-child,#cbx.fs .cb-recs,#cbx.fs>.cb-panel:nth-child(4),#cbx.fs .cb3-hint{transition:opacity .28s,transform .34s var(--ease),visibility 0s}
+#cbx.fs.hud-off .cb-top,#cbx.fs.hud-off>.cb-panel:nth-child(2),#cbx.fs.hud-off .cb-main>.cb-panel:first-child,#cbx.fs.hud-off .cb-recs,#cbx.fs.hud-off>.cb-panel:nth-child(4),#cbx.fs.hud-off .cb3-hint{opacity:0;visibility:hidden;pointer-events:none;transition:opacity .28s,transform .34s var(--ease),visibility 0s .3s}
+#cbx.fs.hud-off .cb-top,#cbx.fs.hud-off>.cb-panel:nth-child(2){transform:translateY(-16px)}
+#cbx.fs.hud-off .cb-main>.cb-panel:first-child{transform:translateX(-22px)}#cbx.fs.hud-off .cb-recs{transform:translateX(22px)}
+#cbx.fs.hud-off>.cb-panel:nth-child(4){transform:translateY(22px)}
+#cbx.fs.hud-off .cb-main>.cb-board{top:36px;bottom:0}
+#cbx.fs.hud-off .cb3-ctl{top:50px}
+
+/* --- champion cards: ornate gold frame + rarity gems --- */
+#cbx .cb-p.cd{width:100px;height:100px;border:0;border-radius:0;background:none;box-shadow:none;overflow:visible;transition:transform .18s var(--ease)}
+#cbx .cb-p.cd::before{content:"";position:absolute;inset:1px;clip-path:polygon(8px 0,calc(100% - 8px) 0,100% 8px,100% calc(100% - 8px),calc(100% - 8px) 100%,8px 100%,0 calc(100% - 8px),0 8px);background:#0a0e17}
+.cd-art{position:absolute;inset:5px;clip-path:polygon(5px 0,calc(100% - 5px) 0,100% 5px,100% calc(100% - 5px),calc(100% - 5px) 100%,5px 100%,0 calc(100% - 5px),0 5px);background:var(--im,none) center/cover no-repeat,radial-gradient(circle at 50% 30%,color-mix(in srgb,var(--c) 34%,#1a2130),#0c1017 80%);transition:filter .2s}
+#cbx .cb-p.cd:hover .cd-art{filter:brightness(1.12) saturate(1.1)}
+.cd-fr{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none;transition:filter .2s}
+.cd-fr .o{fill:none;stroke:color-mix(in srgb,var(--c) 40%,#d4b05a);stroke-width:1.6;transition:stroke .2s}
+.cd-fr .i{fill:none;stroke:rgba(228,196,120,.5);stroke-width:.9}
+.cd-fr .k{fill:none;stroke:color-mix(in srgb,var(--c) 65%,#fff);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.cd-fr .g{fill:var(--c);stroke:#0a0e17;stroke-width:.7}
+#cbx .cb-p.cd:hover{transform:translateY(-4px);box-shadow:none;border:0}
+#cbx .cb-p.cd:hover .cd-fr{filter:drop-shadow(0 0 7px var(--c))}#cbx .cb-p.cd:hover .cd-fr .o{stroke:var(--c)}
+#cbx .cb-p.cd .cd-gem{width:28px;height:28px;top:-14px;z-index:2}
+#cbx .cb-p.cd .cd-gem::before{content:"";position:absolute;inset:3px -10px 5px;background:#0a0e17;clip-path:polygon(0 50%,24% 0,76% 0,100% 50%,76% 100%,24% 100%);z-index:-1}
+#cbx .cb-p.cd .cd-nm{left:5px;right:5px;bottom:5px;padding:22px 4px 15px;border-radius:0;z-index:1}
+#cbx .cb-p.cd small{z-index:3}
+
+/* --- team code dialog --- */
+#cb-codem{position:fixed;inset:0;z-index:100000;display:grid;place-items:center;background:rgba(3,6,12,.62);backdrop-filter:blur(3px)}#cb-codem[hidden]{display:none}
+.cm-box{width:min(460px,92vw);padding:18px 20px 20px;background:linear-gradient(180deg,#141c2e,#0a0f1a);border:1px solid #b8913f;box-shadow:inset 0 0 0 4px #0a0f1a,inset 0 0 0 5px rgba(200,162,74,.5),0 24px 60px rgba(0,0,0,.7);border-radius:3px;color:var(--text);font:13.5px/1.45 var(--body)}
+.cm-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}.cm-h b{font:700 22px var(--head);color:#f0d28a;letter-spacing:.06em;text-transform:uppercase}
+.cm-x{width:30px;height:30px;border:0;background:rgba(255,255,255,.08);color:#cdd3de;font-size:20px;cursor:pointer;border-radius:50%}.cm-x:hover{background:#e5484d;color:#fff}
+.cm-box p{margin:0 0 10px;color:#aab2c0;font-size:12.5px}
+.cm-box textarea{width:100%;resize:none;box-sizing:border-box;padding:9px 11px;border-radius:6px;background:rgba(0,0,0,.35);border:1px solid rgba(200,162,74,.35);color:#e9e4d6;font:12px/1.4 ui-monospace,Consolas,monospace;outline:none;word-break:break-all}
+.cm-box textarea:focus{border-color:var(--gold)}
+.cm-r{display:flex;align-items:center;gap:12px;margin:10px 0 0}
+.cm-b{height:36px;padding:0 18px;border:1px solid rgba(200,162,74,.6);background:linear-gradient(180deg,#1f2a41,#0d1320);color:#f0d28a;font:700 13px var(--body);letter-spacing:.04em;cursor:pointer;border-radius:3px;transition:filter .15s,transform .15s}.cm-b:hover{filter:brightness(1.25);transform:translateY(-1px)}
+.cm-b.pri{background:linear-gradient(180deg,#f6dc9a,#c89a3e 55%,#a2751f);color:#2a1700;border-color:#f6dc9a}
+.cm-msg{font-size:12.5px;color:#9fe8ff}
+.cm-sep{height:1px;margin:16px 0 12px;background:linear-gradient(90deg,transparent,rgba(200,162,74,.6),transparent)}.cm-s{display:block;margin-bottom:6px;color:#f0d28a;font-size:13px}
+@media (prefers-reduced-motion:reduce){.tfc-in::before,.tfc-ic svg,.tfc-eq i,#cbx .cel-w:has(.tfc.on){animation:none!important}}
+</style>
 </head>
 <body>
 <script src="lib/cb3d.js"></script>
@@ -3598,7 +3677,7 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
   const HUES = ['#ef6b5f', '#e9b44c', '#a678f0', '#5db7f2', '#d5974a', '#52c7a0', '#e46f9a', '#f08a4b', '#c9c24a'];
   const FALLBACK = ['B.F. Sword', 'Recurve Bow', 'Needlessly Large Rod', 'Tear of the Goddess', 'Chain Vest', 'Negatron Cloak', "Giant's Belt", 'Sparring Gloves', 'Spatula'];
   const IC = {
-    save: '<path d="M5 3h11l3 3v15H5zM8 3v6h7V3M8 21v-7h8v7"/>', undo: '<path d="M9 14L4 9l5-5M4 9h10a6 6 0 010 12h-3"/>', clear: '<path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/>', fs: '<path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/>'
+    save: '<path d="M5 3h11l3 3v15H5zM8 3v6h7V3M8 21v-7h8v7"/>', undo: '<path d="M9 14L4 9l5-5M4 9h10a6 6 0 010 12h-3"/>', clear: '<path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/>', fs: '<path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/>', code: '<path d="M9 8l-4 4 4 4M15 8l4 4-4 4M13 6l-2 12"/>'
   };
   const cgem = n => { const c = COST[n], st = 'stroke="rgba(0,0,0,.45)" stroke-width=".9" stroke-linejoin="round"';
     return '<svg viewBox="0 0 24 24" aria-hidden="true">' + (n >= 5 ? `<path d="M12 2 21 10 12 22 3 10z" fill="${c}" ${st}/><path d="M12 2 21 10H3z" fill="#fff" opacity=".42"/><path d="M12 10h9L12 22z" fill="#000" opacity=".22"/>` : `<path d="M12 3 19 7v9l-7 5-7-5V7z" fill="${c}" ${st}/><path d="M12 3 19 7l-7 4-7-4z" fill="#fff" opacity=".38"/><path d="M12 11l7-4v9l-7 5z" fill="#000" opacity=".22"/>`) + '</svg>'; };
@@ -3627,11 +3706,11 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
   const HEX_SVG = '<svg class="cb-svg" viewBox="0 0 100 86.6" aria-hidden="true"><polygon class="t" points="25.98,1.7 74.02,1.7 98.04,43.3 74.02,84.9 25.98,84.9 1.96,43.3"/><polygon class="r" points="30,8.66 70,8.66 90,43.3 70,77.94 30,77.94 10,43.3"/><path class="p" d="M50 34.8v17M41.5 43.3h17"/></svg>';
   function shell() {
     const tr = D.traits.filter(t => t.kind !== 'hidden');
-    root.innerHTML = `<div class="cb-top"><input id="cb-name" maxlength="24" placeholder="Comp name">${btn('cb-save', 'Save comp', 'pri')}${btn('cb-undo', 'Undo')}${btn('cb-clear', 'Clear')}${btn('cb-fs', 'Exit fullscreen')}<span class="cb-n" id="cb-count"></span></div>
+    root.innerHTML = `<div class="cb-top"><input id="cb-name" maxlength="24" placeholder="Comp name">${btn('cb-save', 'Save comp', 'pri')}${btn('cb-undo', 'Undo')}${btn('cb-clear', 'Clear')}${btn('cb-code', 'Team code')}${btn('cb-fs', 'Exit fullscreen')}<span class="cb-n" id="cb-count"></span></div>
       <div class="cb-panel"><div class="cb-h">Saved comps</div><div class="cb-saved" id="cb-sv"></div></div>
       <div class="cb-main"><div class="cb-panel"><div class="cb-h">Traits</div><div class="cb-traits" id="cb-tr"></div></div>
         <div class="cb-panel cb-board${OK3D ? ' is3d' : ''}">${OK3D ? `<div class="cb-3d" id="cb-3d"><div class="cb3-ov" id="cb3-ov"><div class="cb3-tag" id="cb3-tag" hidden></div><div class="cb3-slots" id="cb3-slots" hidden></div></div>
-          <div class="cb3-ctl"><button class="cb3-b cel" data-cel title="Make everyone dance"><span class="cel-ic"><svg viewBox="0 0 24 24"><path d="M4 20l4.5-12.5L16 15.5z"/><path d="M12 4v2M19 8l-1.5 1.2M20 14h-2M15 3.5l-.8 1.6"/></svg></span><span class="cel-tx"><span class="t-off">Celebrate</span><span class="t-on">Stop party</span></span><span class="cel-eq"><i></i><i></i><i></i><i></i></span></button><button class="cb3-b rv" data-rv title="Reset camera (or double-click the board)"><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 109-9M3 4v5h5"/></svg></button></div>
+          <div class="cb3-ctl"><span class="cel-w"><button class="cb3-b tfc" data-cel title="Make everyone dance"><span class="tfc-in"></span><span class="tfc-ic"><svg viewBox="0 0 24 24"><path d="M4 20l4.5-12.5L16 15.5z"/><path d="M12 4v2M19 8l-1.5 1.2M20 14h-2M15 3.5l-.8 1.6"/></svg></span><span class="tfc-tx"><span class="t-off">Celebrate</span><span class="t-on">Stop party</span></span><span class="tfc-eq"><i></i><i></i><i></i><i></i></span></button></span><span class="tf-w"><button class="cb3-b tf" data-code title="Copy team code"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></button></span><span class="tf-w"><button class="cb3-b tf" data-hud title="Hide / show UI (H)"><svg viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/><path class="sl" d="M4 4l16 16"/></svg></button></span><span class="tf-w"><button class="cb3-b tf" data-rv title="Reset camera (or double-click the board)"><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 109-9M3 4v5h5"/></svg></button></span></div>
           <div class="cb3-hint">Drag champions onto the board · drag a champion to move it · drag the background to rotate · scroll to zoom</div></div>` : '<div id="cb-bd"></div>'}<div class="cb-rm" id="cb-rm">Drop here to remove</div></div>${recShell()}</div>
       <div class="cb-panel"><div class="cb-hd"><div class="cb-seg"><button class="on" data-tab="c">Champions</button><button data-tab="i">⚔️ Items</button><button data-tab="e">🎖 Emblems</button><button data-tab="a">✨ Augments</button><button data-tab="r">🎲 Random Emblems</button><button data-tab="t">Traits</button></div></div>
         <div id="cb-cp"><div class="cb-bar"><input id="cb-q" placeholder="Search champions or traits">
@@ -3702,7 +3781,7 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
   function paintPool() {
     const k = q.trim().toLowerCase();
     const list = D.champions.filter(c => (!costF || c.cost === costF) && (!traitF || c.traits.includes(traitF)) && (!k || c.name.toLowerCase().includes(k) || c.traits.some(t => t.toLowerCase().includes(k))));
-    $('cb-pl').innerHTML = list.length ? list.map(c => `<div class="cb-p cd" draggable="true" data-n="${esc(c.name)}" style="--c:${COST[c.cost]};${img(c) ? `--im:url(${img(c)})` : ''}"><span class="cd-gem">${cgem(c.cost)}</span><b class="cd-nm">${esc(c.name)}</b><small>${c.cost}</small></div>`).join('') : '<span class="cb-none">No champions match.</span>';
+    $('cb-pl').innerHTML = list.length ? list.map(c => `<div class="cb-p cd" draggable="true" data-n="${esc(c.name)}" style="--c:${COST[c.cost]};${img(c) ? `--im:url(${img(c)})` : ''}"><span class="cd-art"></span>${CD_FR}<span class="cd-gem">${cgem(c.cost)}</span><b class="cd-nm">${esc(c.name)}</b><small>${c.cost}</small></div>`).join('') : '<span class="cb-none">No champions match.</span>';
     $('cb-pl').classList.toggle('hu', hideUsed); paintBoard();
   }
   function place(name, to, from) {
@@ -3804,9 +3883,11 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
     root.addEventListener('click', e => {
       const g = e.target, it = g.closest('.cb-it'), u = g.closest('.cb-u'), p = g.closest('.cb-p'), c = g.closest('[data-c]'), tb = g.closest('[data-tab]'), fc = g.closest('[data-f]'), cc = g.closest('[data-cat]'), tcd = g.closest('[data-trait]');
       const del = g.closest('[data-del]'), sc = g.closest('.cb-sc'), b = g.closest('.cb-btn');
-      const rm3 = g.closest('[data-rm]'), cel = g.closest('[data-cel]'), rv = g.closest('[data-rv]');
+      const rm3 = g.closest('[data-rm]'), cel = g.closest('[data-cel]'), rv = g.closest('[data-rv]'), cdb = g.closest('[data-code]'), hub = g.closest('[data-hud]');
       if (rm3) { remove(+rm3.dataset.rm); tagIdx = -1; paintTag(); }
       else if (cel && B3) { B3.celebrate(!B3.isCelebrating()); cel.classList.toggle('on', B3.isCelebrating()); partyMode(cel); }
+      else if (cdb) copyCode();
+      else if (hub) toggleHud();
       else if (rv && B3) B3.resetView();
       else if (fc) { itemF = fc.dataset.f; paintItems(); }
       else if (cc) { catF = cc.dataset.cat; paintTraits(); }
@@ -3818,6 +3899,7 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
       else if (tb) { tab = tb.dataset.tab; tb.parentNode.querySelectorAll('button').forEach(x => x.classList.toggle('on', x === tb)); showPanels(); }
       else if (del) { comps = comps.filter(x => String(x.id) !== del.dataset.del); saveComps(); paintSaved(); }
       else if (sc) { const s = comps.find(x => String(x.id) === sc.dataset.id); if (s) { push(); board = valid(s.board); gear = fixGear(s.gear, board); $('cb-name').value = s.name; paintBoard(); } }
+      else if (b && b.id === 'cb-code') openCode();
       else if (b && b.id === 'cb-save') saveComp();
       else if (b && b.id === 'cb-hu') { hideUsed = !hideUsed; b.classList.toggle('on', hideUsed); paintPool(); }
       else if (b && b.id === 'cb-fs') { fs = !fs; store.set('cb.fs', fs ? '1' : '0'); applyFs(); }
@@ -4139,7 +4221,7 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
     clearInterval(partyT);
     const burst = n => {
       if (!btn.isConnected || matchMedia('(prefers-reduced-motion:reduce)').matches) return;
-      const host = btn.parentNode, cols = ['#ffd45c', '#ff6fb1', '#6fe3ff', '#9b7bff', '#7dffb0', '#ffffff'];
+      const host = btn.closest('.cb3-ctl') || btn.parentNode, cols = ['#ffd45c', '#ff6fb1', '#6fe3ff', '#9b7bff', '#7dffb0', '#ffffff'];
       for (let k = 0; k < n; k++) {
         const p = document.createElement('i'); p.className = 'cf';
         const a = Math.random() * Math.PI * 2, d = 70 + Math.random() * 130;
@@ -4169,6 +4251,56 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
     if (bar) { bar.dataset.home = id; hb.appendChild(bar); }
     hb.hidden = !hb.children.length;
   }
+
+  /* ---------- v7: ornate card frame, hide-UI, team code ---------- */
+  const CD_FR = '<svg class="cd-fr" viewBox="0 0 100 100" aria-hidden="true"><path class="o" d="M9 1H91L99 9V91L91 99H9L1 91V9Z"/><path class="i" d="M11 5H89L95 11V89L89 95H11L5 89V11Z"/><path class="k" d="M1 21V9L9 1H21M79 1H91L99 9V21M99 79V91L91 99H79M21 99H9L1 91V79"/><path class="g" d="M5 1.8L8.2 5 5 8.2 1.8 5zM95 1.8L98.2 5 95 8.2 91.8 5zM5 91.8L8.2 95 5 98.2 1.8 95zM95 91.8L98.2 95 95 98.2 91.8 95z"/></svg>';
+  function toggleHud() {
+    const off = root.classList.toggle('hud-off');
+    root.querySelectorAll('[data-hud]').forEach(b => b.classList.toggle('on', off));
+    if (off) toast('UI hidden · press H to bring it back');
+  }
+  function teamCode() {
+    const u = []; board.forEach((n, i) => { if (n) u.push([i, n, ...(gear[i] || [])]); });
+    const j = JSON.stringify({ v: 1, s: 18, u });
+    return 'TFTV18-' + btoa(unescape(encodeURIComponent(j))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+  }
+  function loadCode(str) {
+    const m = /^TFTV\d+-([A-Za-z0-9_-]+)$/.exec(String(str).trim()); if (!m) return 'That is not a team code';
+    let o; try { const b = m[1].replace(/-/g, '+').replace(/_/g, '/'); o = JSON.parse(decodeURIComponent(escape(atob(b + '='.repeat((4 - b.length % 4) % 4))))); } catch { return 'Could not read that code'; }
+    if (!o || !Array.isArray(o.u)) return 'Could not read that code';
+    const nb = Array(N).fill(null), ng = Array(N).fill(null); let k = 0;
+    o.u.forEach(r => { if (!Array.isArray(r)) return; const [pos, name, ...its] = r; if (Number.isInteger(pos) && pos >= 0 && pos < N && champ(name) && !nb.includes(name)) { nb[pos] = name; ng[pos] = its.filter(x => item(x)).slice(0, MAXI); k++; } });
+    if (!k) return 'No champions from that code exist in this set';
+    push(); board = valid(nb); gear = fixGear(ng, board); paintBoard(); return '';
+  }
+  async function copyText(t) {
+    try { await navigator.clipboard.writeText(t); return true; }
+    catch { const ta = document.createElement('textarea'); ta.value = t; ta.style.cssText = 'position:fixed;opacity:0'; document.body.appendChild(ta); ta.select(); let ok = false; try { ok = document.execCommand('copy'); } catch {} ta.remove(); return ok; }
+  }
+  async function copyCode() {
+    if (!board.some(Boolean)) return toast('Add champions to the board first');
+    if (await copyText(teamCode())) toast('Team code copied'); else openCode();
+  }
+  function openCode() {
+    let m = document.getElementById('cb-codem');
+    if (!m) {
+      m = document.createElement('div'); m.id = 'cb-codem'; m.hidden = true;
+      m.innerHTML = `<div class="cm-box" role="dialog" aria-label="Team code"><div class="cm-h"><b>Team code</b><button class="cm-x" data-cmx title="Close">×</button></div><p>Share this code. Anyone can paste it under “Load a code” to get your board and items.</p><textarea id="cm-code" readonly rows="3" spellcheck="false"></textarea><div class="cm-r"><button class="cm-b pri" data-cmcopy>Copy code</button><span class="cm-msg" id="cm-m1"></span></div><div class="cm-sep"></div><b class="cm-s">Load a code</b><textarea id="cm-in" rows="2" spellcheck="false" placeholder="Paste a team code…"></textarea><div class="cm-r"><button class="cm-b" data-cmload>Load into board</button><span class="cm-msg" id="cm-m2"></span></div></div>`;
+      document.body.appendChild(m);
+      const close = () => { m.hidden = true; };
+      m.addEventListener('click', async e => {
+        if (e.target === m || e.target.closest('[data-cmx]')) close();
+        else if (e.target.closest('[data-cmcopy]')) { const ok = await copyText($('cm-code').value); $('cm-m1').textContent = board.some(Boolean) ? (ok ? 'Copied ✓' : 'Select the text and press Ctrl+C') : 'Board is empty'; }
+        else if (e.target.closest('[data-cmload]')) { const err = loadCode($('cm-in').value); $('cm-m2').textContent = err || 'Loaded ✓'; if (!err) { $('cm-code').value = teamCode(); setTimeout(close, 700); } }
+      });
+      document.addEventListener('keydown', e => { if (e.key === 'Escape' && !m.hidden) close(); });
+    }
+    $('cm-code').value = board.some(Boolean) ? teamCode() : ''; $('cm-m1').textContent = ''; $('cm-m2').textContent = ''; $('cm-in').value = '';
+    m.hidden = false;
+  }
+  document.addEventListener('keydown', e => {
+    if ((e.key === 'h' || e.key === 'H') && !e.ctrlKey && !e.metaKey && !e.altKey && !/^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName) && !e.target.isContentEditable && root.offsetParent && root.classList.contains('fs')) toggleHud();
+  });
 
   async function init() {
     if (started) return; started = true;
