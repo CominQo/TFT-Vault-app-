@@ -1003,6 +1003,16 @@ body.dens .tname{font-size:10px}
 .cb-hex.over .t{fill:rgba(248,169,0,.22)}.cb-hex.over .p{stroke:var(--gold)}
 .cb-u{inset:calc(var(--hw)*.07) calc(var(--hw)*.082);clip-path:var(--cb-fx)}
 .cb-u b{inset:2.5px;clip-path:var(--cb-fx)}
+/* ---- v4: no plus sign, glassier tiles, glowing rarity-coloured hexes (2D fallback board) ---- */
+.cb-hex .p{display:none}
+.cb-svg .t{fill:rgba(32,104,196,.1);stroke-width:2.6}
+.cb-svg .r{opacity:.14}
+.cb-svg{filter:drop-shadow(0 0 4px color-mix(in srgb,var(--rim) 40%,transparent))}
+.cb-hex.f .t{fill:color-mix(in srgb,var(--c) 14%,rgba(8,14,30,.35))}
+.cb-hex.f .cb-svg{animation:cbHexGlow 2.6s ease-in-out infinite}
+.cb-hex.f .r{opacity:.5;stroke-width:1.4}
+@keyframes cbHexGlow{0%,100%{filter:drop-shadow(0 0 6px color-mix(in srgb,var(--c) 60%,transparent))}50%{filter:drop-shadow(0 0 18px color-mix(in srgb,var(--c) 100%,transparent)) drop-shadow(0 0 4px var(--c))}}
+@media (prefers-reduced-motion:reduce){.cb-hex.f .cb-svg{animation:none}}
 </style>
 <style id="introCss">
 /* ---- Intro: TFT-style hexagon build + dissolve over the live home-screen video (GPU-only: transform/opacity) ---- */
