@@ -988,13 +988,13 @@ body.dens .tname{font-size:10px}
 .cb-row{--hw:78px;gap:calc(var(--hw)*.14);margin-top:calc(var(--hw)*.121)}
 @supports (width:1cqw){.cb-row{--hw:min(92px,11.2cqw)}}
 .cb-row.o{margin-left:calc(var(--hw)*.57)}
-.cb-hex{width:var(--hw);height:calc(var(--hw)*.866);--rim:#f59a0c}
+.cb-hex{width:var(--hw);height:calc(var(--hw)*.866);--rim:#f4a000}
 .cb-hex:before,.cb-hex:after{display:none}
 .cb-svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none;filter:drop-shadow(0 0 5px color-mix(in srgb,var(--rim) 65%,transparent));transition:filter .2s}
 .cb-svg .t{fill:rgba(32,104,196,.34);stroke:var(--rim);stroke-width:3.4;stroke-linejoin:round;transition:fill .2s,stroke .2s}
 .cb-svg .r{fill:none;stroke:var(--rim);stroke-width:.9;opacity:.4}
 .cb-svg .p{fill:none;stroke:#8aeaff;stroke-width:2.8;stroke-linecap:round;opacity:.9}
-.cb-hex:hover:not(.f) .t{fill:rgba(255,170,40,.32)}.cb-hex:hover:not(.f){--rim:#ffd27a;transform:translateY(-3px) scale(1.06)}.cb-hex:hover:not(.f) .cb-svg{animation:cbHexHot 1.1s ease-in-out infinite}
+.cb-hex:hover:not(.f) .t{fill:rgba(255,190,60,.14)}.cb-hex:hover:not(.f){--rim:#ffd27a;transform:translateY(-3px) scale(1.06)}.cb-hex:hover:not(.f) .cb-svg{animation:cbHexHot 1.1s ease-in-out infinite}
 .cb-hex.f{--rim:var(--c);filter:none}
 .cb-hex.f .t{fill:color-mix(in srgb,var(--c) 24%,rgba(8,14,30,.78))}
 .cb-hex.f .p{display:none}
@@ -1005,13 +1005,13 @@ body.dens .tname{font-size:10px}
 .cb-u b{inset:2.5px;clip-path:var(--cb-fx)}
 /* ---- v4: no plus sign, glassier tiles, glowing rarity-coloured hexes (2D fallback board) ---- */
 .cb-hex .p{display:none}
-.cb-svg .t{fill:rgba(248,150,10,.035);stroke-width:2.6;stroke-opacity:.5}.cb-hex:not(.f) .cb-svg{filter:blur(.9px) drop-shadow(0 0 7px rgba(245,154,12,.35))}.cb-hex.f .t{stroke-opacity:.8}
+.cb-svg .t{fill:rgba(244,160,0,.02);stroke-width:2.4;stroke-opacity:.95}.cb-hex:not(.f) .cb-svg{filter:drop-shadow(0 0 2px rgba(244,160,0,.6))}.cb-hex.f .t{stroke-opacity:1}
 .cb-svg .r{opacity:.14}
 .cb-svg{filter:drop-shadow(0 0 4px color-mix(in srgb,var(--rim) 40%,transparent))}
 .cb-hex.f .t{fill:color-mix(in srgb,var(--c) 14%,rgba(8,14,30,.35))}
 .cb-hex.f .cb-svg{animation:cbHexGlow 2.6s ease-in-out infinite}
 .cb-hex.f .r{opacity:.5;stroke-width:1.4}
-@keyframes cbHexHot{0%,100%{filter:drop-shadow(0 0 8px rgba(255,190,70,.7))}50%{filter:drop-shadow(0 0 22px rgba(255,210,120,1)) drop-shadow(0 0 5px #fff3d0)}}
+@keyframes cbHexHot{0%,100%{filter:drop-shadow(0 0 3px rgba(255,200,80,.8))}50%{filter:drop-shadow(0 0 7px rgba(255,212,92,1)) drop-shadow(0 0 2px #fff0c0)}}
 @keyframes cbHexGlow{0%,100%{filter:drop-shadow(0 0 6px color-mix(in srgb,var(--c) 60%,transparent))}50%{filter:drop-shadow(0 0 18px color-mix(in srgb,var(--c) 100%,transparent)) drop-shadow(0 0 4px var(--c))}}
 @media (prefers-reduced-motion:reduce){.cb-hex.f .cb-svg{animation:none}}
 </style>
