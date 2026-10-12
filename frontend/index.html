@@ -2257,6 +2257,78 @@ html.pf-busy *,html.pf-busy *::before,html.pf-busy *::after{animation-play-state
 .tcat .tb{background:rgba(255,255,255,.06)}
 .cos{border-radius:16px;background:linear-gradient(180deg,#1b2129,#151a22);box-shadow:0 6px 16px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.05)}
 </style>
+<style id="cbxV5">
+/* ===== Comp Builder v5: blue glass hexes, pulsing borders, drag outline, rich tooltips, bigger cards, pinned search, party button ===== */
+#cbx .cb-hex{--rim:#3da5ff}
+#cbx .cb-svg .t{fill:rgba(40,130,255,.16);stroke:var(--rim);stroke-width:2.6;stroke-opacity:1}
+#cbx .cb-svg .r{stroke:#9fe8ff;opacity:.35;stroke-width:1.1}
+#cbx .cb-hex:not(.f) .cb-svg{filter:drop-shadow(0 0 5px rgba(61,165,255,.7));animation:cbxPulse 2.6s ease-in-out infinite}
+#cbx .cb-hex:hover:not(.f){--rim:#9fe8ff}#cbx .cb-hex:hover:not(.f) .t{fill:rgba(120,210,255,.22)}
+#cbx .cb-hex.over{--rim:#bff3ff}#cbx .cb-hex.over .t{fill:rgba(130,225,255,.34)}
+#cbx .cb-hex.over .cb-svg{animation:cbxDrop .7s ease-in-out infinite;filter:drop-shadow(0 0 12px #6fe3ff)}
+@keyframes cbxPulse{0%,100%{opacity:1;filter:drop-shadow(0 0 3px rgba(61,165,255,.5))}50%{opacity:.6;filter:drop-shadow(0 0 10px rgba(111,227,255,.95))}}
+@keyframes cbxDrop{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}
+
+/* --- bigger champion cards with a readable name --- */
+#cbx .cb-p.cd{width:116px;height:116px;border-radius:9px}
+#cbx #cb-pl{gap:24px 14px;padding-bottom:18px}
+#cbx .cb-p.cd .cd-nm{padding:26px 6px 17px;font:700 15px/1.1 var(--head);letter-spacing:.01em;text-shadow:0 1px 4px #000,0 0 10px rgba(0,0,0,.8);background:linear-gradient(transparent,rgba(0,0,0,.88) 60%)}
+#cbx .cb-p.cd small{width:28px;height:28px;font-size:13px;bottom:-14px}
+#cbx .cb-p.cd .cd-gem{width:26px;height:26px;top:-13px}
+
+/* --- search + filters stay visible while the tray scrolls --- */
+#cbx .cb-bar{position:sticky;top:0;z-index:4;margin:0 -16px 14px;padding:10px 16px;background:rgba(12,16,26,.96);border-bottom:1px solid rgba(255,255,255,.08);box-shadow:0 8px 14px -10px rgba(0,0,0,.7);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+#cbx.fs>.cb-panel:nth-child(4) .cb-hd{margin-bottom:0}
+#cbx.fs>.cb-panel:nth-child(4) .cb-bar{top:calc(var(--cbhd,62px) - 16px)}
+
+/* --- rich tooltip (board name tag + tray hover) --- */
+#cb-tt,#cbx .cb3-tag{--c:#9aa4b2;width:292px;max-width:92vw;padding:0;border-radius:14px;color:var(--text);background:linear-gradient(180deg,rgba(18,24,38,.97),rgba(9,12,20,.97));border:1px solid color-mix(in srgb,var(--c) 55%,#2b3550);box-shadow:0 14px 34px rgba(0,0,0,.65),0 0 24px color-mix(in srgb,var(--c) 28%,transparent);backdrop-filter:blur(10px);font:13px/1.35 var(--body);overflow:hidden}
+#cb-tt{position:fixed;z-index:99999;pointer-events:none}#cb-tt[hidden]{display:none}
+#cbx .cb3-tag{min-width:0;max-width:292px}
+#cbx .cb3-tag .tt-x{width:24px;height:24px;margin-left:0;font-size:17px;line-height:1}#cbx .cb3-tag .tt-n b{font-size:19px}
+.tt-h{display:flex;align-items:center;gap:10px;padding:10px 12px;background:linear-gradient(90deg,color-mix(in srgb,var(--c) 26%,transparent),transparent)}
+.tt-p{width:44px;height:44px;flex:none;border-radius:9px;border:1.5px solid var(--c);background:#0c1017 center/cover no-repeat}
+.tt-n{flex:1;min-width:0}.tt-n b{display:block;font:700 19px/1.1 var(--head);letter-spacing:.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tt-role{display:inline-block;margin-top:3px;font-size:11px;color:#c5cad3;background:rgba(255,255,255,.1);border-radius:99px;padding:1px 8px}
+.tt-cost{display:flex;align-items:center;gap:4px;font:800 15px var(--body);color:var(--c)}.tt-cost svg{width:14px;height:14px;fill:var(--c);stroke:none}
+.tt-x{width:24px;height:24px;border:0;border-radius:50%;background:rgba(255,255,255,.1);color:#cdd3de;font-size:17px;line-height:1;cursor:pointer;pointer-events:auto;transition:background .15s,color .15s}.tt-x:hover{background:#e5484d;color:#fff}
+.tt-sec{padding:8px 12px;border-top:1px solid rgba(255,255,255,.08);display:grid;gap:5px}
+.tt-tr{display:flex;align-items:center;gap:8px}.tt-tr b{font-weight:700;font-size:13.5px}
+.tt-ti{width:18px;height:18px;display:grid;place-items:center;flex:none}.tt-ti img{width:18px;height:18px;object-fit:contain;filter:brightness(1.4)}
+.tt-bp{margin-left:auto;display:flex;gap:3px}.tt-bp u{text-decoration:none;min-width:20px;text-align:center;font:800 11px var(--body);padding:1px 5px;border-radius:5px;background:rgba(255,255,255,.08);color:#8d95a3}.tt-bp u.on{background:var(--gold);color:#1c1300}
+.tt-st{display:flex;flex-wrap:wrap;gap:6px 12px;padding:8px 12px;border-top:1px solid rgba(255,255,255,.08);font-size:12px;font-weight:700}.tt-st em{font-style:normal;color:#8d95a3;margin-right:4px;font-weight:600}
+.tt-ab{padding:9px 12px;border-top:1px solid rgba(255,255,255,.08)}.tt-abh{display:flex;justify-content:space-between;align-items:center;margin-bottom:3px}.tt-abh b{font:700 14px var(--head);color:#fff}.tt-abh span{font-size:11.5px;color:#6fc8ff;font-weight:700}
+.tt-ab p{margin:0;font-size:12px;color:#c5cad3}
+.tt-eq{padding:8px 12px 10px;border-top:1px solid rgba(255,255,255,.08)}.tt-eq small{display:block;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:#e9b44c;font-weight:800;margin-bottom:5px}
+.tt-eq>div{display:flex;gap:6px}.tt-i{width:30px;height:30px;border-radius:7px;border:1px solid rgba(255,255,255,.22);background:#10131c center/cover;display:grid;place-items:center;font:800 10px var(--body);font-style:normal}
+.tt-eq.rec{background:rgba(233,180,76,.08)}
+
+/* --- Celebrate button --- */
+#cbx .cb3-ctl{gap:12px;align-items:center}
+#cbx .cb3-b.cel{position:relative;height:48px;padding:0 24px 0 7px;gap:11px;border:0;border-radius:99px;background:linear-gradient(135deg,#ffd878,#f8a900 55%,#e57d0b);color:#2a1700;font:800 17px var(--head);letter-spacing:.03em;box-shadow:0 6px 20px rgba(248,169,0,.45),inset 0 1px 0 rgba(255,255,255,.55),inset 0 -3px 0 rgba(0,0,0,.18);overflow:hidden;animation:celGlow 2.4s ease-in-out infinite;transition:transform .18s var(--ease),filter .18s}
+#cbx .cb3-b.cel:hover{transform:translateY(-2px) scale(1.04);filter:brightness(1.08);border:0}
+#cbx .cb3-b.cel:active{transform:scale(.97)}
+#cbx .cb3-b.cel::after{content:"";position:absolute;top:0;bottom:0;width:36%;left:-50%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);transform:skewX(-20deg);animation:celShine 3.2s ease-in-out infinite}
+.cel-ic{width:34px;height:34px;flex:none;display:grid;place-items:center;border-radius:50%;background:#2a1700;box-shadow:inset 0 0 0 2px rgba(255,220,130,.5)}
+.cel-ic svg{width:19px;height:19px;fill:#ffd45c;stroke:#ffd45c;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;animation:celWig 2.4s ease-in-out infinite;transform-origin:30% 80%}
+.cel-tx{position:relative;display:grid}.cel-tx>span{grid-area:1/1;transition:opacity .2s,transform .25s var(--ease)}.cel-tx .t-on{opacity:0;transform:translateY(8px)}
+.cel-eq{display:none;align-items:flex-end;gap:3px;height:18px}.cel-eq i{width:4px;border-radius:2px;background:#fff;height:100%;transform-origin:bottom;animation:celEq .7s ease-in-out infinite}
+.cel-eq i:nth-child(2){animation-delay:.15s}.cel-eq i:nth-child(3){animation-delay:.3s}.cel-eq i:nth-child(4){animation-delay:.45s}
+#cbx .cb3-b.cel.on{background:linear-gradient(135deg,#ff6fb1,#9b7bff 55%,#4ea1ff);color:#fff;box-shadow:0 6px 26px rgba(155,123,255,.6),inset 0 1px 0 rgba(255,255,255,.4),inset 0 -3px 0 rgba(0,0,0,.2);animation:celGlowOn 1.2s ease-in-out infinite}
+#cbx .cb3-b.cel.on .t-off{opacity:0;transform:translateY(-8px)}#cbx .cb3-b.cel.on .t-on{opacity:1;transform:none}
+#cbx .cb3-b.cel.on .cel-eq{display:flex}#cbx .cb3-b.cel.on .cel-ic{background:rgba(20,10,50,.75);box-shadow:inset 0 0 0 2px rgba(255,255,255,.4)}
+#cbx .cb3-b.cel.on .cel-ic svg{fill:#fff;stroke:#fff;animation:celWig .5s ease-in-out infinite}
+#cbx .cb3-b.rv{width:48px;height:48px;padding:0;justify-content:center;border-radius:50%;background:rgba(12,16,26,.78);border:1.5px solid rgba(255,255,255,.22)}
+#cbx .cb3-b.rv svg{width:20px;height:20px}
+.cf{position:absolute;left:50%;top:50%;width:var(--w,7px);height:calc(var(--w,7px)*1.7);margin:-4px;background:var(--cc,#ffd45c);border-radius:2px;pointer-events:none;z-index:20;animation:cfFly 1.2s cubic-bezier(.15,.7,.3,1) forwards}
+@keyframes cfFly{0%{transform:translate(0,0) rotate(0) scale(.4);opacity:1}70%{opacity:1}100%{transform:translate(var(--dx),calc(var(--dy) + 90px)) rotate(var(--r)) scale(1);opacity:0}}
+@keyframes celGlow{0%,100%{box-shadow:0 6px 18px rgba(248,169,0,.35),inset 0 1px 0 rgba(255,255,255,.55),inset 0 -3px 0 rgba(0,0,0,.18)}50%{box-shadow:0 6px 30px rgba(255,200,70,.75),inset 0 1px 0 rgba(255,255,255,.55),inset 0 -3px 0 rgba(0,0,0,.18)}}
+@keyframes celGlowOn{0%,100%{filter:hue-rotate(0)}50%{filter:hue-rotate(35deg) brightness(1.1)}}
+@keyframes celShine{0%,55%{left:-50%}100%{left:130%}}
+@keyframes celWig{0%,100%{transform:rotate(0)}25%{transform:rotate(-14deg)}75%{transform:rotate(12deg)}}
+@keyframes celEq{0%,100%{transform:scaleY(.25)}50%{transform:scaleY(1)}}
+@media (prefers-reduced-motion:reduce){#cbx .cb-hex .cb-svg,#cbx .cb3-b.cel,#cbx .cb3-b.cel::after,.cel-ic svg,.cel-eq i{animation:none!important}}
+</style>
 </head>
 <body>
 <script src="lib/cb3d.js"></script>
@@ -3508,7 +3580,7 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
       <div class="cb-panel"><div class="cb-h">Saved comps</div><div class="cb-saved" id="cb-sv"></div></div>
       <div class="cb-main"><div class="cb-panel"><div class="cb-h">Traits</div><div class="cb-traits" id="cb-tr"></div></div>
         <div class="cb-panel cb-board${OK3D ? ' is3d' : ''}">${OK3D ? `<div class="cb-3d" id="cb-3d"><div class="cb3-ov" id="cb3-ov"><div class="cb3-tag" id="cb3-tag" hidden></div></div>
-          <div class="cb3-ctl"><button class="cb3-b" data-cel title="Make everyone dance"><svg viewBox="0 0 24 24"><path d="M9 18V6l11-2v12M9 18a3 3 0 11-3-3 3 3 0 013 3zm11-2a3 3 0 11-3-3 3 3 0 013 3z"/></svg>Celebrate</button><button class="cb3-b" data-rv title="Reset camera (or double-click the board)"><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 109-9M3 4v5h5"/></svg></button></div>
+          <div class="cb3-ctl"><button class="cb3-b cel" data-cel title="Make everyone dance"><span class="cel-ic"><svg viewBox="0 0 24 24"><path d="M4 20l4.5-12.5L16 15.5z"/><path d="M12 4v2M19 8l-1.5 1.2M20 14h-2M15 3.5l-.8 1.6"/></svg></span><span class="cel-tx"><span class="t-off">Celebrate</span><span class="t-on">Stop party</span></span><span class="cel-eq"><i></i><i></i><i></i><i></i></span></button><button class="cb3-b rv" data-rv title="Reset camera (or double-click the board)"><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 109-9M3 4v5h5"/></svg></button></div>
           <div class="cb3-hint">Drag champions onto the board · drag a champion to move it · drag the background to rotate · scroll to zoom</div></div>` : '<div id="cb-bd"></div>'}<div class="cb-rm" id="cb-rm">Drop here to remove</div></div>${recShell()}</div>
       <div class="cb-panel"><div class="cb-hd"><div class="cb-seg"><button class="on" data-tab="c">Champions</button><button data-tab="i">⚔️ Items</button><button data-tab="e">🎖 Emblems</button><button data-tab="a">✨ Augments</button><button data-tab="r">🎲 Random Emblems</button><button data-tab="t">Traits</button></div></div>
         <div id="cb-cp"><div class="cb-bar"><input id="cb-q" placeholder="Search champions or traits">
@@ -3577,7 +3649,7 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
   function paintPool() {
     const k = q.trim().toLowerCase();
     const list = D.champions.filter(c => (!costF || c.cost === costF) && (!traitF || c.traits.includes(traitF)) && (!k || c.name.toLowerCase().includes(k) || c.traits.some(t => t.toLowerCase().includes(k))));
-    $('cb-pl').innerHTML = list.length ? list.map(c => `<div class="cb-p cd" draggable="true" data-n="${esc(c.name)}" title="${esc(c.name)} · ${esc(c.traits.join(', '))}" style="--c:${COST[c.cost]};${img(c) ? `--im:url(${img(c)})` : ''}"><span class="cd-gem">${cgem(c.cost)}</span><b class="cd-nm">${esc(c.name)}</b><small>${c.cost}</small></div>`).join('') : '<span class="cb-none">No champions match.</span>';
+    $('cb-pl').innerHTML = list.length ? list.map(c => `<div class="cb-p cd" draggable="true" data-n="${esc(c.name)}" style="--c:${COST[c.cost]};${img(c) ? `--im:url(${img(c)})` : ''}"><span class="cd-gem">${cgem(c.cost)}</span><b class="cd-nm">${esc(c.name)}</b><small>${c.cost}</small></div>`).join('') : '<span class="cb-none">No champions match.</span>';
     $('cb-pl').classList.toggle('hu', hideUsed); paintBoard();
   }
   function place(name, to, from) {
@@ -3640,11 +3712,11 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
     const c = tagIdx >= 0 && board[tagIdx] && champ(board[tagIdx]);
     t.hidden = !c; if (!c) return;
     t.style.setProperty('--c', COST[c.cost]);
-    t.innerHTML = `<div class="t1"><b>${esc(c.name)}</b><em>${c.cost}</em><button data-rm="${tagIdx}" title="Remove from board">×</button></div><div class="t2">${c.traits.map(esc).join(' · ')}</div>`;
+    t.innerHTML = champTip(c, tagIdx, true);
   }
   function frame3d() {     // keep the DOM overlays (item pins, name tag) glued to the champions
     document.querySelectorAll('#cb3-ov .cb3-pins').forEach(p => { const s = B3.screenOf(+p.dataset.i); if (s) p.style.transform = `translate(${s.x.toFixed(1)}px,${(s.y + 3).toFixed(1)}px) translate(-50%,0)`; });
-    if (tagIdx >= 0) { const s = B3.screenOf(tagIdx), t = $('cb3-tag'); if (s && t) t.style.transform = `translate(${s.topX.toFixed(1)}px,${(s.topY - 4).toFixed(1)}px) translate(-50%,-100%)`; }
+    if (tagIdx >= 0) { const s = B3.screenOf(tagIdx), t = $('cb3-tag'), ov = $('cb3-ov'); if (s && t && ov) { const w = t.offsetWidth, h = t.offsetHeight, W = ov.clientWidth; const x = Math.max(w / 2 + 6, Math.min(W - w / 2 - 6, s.topX)); let y = s.topY - 8, below = y - h < 6; if (below) y = s.y + 16; t.style.transform = `translate(${x.toFixed(1)}px,${y.toFixed(1)}px) translate(-50%,${below ? '0' : '-100%'})`; } }
   }
   function wire() {
     root.addEventListener('dragstart', e => {
@@ -3678,7 +3750,7 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
       const del = g.closest('[data-del]'), sc = g.closest('.cb-sc'), b = g.closest('.cb-btn');
       const rm3 = g.closest('[data-rm]'), cel = g.closest('[data-cel]'), rv = g.closest('[data-rv]');
       if (rm3) { remove(+rm3.dataset.rm); tagIdx = -1; paintTag(); }
-      else if (cel && B3) { B3.celebrate(!B3.isCelebrating()); cel.classList.toggle('on', B3.isCelebrating()); }
+      else if (cel && B3) { B3.celebrate(!B3.isCelebrating()); cel.classList.toggle('on', B3.isCelebrating()); partyMode(cel); }
       else if (rv && B3) B3.resetView();
       else if (fc) { itemF = fc.dataset.f; paintItems(); }
       else if (cc) { catF = cc.dataset.cat; paintTraits(); }
@@ -3961,6 +4033,67 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
     root.addEventListener('input', e => { if (e.target.id === 'em-q') { emQ = e.target.value; paintEmblems(); } else if (e.target.id === 'ag-q') { agQ = e.target.value; paintAugs(); } });
   }
 
+
+  /* ---------- v5: rich champion info (tooltip on tray cards / board units, and the 3D name tag) ---------- */
+  const traitOf = n => D.traits.find(t => t.name === n);
+  const bpOf = t => (!t || t.kind === 'single' || !t.bp || !t.bp.length ? [1] : t.bp.map(x => parseInt(x))).filter(x => x > 0);
+  function champTip(c, idx, withRm) {
+    const cnt = currentTraits(), col = COST[c.cost];
+    const ab = c.ability || c.spell || c.skill || null, abo = ab && typeof ab === 'object' ? ab : ab ? { desc: String(ab) } : null;
+    const role = c.role || c.class_role || '';
+    const rows = c.traits.map(n => {
+      const t = traitOf(n), bp = bpOf(t), have = cnt[n] || 0;
+      return `<div class="tt-tr"><span class="tt-ti">${t && t.icon ? `<img src="${esc(t.icon)}" alt="">` : ''}</span><b>${esc(n)}</b><span class="tt-bp">${bp.map(b => `<u class="${have >= b ? 'on' : ''}">${b}</u>`).join('')}</span></div>`;
+    }).join('');
+    const stats = c.stats && typeof c.stats === 'object' ? Object.entries(c.stats).slice(0, 6).map(([k, v]) => `<span><em>${esc(k)}</em>${esc(v)}</span>`).join('') : '';
+    const g = idx != null && idx >= 0 ? (gear[idx] || []) : [];
+    const rec = c.items || c.rec || c.recommended || c.bis || [];
+    const icoOf = n => { const it = item(typeof n === 'string' ? n : (n && n.name)); return it ? `<i class="tt-i" title="${esc(it.name)}" style="${it.icon ? `background-image:url(${it.icon})` : ''}">${it.icon ? '' : esc(it.ab)}</i>` : ''; };
+    return `<div class="tt-h" style="--c:${col}"><div class="tt-p" style="${img(c) ? `background-image:url(${img(c)})` : ''}"></div><div class="tt-n"><b>${esc(c.name)}</b>${role ? `<span class="tt-role">${esc(role)}</span>` : ''}</div><span class="tt-cost"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/></svg>${c.cost}</span>${withRm ? `<button class="tt-x" data-rm="${idx}" title="Remove from board">×</button>` : ''}</div>`
+      + `<div class="tt-sec">${rows}</div>`
+      + (stats ? `<div class="tt-st">${stats}</div>` : '')
+      + (abo ? `<div class="tt-ab"><div class="tt-abh">${abo.name ? `<b>${esc(abo.name)}</b>` : '<b>Ability</b>'}${abo.mana ? `<span>${esc(abo.mana)} mana</span>` : ''}</div><p>${esc(abo.desc || abo.description || '')}</p></div>` : '')
+      + (g.length ? `<div class="tt-eq"><small>Equipped</small><div>${g.map(icoOf).join('')}</div></div>` : '')
+      + (Array.isArray(rec) && rec.length ? `<div class="tt-eq rec"><small>Recommended items</small><div>${rec.slice(0, 4).map(icoOf).join('')}</div></div>` : '');
+  }
+  function setupTip() {
+    if (document.getElementById('cb-tt')) return;
+    const tt = document.createElement('div'); tt.id = 'cb-tt'; tt.hidden = true; document.body.appendChild(tt);
+    let cur = null;
+    const hide = () => { cur = null; tt.hidden = true; };
+    root.addEventListener('mouseover', e => {
+      const el = e.target.closest && e.target.closest('.cb-p, .cb-u'); if (!el || el === cur || root.dataset.drag) return;
+      const c = champ(el.dataset.n); if (!c) return;
+      cur = el; tt.style.setProperty('--c', COST[c.cost]);
+      tt.innerHTML = champTip(c, el.classList.contains('cb-u') ? +el.dataset.i : -1, false); tt.hidden = false;
+      const r = el.getBoundingClientRect(), w = tt.offsetWidth, h = tt.offsetHeight;
+      let x = Math.max(8, Math.min(innerWidth - w - 8, r.left + r.width / 2 - w / 2)), y = r.top - h - 14, below = y < 8;
+      if (below) y = Math.min(innerHeight - h - 8, r.bottom + 14);
+      tt.style.left = x + 'px'; tt.style.top = y + 'px';
+    });
+    root.addEventListener('mouseout', e => { if (cur && !cur.contains(e.relatedTarget)) hide(); });
+    root.addEventListener('dragstart', hide); root.addEventListener('mousedown', hide);
+    document.addEventListener('scroll', hide, true);
+    // keep the search bar pinned right under the sticky tab header while the tray scrolls
+    const hd = root.querySelector('.cb-hd');
+    if (hd) { const setH = () => root.style.setProperty('--cbhd', hd.offsetHeight + 'px'); setH(); if (window.ResizeObserver) new ResizeObserver(setH).observe(hd); }
+  }
+  let partyT = 0;
+  function partyMode(btn) {
+    clearInterval(partyT);
+    const burst = n => {
+      if (!btn.isConnected || matchMedia('(prefers-reduced-motion:reduce)').matches) return;
+      const host = btn.parentNode, cols = ['#ffd45c', '#ff6fb1', '#6fe3ff', '#9b7bff', '#7dffb0', '#ffffff'];
+      for (let k = 0; k < n; k++) {
+        const p = document.createElement('i'); p.className = 'cf';
+        const a = Math.random() * Math.PI * 2, d = 70 + Math.random() * 130;
+        p.style.cssText = `--dx:${(Math.cos(a) * d).toFixed(0)}px;--dy:${(Math.sin(a) * d * .8 - 40).toFixed(0)}px;--r:${(Math.random() * 720 - 360).toFixed(0)}deg;--cc:${cols[k % cols.length]};--w:${5 + Math.random() * 5 | 0}px;animation-delay:${(Math.random() * 90) | 0}ms`;
+        host.appendChild(p); setTimeout(() => p.remove(), 1300);
+      }
+    };
+    if (btn.classList.contains('on')) { burst(44); partyT = setInterval(() => btn.classList.contains('on') ? burst(14) : clearInterval(partyT), 2200); }
+  }
+
   async function init() {
     if (started) return; started = true;
     try { D = await (await fetch('comp18/comp18.json')).json(); if (!D || !D.champions) throw 0; }   // full data pack: all champions, traits and items with icons
@@ -3976,7 +4109,7 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
     try { const b = JSON.parse(store.get(KEY) || '[]'); if (Array.isArray(b) && b.length === N) board = valid(b); gear = fixGear(JSON.parse(store.get(GKEY) || '[]'), board); } catch {}
     try { const s = JSON.parse(store.get(SKEY) || '[]'); if (Array.isArray(s)) comps = s; } catch {}
     try { MF3 = await (await fetch('models/manifest.json')).json(); } catch { MF3 = null; }   // which champions have 3D models / icons
-    shell(); wire(); wireRecs(); wireExtra(); paintSaved(); paintItems(); paintTraits(); paintPool(); loadRecs(); loadMeta();
+    shell(); wire(); wireRecs(); wireExtra(); paintSaved(); paintItems(); paintTraits(); paintPool(); loadRecs(); loadMeta(); setupTip();
   }
   $('navComp').addEventListener('click', init);
   if (showView.cur === 'comp') init();
