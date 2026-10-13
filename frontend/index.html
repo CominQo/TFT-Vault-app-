@@ -2461,6 +2461,25 @@ html.pf-busy *,html.pf-busy *::before,html.pf-busy *::after{animation-play-state
 </style>
 </head>
 <body>
+<style id="cbHexV8">
+/* ===== Comp Builder v8: TFT in-game hex grid (shown only while dragging), rarity-glow hex under each champion, helmet counter ===== */
+.cb3-cnt{position:absolute;left:14px;top:10px;z-index:4;display:flex;align-items:center;gap:10px;pointer-events:none;transition:opacity .3s,filter .3s}
+#cbx.fs .cb3-cnt{left:284px;top:10px}
+@media (max-width:1180px){#cbx.fs .cb3-cnt{left:224px}}
+#cbx.fs.hud-off .cb3-cnt{left:20px;top:44px}
+.cb3-cnt svg{width:58px;height:58px;filter:drop-shadow(0 0 10px rgba(70,170,255,.55)) drop-shadow(0 3px 3px rgba(0,10,30,.55))}
+.cb3-cnt b{font:800 44px/1 Avoin,var(--body),system-ui,sans-serif;letter-spacing:.5px;color:#8fd0ff;text-shadow:0 2px 0 rgba(0,24,48,.55),0 0 16px rgba(80,180,255,.5),0 0 2px rgba(255,255,255,.35);font-variant-numeric:tabular-nums}
+.cb3-cnt.z{opacity:.55;filter:saturate(.6)}
+.cb3-cnt.bump b,.cb3-cnt.bump svg{animation:cbCntBump .45s cubic-bezier(.2,1.6,.3,1)}
+@keyframes cbCntBump{0%{transform:scale(1)}35%{transform:scale(1.28)}100%{transform:scale(1)}}
+/* 2D fallback board: thin cyan hexes appear only during a drag */
+#cbx .cb-hex:not(.f) .cb-svg{opacity:0!important;animation:none!important;transition:opacity .25s ease;filter:none!important}
+#cbx[data-drag="champ"] .cb-hex:not(.f) .cb-svg,#cbx[data-drag="unit"] .cb-hex:not(.f) .cb-svg,#cbx[data-drag="item"] .cb-hex:not(.f) .cb-svg,#cbx[data-drag="emblem"] .cb-hex:not(.f) .cb-svg,#cbx[data-drag="pin"] .cb-hex:not(.f) .cb-svg{opacity:.85!important}
+#cbx .cb-hex:not(.f) .t{stroke-width:1.4!important}
+#cbx .cb-hex.f .cb-svg{animation:cbHexGlow 2.4s ease-in-out infinite!important}
+#cbx .cb-hex.f .t{stroke-width:2.2!important}
+@media (prefers-reduced-motion:reduce){.cb3-cnt.bump b,.cb3-cnt.bump svg{animation:none}}
+</style>
 <script src="lib/cb3d.js"></script>
 <script>try{if((JSON.parse(localStorage.getItem('tft.settings.v1')||'{}')).fx===false)document.documentElement.classList.add('fx-off')}catch(e){}</script>
 <div id="intro" aria-hidden="true">
@@ -3709,7 +3728,7 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
     root.innerHTML = `<div class="cb-top"><input id="cb-name" maxlength="24" placeholder="Comp name">${btn('cb-save', 'Save comp', 'pri')}${btn('cb-undo', 'Undo')}${btn('cb-clear', 'Clear')}${btn('cb-code', 'Team code')}${btn('cb-fs', 'Exit fullscreen')}<span class="cb-n" id="cb-count"></span></div>
       <div class="cb-panel"><div class="cb-h">Saved comps</div><div class="cb-saved" id="cb-sv"></div></div>
       <div class="cb-main"><div class="cb-panel"><div class="cb-h">Traits</div><div class="cb-traits" id="cb-tr"></div></div>
-        <div class="cb-panel cb-board${OK3D ? ' is3d' : ''}">${OK3D ? `<div class="cb-3d" id="cb-3d"><div class="cb3-ov" id="cb3-ov"><div class="cb3-tag" id="cb3-tag" hidden></div><div class="cb3-slots" id="cb3-slots" hidden></div></div>
+        <div class="cb-panel cb-board${OK3D ? ' is3d' : ''}">${OK3D ? `<div class="cb-3d" id="cb-3d"><div class="cb3-ov" id="cb3-ov"><div class="cb3-tag" id="cb3-tag" hidden></div><div class="cb3-slots" id="cb3-slots" hidden></div><div class="cb3-cnt z" id="cb3-cnt" title="Champions on the board"><svg viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="cbHg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#a6e4ff"/><stop offset=".5" stop-color="#4fb0f5"/><stop offset="1" stop-color="#1e6fd0"/></linearGradient></defs><path fill="url(#cbHg)" fill-rule="evenodd" stroke="#cdeeff" stroke-opacity=".55" stroke-width="1.2" stroke-linejoin="round" d="M7 34C7 16 19 5 32 5s25 11 25 29v12q0 6-6 6h-7V45H20v7h-7q-6 0-6-6zM14 27h36v7H39v4H25v-4H14z"/></svg><b id="cb3-n">0</b></div></div>
           <div class="cb3-ctl"><span class="cel-w"><button class="cb3-b tfc" data-cel title="Make everyone dance"><span class="tfc-in"></span><span class="tfc-ic"><svg viewBox="0 0 24 24"><path d="M4 20l4.5-12.5L16 15.5z"/><path d="M12 4v2M19 8l-1.5 1.2M20 14h-2M15 3.5l-.8 1.6"/></svg></span><span class="tfc-tx"><span class="t-off">Celebrate</span><span class="t-on">Stop party</span></span><span class="tfc-eq"><i></i><i></i><i></i><i></i></span></button></span><span class="tf-w"><button class="cb3-b tf" data-code title="Copy team code"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></button></span><span class="tf-w"><button class="cb3-b tf" data-hud title="Hide / show UI (H)"><svg viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/><path class="sl" d="M4 4l16 16"/></svg></button></span><span class="tf-w"><button class="cb3-b tf" data-rv title="Reset camera (or double-click the board)"><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 109-9M3 4v5h5"/></svg></button></span></div>
           <div class="cb3-hint">Drag champions onto the board · drag a champion to move it · drag the background to rotate · scroll to zoom</div></div>` : '<div id="cb-bd"></div>'}<div class="cb-rm" id="cb-rm">Drop here to remove</div></div>${recShell()}</div>
       <div class="cb-panel"><div class="cb-hd"><div class="cb-seg"><button class="on" data-tab="c">Champions</button><button data-tab="i">⚔️ Items</button><button data-tab="e">🎖 Emblems</button><button data-tab="a">✨ Augments</button><button data-tab="r">🎲 Random Emblems</button><button data-tab="t">Traits</button></div></div>
@@ -3790,7 +3809,7 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
     else { const old = board.indexOf(name), g = old >= 0 ? gear[old] : null; if (old >= 0) { board[old] = null; gear[old] = null; } board[to] = name; gear[to] = g; }
     fresh = { u: to }; paintBoard(); if (B3) B3.fx(to, 'place');
   }
-  const remove = i => { push(); board[i] = null; gear[i] = null; paintBoard(); };
+  const remove = i => { push(); board[i] = null; gear[i] = null; paintBoard(); sfx('remove'); };
   function addItem(i, name) {
     if (!board[i]) return;
     if ((gear[i] || []).length >= MAXI) return toast('Max ' + MAXI + ' items per champion');
@@ -3816,15 +3835,24 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
     if (B3) { const el = e.target.closest && e.target.closest('#cb-3d'); return el ? B3.pick(e.clientX, e.clientY) : -1; }
     const hx = e.target.closest('.cb-hex'); return hx ? +hx.dataset.i : -1;
   };
+  const sfx = (k, a) => { try { if (window.tftSfx) window.tftSfx(k, a); } catch (e) {} };
+  let hovLast = -2; const hovTick = i => { if (i !== hovLast) { hovLast = i; if (i >= 0) sfx('hover'); } };
+  let cntLast = -1;
+  function paintCnt() {   // helmet counter: no limit, shows 1..20 then 20+
+    const n = board.filter(Boolean).length, e = $('cb3-n'), w = $('cb3-cnt'); if (!e || !w) return;
+    e.textContent = n > 20 ? '20+' : String(n); w.classList.toggle('z', !n);
+    if (n !== cntLast) { if (cntLast >= 0) { w.classList.remove('bump'); void w.offsetWidth; w.classList.add('bump'); } cntLast = n; }
+  }
   function mount3d() {
     const el = $('cb-3d');
     B3 = CB3D.create(el, {
       modelsUrl: 'models/', costColor: c => COST[c], onFrame: frame3d,
       onHoverUnit: i => { clearTimeout(tagTimer); if (i >= 0) { tagIdx = i; paintTag(); } else tagTimer = setTimeout(() => { if (!tagHold) { tagIdx = -1; paintTag(); } }, 280); },
       onUnitClick: i => { tagIdx = i; paintTag(); },
-      onDragStart: () => { root.dataset.drag = 'unit'; tagIdx = -1; paintTag(); },
-      onDragHover: i => $('cb-rm').classList.toggle('over', i < 0),
-      onDragEnd: (from, to) => { root.dataset.drag = ''; $('cb-rm').classList.remove('over'); const n = board[from]; if (!n) return; if (to < 0) remove(from); else if (to !== from) place(n, to, from); },
+      onDragStart: () => { root.dataset.drag = 'unit'; tagIdx = -1; paintTag(); sfx('pick'); },
+      onDragHover: i => { $('cb-rm').classList.toggle('over', i < 0); hovTick(i); },
+      onLand: (i, cost) => sfx('land', cost),
+      onDragEnd: (from, to) => { hovLast = -2; root.dataset.drag = ''; $('cb-rm').classList.remove('over'); const n = board[from]; if (!n) return; if (to < 0) remove(from); else if (to !== from) place(n, to, from); },
     });
     window.__cb3 = B3;     // handy for debugging in the console
     const tg = $('cb3-tag');
@@ -3834,7 +3862,7 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
     document.addEventListener('visibilitychange', () => { if (document.hidden) B3.stop(); else if (el.offsetParent) B3.start(); });
   }
   function sync3d() {
-    B3.setBoard(board, champ);
+    B3.setBoard(board, champ); paintCnt();
     const ov = $('cb3-ov'); ov.querySelectorAll('.cb3-pins').forEach(x => x.remove());
     board.forEach((n, i) => { if (n && gear[i] && gear[i].length) { const d = document.createElement('div'); d.className = 'cb3-pins'; d.dataset.i = i; d.innerHTML = gear[i].map((g, k) => pin(g, i, k)).join(''); ov.appendChild(d); } });
     if (tagIdx >= 0 && !board[tagIdx]) tagIdx = -1; paintTag();
@@ -3856,7 +3884,7 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
       const el = e.target.closest('[draggable]'); if (!el) return;
       const k = el.classList.contains('cb-p') ? 'champ' : el.classList.contains('cb-u') ? 'unit' : el.classList.contains('cb-i') ? 'item' : el.classList.contains('em-p') ? 'emblem' : 'pin';
       drag = { kind: k, name: el.dataset.n, from: el.dataset.i != null ? +el.dataset.i : null, k: +el.dataset.k };
-      root.dataset.drag = k; e.dataTransfer.setData('text/plain', drag.name || 'x'); e.dataTransfer.effectAllowed = 'move';
+      root.dataset.drag = k; if (B3) B3.setGrid(true); sfx('pick'); e.dataTransfer.setData('text/plain', drag.name || 'x'); e.dataTransfer.effectAllowed = 'move';
       e.dataTransfer.setDragImage(el, el.offsetWidth / 2, el.offsetHeight / 2);
     });
     root.addEventListener('dragover', e => {
@@ -3864,12 +3892,12 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
       const hi = hexOf(e), h = hi >= 0, rm = e.target.closest('.cb-rm'), bg = e.target.closest('.em-bag'), out = drag.kind === 'unit' || drag.kind === 'pin';
       const isEm = drag.kind === 'emblem' || (drag.kind === 'item' && !!gearTrait(drag.name));
       const ok = bg ? isEm : h ? (drag.kind === 'champ' || drag.kind === 'unit' || !!board[hi]) : out;
-      clearOver();
+      clearOver(); hovTick(hi);
       const itemDrag = drag.kind === 'item' || drag.kind === 'emblem';
       if (B3) B3.setDropKind(itemDrag ? 'item' : '');
       if (ok) { e.preventDefault(); if (h) { if (B3) { B3.setDropHover(hi); if (itemDrag && board[hi]) setSlots(hi); } else { const hx = e.target.closest('.cb-hex'); hx.classList.add('over'); if (itemDrag) hx.classList.add('iover'); } } else if (rm) rm.classList.add('over'); else if (bg) bg.classList.add('over'); }
     });
-    const done = () => { drag = null; root.dataset.drag = ''; clearOver(); };
+    const done = () => { drag = null; root.dataset.drag = ''; hovLast = -2; if (B3) B3.setGrid(false); clearOver(); };
     root.addEventListener('dragend', done);
     root.addEventListener('drop', e => {
       if (!drag) return; e.preventDefault();
@@ -4915,6 +4943,31 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
     const a = pool[pi++ % pool.length];
     try { a.volume = clamp(S.sfxVol); a.currentTime = 0; const p = a.play(); if (p && p.catch) p.catch(() => {}); } catch {}
   }
+  /* ---------- Synthesised board sounds (Comp Builder): pick-up, hover tick, landing thud + dust + rarity chime, remove ---------- */
+  let AC = null, NB = null; const lastK = {};
+  function actx() { if (!AC) { try { AC = new (window.AudioContext || window.webkitAudioContext)(); } catch { return null; } } if (AC.state === 'suspended') AC.resume().catch(() => {}); return AC; }
+  function noiseSrc(ac) { if (!NB) { NB = ac.createBuffer(1, ac.sampleRate, ac.sampleRate); const d = NB.getChannelData(0); for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1; } const n = ac.createBufferSource(); n.buffer = NB; n.loop = true; return n; }
+  window.tftSfx = function (kind, arg) {
+    if (!S.sfx || clamp(S.sfxVol) <= 0) return;
+    const ac = actx(); if (!ac) return;
+    const now = performance.now(), gap = { hover: 70, land: 55, pick: 80, remove: 80 }[kind] || 60;
+    if (now - (lastK[kind] || 0) < gap) return; lastK[kind] = now;
+    const t = ac.currentTime, out = ac.createGain(); out.gain.value = Math.min(1, clamp(S.sfxVol) * 1.7); out.connect(ac.destination);
+    const tone = (type, f0, f1, a, pk, dec, at = 0) => { const o = ac.createOscillator(), g = ac.createGain(); o.type = type; o.frequency.setValueAtTime(f0, t + at); if (f1 !== f0) o.frequency.exponentialRampToValueAtTime(f1, t + at + a + dec); g.gain.setValueAtTime(.0001, t + at); g.gain.exponentialRampToValueAtTime(pk, t + at + a); g.gain.exponentialRampToValueAtTime(.0001, t + at + a + dec); o.connect(g); g.connect(out); o.start(t + at); o.stop(t + at + a + dec + .05); };
+    const puff = (f0, f1, q, a, pk, dec, at = 0) => { const n = noiseSrc(ac), b = ac.createBiquadFilter(), g = ac.createGain(); b.type = 'bandpass'; b.Q.value = q; b.frequency.setValueAtTime(f0, t + at); b.frequency.exponentialRampToValueAtTime(f1, t + at + a + dec); g.gain.setValueAtTime(.0001, t + at); g.gain.exponentialRampToValueAtTime(pk, t + at + a); g.gain.exponentialRampToValueAtTime(.0001, t + at + a + dec); n.connect(b); b.connect(g); g.connect(out); n.start(t + at); n.stop(t + at + a + dec + .05); };
+    if (kind === 'hover') tone('sine', 1250, 1650, .004, .12, .05);
+    else if (kind === 'pick') { tone('triangle', 360, 640, .01, .22, .09); puff(2200, 1200, 1.2, .005, .15, .07); }
+    else if (kind === 'remove') { puff(900, 200, .8, .005, .4, .16); tone('sine', 420, 160, .004, .25, .14); }
+    else if (kind === 'land') {
+      const c = Math.max(1, Math.min(5, Math.round(+arg) || 1)), f = [0, 523.25, 659.25, 783.99, 987.77, 1318.5][c];
+      tone('sine', 150, 48, .004, .9, .2);               // body thud
+      puff(1400, 260, .9, .01, .55, .32);                // dust whoosh
+      puff(5200, 2500, 2, .003, .18, .09);               // pebbles
+      if (c >= 2) { tone('sine', f, f, .01, .1 + c * .02, .55 + c * .08, .04); tone('triangle', f * 2, f * 2, .01, .05, .45, .07); }
+      if (c >= 4) tone('sine', f * 1.5, f * 1.5, .01, .08, .7, .1);
+      if (c >= 5) for (let k = 0; k < 4; k++) tone('sine', f * 2 * (1 + k * .25), f * 2 * (1 + k * .25), .005, .05, .35, .12 + k * .06);   // gold sparkle
+    }
+  };
   /* Click sound on EVERYTHING clickable (home, all categories, popups, panels): real controls + anything that shows the pointer cursor */
   const CLICK_SEL = 'button,a[href],summary,select,label[for],[role=button],[role=tab],[role=switch],[role=option],[role=menuitem],input[type=checkbox],input[type=radio],.nv,.tcat,.card,.st-line,[onclick]';
   const NO_SEL = 'input[type=range],input[type=text],input[type=search],input[type=file],textarea,#intro';
