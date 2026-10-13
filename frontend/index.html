@@ -2543,6 +2543,82 @@ html.pf-busy *,html.pf-busy *::before,html.pf-busy *::after{animation-play-state
 /* champion cards: wallpaper art (falls back to the 3D portrait when no wallpaper file exists) */
 #cbx .cb-p.cd .cd-art{background-image:var(--wp,var(--im,none)),radial-gradient(circle at 50% 30%,color-mix(in srgb,var(--c) 34%,#1a2130),#0c1017 80%);background-size:cover;background-position:50% 20%;background-repeat:no-repeat}
 </style>
+<style id="cbHexV11">
+/* ===== Comp Builder v11: compact glass top bar, compact dock, new star badges, hex + screenshot buttons ===== */
+/* --- top bar: sized to its content (was a full-width black strip) --- */
+#cbx.fs .cb-top{top:40px;left:16px;right:auto;width:max-content;max-width:calc(100% - 210px);height:44px;gap:6px;padding:0 6px 0 8px;border-radius:14px;
+  background:linear-gradient(180deg,rgba(30,40,64,.58),rgba(10,15,28,.58));border:1px solid rgba(255,255,255,.12);
+  box-shadow:0 10px 28px rgba(0,0,0,.38),inset 0 1px 0 rgba(255,255,255,.1);backdrop-filter:blur(18px) saturate(1.5);-webkit-backdrop-filter:blur(18px) saturate(1.5)}
+#cbx.fs .cb-top::before{content:"";position:absolute;left:16px;right:16px;top:-1px;height:1px;background:linear-gradient(90deg,transparent,rgba(240,200,110,.75),transparent);pointer-events:none}
+#cbx.fs .cb-top input{flex:0 1 150px;width:150px;min-width:96px;height:32px;padding:0 12px;border-radius:9px;background:rgba(0,0,0,.28);border:1px solid rgba(255,255,255,.1);font:600 13px var(--body)}
+#cbx.fs .cb-top input:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(248,169,0,.14)}
+#cbx.fs .cb-top .cb-btn{position:relative;flex:none;height:32px;justify-content:center;border-radius:9px;background:transparent;border:1px solid transparent;box-shadow:none;overflow:visible;color:#cfd7e6;transform:none}
+#cbx.fs .cb-top .cb-btn:not(.pri){width:32px;min-width:32px;padding:0;gap:0;font-size:0}
+#cbx.fs .cb-top .cb-btn svg{width:16px;height:16px}
+#cbx.fs .cb-top .cb-btn:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.14);color:#fff;transform:none;box-shadow:none}
+#cbx.fs .cb-top .cb-btn:active{transform:scale(.92)}
+#cbx.fs .cb-top .cb-btn.on{background:rgba(248,169,0,.16);border-color:rgba(248,169,0,.5);color:var(--gold)}
+#cbx.fs .cb-top .cb-btn:disabled{opacity:.3}
+#cbx.fs .cb-top .cb-btn.pri{width:auto;padding:0 12px 0 10px;gap:7px;font:800 12.5px var(--body);letter-spacing:.02em;overflow:hidden;color:#2a1700;background:linear-gradient(180deg,#f6dc9a,#d9a845 55%,#b6811f);border-color:rgba(246,220,154,.9);box-shadow:0 3px 10px rgba(248,169,0,.28)}
+#cbx.fs .cb-top .cb-btn.pri:hover{filter:brightness(1.08);background:linear-gradient(180deg,#f6dc9a,#d9a845 55%,#b6811f);color:#2a1700}
+#cbx.fs .cb-top #cb-undo{margin-left:10px}
+#cbx.fs .cb-top #cb-undo::before{content:"";position:absolute;left:-7px;top:7px;bottom:7px;width:1px;background:rgba(255,255,255,.16)}
+#cbx.fs .cb-top .cb-btn .cb-bdg{position:absolute;top:-5px;right:-5px;margin:0;min-width:16px;height:16px;padding:0 4px;font-size:10px}
+#cbx.fs .cb-top .cb-n{margin-left:6px;padding-left:10px;border-left:1px solid rgba(255,255,255,.14);gap:4px}
+#cbx.fs .cb-pill{display:inline-flex;height:26px;gap:5px;padding:0 9px 0 7px;border-radius:8px;background:rgba(255,255,255,.07);border:0;color:#9aa4b2}
+#cbx.fs .cb-pill svg{width:13px;height:13px;flex:none;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+#cbx.fs .cb-pill.u svg{color:#7fd3ff}#cbx.fs .cb-pill.g svg{color:#ffd27a;fill:rgba(255,210,122,.25)}#cbx.fs .cb-pill.it svg{color:#c9a7ff}
+#cbx.fs .cb-pill i{font:800 13px/1 var(--body);color:#f3ead2}
+/* panels that hang under the bar move up with it */
+#cbx.fs .cb-main>.cb-board{top:94px}
+#cbx.fs .cb-main>.cb-panel:first-child{top:94px}
+#cbx.fs .cb-recs{top:94px}
+
+/* --- bottom dock: much lower, smaller champion cards --- */
+#compb.cbfs:not([hidden]){--dock:clamp(150px,23vh,214px)}
+#cbx.fs>.cb-panel:nth-child(4){left:16px;right:16px;bottom:10px;padding:10px 12px;border-radius:16px}
+#cbx.fs>.cb-panel:nth-child(4) .cb-hd{margin:-10px -12px 8px;padding:6px 12px;top:-10px}
+#cbx .cb-seg{padding:2px}
+#cbx .cb-seg button{padding:5px 11px;font-size:11.5px}
+#cbx .cb-hbar .cb-bar input,#cbx .cb-hbar .cb-bar select{padding:5px 12px;font-size:12.5px}
+#cbx .cb-p.cd{width:68px;height:68px}
+#cbx #cb-pl{gap:16px 8px;padding:6px 2px 12px}
+#cbx .cb-p.cd::before{clip-path:polygon(5px 0,calc(100% - 5px) 0,100% 5px,100% calc(100% - 5px),calc(100% - 5px) 100%,5px 100%,0 calc(100% - 5px),0 5px)}
+.cd-art{inset:3px;clip-path:polygon(3px 0,calc(100% - 3px) 0,100% 3px,100% calc(100% - 3px),calc(100% - 3px) 100%,3px 100%,0 calc(100% - 3px),0 3px)}
+#cbx .cb-p.cd .cd-nm{left:3px;right:3px;bottom:3px;padding:14px 3px 10px;font-size:11px}
+#cbx .cb-p.cd .cd-gem{width:20px;height:20px;top:-10px}
+#cbx .cb-p.cd small{width:20px;height:20px;font-size:10px;bottom:-10px}
+.cb-i{width:64px}.cb-i b{width:38px;height:38px}
+#cbx.fs .cb-main>.cb-panel:first-child .cb-h{margin-bottom:8px}
+
+/* --- star badge: small capsule, tiny hit-box, ghost slots show what is still free --- */
+#cbx .cb3-st{display:block;gap:0;pointer-events:none;cursor:default}
+#cbx .cb3-st .sb{pointer-events:auto;cursor:pointer;display:flex;align-items:center;gap:1px;height:20px;padding:0 6px;border:1px solid color-mix(in srgb,var(--sc) 62%,#000);border-radius:99px;
+  background:linear-gradient(180deg,rgba(26,34,56,.9),rgba(8,12,22,.9));box-shadow:0 3px 8px rgba(0,0,0,.55),0 0 10px color-mix(in srgb,var(--sc) 32%,transparent);
+  transition:transform .18s var(--ease),box-shadow .2s,opacity .2s;font:inherit;color:inherit}
+#cbx .cb3-st.s1{--sc:#d89a62}#cbx .cb3-st.s2{--sc:#dfe9f5}#cbx .cb3-st.s3{--sc:#ffd45a}
+#cbx .cb3-st.s1 .sb{opacity:.82}
+#cbx .cb3-st .sb:hover{transform:scale(1.14);opacity:1;box-shadow:0 4px 12px rgba(0,0,0,.6),0 0 16px color-mix(in srgb,var(--sc) 70%,transparent)}
+#cbx .cb3-st .sb:active{transform:scale(.94)}
+#cbx .cb3-st .sb:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+#cbx .cb3-st .sb svg{width:12px;height:12px;display:block;overflow:visible}
+#cbx .cb3-st .sb svg path{fill:rgba(255,255,255,.12);stroke:rgba(255,255,255,.22);stroke-width:1.1;stroke-linejoin:round;transition:fill .2s}
+#cbx .cb3-st.s1 .sb svg.on path{fill:url(#cbSt1);stroke:#2a1a08;stroke-width:1.3}
+#cbx .cb3-st.s2 .sb svg.on path{fill:url(#cbSt2);stroke:#2a1a08;stroke-width:1.3}
+#cbx .cb3-st.s3 .sb svg.on path{fill:url(#cbSt3);stroke:#2a1a08;stroke-width:1.3}
+#cbx .cb3-st.s3 .sb svg:nth-child(2){width:15px;height:15px;transform:translateY(-1px)}
+#cbx .cb3-st.s3 .sb{animation:cbSt3 2.6s ease-in-out infinite}
+@keyframes cbSt3{50%{box-shadow:0 3px 8px rgba(0,0,0,.55),0 0 18px rgba(255,212,90,.75)}}
+#cbx .cb3-st.n .sb{animation:cbStPop .6s cubic-bezier(.2,1.6,.3,1)}
+#cbx .cb3-st .sr,#cbx .cb3-st .bar{display:none}
+
+/* --- hex + screenshot buttons (same TFT icon-button look as the others) --- */
+#cbx .cb3-b.tf[data-hex] .sl{opacity:1}#cbx .cb3-b.tf[data-hex].on .sl{opacity:0}
+#cbx .cb3-b.tf[data-hex].on svg .gr{opacity:1}#cbx .cb3-b.tf[data-hex] svg .gr{opacity:.45}
+.cb3-flash{position:absolute;inset:0;z-index:12;background:#fff;pointer-events:none;animation:cb3Fl .45s ease-out forwards}
+@keyframes cb3Fl{0%{opacity:.75}100%{opacity:0}}
+@media (prefers-reduced-motion:reduce){#cbx .cb3-st.s3 .sb,#cbx .cb3-st.n .sb,.cb3-flash{animation:none}}
+</style>
 <script src="lib/cb3d.js"></script>
 <script>try{if((JSON.parse(localStorage.getItem('tft.settings.v1')||'{}')).fx===false)document.documentElement.classList.add('fx-off')}catch(e){}</script>
 <div id="intro" aria-hidden="true">
@@ -3774,6 +3850,7 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
   // 3D board: needs WebGL; otherwise the classic 2D board below keeps working
   const OK3D = !!(window.CB3D && CB3D.supported()) && !/[?&]board=2d\b/.test(location.search);
   let B3 = null, MF3 = null, tagIdx = -1, tagTimer = 0, tagHold = false;
+  let hexOn = store.get('cb.hex') === '1';   // hexagon grid pinned on (otherwise it only shows while dragging)
   const slug3 = n => (window.CB3D ? CB3D.slugOf(n) : '');
   const portrait = c => (MF3 && MF3[slug3(c.name)] ? 'models/portraits/' + slug3(c.name) + '.webp' : '');   // icons rendered from the 3D models
   const img = c => c.icon || c.img || c.image || c.portrait || portrait(c);
@@ -3794,7 +3871,7 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
       <div class="cb-panel"><div class="cb-h">Saved comps</div><div class="cb-saved" id="cb-sv"></div></div>
       <div class="cb-main"><div class="cb-panel"><div class="cb-h">Traits</div><div class="cb-traits" id="cb-tr"></div></div>
         <div class="cb-panel cb-board${OK3D ? ' is3d' : ''}">${OK3D ? `<div class="cb-3d" id="cb-3d"><div class="cb3-ov" id="cb3-ov"><div class="cb3-tag" id="cb3-tag" hidden></div><div class="cb3-slots" id="cb3-slots" hidden></div><div class="cb3-cnt z" id="cb3-cnt" title="Champions on the board"><svg viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="cbHg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#a6e4ff"/><stop offset=".5" stop-color="#4fb0f5"/><stop offset="1" stop-color="#1e6fd0"/></linearGradient></defs><path fill="url(#cbHg)" fill-rule="evenodd" stroke="#cdeeff" stroke-opacity=".55" stroke-width="1.2" stroke-linejoin="round" d="M7 34C7 16 19 5 32 5s25 11 25 29v12q0 6-6 6h-7V45H20v7h-7q-6 0-6-6zM14 27h36v7H39v4H25v-4H14z"/></svg><b id="cb3-n">0</b></div></div>
-          <div class="cb3-ctl"><span class="cel-w"><button class="cb3-b tfc" data-cel title="Make everyone dance"><span class="tfc-in"></span><span class="tfc-ic"><svg viewBox="0 0 24 24"><path d="M4 20l4.5-12.5L16 15.5z"/><path d="M12 4v2M19 8l-1.5 1.2M20 14h-2M15 3.5l-.8 1.6"/></svg></span><span class="tfc-tx"><span class="t-off">Celebrate</span><span class="t-on">Stop party</span></span><span class="tfc-eq"><i></i><i></i><i></i><i></i></span></button></span><span class="tf-w"><button class="cb3-b tf" data-code title="Copy team code"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></button></span><span class="tf-w"><button class="cb3-b tf" data-hud title="Hide / show UI (H)"><svg viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/><path class="sl" d="M4 4l16 16"/></svg></button></span><span class="tf-w"><button class="cb3-b tf" data-rv title="Reset camera (or double-click the board)"><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 109-9M3 4v5h5"/></svg></button></span></div>
+          <div class="cb3-ctl"><span class="cel-w"><button class="cb3-b tfc" data-cel title="Make everyone dance"><span class="tfc-in"></span><span class="tfc-ic"><svg viewBox="0 0 24 24"><path d="M4 20l4.5-12.5L16 15.5z"/><path d="M12 4v2M19 8l-1.5 1.2M20 14h-2M15 3.5l-.8 1.6"/></svg></span><span class="tfc-tx"><span class="t-off">Celebrate</span><span class="t-on">Stop party</span></span><span class="tfc-eq"><i></i><i></i><i></i><i></i></span></button></span><span class="tf-w"><button class="cb3-b tf" data-code title="Copy team code"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></button></span><span class="tf-w"><button class="cb3-b tf" data-hex title="Show / hide hexagons (G)"><svg viewBox="0 0 24 24"><path d="M12 3l7.8 4.5v9L12 21l-7.8-4.5v-9z"/><path class="gr" d="M12 3v9M4.2 7.5L12 12l7.8-4.5M12 12v9"/><path class="sl" d="M4 4l16 16"/></svg></button></span><span class="tf-w"><button class="cb3-b tf" data-shot title="Screenshot of the board (hexagons visible)"><svg viewBox="0 0 24 24"><path d="M4 8h3l1.6-2.4h6.8L17 8h3a1 1 0 011 1v9a1 1 0 01-1 1H4a1 1 0 01-1-1V9a1 1 0 011-1z"/><circle cx="12" cy="13.5" r="3.6"/></svg></button></span><span class="tf-w"><button class="cb3-b tf" data-hud title="Hide / show UI (H)"><svg viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/><path class="sl" d="M4 4l16 16"/></svg></button></span><span class="tf-w"><button class="cb3-b tf" data-rv title="Reset camera (or double-click the board)"><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 109-9M3 4v5h5"/></svg></button></span></div>
           <div class="cb3-hint">Drag champions onto the board · drag a champion to move it · drag the background to rotate · scroll to zoom</div></div>` : '<div id="cb-bd"></div>'}<div class="cb-rm" id="cb-rm">Drop here to remove</div></div>${recShell()}</div>
       <div class="cb-panel"><div class="cb-hd"><div class="cb-seg"><button class="on" data-tab="c">Champions</button><button data-tab="i">⚔️ Items</button><button data-tab="e">🎖 Emblems</button><button data-tab="a">✨ Augments</button><button data-tab="r">🎲 Random Emblems</button><button data-tab="t">Traits</button></div></div>
         <div id="cb-cp"><div class="cb-bar"><input id="cb-q" placeholder="Search champions or traits">
@@ -3865,7 +3942,8 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
     const used = new Set(board.filter(Boolean));
     document.querySelectorAll('.cb-p').forEach(p => p.classList.toggle('used', used.has(p.dataset.n)));
     const cs = D.champions.filter(c => used.has(c.name));
-    $('cb-count').innerHTML = `<span class="cb-pill"><i>${cs.length}</i>units</span><span class="cb-pill g"><i>${cs.reduce((a, c) => a + c.cost, 0)}</i>gold</span><span class="cb-pill"><i>${gear.reduce((a, g) => a + (g ? g.length : 0), 0)}</i>items</span>`;
+    { const gold = cs.reduce((a, c) => a + c.cost, 0), its = gear.reduce((a, g) => a + (g ? g.length : 0), 0);
+      $('cb-count').innerHTML = `<span class="cb-pill u" title="Champions on the board"><svg viewBox="0 0 24 24"><path d="M12 3l7.8 4.5v9L12 21l-7.8-4.5v-9z"/></svg><i>${cs.length}</i></span><span class="cb-pill g" title="Total gold cost"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 8v8M9.5 10.5h5"/></svg><i>${gold}</i></span><span class="cb-pill it" title="Items equipped"><svg viewBox="0 0 24 24"><path d="M14.5 4l5.5 5.5-9.5 9.5H5v-5.5zM13 5.5l5.5 5.5"/></svg><i>${its}</i></span>`; }
     const cnt = currentTraits();
     const rows = D.traits.filter(t => cnt[t.name] && t.kind !== 'hidden').map(t => {
       const bp = (t.kind === 'single' || !t.bp || !t.bp.length ? [1] : t.bp.map(x => parseInt(x))).filter(x => x > 0);
@@ -3944,10 +4022,10 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
   }
   const STAR_P = 'M12 1.8l3 6.9 7.5.7-5.7 5 1.7 7.4L12 17.9 5.5 21.8l1.7-7.4-5.7-5 7.5-.7z';
   const ST_DEFS = '<svg id="cbStDefs" width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="cbSt1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f3b886"/><stop offset="1" stop-color="#9a5a25"/></linearGradient><linearGradient id="cbSt2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f7fbff"/><stop offset="1" stop-color="#8d9fb5"/></linearGradient><linearGradient id="cbSt3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff3a6"/><stop offset="1" stop-color="#e09a0c"/></linearGradient></defs></svg>';
-  const starEl = (i, lv) => `<div class="cb3-st s${lv}${fresh && fresh.st === i ? ' n' : ''}" data-i="${i}" title="${lv}-star champion (click to change)"><div class="sr">${Array.from({ length: lv }, () => `<svg viewBox="0 0 24 24"><path d="${STAR_P}" fill="url(#cbSt${lv})" stroke="#2a1a08" stroke-width="1.3" stroke-linejoin="round"/></svg>`).join('')}</div><u class="bar"><i></i><i></i><i></i><i></i></u></div>`;
-  function cycleStar(i) {   // 1 -> 2 -> 3 -> 1
+  const starEl = (i, lv) => `<div class="cb3-st s${lv}${fresh && fresh.st === i ? ' n' : ''}" data-i="${i}"><button class="sb" type="button" title="${lv}-star · click: next level · right-click: previous">${[1, 2, 3].map(k => `<svg viewBox="0 0 24 24"${k <= lv ? ' class="on"' : ''}><path d="${STAR_P}"/></svg>`).join('')}</button></div>`;
+  function cycleStar(i, d = 1) {   // 1 -> 2 -> 3 -> 1
     const n = board[i]; if (!n) return;
-    push(); const v = (stars[n] || 1) % 3 + 1; if (v > 1) stars[n] = v; else delete stars[n];
+    push(); const v = ((stars[n] || 1) - 1 + d + 3) % 3 + 1; if (v > 1) stars[n] = v; else delete stars[n];
     fresh = { st: i }; paintBoard(); if (B3) B3.starFx(n); sfx('star', v);
   }
   function mount3d() {
@@ -3960,6 +4038,7 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
       onDragHover: i => { $('cb-rm').classList.toggle('over', i < 0); hovTick(i); },
       onDragEnd: (from, to) => { hovLast = -2; root.dataset.drag = ''; $('cb-rm').classList.remove('over'); const n = board[from]; if (!n) return; if (to < 0) remove(from); else if (to !== from) place(n, to, from); },
     });
+    B3.setHexVisible(hexOn); root.querySelectorAll('[data-hex]').forEach(b => b.classList.toggle('on', hexOn));
     window.__cb3 = B3;     // handy for debugging in the console
     const tg = $('cb3-tag');
     tg.addEventListener('mouseenter', () => { tagHold = true; clearTimeout(tagTimer); });
@@ -3983,12 +4062,14 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
     t.innerHTML = champTip(c, tagIdx, true);
   }
   function frame3d() {     // keep the DOM overlays (item pins, name tag) glued to the champions
-    document.querySelectorAll('#cb3-ov .cb3-st').forEach(p => { const s = B3.screenOf(+p.dataset.i); if (s) p.style.transform = `translate(${s.topX.toFixed(1)}px,${(s.topY - 3).toFixed(1)}px) translate(-50%,-100%)`; });
+    document.querySelectorAll('#cb3-ov .cb3-st').forEach(p => { const s = B3.screenOf(+p.dataset.i); if (s) p.style.transform = `translate(${s.topX.toFixed(1)}px,${(s.topY - 6).toFixed(1)}px) translate(-50%,-100%)`; });
     document.querySelectorAll('#cb3-ov .cb3-pins').forEach(p => { const s = B3.screenOf(+p.dataset.i); if (s) p.style.transform = `translate(${s.x.toFixed(1)}px,${(s.y + 3).toFixed(1)}px) translate(-50%,0)`; });
     if (slotIdx >= 0) { const s = B3.screenOf(slotIdx), el = $('cb3-slots'); if (s && el) el.style.transform = `translate(${s.x.toFixed(1)}px,${(s.y + 12).toFixed(1)}px) translate(-50%,0)`; }
     if (tagIdx >= 0) { const s = B3.screenOf(tagIdx), t = $('cb3-tag'), ov = $('cb3-ov'); if (s && t && ov) { const w = t.offsetWidth, h = t.offsetHeight, W = ov.clientWidth; const x = Math.max(w / 2 + 6, Math.min(W - w / 2 - 6, s.topX)); let y = s.topY - 38, below = y - h < 6; if (below) y = s.y + 16; t.style.transform = `translate(${x.toFixed(1)}px,${y.toFixed(1)}px) translate(-50%,${below ? '0' : '-100%'})`; } }
   }
   function wire() {
+    root.addEventListener('contextmenu', e => { const st = e.target.closest && e.target.closest('.cb3-st'); if (st) { e.preventDefault(); cycleStar(+st.dataset.i, -1); } });
+    root.addEventListener('mouseover', e => { const b = e.target.closest && e.target.closest('.cb-top .cb-btn'); if (b) b.title = b.textContent.trim().replace(/\s*\d+$/, ''); });
     root.addEventListener('dragstart', e => {
       const el = e.target.closest('[draggable]'); if (!el) return;
       const k = el.classList.contains('cb-p') ? 'champ' : el.classList.contains('cb-u') ? 'unit' : el.classList.contains('cb-i') ? 'item' : el.classList.contains('em-p') ? 'emblem' : 'pin';
@@ -4020,13 +4101,15 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
     root.addEventListener('click', e => {
       const g = e.target, it = g.closest('.cb-it'), u = g.closest('.cb-u'), p = g.closest('.cb-p'), c = g.closest('[data-c]'), tb = g.closest('[data-tab]'), fc = g.closest('[data-f]'), cc = g.closest('[data-cat]'), tcd = g.closest('[data-trait]');
       const del = g.closest('[data-del]'), sc = g.closest('.cb-sc'), b = g.closest('.cb-btn');
-      const rm3 = g.closest('[data-rm]'), cel = g.closest('[data-cel]'), rv = g.closest('[data-rv]'), cdb = g.closest('[data-code]'), hub = g.closest('[data-hud]');
+      const rm3 = g.closest('[data-rm]'), cel = g.closest('[data-cel]'), rv = g.closest('[data-rv]'), cdb = g.closest('[data-code]'), hub = g.closest('[data-hud]'), hxb = g.closest('[data-hex]'), shb = g.closest('[data-shot]');
       if (g.closest('#cb-comps')) openComps();
       else if (g.closest('.cb3-st')) cycleStar(+g.closest('.cb3-st').dataset.i);
       else if (rm3) { remove(+rm3.dataset.rm); tagIdx = -1; paintTag(); }
       else if (cel && B3) { B3.celebrate(!B3.isCelebrating()); cel.classList.toggle('on', B3.isCelebrating()); partyMode(cel); }
       else if (cdb) copyCode();
       else if (hub) toggleHud();
+      else if (hxb) toggleHex();
+      else if (shb) shot();
       else if (rv && B3) B3.resetView();
       else if (fc) { itemF = fc.dataset.f; paintItems(); }
       else if (cc) { catF = cc.dataset.cat; paintTraits(); }
@@ -4393,6 +4476,60 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
 
   /* ---------- v7: ornate card frame, hide-UI, team code ---------- */
   const CD_FR = '<svg class="cd-fr" viewBox="0 0 100 100" aria-hidden="true"><path class="o" d="M9 1H91L99 9V91L91 99H9L1 91V9Z"/><path class="i" d="M11 5H89L95 11V89L89 95H11L5 89V11Z"/><path class="k" d="M1 21V9L9 1H21M79 1H91L99 9V21M99 79V91L91 99H79M21 99H9L1 91V79"/><path class="g" d="M5 1.8L8.2 5 5 8.2 1.8 5zM95 1.8L98.2 5 95 8.2 91.8 5zM5 91.8L8.2 95 5 98.2 1.8 95zM95 91.8L98.2 95 95 98.2 91.8 95z"/></svg>';
+  function toggleHex() {
+    if (!B3) return toast('The hexagon grid needs the 3D board');
+    hexOn = !hexOn; B3.setHexVisible(hexOn); store.set('cb.hex', hexOn ? '1' : '0');
+    root.querySelectorAll('[data-hex]').forEach(b => b.classList.toggle('on', hexOn));
+    toast(hexOn ? 'Hexagons visible' : 'Hexagons hidden (they still show while you drag)');
+  }
+  const loadImg = src => new Promise(res => { if (!src) return res(null); const im = new Image(); im.onload = () => res(im); im.onerror = () => res(null); im.src = src; });
+  async function shot() {
+    if (!B3) return toast('Screenshot needs the 3D board');
+    let cap; try { cap = await B3.capture({ hex: true }); } catch (e) { return toast('Could not capture the board'); }
+    const fl = document.createElement('div'); fl.className = 'cb3-flash'; $('cb-3d').appendChild(fl); setTimeout(() => fl.remove(), 600);
+    const base = await loadImg(cap.url); if (!base) return toast('Could not capture the board');
+    const k = cap.w / (cap.cw || cap.w), name = ($('cb-name') && $('cb-name').value.trim()) || 'My comp';
+    const used = D.champions.filter(c => board.includes(c.name)), gold = used.reduce((a, c) => a + c.cost, 0), its = gear.reduce((a, g) => a + (g ? g.length : 0), 0);
+    const rr = (g, x, y, w, h, r) => { g.beginPath(); g.moveTo(x + r, y); g.arcTo(x + w, y, x + w, y + h, r); g.arcTo(x + w, y + h, x, y + h, r); g.arcTo(x, y + h, x, y, r); g.arcTo(x, y, x + w, y, r); g.closePath(); };
+    const icons = {}; await Promise.all(ITEMS.map(async it => { if (it.icon) icons[it.name] = await loadImg(it.icon); }));
+    const compose = withIcons => {
+      const cv = document.createElement('canvas'); cv.width = cap.w; cv.height = cap.h; const g = cv.getContext('2d');
+      const bg = g.createRadialGradient(cv.width / 2, cv.height * .42, 0, cv.width / 2, cv.height * .42, Math.max(cv.width, cv.height) * .75);
+      bg.addColorStop(0, '#1b2a48'); bg.addColorStop(.55, '#0e1526'); bg.addColorStop(1, '#070a13');
+      g.fillStyle = bg; g.fillRect(0, 0, cv.width, cv.height); g.drawImage(base, 0, 0);
+      const SP = new Path2D(STAR_P), TIER = ['', '#e0a06c', '#e9f1fb', '#ffd45a'];
+      board.forEach((n, i) => {
+        if (!n) return; const sc = B3.screenOf(i); if (!sc) return;
+        const lv = stars[n] || 1;
+        if (lv > 1) {   // star badge
+          const sz = 13 * k, w = lv * sz + 10 * k, h = 20 * k, x = sc.topX * k - w / 2, y = (sc.topY - 6) * k - h;
+          rr(g, x, y, w, h, h / 2); g.fillStyle = 'rgba(12,18,32,.9)'; g.fill(); g.lineWidth = 1.3 * k; g.strokeStyle = TIER[lv]; g.stroke();
+          for (let j = 0; j < lv; j++) { g.save(); g.translate(x + 5 * k + j * sz, y + (h - sz) / 2); g.scale(sz / 24, sz / 24); g.fillStyle = TIER[lv]; g.fill(SP); g.lineWidth = 1.4; g.strokeStyle = '#2a1a08'; g.stroke(SP); g.restore(); }
+        }
+        const gl = gear[i] || [];   // equipped items
+        gl.forEach((nm, j) => {
+          const it = item(nm) || { name: nm, ab: String(nm).slice(0, 2).toUpperCase(), color: '#8a93a3' }, r = 10 * k, cx = sc.x * k + (j - (gl.length - 1) / 2) * 22 * k, cy = (sc.y + 3) * k + r;
+          g.save(); g.beginPath(); g.arc(cx, cy, r, 0, 6.2832); g.closePath(); g.fillStyle = it.color || '#8a93a3'; g.fill();
+          if (withIcons && icons[nm]) { g.clip(); g.drawImage(icons[nm], cx - r, cy - r, r * 2, r * 2); }
+          else { g.fillStyle = '#10131c'; g.font = `800 ${8 * k}px sans-serif`; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText(it.ab || '', cx, cy + .5 * k); }
+          g.restore(); g.beginPath(); g.arc(cx, cy, r, 0, 6.2832); g.lineWidth = 2 * k; g.strokeStyle = '#0d111a'; g.stroke();
+        });
+      });
+      // caption
+      const pad = 16 * k, th = 30 * k; g.font = `800 ${18 * k}px sans-serif`; const nw = g.measureText(name).width;
+      g.font = `600 ${12.5 * k}px sans-serif`; const st = `${used.length} units · ${gold} gold · ${its} items`, sw = g.measureText(st).width;
+      const w = nw + sw + 44 * k; rr(g, pad, cv.height - pad - th, w, th, th / 2); g.fillStyle = 'rgba(8,12,22,.78)'; g.fill(); g.lineWidth = 1 * k; g.strokeStyle = 'rgba(240,200,110,.55)'; g.stroke();
+      g.textBaseline = 'middle'; g.textAlign = 'left'; g.font = `800 ${18 * k}px sans-serif`; g.fillStyle = '#f3ead2'; g.fillText(name, pad + 16 * k, cv.height - pad - th / 2 + k);
+      g.font = `600 ${12.5 * k}px sans-serif`; g.fillStyle = '#9aa4b2'; g.fillText(st, pad + 28 * k + nw, cv.height - pad - th / 2 + k);
+      return cv;
+    };
+    let blob; for (const wi of [true, false]) { try { blob = await new Promise((ok, no) => compose(wi).toBlob(b => b ? ok(b) : no(new Error('empty')), 'image/png')); break; } catch (e) { blob = null; } }
+    if (!blob) return toast('Could not save the screenshot');
+    const slug = name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'comp', d = new Date(), p2 = v => String(v).padStart(2, '0');
+    const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `tft-board-${slug}-${d.getFullYear()}${p2(d.getMonth() + 1)}${p2(d.getDate())}-${p2(d.getHours())}${p2(d.getMinutes())}.png`;
+    document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 5000);
+    try { await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]); toast('Screenshot saved and copied (hexagons visible)'); } catch (e) { toast('Screenshot saved (hexagons visible)'); }
+  }
   function toggleHud() {
     const off = root.classList.toggle('hud-off');
     root.querySelectorAll('[data-hud]').forEach(b => b.classList.toggle('on', off));
@@ -4439,6 +4576,7 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
   }
   document.addEventListener('keydown', e => {
     if ((e.key === 'h' || e.key === 'H') && !e.ctrlKey && !e.metaKey && !e.altKey && !/^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName) && !e.target.isContentEditable && root.offsetParent && root.classList.contains('fs')) toggleHud();
+    else if ((e.key === 'g' || e.key === 'G') && !e.ctrlKey && !e.metaKey && !e.altKey && !/^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName) && !e.target.isContentEditable && root.offsetParent && root.classList.contains('fs')) toggleHex();
   });
 
   async function init() {
