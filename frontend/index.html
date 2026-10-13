@@ -2459,6 +2459,113 @@ html.pf-busy *,html.pf-busy *::before,html.pf-busy *::after{animation-play-state
 .cm-sep{height:1px;margin:16px 0 12px;background:linear-gradient(90deg,transparent,rgba(200,162,74,.6),transparent)}.cm-s{display:block;margin-bottom:6px;color:#f0d28a;font-size:13px}
 @media (prefers-reduced-motion:reduce){.tfc-in::before,.tfc-ic svg,.tfc-eq i,#cbx .cel-w:has(.tfc.on){animation:none!important}}
 </style>
+<style id="hub3dCss">
+/* ===================== Collections hub + fullscreen category + 3D card viewer ===================== */
+/* ---- hub: four fullscreen category panels (accordion) ---- */
+#sets #grid{display:flex;gap:16px;height:clamp(440px,calc(100vh - 250px),780px);padding:18px 0 0;grid-template-columns:none}
+.cpanel{position:relative;flex:1 1 0;min-width:0;border-radius:28px;overflow:hidden;cursor:pointer;isolation:isolate;border:1px solid rgba(255,255,255,.09);background:#0f131a;box-shadow:0 18px 44px rgba(0,0,0,.45);transition:flex-grow .6s var(--ease),border-color .3s,box-shadow .4s,transform .3s var(--ease);animation:cUp .6s var(--ease) both;animation-delay:calc(var(--i,0)*70ms)}
+#sets #grid:hover .cpanel,#sets #grid:focus-within .cpanel{flex-grow:.8}
+#sets #grid .cpanel:hover,#sets #grid .cpanel:focus-visible{flex-grow:2.4;border-color:var(--rc);box-shadow:0 26px 60px rgba(0,0,0,.55),0 0 60px -14px var(--rc);outline:none}
+.cpanel::before{content:"";position:absolute;inset:0 0 auto;height:4px;z-index:4;background:linear-gradient(90deg,transparent,var(--rc) 25%,var(--rc) 75%,transparent)}
+.cp-bg{position:absolute;inset:-6%;z-index:0;display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:1fr;gap:6px;transform:scale(1.08);transition:transform 1.4s var(--ease),filter .5s;filter:blur(1.5px) saturate(1.25) brightness(.5)}
+.cp-bg img{width:100%;height:100%;object-fit:cover;display:block}
+.cpanel:hover .cp-bg{transform:scale(1.2) translateY(-2%);filter:blur(0) saturate(1.3) brightness(.7)}
+.cp-shade{position:absolute;inset:0;z-index:1;background:radial-gradient(90% 60% at 50% 0%,color-mix(in srgb,var(--rc) 38%,transparent),transparent 70%),linear-gradient(180deg,rgba(8,10,14,.15) 0%,rgba(8,10,14,.55) 45%,rgba(8,10,14,.96) 100%)}
+.cp-hex{position:absolute;z-index:2;top:26px;left:50%;width:112px;margin-left:-56px;transition:transform .5s var(--ease),top .5s var(--ease)}
+.cp-hex .ti{width:112px;height:112px;display:block;overflow:visible;filter:drop-shadow(0 8px 16px rgba(0,0,0,.55)) drop-shadow(0 0 20px color-mix(in srgb,var(--rc) 55%,transparent))}
+.cpanel:hover .cp-hex{transform:scale(1.12) translateY(-4px)}
+.cpanel:hover .cp-hex .ti .spin,.cpanel:hover .cp-hex .ti .burst{animation:tcSpin 5s linear infinite;transform-origin:48px 48px}
+.cp-body{position:absolute;z-index:3;left:0;right:0;bottom:0;padding:26px 26px 24px;display:flex;flex-direction:column;gap:10px;text-align:center;align-items:center}
+.cp-kick{font:700 11px/1 var(--body);letter-spacing:.16em;text-transform:uppercase;color:var(--rc);white-space:nowrap}
+.cp-body h3{margin:0;font:700 clamp(24px,2.4vw,40px)/1.05 var(--head);letter-spacing:.01em;text-shadow:0 3px 14px rgba(0,0,0,.7)}
+.cp-nums{display:flex;align-items:baseline;gap:10px;font-variant-numeric:tabular-nums}
+.cp-nums .tm{font:700 22px var(--body)}
+.cp-nums .cp-pct{color:var(--rc);font:700 15px var(--body)}
+.cpanel .tp{width:100%;max-width:340px;height:7px;border-radius:9px;background:rgba(255,255,255,.12);overflow:hidden}
+.cpanel .tp i{display:block;height:100%;width:0;border-radius:9px;background:linear-gradient(90deg,color-mix(in srgb,var(--rc) 55%,#000),var(--rc));transition:width .9s var(--ease)}
+.cp-rar{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 14px;font-size:12px;color:#cfd5df;min-height:16px}
+.cp-rar em{font-style:normal;display:inline-flex;align-items:center}
+.cp-3d{display:none;align-items:center;gap:8px;padding:6px 12px;border-radius:99px;background:rgba(255,255,255,.1);border:1px solid color-mix(in srgb,var(--rc) 60%,transparent);font:700 12px/1 var(--body);color:#fff}
+.cp-3d b{color:#10141b;background:var(--rc);padding:3px 6px;border-radius:6px;font-size:11px}
+.cpanel.has3d .cp-3d{display:inline-flex}
+.cp-act{display:flex;gap:10px;margin-top:6px;max-height:0;opacity:0;overflow:hidden;transition:max-height .5s var(--ease),opacity .4s}
+.cpanel:hover .cp-act,.cpanel:focus-visible .cp-act{max-height:60px;opacity:1}
+.cp-act .tb{border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.08);color:#fff;border-radius:99px;padding:10px 20px;font:700 13px/1 var(--body);cursor:pointer;white-space:nowrap;transition:background .2s,border-color .2s}
+.cp-act .tb:hover{border-color:var(--rc);background:color-mix(in srgb,var(--rc) 30%,transparent)}
+.cp-act .tb.pri{background:var(--rc);border-color:var(--rc);color:#10141b}
+.cpanel.sel{border-color:var(--rc)}
+@media (max-width:900px){#sets #grid{flex-direction:column;height:auto}.cpanel{min-height:230px;flex:none}#sets #grid .cpanel:hover{flex-grow:0}.cp-act{max-height:60px;opacity:1}}
+@media (prefers-reduced-motion:reduce){.cpanel,.cp-bg,.cp-hex{animation:none!important;transition:none!important}}
+
+/* ---- fullscreen category page ---- */
+#sdetail{--rc:var(--gold);background:#0a0c10}
+#sdetail #sbanner{padding:56px 48px 28px}
+#sdetail #sbanner::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;z-index:1;background:linear-gradient(90deg,transparent,var(--rc) 20%,var(--rc) 80%,transparent)}
+#sdetail #sbg{opacity:.34;filter:blur(30px) saturate(1.5)}
+#sdetail #sbanner h2{font-size:48px;text-shadow:0 4px 22px rgba(0,0,0,.6)}
+#sdetail #sbanner .ring .fg{stroke:var(--rc);filter:drop-shadow(0 0 8px var(--rc))}
+#sdetail #sfbar{padding:14px 48px}
+#sdetail .gwrap{padding:24px 48px 80px}
+#sdetail .tgrid{grid-template-columns:repeat(auto-fill,132px);gap:26px 14px}
+#sdetail .tl{width:132px;height:126px;border-radius:10px}
+body.dens #sdetail .tgrid{grid-template-columns:repeat(auto-fill,82px);gap:18px 9px}
+body.dens #sdetail .tl{width:82px;height:80px}
+#sdetail .tl:hover .tname,#sdetail .tl:focus-visible .tname{opacity:1}
+.b3d{position:absolute;z-index:3;top:6px;right:6px;display:inline-flex;align-items:center;gap:3px;padding:3px 6px;border-radius:7px;background:rgba(10,12,16,.78);border:1px solid color-mix(in srgb,var(--c) 70%,transparent);color:#fff;font:800 10px/1 var(--body);letter-spacing:.06em;pointer-events:none}
+.b3d svg{width:10px;height:10px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linejoin:round}
+body.dens .b3d{display:none}
+#s3d[hidden]{display:none}
+#s3d.on{background:var(--rc);border-color:var(--rc);color:#10141b;font-weight:700}
+
+/* ---- fullscreen card viewer (3D / 2D) ---- */
+#viewer{display:block;background:radial-gradient(75% 65% at 50% 46%,color-mix(in srgb,var(--c,#555) 30%,#0b0e13),#05070b 80%);backdrop-filter:none;-webkit-backdrop-filter:none}
+#viewer .vcard{position:absolute;inset:0;display:block;width:auto;max-height:none;border:0;border-radius:0;background:none;box-shadow:none;transform:none;overflow:hidden}
+.vglow{position:absolute;left:50%;bottom:7%;width:min(60vw,900px);height:26%;translate:-50% 0;border-radius:50%;background:radial-gradient(closest-side,color-mix(in srgb,var(--c) 38%,transparent),transparent);filter:blur(14px);pointer-events:none}
+#viewer .vmedia{position:absolute;inset:0;min-height:0;display:grid;place-items:center;padding:84px 40px 100px 440px;background:none;animation:cFade .4s both}
+#viewer .vimg,#viewer .vvid{max-width:100%;max-height:calc(100vh - 190px)}
+.vstage3d{position:absolute;inset:0}
+.vstage3d[hidden],#viewer .vmedia[hidden]{display:none}
+#v3d{position:absolute;inset:0;width:100%;height:100%;display:block;outline:none}
+.vload{position:absolute;left:50%;top:50%;translate:-50% -50%;display:none;flex-direction:column;align-items:center;gap:14px;color:#cfd5df;font-size:14px;pointer-events:none}
+.vload.on{display:flex}
+.vload i{width:42px;height:42px;border-radius:50%;border:3px solid rgba(255,255,255,.14);border-top-color:var(--c);animation:v3spin .8s linear infinite}
+@keyframes v3spin{to{transform:rotate(360deg)}}
+.vhint{position:absolute;left:50%;bottom:84px;translate:-50% 0;padding:7px 14px;border-radius:99px;background:rgba(10,12,16,.55);color:#9aa3b0;font-size:12px;pointer-events:none;white-space:nowrap}
+.vtop{position:absolute;z-index:5;top:44px;left:0;right:0;display:flex;justify-content:center;align-items:center;gap:14px;pointer-events:none}
+.vtop>*{pointer-events:auto}
+#viewer .vx{position:absolute;left:24px;right:auto;top:0;width:42px;height:42px;font-size:16px;background:rgba(10,12,16,.7);backdrop-filter:blur(8px)}
+.vmodes{display:inline-flex;padding:4px;gap:3px;border-radius:14px;border:1px solid rgba(255,255,255,.12);background:rgba(10,12,16,.7);backdrop-filter:blur(10px)}
+.vmodes button{border:0;border-radius:10px;padding:9px 22px;background:none;color:#9aa3b0;font:800 13px/1 var(--body);letter-spacing:.08em;cursor:pointer;transition:background .2s,color .2s}
+.vmodes button:hover:not(:disabled){color:#fff}
+.vmodes button.on{background:var(--c);color:#10141b}
+.vmodes button:disabled{opacity:.35;cursor:not-allowed}
+.vwarn{max-width:min(46vw,520px);padding:8px 14px;border-radius:12px;background:rgba(60,30,20,.8);border:1px solid rgba(255,140,90,.45);color:#ffc9ad;font-size:12px;line-height:1.35}
+.vwarn[hidden]{display:none}
+#viewer .vinfo{position:absolute;z-index:4;left:28px;bottom:28px;width:min(390px,calc(100vw - 56px));max-height:calc(100vh - 150px);padding:24px 24px 22px;gap:12px;border:1px solid rgba(255,255,255,.09);border-radius:22px;background:rgba(12,15,21,.72);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 20px 50px rgba(0,0,0,.5)}
+#viewer #vname{padding-right:0;font-size:28px}
+.vanim{position:absolute;z-index:4;right:28px;top:100px;bottom:28px;width:min(300px,32vw);display:flex;flex-direction:column;gap:12px;padding:18px;border:1px solid rgba(255,255,255,.09);border-radius:22px;background:rgba(12,15,21,.72);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 20px 50px rgba(0,0,0,.5)}
+.vanim[hidden]{display:none}
+.vah{display:flex;align-items:center;justify-content:space-between;font:700 15px var(--head);letter-spacing:.04em}
+.vah small{font:600 12px var(--body);color:var(--muted)}
+.vctl{display:flex;gap:8px;align-items:center}
+.vctl button,.vctl select{height:34px;border-radius:10px;border:1px solid var(--line);background:rgba(255,255,255,.06);color:var(--text);font:700 12px var(--body);padding:0 12px;cursor:pointer;transition:background .2s,border-color .2s}
+.vctl button:hover,.vctl select:hover{border-color:var(--c)}
+.vctl button.on{background:var(--c);border-color:var(--c);color:#10141b}
+.vctl #vplay{width:40px;padding:0;font-size:14px}
+#vseek{flex:1;min-width:0;accent-color:var(--c)}
+.vtoggles{display:flex;flex-wrap:wrap;gap:6px}
+.vtoggles button{height:30px;border-radius:99px;border:1px solid var(--line);background:rgba(255,255,255,.05);color:var(--muted);font:700 11px var(--body);padding:0 12px;cursor:pointer}
+.vtoggles button.on{color:#10141b;background:var(--c);border-color:var(--c)}
+#vclips{flex:1;min-height:0;overflow-y:auto;display:flex;flex-direction:column;gap:5px;padding-right:4px}
+#vclips button{text-align:left;border:1px solid transparent;border-radius:10px;padding:9px 12px;background:rgba(255,255,255,.04);color:#cfd5df;font:600 13px var(--body);cursor:pointer;display:flex;justify-content:space-between;gap:8px;transition:background .15s,border-color .15s}
+#vclips button:hover{background:rgba(255,255,255,.1)}
+#vclips button.on{border-color:var(--c);background:color-mix(in srgb,var(--c) 22%,transparent);color:#fff}
+#vclips button em{font-style:normal;color:var(--muted);font-weight:500;font-size:11px;font-variant-numeric:tabular-nums}
+#viewer .vnav{position:absolute;z-index:4;left:50%;bottom:26px;translate:-50% 0;margin:0;padding:6px 10px;gap:14px;border-radius:99px;border:1px solid rgba(255,255,255,.09);background:rgba(12,15,21,.72);backdrop-filter:blur(12px)}
+@media (max-width:1100px){#viewer .vmedia{padding-left:40px;padding-bottom:330px}#viewer .vinfo{max-height:300px;overflow:auto}.vanim{top:100px;bottom:auto;max-height:44vh}.vhint{display:none}}
+.vmodes[hidden]{display:none}
+
+</style>
 </head>
 <body>
 <style id="cbHexV8">
@@ -2620,6 +2727,457 @@ html.pf-busy *,html.pf-busy *::before,html.pf-busy *::after{animation-play-state
 @media (prefers-reduced-motion:reduce){#cbx .cb3-st.s3 .sb,#cbx .cb3-st.n .sb,.cb3-flash{animation:none}}
 </style>
 <script src="lib/cb3d.js"></script>
+<script type="application/json" id="tft3dModels">{"petchibiorianna":["91001__Chibi Orianna","91002__Chibi T1 Orianna","91003__Chibi Spirit Blossom Orianna"],"petchibiriven":["113001__Chibi Riven","113002__Chibi Dawnbringer Riven","113003__Prestige Chibi Valiant Sword Riven"],"petchibiseraphine":["94001__Chibi Seraphine","94002__Chibi K_DA ALL OUT Seraphine","94003__Chibi Crystal Rose Seraphine"],"petchibisett":["75001__Chibi Sett","75002__Chibi HEARTSTEEL Sett","75003__Chibi Spirit Blossom Sett"],"petchibishyvana":["176001__Prestige Chibi Immortal Journey Shyvana"],"petchibisona":["76001__Chibi Sona","76002__Chibi Guqin Sona"],"petchibisoraka":["145001__Chibi Soraka","145002__Chibi Banana Soraka"],"petchibisyndra":["140001__Chibi Syndra","140002__Chibi Star Guardian Syndra"],"petchibiteemo":["64001__Chibi Teemo","64002__Chibi Little Devil Teemo","64003__Chibi Beemo"],"petchibitristana":["83001__Chibi Tristana","83002__Chibi Pengu Cosplay Tristana","83003__Chibi Dragon Trainer Tristana"],"petchibivex":["151001__Chibi Vex","151002__Chibi Cafe Cuties Vex"],"petchibivi":["37001__Chibi Vi","37002__Chibi Arcane Vi"],"petchibixayah":["134001__Chibi Xayah","134002__Chibi Battle Bat Xayah"],"petchibiyasuo":["38001__Chibi Yasuo","38002__Chibi Dragonmancer Yasuo","38003__Prestige Chibi Dragonmancer Yasuo"],"petchibiyone":["79001__Chibi Yone","79002__Chibi Spirit Blossom Yone","79003__Prestige Chibi Dawnbringer Yone","79004__Chibi T1 Yone"],"petchibiyunara":["128001__Chibi Yunara","128002__Chibi Spirit Blossom Yunara"],"petchibiyuumi":["96001__Chibi Yuumi","96002__Chibi Bewitching Yuumi","96003__Chibi Yuubee"],"petchibized":["56001__Chibi Zed","56002__Chibi PROJECT_ Zed","56003__Chibi Galaxy Slayer Zed"],"petchibizeri":["159001__Chibi Zeri","159002__Chibi PsyOps Zeri"],"petchibizoe":["105001__Chibi Zoe","105002__Chibi Mythmaker Zoe"],"petchickeneggtart":["97001__Pufflet","97002__Extra Spicy Pufflet","97003__Pool Party Pufflet","97004__Cactus Pufflet","97005__Porcelain Pufflet","97006__Space Groove Pufflet"],"petchihuahua":["131001__Blepup","131002__Hearty Blepup","131003__Jetback Blepup","131004__Worlds 2025 Blepup"],"petchip":["106001__Chip","106002__Mecha Chip","106003__Sugar Rush Chip","106004__Brambleback Chip","106005__Dark Star Chip","106006__Glacial Chip"],"petchoncc":["27001__Choncc","27004__Atlantean Choncc","27007__Earth Titan Choncc","27010__Fireborn Choncc","27013__Precious Panda Choncc","27016__Honeybuzz Choncc","27019__Lunar Revel Choncc","27022__Lunar Beast Choncc","27025__Splash Town Choncc","27028__Lifeguard Choncc","27031__Sun Kissed Choncc","27034__Choncc the Wise","27037__Drip Drummer Choncc","27040__Disco Choncc","27043__Mixmaster Choncc","27046__Pentakill Choncc","27049__Emo Choncc","27052__Artiste Choncc","27053__Patissier Choncc","27056__Pantomime Choncc","27057__Fabulous Fleur Choncc"],"petjawdragon":["43001__Burno","43004__Flametongue Burno","43007__Sugarcone Burno","43010__Gnarly Burno","43013__Burno the Brilliant","43016__PROJECT_ Burno","43019__Mech Pilot Burno","43022__Space Groove Burno","43025__Cooking Master Burno","43028__Feudal Future Burno","43031__Galactic Victory Burno"],"petkiko":["126001__Kiko","126002__Spirit Blossom Kiko","126003__Star Nemesis Kiko","126004__Arcana Kiko","126005__Bastet Kiko"],"petkoala":["55001__Grizzle","55004__Super Squad Grizzle","55007__Star Guardian Grizzle","55010__Dark Star Grizzle","55013__Groovy Grizzle","55016__Star Nemesis Grizzle"],"petkuroshiro":["117001__Shiro & Kuro","117002__High Noon Shiro & Kuro","117003__Cats Versus Dogs Shiro & Kuro","117004__Shan Hai Scrolls Shiro & Kuro","117005__Dark Cosmic Shiro & Kuro","117006__Spirit Blossom Shiro & Kuro"],"petlamb":["139001__Woolibell","139002__Goth Woolibell","139003__Little Demon Woolibell","139004__Wooly Weird Woolibell"],"petakalidragon":["13001__Ossia","13004__Soloist Ossia","13007__Pop Queen Ossia","13010__Beatmaker Ossia","13013__Prodigy Ossia","13016__Pumped Up Ossia","13019__Dragon Dancer Ossia"],"petaoshin":["25001__Ao Shin","25004__Elder Ao Shin","25007__Firecracker Ao Shin","25010__Dark Star Ao Shin","25013__Divine Ao Shin","25016__Star Forger Ao Shin","25019__Azure Inktales Ao Shin","25022__Galeborn Inktales Ao Shin","25025__Ember Inktales Ao Shin","25028__Darkspark Inktales Ao Shin","25031__Terra Inktales Ao Shin","25034__Summer Splash Ao Shin","25037__Power Chord Ao Shin","25040__Pentakill Ao Shin","25043__Disco Ao Shin","25046__Mixmaster Ao Shin","25049__Emo Ao Shin","25052__Sol Harbinger Ao Shin","25053__Ruined Ao Shin","25054__Runic Might Ao Shin","25055__Awakened Ao Shin"],"petballdragon":["39001__Poggles","39004__Froggo Poggles","39007__Honeybuzz Poggles","39010__Flametongue Poggles","39013__Deep Sea Poggles","39016__Sugarcone Poggles","39019__Lion Dancer Poggles"],"petbaron":["51003__Baron","51006__Super Squad Baron","51009__Odyssey Baron","51012__Star Guardian Baron","51015__Star Nemesis Baron","51018__Cosmic Scourge Baron","51019__Jade Baron","51020__Prodigy Baron","51021__Darkflight Baron","51022__Vacation Baron"],"petbat":["98001__Scribble","98002__Crimson Circle Scribble","98003__High Noon Scribble","98004__Arcade Scribble","98005__Firelight Scribble","98006__Pool Party Scribble"],"petbellswayer":["24001__Bellswayer","24004__Thunderstorm Bellswayer","24007__Sugar Rush Bellswayer","24010__Yuletide Bellswayer","24013__Black Mist Bellswayer","24016__Blood Moon Bellswayer","24019__Porcelain Bellswayer","24022__Victorious Bellswayer","24023__Triumphant Bellswayer"],"petbigknifedog":["72001__Knife Hound","72004__Thunderstorm Knife Hound","72007__Soul Fighter Knife Hound","72010__Akana Knife Hound","72013__Shurima Knife Hound","72016__Shiba Knife Hound"],"petbubbleteabear":["144001__Bobabear","144002__Matcha Bobabear","144003__Bluebeary Bobabear","144004__Tiger Milk Bobabear"],"petbuglet":["17001__Flutterbug","17004__True Ice Flutterbug","17007__Sandbringer Flutterbug","17010__Legionnaire Flutterbug","17013__Ixtali Flutterbug","17016__Beevil Flutterbug","17019__Sentinel Flutterbug","17020__Birthday Fluttercake","17021__Triumphant Flutterbug","17022__Victorious Flutterbug"],"petbunny":["52001__Bun Bun","52004__Chubby Choco Bun Bun","52007__Battle Bunny Bun Bun","52010__Red Riding Bun Bun","52013__Space Groove Bun Bun","52016__Bunana Bun Bun","52019__Lunar Revel Bun Bun","52022__Porcelain Bun Bun","52025__Red Hare Bun Bun","52028__Lotus Bun Bun","52031__Delicious Bun Bun","52034__Scarlet Mage Bun Bun","52037__Cafe Cuties Bun Bun","52040__Arcana Bun Bun","52043__Bun Bun Bee","52046__Coven Bun Bun"],"petcapybara":["132001__Kapi","132004__Coffee Kapi","132007__Sweet Treat Kapi","132010__Spirit Springs Kapi"],"petcrab":["154001__Scuttle Crab","154002__Void Scuttle Crab","154003__Cafe Cuties Scuttle Crab","154004__Anniversary Scuttle Crab"],"petcreepycat":["53001__Whisker","53004__Star Guardian Whisker","53007__Super Squad Whisker","53010__Stitched Whisker","53013__Star Nemesis Whisker","53016__Dark Star Whisker","53019__Ultra Threat Whisker","53022__Old Master Whisker","53023__Soul Fighter Whisker","53024__El Tigre Whisker","53025__K.O. Coliseum Whisker"],"petscratch":["81001__Scratch"],"petscuttlecrab":["62001__Scuttle","62004__Swole Scuttle","62007__Dapper Scuttle","62010__Super Scuttle","62013__Star Guardian Scuttle","62016__Star Nemesis Scuttle"],"petseaangel":["86001__Lumie","86002__Space Groove Lumie","86003__Sweetheart Lumie","86004__Pajama Guardian Lumie","86005__Dark Star Lumie","86006__Vampire Lumie","86007__Victorious Lumie"],"petsennabunny":["15001__Melisma","15004__Hardhitter Melisma","15007__Pop Queen Melisma","15010__Beatmaker Melisma","15013__Prodigy Melisma","15016__Shadow Beat Melisma","15019__Kanmei Melisma","15022__Akana Melisma","15025__Lotus Dancer Melisma","15028__Festive Fire Melisma","15031__Porcelain Melisma","15034__Heavenly Jade Melisma","15037__Lucky Rabbit Melisma","15040__Victorious Melisma"],"petsgcat":["10001__Dango","10004__Bubblegum Dango","10007__Gingersnap Dango","10010__Lemondrop Dango","10013__Limeberry Dango","10016__Sugar Crash Dango","10019__Porcelain Dango","10022__Lucky Lantern Dango","10025__Firecracker Dango","10028__Lion Dancer Dango","10031__Fiercest Dango","10034__Red Hot Rango","10037__Lightning Quick Rango","10040__Swift Blue Rango","10043__Fierce Rose Rango","10046__Resplendent Rango","10049__Wise Old Dango","10052__Teapot Dango","10055__Dango Bee","10058__Coven Dango","10061__Arcana Dango"],"petsgpig":["11001__Fuwa","11004__Last Wish Fuwa","11007__Lovestruck Fuwa","11010__Eclipse Fuwa","11013__Firecracker Fuwa","11016__Daystar Fuwa","11019__Lucky Fuwa","11022__Order Fuwa","11025__Verdant Fuwa","11028__Chaos Fuwa","11031__Birthday Surprise Fuwa"],"petsgshisa":["12001__Shisa","12004__Heroic Shisa","12007__Littlest Shisa","12010__Sundrop Shisa","12013__Firecracker Shisa","12016__Corrupted Shisa","12019__Lunar Revel Shisa","12022__Lunar Beast Shisa","12025__Dr. Shisa","12028__Mech Pilot Shisa","12031__Supreme Emperor Shisa","12034__Space Groove Shisa","12037__Galactic Destiny Shisa","12040__Cooking Master Shisa"],"petshark":["63001__Shork","63004__Super Shork","63007__Kingpin Shork","63010__Star Guardian Shork","63013__Star Nemesis Shork","63016__Bite Size Shork","63019__Draconic Shork","63022__Coven Shork","63025__Dawnbringer Shork","63028__Nightbringer Shork","63031__High Noon Shork"],"petsmolknifedog":["71001__Knife Pup","71004__Kernel Knife Pup","71007__Lone Loaf Knife Pup","71010__Soul Fighter Knife Pup","71013__Thunderstorm Knife Pup","71016__Kanmei Knife Pup","71019__PROJECT_ Knife Pup","71022__Pulsefire Knife Pup","71025__Battle Dog Knife Pup","71028__Battlecast Knife Pup","71031__Super Galaxy Knife Pup"],"petchibiaatrox":["70001__Chibi Aatrox","70002__Chibi DRX Aatrox","70003__Chibi Blood Moon Aatrox","70004__Chibi Office Aatrox"],"petchibiahri":["49001__Chibi Ahri","49002__Chibi Star Guardian Ahri","49003__Chibi Spirit Blossom Ahri","49004__Prestige Chibi Spirit Blossom Ahri"],"petchibiakali":["58001__Chibi Akali","58002__Chibi K_DA ALL OUT Akali","58003__Chibi Star Guardian Akali"],"petgargoyle":["18001__Craggle","18004__True Ice Craggle","18007__Sandbringer Craggle","18010__Black Mist Craggle","18013__Legionnaire Craggle","18016__Hextech Craggle","18019__Sentinel Craggle","18020__Victorious Craggle","18021__Triumphant Craggle"],"petgemtiger":["7001__Jeweled Protector","7004__Fierce Protector","7007__Shadowgem Protector","7010__Skygem Protector","7013__Reigning Protector","7016__Sunborn Protector","7019__Victorious Protector","7020__Triumphant Protector","7021__Year of the Tiger Protector"],"petghosty":["1001__Shadow Isles Hauntling","1004__Fireborn Hauntling","1007__Lunar Claw Hauntling","1010__Toxic Hauntling","1013__Dark Matter Hauntling","1016__Shadowmask Hauntling","1019__Victorious Hauntling","1020__Triumphant Hauntling","1021__Sentinel Hauntling","1022__Infernal Hauntling","1025__Elder Hauntling","1028__Ocean Hauntling","1031__Mountain Hauntling","1034__Cloud Hauntling"],"petgloop":["41001__Gloop","41004__Honeybuzz Gloop","41007__Hextech Gloop","41010__Fireborn Gloop","41013__Arcade Gloop","41016__Sugarcone Gloop","41019__Pop Groove Gloop","41022__Pizza Time Gloop","41025__Peachy Gloop","41028__Shrimpy Gloop","41031__Hearty Soup Gloop","41034__Porcelain Gloop","41037__Golden Custard Gloop","41040__DJ Gloop"],"petgriffin":["2001__Demacian Silverwing","2004__Snow Cherry Silverwing","2007__Dawnglow Silverwing","2010__Rosebloom Silverwing","2013__Tropical Silverwing","2016__Lost Silverwing","2019__Star Guardian Silverwing","2022__Victorious Silverwing","2023__Cloud Silverwing","2026__Infernal Silverwing","2029__Ocean Silverwing","2032__Mountain Silverwing","2035__Elder Silverwing"],"petgrumpylion":["3001__Molten Furyhorn","3004__Void-marked Furyhorn","3007__Willowbark Furyhorn","3010__Lionheart Furyhorn","3013__Sugarcone Furyhorn","3016__Tundra Furyhorn","3019__Victorious Furyhorn","3020__K_DA ALL OUT Furyhorn","3023__K_DA POP_STARS Furyhorn","3026__Lunar Beast Furyhorn","3029__Lunar Revel Furyhorn","3035__Starchaser Furyhorn","3038__Blazing Star Furyhorn","3041__Starcrossed Furyhorn","3044__Dawnstar Furyhorn","3047__Star Nemesis Furyhorn"],"pethammerhead":["162001__Bonkbill","162004__Gunhead Bonkbill"],"pethamster":["90001__Hamlet","90003__Tiger Hamlet","90004__Redolent Red Hamlet","90005__Heartseeker Hamlet","90006__Noble Hamlet"],"petheroicowl":["61001__Noctero","61004__Pulsefire Noctero","61007__Star Guardian Noctero","61010__Star Nemesis Noctero","61013__Gentle Hoot Noctero","61016__Super Noctero","61019__Victorious Noctero"],"pethextechbirb":["16001__Tocker","16004__Petricite Tocker","16007__Chemtech Tocker","16010__Black Mist Tocker","16013__Legionnaire Tocker","16016__Petal Dancer Tocker","16019__Victorious Tocker","16020__Triumphant Tocker","16021__Star Guardian Tocker"],"pethundun":["78001__Hundun","78004__Divine Spring Hundun","78007__Blooming Hundun","78010__Twin Spirit Hundun","78013__Nebulous Hundun","78016__All Seeing Hundun","78019__Starlight Hundun","78022__Star Nemesis Hundun","78025__Dawnstar Hundun","78028__Twilight Star Hundun","78031__Starcrossed Hundun"],"pethyena":["157001__Pompayena","157003__Puppy Pompayena","157004__Rock'n'Roll Pompayena"],"petchibiamumu":["112001__Chibi Amumu","112002__Chibi Surprise Party Amumu"],"petchibiannie":["54001__Chibi Annie","54002__Chibi Panda Annie","54003__Prestige Chibi Arcane Superfan Annie","54004__Chibi Cafe Cuties Annie"],"petchibiashe":["48001__Chibi Ashe","48002__Chibi Dragonmancer Ashe","48003__Chibi High Noon Ashe","48004__Chibi Cosmic Queen Ashe"],"petchibiblitzcrank":["87001__Chibi Blitzcrank","87002__Chibi Space Groove Blitzcrank","87003__Chibi iBlitzcrank"],"petchibibriar":["118001__Chibi Briar","118002__Chibi Shork Cosplay Briar","118003__Chibi Blood Moon Briar"],"petchibicaitlyn":["100001__Chibi Caitlyn","100002__Chibi Arcane Caitlyn","100003__Chibi Arcade Caitlyn"],"petchibiekko":["34001__Chibi Ekko","34002__Chibi Firelight Ekko"],"petchibiezreal":["80001__Chibi Ezreal","80002__Chibi Battle Academia Ezreal","80003__Prestige Chibi Porcelain Ezreal"],"petchibigwen":["68001__Chibi Gwen","68002__Chibi Soul Fighter Gwen","68003__Prestige Chibi Cafe Cuties Gwen","68004__Chibi Crystal Rose Gwen"],"petchibiirelia":["74001__Chibi Irelia","74002__Chibi Divine Sword Irelia","74003__Chibi Porcelain Irelia"],"petchibijanna":["108001__Chibi Janna","108002__Chibi Forecast Janna"],"petchibijhin":["156001__Chibi Jhin","156002__Chibi Blood Moon Jhin"],"petchibijinx":["35001__Chibi Jinx","35002__Chibi Firecracker Jinx","35003__Chibi Star Guardian Jinx","35004__Chibi Soul Fighter Jinx"],"petchibikaisa":["45001__Chibi Kai'Sa","45002__Chibi Dragonmancer Kai'Sa","45003__Chibi Headliner K_DA POP_STARS Kai'Sa","45005__Chibi Star Guardian Kai'Sa"],"petchibikatarina":["89001__Chibi Katarina","89002__Chibi Battle Academia Katarina"],"petchibikayle":["115001__Chibi Kayle","115002__Chibi Aether Wing Kayle"],"petchibileesin":["44001__Chibi Lee Sin","44002__Chibi Dragonmancer Lee Sin","44003__Prestige Chibi Dragon Fist Lee Sin"],"petchibilillia":["120001__Chibi Lillia","120002__Chibi Spirit Blossom Lillia"],"petchibilulu":["85001__Chibi Lulu","85002__Chibi Star Guardian Lulu"],"petchibilux":["50001__Chibi Lux","50002__Chibi Star Guardian Lux","50003__Chibi Porcelain Lux","50004__Chibi Dark Cosmic Lux"],"petchibimalphite":["60001__Chibi Malphite","60002__Chibi Mecha Malphite"],"petchibimissfortune":["84001__Chibi Miss Fortune","84002__Chibi Battle Bunny Miss Fortune","84004__Prestige Chibi Blood Moon Miss Fortune"],"petchibimorgana":["77001__Chibi Morgana","77002__Chibi Majestic Empress Morgana","77003__Chibi Coven Morgana","77004__Prestige Chibi Star Nemesis Morgana"],"petchibineeko":["125001__Chibi Neeko","125002__Chibi K_DA Superfan Neeko"],"petsnake":["104001__Snek","104002__Lantern Snek","104003__Jade Snek","104004__Porcelain Snek","104005__Mushroom Snek","104006__Star Guardian Snek"],"petspacecat":["146001__Astronyan","146002__Meowter Space Astronyan","146003__Star Dust Astronyan","146004__Lucky Astronyan"],"petspiritfox":["9001__Moontipped Hushtail","9004__Fae Hushtail","9007__Monarch Hushtail","9010__Mistberry Hushtail","9013__Untamed Hushtail","9016__Eternal Hushtail","9019__Kanmei Hushtail","9022__Akana Hushtail","9025__K_DA ALL OUT Hushtail","9028__K_DA POP_STARS Hushtail","9031__Stardust Hushtail","9034__Foxfire Hushtail","9037__Cloud Catcher Hushtail","9040__Lovely Guardian Hushtail","9043__Star Nemesis Hushtail"],"petspongefish":["147001__Pufferfin","147002__Space Groove Pufferfin","147003__Watermelon Pufferfin","147004__Sweet Dreams Pufferfin"],"petstyletwoahri":["133001__Ahri Unbound","133002__K_DA Ahri Unbound"],"petstyletwoaphelios":["153002__Spirit Blossom Springs Aphelios Unbound"],"petleopardgecko":["82001__Poptail","82004__Fruity-Tooty Poptail","82007__Leopard Poptail","82010__Croissant Poptail","82013__Dark Star Poptail","82016__Sugarcone Poptail"],"petminer":["4001__Soft-nosed Molediver","4004__Blazebattle Molediver","4007__Skydance Molediver","4010__Fresh-water Molediver","4013__Clumsy Molediver","4016__Toxic Molediver","4019__Astronaut Molediver","4022__Order Molediver","4025__Ironclad Molediver","4028__Chaos Molediver"],"petminigolem":["5001__Sentinel Runespirit","5004__Brambleback Runespirit","5007__Seedling Runespirit","5010__Black Mist Runespirit","5013__Glacial Runespirit","5016__Sakura Runespirit","5019__Birthday Cakespirit","5020__Tower Defense Runespirit"],"petminion":["116001__Red Siege Minion","116002__Blue Siege Minion","116003__Zero G Siege Minion","116004__Pentakill Siege Minion","116005__Void Siege Minion","116006__Sugar Rush Siege Minion"],"petmoth":["121001__Silkee","121002__Star Guardian Silkee","121003__Bee Silkee","121004__Winterblessed Silkee","121005__Sparkle Sun Silkee","121006__Elderwood Silkee"],"petnebulafox":["152001__Astrovix","152002__Bees Astrovix","152003__Star Guardian Astrovix","152004__Nebulae Astrovix"],"petnimblefoot":["31001__Nimblefoot","31004__Nightbringer Nimblefoot","31007__Redeemed Nimblefoot","31010__Kinkou Nimblefoot","31013__Verdant Nimblefoot","31016__Forgotten Nimblefoot","31019__Nemesis Nimblefoot"],"petpegasus":["22001__Lightcharger","22004__Crystal Lightcharger","22007__Sugarcone Lightcharger","22010__High Noon Lightcharger","22013__Black Mist Lightcharger","22016__Arcade Lightcharger","22019__K_DA ALL OUT Lightcharger","22022__K_DA POP_STARS Lightcharger","22025__Hot Rod Lightcharger","22028__Hextech Lightcharger","22031__Pulsefire Lightcharger","22034__Groovy Lightcharger","22037__Bubblegum Racer Lightcharger","22040__Stellacorn Lightcharger","22043__Shan Hai Scrolls Lightcharger","22046__Spirit Blossom Kanmei Lightcharger","22049__Inkshadow Lightcharger","22052__Spirit Blossom Akana Lightcharger","22055__Immortal Journey Lightcharger","22058__Porcelain Lightcharger","22059__Mythmaker Lightcharger","22060__Lantern Lightcharger","22061__Radiant Equinox Lightcharger"],"petpenguknight":["6001__Pengu Featherknight","6004__Ravenlord Featherknight","6007__True Ice Featherknight","6010__Extra Spicy Featherknight","6013__Cheeper Featherknight","6016__Sakura Featherknight","6019__Kanmei Featherknight","6022__Akana Featherknight","6025__K_DA ALL OUT Featherknight","6028__K_DA POP_STARS Featherknight","6031__Ruined Pengu","6032__Chaos Pengu","6035__Order Pengu","6038__Esports Pengu","6039__Darkspark Inktales Featherknight","6042__Ember Inktales Featherknight","6045__Galeborn Inktales Featherknight","6048__Terra Inktales Featherknight","6051__Azure Inktales Featherknight","6054__Dragon Trainer Pengu","6057__Yasuo Cosplay Pengu","6060__Anniversary Pengu","6063__Pengu Pengu","6066__Tristana Cosplay Pengu","6069__Poggles Cosplay Pengu","6072__Pengu on the Terrace","6073__Pengu Lisa","6074__Pengu with a Parasol","6075__Fencing Foilist Pengu","6076__God of Tactics Pengu","6077__Divine Brilliance Pengu","6078__Twilight Tactics Pengu","6079__Party God of Tactics Pengu"],"petpineconehedgehog":["169001__Dochicone"],"petpiximander":["40001__Piximander","40004__Honeybuzz Piximander","40007__Shimmering Piximander","40010__Rio","40013__Fruity Tooty Piximander","40016__Hextech Piximander","40019__Chemtech Piximander","40022__Spotted Piximander","40025__Victorious Piximander","40026__Arcane Rio","40029__Blue Hair Rio","40032__Firelight Rio","40035__Shimmering Rio","40038__Redeemed Rio"],"petporo":["66001__Poro","66002__Red-Nosed Poro","66003__Po'Ro","66004__Forgefire Poro","66005__Valiant Poro","66006__Sugarcone Poro","66007__Moo Cow Poro","66008__Furyhorn Cosplay Poro","66009__Bee Poro","66010__Yone Cosplay Poro","66011__Santa Poro"],"petporofluft":["67001__Fluft of Poros"],"petpowdermonkey":["127001__Powder Monkey","127002__Snow Day Powder Monkey","127003__Cosmic Powder Monkey","127004__Soul Fighter Powder Monkey"],"petpupdragon":["46001__Bungo","46004__Honeybuzz Bungo","46007__Rosebloom Bungo","46010__Jade Bungo","46013__Astral Bungo","46016__Dearest Bungo"],"petqiyanadog":["14001__QiQi","14004__Hardhitter QiQi","14007__Soloist QiQi","14010__Beatmaker QiQi","14013__Prodigy QiQi","14016__Bass Queen QiQi","14019__Electric QiQi","14022__Groovy QiQi","14025__Hextech QiQi","14028__Arcade QiQi","14031__Pulsefire QiQi"],"petrazorbeak":["65001__Raptors","65004__Toucan Raptors","65007__Extra Spicy Raptors","65010__Koi Raptors","65013__Shuriman Raptors","65016__Murder of Raptors","65019__Victorious Raptors"],"petcupcake":["122001__Cuppy","122002__Birthday Buddy Cuppy","122003__Heartache Cuppy","122004__Heartthrob Cuppy","122005__Cookies 'n' Scream Cuppy","122006__Matcha Cuppy"],"petdoughcat":["110001__Doughcat","110002__Salmon Doughcat","110003__Kiwi Doughcat","110004__Ham Doughcat","110005__Rice Doughcat","110006__Ghost Doughcat","110007__Itamae Doughcat"],"petdowsie":["29001__Dowsie","29004__Koi Dowsie","29007__Jelly Dowsie","29010__Waffle Dowsie","29013__Iridescent Dowsie","29016__Nightbringer Dowsie","29019__URF Dowsie","29022__Porcelain Dowsie","29025__Fortune Dowsie","29028__Lucky Noodle Dowsie","29031__Extra Spicy Dowsie","29034__Sweet Petal Dowsie","29037__Shan Hai Scrolls Dowsie","29040__Spirit Blossom Kanmei Dowsie","29043__Spirit Blossom Akana Dowsie","29046__Inkshadow Dowsie","29049__Immortal Journey Dowsie","29052__Victorious Dowsie"],"petdssquid":["19001__Squink","19004__Odyssey Squink","19007__Dreadnova Squink","19010__Fruity-tooty Squink","19013__Sugarcone Squink","19016__Cosmic Squink","19019__K_DA ALL OUT Squink","19022__K_DA POP_STARS Squink","19025__Cactus Squink","19028__High Noon Squink","19031__Order Squink","19034__Kernel Squink","19037__Outlaw Squink","19040__Galactic Justice Squink","19043__Takoyaki Squink","19046__Space Groove Squink","19049__Edge Lord Squink","19052__Mech Pilot Squink","19055__Ink Squink"],"petdsswordguy":["20001__Abyssia","20004__Darkin Abyssia","20007__Galaxy Slayer Abyssia","20010__Willowbark Abyssia","20013__Calcite Abyssia","20016__Cosmic Abyssia","20019__PROJECT_ Abyssia"],"petdswhale":["21001__Starmaw","21004__Dreadnova Starmaw","21007__Galaxy Slayer Starmaw","21010__Goo Starmaw","21013__Orcus Starmaw","21016__Cosmic Starmaw","21019__Regal Koi Starmaw"],"petduckbill":["42001__Duckbill","42004__Honeybuzz Duckbill","42007__Delivery Rush Duckbill","42010__Pajama Party Duckbill","42013__Sugarcone Duckbill","42016__Zaunite Duckbill","42019__Piltover Duckbill","42022__Goodest Duckbill","42025__Most Festive Duckbill","42028__Jade Dragon Duckbill","42031__Lunar Scholar Duckbill","42034__Firecracker Duckbill","42037__Mischief Maker Duckbill","42040__Battle Academia Duckbill","42043__PROJECT Duckbill","42046__Soul Fighter Duckbill","42049__Star Guardian Duckbill","42052__Battle Cat Duckbill","42055__Victorious Duckbill"],"petelderdragon":["135001__Elder Dragon","135002__Old God Elder Dragon","135003__Shan Hai Scrolls Elder Dragon","135004__PROJECT_ Elder Dragon"],"petelegantdragon":["47001__Prancie","47004__Koi Prancie","47007__Ragewing Prancie","47010__Jade Prancie","47013__Darkflight Prancie","47016__Everfrost Prancie","47019__Liu Li Prancie","47022__Lotus Prancie","47025__Porcelain Prancie","47028__Lantern Prancie","47031__Royal Prancie"],"petfairy":["23001__Nixie","23004__Rosebloom Nixie","23007__Mermaid Nixie","23010__Vampire Nixie","23013__Extra Spicy Nixie","23016__Neexie","23019__Victorious Nixie","23020__Triumphant Nixie","23022__Socialite Nixie"],"petfenroar":["30001__Fenroar","30004__Shurima Fenroar","30007__Golden Fenroar","30010__Skyborn Fenroar","30013__Nightbringer Fenroar","30016__Kanmei Fenroar","30019__Sodapop Fenroar","30022__Afterburner Fenroar","30025__Hextech Fenroar","30028__Pulsefire Fenroar","30031__Bounty Hunter Fenroar","30034__Knight Fenroar","30037__Dawnbringer Fenroar","30040__Coven Fenroar","30043__GodKing Fenroar","30046__High Noon Fenroar"],"petfishball":["111001__Blubble","111002__Space Groove Blubble","111003__Bee Blubble","111004__Summer Festival Blubble","111005__Shimmer Blubble","111006__Soda Blubble"],"petfloral":["158001__Petalpy","158003__Spirit Blossom Petalpy","158004__Ruined Petalpy"]}</script>
+<script id="glbviewJs">
+/* ============================================================================
+   GLBView - small self-contained WebGL2 viewer for the League/TFT "pet" GLBs
+   (skinned, unlit, many animations, submesh-visibility events). No libraries.
+   ----------------------------------------------------------------------------
+   const v = new GLBView(canvas, { onEnd(name){}, onTime(t,dur){}, shadow:true });
+   const info = await v.load(url);            // -> { clips:[{name,dur}], ... }
+   v.play('Dance_Loop', { loop:true, fade:.25 });
+   v.setSpeed(1) / v.setPaused(true) / v.setAuto(true) / v.resetView() / v.seek(t)
+   v.destroy()
+   ============================================================================ */
+(function (root) {
+'use strict';
+
+/* ---------- tiny math (column-major mat4) ---------- */
+const M = {
+  mul(o, a, b) {
+    for (let c = 0; c < 4; c++) for (let r = 0; r < 4; r++)
+      o[c * 4 + r] = a[r] * b[c * 4] + a[4 + r] * b[c * 4 + 1] + a[8 + r] * b[c * 4 + 2] + a[12 + r] * b[c * 4 + 3];
+    return o;
+  },
+  compose(m, T, Q, S, n) {
+    const x = Q[n * 4], y = Q[n * 4 + 1], z = Q[n * 4 + 2], w = Q[n * 4 + 3];
+    const x2 = x + x, y2 = y + y, z2 = z + z, xx = x * x2, xy = x * y2, xz = x * z2, yy = y * y2, yz = y * z2, zz = z * z2, wx = w * x2, wy = w * y2, wz = w * z2;
+    const sx = S[n * 3], sy = S[n * 3 + 1], sz = S[n * 3 + 2];
+    m[0] = (1 - (yy + zz)) * sx; m[1] = (xy + wz) * sx; m[2] = (xz - wy) * sx; m[3] = 0;
+    m[4] = (xy - wz) * sy; m[5] = (1 - (xx + zz)) * sy; m[6] = (yz + wx) * sy; m[7] = 0;
+    m[8] = (xz + wy) * sz; m[9] = (yz - wx) * sz; m[10] = (1 - (xx + yy)) * sz; m[11] = 0;
+    m[12] = T[n * 3]; m[13] = T[n * 3 + 1]; m[14] = T[n * 3 + 2]; m[15] = 1;
+  },
+  persp(fovy, asp, n, f) {
+    const t = 1 / Math.tan(fovy / 2), o = new Float32Array(16);
+    o[0] = t / asp; o[5] = t; o[10] = (f + n) / (n - f); o[11] = -1; o[14] = 2 * f * n / (n - f); return o;
+  },
+  lookAt(e, c, u) {
+    let zx = e[0] - c[0], zy = e[1] - c[1], zz = e[2] - c[2], l = Math.hypot(zx, zy, zz) || 1; zx /= l; zy /= l; zz /= l;
+    let xx = u[1] * zz - u[2] * zy, xy = u[2] * zx - u[0] * zz, xz = u[0] * zy - u[1] * zx; l = Math.hypot(xx, xy, xz) || 1; xx /= l; xy /= l; xz /= l;
+    const yx = zy * xz - zz * xy, yy = zz * xx - zx * xz, yz = zx * xy - zy * xx, o = new Float32Array(16);
+    o[0] = xx; o[1] = yx; o[2] = zx; o[4] = xy; o[5] = yy; o[6] = zy; o[8] = xz; o[9] = yz; o[10] = zz;
+    o[12] = -(xx * e[0] + xy * e[1] + xz * e[2]); o[13] = -(yx * e[0] + yy * e[1] + yz * e[2]); o[14] = -(zx * e[0] + zy * e[1] + zz * e[2]); o[15] = 1; return o;
+  },
+  slerp(o, oi, a, ai, b, bi, f) {
+    let ax = a[ai], ay = a[ai + 1], az = a[ai + 2], aw = a[ai + 3], bx = b[bi], by = b[bi + 1], bz = b[bi + 2], bw = b[bi + 3];
+    let d = ax * bx + ay * by + az * bz + aw * bw;
+    if (d < 0) { bx = -bx; by = -by; bz = -bz; bw = -bw; d = -d; }
+    let s0, s1;
+    if (d > 0.9995) { s0 = 1 - f; s1 = f; } else { const th = Math.acos(d), sn = Math.sin(th); s0 = Math.sin((1 - f) * th) / sn; s1 = Math.sin(f * th) / sn; }
+    const x = s0 * ax + s1 * bx, y = s0 * ay + s1 * by, z = s0 * az + s1 * bz, w = s0 * aw + s1 * bw, l = 1 / (Math.hypot(x, y, z, w) || 1);
+    o[oi] = x * l; o[oi + 1] = y * l; o[oi + 2] = z * l; o[oi + 3] = w * l;
+  }
+};
+
+/* ---------- GLB parsing ---------- */
+const CT = { 5120: Int8Array, 5121: Uint8Array, 5122: Int16Array, 5123: Uint16Array, 5125: Uint32Array, 5126: Float32Array };
+const NC = { SCALAR: 1, VEC2: 2, VEC3: 3, VEC4: 4, MAT4: 16 };
+function parseGLB(ab) {
+  const dv = new DataView(ab);
+  if (dv.getUint32(0, true) !== 0x46546C67) throw new Error('not a GLB file');
+  let off = 12, json = null, bin = 0;
+  while (off + 8 <= ab.byteLength) {
+    const len = dv.getUint32(off, true), type = dv.getUint32(off + 4, true); off += 8;
+    if (type === 0x4E4F534A) json = JSON.parse(new TextDecoder().decode(new Uint8Array(ab, off, len)));
+    else if (type === 0x004E4942) bin = off;
+    off += len;
+  }
+  if (!json) throw new Error('GLB has no JSON');
+  return { json, ab, bin };
+}
+
+/* ---------- shaders ---------- */
+const VS = `#version 300 es
+precision highp float; precision highp int; precision highp sampler2D;
+in vec3 aPos; in vec2 aUV; in uvec4 aJ; in vec4 aW;
+uniform mat4 uVP; uniform sampler2D uJ;
+out vec2 vUV;
+mat4 jm(uint j){ int b=int(j)*4; return mat4(texelFetch(uJ,ivec2(b,0),0),texelFetch(uJ,ivec2(b+1,0),0),texelFetch(uJ,ivec2(b+2,0),0),texelFetch(uJ,ivec2(b+3,0),0)); }
+void main(){
+  float ws=aW.x+aW.y+aW.z+aW.w;
+  vec4 p=vec4(aPos,1.0);
+  if(ws>0.001){ mat4 s=aW.x*jm(aJ.x)+aW.y*jm(aJ.y)+aW.z*jm(aJ.z)+aW.w*jm(aJ.w); p=s*p; }
+  vUV=aUV; gl_Position=uVP*p;
+}`;
+const FS = `#version 300 es
+precision highp float;
+uniform sampler2D uTex; uniform vec4 uCol; uniform float uBlend;
+in vec2 vUV; out vec4 o;
+void main(){
+  vec4 c=texture(uTex,vUV)*uCol;
+  if(uBlend>.5){ if(c.a<.02) discard; o=vec4(c.rgb*c.a,c.a); } else o=vec4(c.rgb,1.0);
+}`;
+const SVS = `#version 300 es
+in vec2 aP; uniform mat4 uVP; uniform vec3 uC; uniform float uR; out vec2 vP;
+void main(){ vP=aP; gl_Position=uVP*vec4(uC.x+aP.x*uR,uC.y,uC.z+aP.y*uR,1.0); }`;
+const SFS = `#version 300 es
+precision mediump float; in vec2 vP; uniform float uA; out vec4 o;
+void main(){ float d=length(vP); float a=smoothstep(1.0,0.15,d)*uA; o=vec4(0.0,0.0,0.0,a); }`;
+
+const reduce = typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+class GLBView {
+  constructor(canvas, opts = {}) {
+    this.cv = canvas; this.o = Object.assign({ shadow: true, fps: 30, fov: 0.62 }, opts);
+    const g = this.g = canvas.getContext('webgl2', { alpha: true, antialias: true, premultipliedAlpha: true, powerPreference: 'high-performance' });
+    if (!g) throw new Error('WebGL2 is not available');
+    const sh = (t, s) => { const x = g.createShader(t); g.shaderSource(x, s); g.compileShader(x); if (!g.getShaderParameter(x, g.COMPILE_STATUS)) throw new Error(g.getShaderInfoLog(x)); return x; };
+    const prog = (v, f) => { const p = g.createProgram(); g.attachShader(p, sh(g.VERTEX_SHADER, v)); g.attachShader(p, sh(g.FRAGMENT_SHADER, f)); return p; };
+    const P = this.P = prog(VS, FS);
+    g.bindAttribLocation(P, 0, 'aPos'); g.bindAttribLocation(P, 1, 'aUV'); g.bindAttribLocation(P, 2, 'aJ'); g.bindAttribLocation(P, 3, 'aW');
+    g.linkProgram(P); if (!g.getProgramParameter(P, g.LINK_STATUS)) throw new Error(g.getProgramInfoLog(P));
+    this.u = { vp: g.getUniformLocation(P, 'uVP'), j: g.getUniformLocation(P, 'uJ'), tex: g.getUniformLocation(P, 'uTex'), col: g.getUniformLocation(P, 'uCol'), bl: g.getUniformLocation(P, 'uBlend') };
+    const SP = this.SP = prog(SVS, SFS); g.bindAttribLocation(SP, 0, 'aP'); g.linkProgram(SP);
+    this.su = { vp: g.getUniformLocation(SP, 'uVP'), c: g.getUniformLocation(SP, 'uC'), r: g.getUniformLocation(SP, 'uR'), a: g.getUniformLocation(SP, 'uA') };
+    // shadow disc
+    const pts = [0, 0]; for (let i = 0; i <= 40; i++) { const a = i / 40 * Math.PI * 2; pts.push(Math.cos(a), Math.sin(a)); }
+    this.sVao = g.createVertexArray(); g.bindVertexArray(this.sVao);
+    this.sBuf = g.createBuffer(); g.bindBuffer(g.ARRAY_BUFFER, this.sBuf); g.bufferData(g.ARRAY_BUFFER, new Float32Array(pts), g.STATIC_DRAW);
+    g.enableVertexAttribArray(0); g.vertexAttribPointer(0, 2, g.FLOAT, false, 0, 0); g.bindVertexArray(null);
+    // white fallback texture + joint texture
+    this.white = g.createTexture(); g.bindTexture(g.TEXTURE_2D, this.white);
+    g.texImage2D(g.TEXTURE_2D, 0, g.RGBA, 1, 1, 0, g.RGBA, g.UNSIGNED_BYTE, new Uint8Array([255, 255, 255, 255]));
+    g.texParameteri(g.TEXTURE_2D, g.TEXTURE_MIN_FILTER, g.NEAREST); g.texParameteri(g.TEXTURE_2D, g.TEXTURE_MAG_FILTER, g.NEAREST);
+    this.jt = g.createTexture(); this.jtW = 0;
+    this.aniso = g.getExtension('EXT_texture_filter_anisotropic');
+    // camera / interaction
+    this.cam = { yaw: 0.45, pitch: 0.14, dist: 3, r: 1, t: [0, 0.5, 0], yaw0: 0.45, pitch0: 0.14 };
+    this.auto = false; this.autoSpeed = 0.6; this.vel = 0; this.paused = false; this.speed = 1;
+    this.m = null; this.cur = null; this.prev = null; this.fadeT = 0; this.fadeD = 0.25; this.running = false; this.dead = false; this.loadId = 0;
+    this._bindInput(); this._ro = new ResizeObserver(() => { this.dirty = true; }); this._ro.observe(canvas);
+    this._ctxLost = e => { e.preventDefault(); this.lost = true; }; canvas.addEventListener('webglcontextlost', this._ctxLost);
+    this.dirty = true;
+  }
+
+  /* ---------- input: drag = orbit, wheel / pinch = zoom, double click = reset ---------- */
+  _bindInput() {
+    const cv = this.cv, ptr = new Map(); let pinch = 0;
+    cv.style.touchAction = 'none'; cv.style.cursor = 'grab';
+    const down = e => { cv.setPointerCapture(e.pointerId); ptr.set(e.pointerId, { x: e.clientX, y: e.clientY }); this.vel = 0; this.dragging = true; cv.style.cursor = 'grabbing'; if (ptr.size === 2) pinch = this._pd(ptr); };
+    const move = e => {
+      const p = ptr.get(e.pointerId); if (!p) return;
+      const dx = e.clientX - p.x, dy = e.clientY - p.y; p.x = e.clientX; p.y = e.clientY;
+      if (ptr.size === 1) {
+        this.cam.yaw -= dx * 0.0085; this.vel = -dx * 0.0085 * 60;
+        this.cam.pitch = Math.max(-0.45, Math.min(1.25, this.cam.pitch + dy * 0.0065));
+      } else if (ptr.size === 2) { const d = this._pd(ptr); if (pinch) this._zoom(pinch / d); pinch = d; }
+      this.dirty = true;
+    };
+    const up = e => { ptr.delete(e.pointerId); if (!ptr.size) { this.dragging = false; cv.style.cursor = 'grab'; } pinch = 0; };
+    cv.addEventListener('pointerdown', down); cv.addEventListener('pointermove', move); cv.addEventListener('pointerup', up); cv.addEventListener('pointercancel', up);
+    cv.addEventListener('wheel', e => { e.preventDefault(); this._zoom(Math.exp(e.deltaY * (e.deltaMode ? 0.04 : 0.0012))); }, { passive: false });
+    cv.addEventListener('dblclick', () => this.resetView());
+  }
+  _pd(ptr) { const a = [...ptr.values()]; return Math.hypot(a[0].x - a[1].x, a[0].y - a[1].y) || 1; }
+  _zoom(k) { const c = this.cam; c.dist = Math.max(c.r * 1.15, Math.min(c.r * 7, c.dist * k)); this.dirty = true; }
+  resetView() { const c = this.cam; c.yaw = c.yaw0; c.pitch = c.pitch0; c.dist = c.dist0 || c.dist; this.vel = 0; this.dirty = true; }
+  setAuto(b) { this.auto = !!b; this.dirty = true; }
+  setPaused(b) { this.paused = !!b; this.dirty = true; }
+  setSpeed(s) { this.speed = s; }
+
+  /* ---------- loading ---------- */
+  async load(url) {
+    const id = ++this.loadId; this.unload();
+    let ab = GLBView.cache.get(url);
+    if (!ab) { const res = await fetch(url); if (!res.ok) throw new Error('HTTP ' + res.status + ' for ' + url); ab = await res.arrayBuffer(); GLBView.cache.set(url, ab); if (GLBView.cache.size > 4) GLBView.cache.delete(GLBView.cache.keys().next().value); } if (id !== this.loadId || this.dead) throw new Error('cancelled');
+    const m = await this._build(parseGLB(ab), id); if (id !== this.loadId || this.dead) { this._free(m); throw new Error('cancelled'); }
+    this.m = m; this.cur = this.prev = null; this.dirty = true;
+    this.cam.dist = this.cam.dist0 = m.dist; this.cam.r = m.r; this.cam.t = m.center.slice();
+    this.resetView();
+    if (!this.running) { this.running = true; this.last = 0; requestAnimationFrame(t => this._frame(t)); }
+    return { untextured: m.untextured, clips: m.clipNames.map(n => ({ name: n, dur: m.clipDur(n) })) };
+  }
+  unload() { if (this.m) { this._free(this.m); this.m = null; this.cur = this.prev = null; } }
+  _free(m) {
+    const g = this.g; if (!g || !m) return;
+    (m.tex || []).forEach(t => g.deleteTexture(t)); (m.bufs || []).forEach(b => g.deleteBuffer(b)); (m.vaos || []).forEach(v => g.deleteVertexArray(v));
+  }
+
+  async _build(glb, id) {
+    const g = this.g, { json, ab, bin } = glb;
+    const acc = i => {
+      const a = json.accessors[i], bv = json.bufferViews[a.bufferView], C = CT[a.componentType], n = NC[a.type];
+      const off = bin + (bv.byteOffset || 0) + (a.byteOffset || 0), es = C.BYTES_PER_ELEMENT * n, st = bv.byteStride || es;
+      let out;
+      if (st === es) out = new C(ab.slice(off, off + a.count * es));
+      else { out = new C(a.count * n); for (let k = 0; k < a.count; k++) out.set(new C(ab.slice(off + k * st, off + k * st + es)), k * n); }
+      if (a.normalized && C !== Float32Array) { const d = a.componentType === 5121 ? 255 : a.componentType === 5123 ? 65535 : a.componentType === 5120 ? 127 : 32767, f = new Float32Array(out.length); for (let k = 0; k < out.length; k++) f[k] = Math.max(-1, out[k] / d); out = f; }
+      return out;
+    };
+    const nodes = json.nodes, N = nodes.length, parent = new Int32Array(N).fill(-1);
+    nodes.forEach((nd, i) => (nd.children || []).forEach(c => parent[c] = i));
+    const ord = [], seen = new Uint8Array(N), stack = [...json.scenes[json.scene || 0].nodes].reverse();
+    while (stack.length) { const i = stack.pop(); if (seen[i]) continue; seen[i] = 1; ord.push(i); (nodes[i].children || []).slice().reverse().forEach(c => stack.push(c)); }
+    const rT = new Float32Array(N * 3), rQ = new Float32Array(N * 4), rS = new Float32Array(N * 3), tmp = new Float32Array(16);
+    nodes.forEach((nd, i) => {
+      if (nd.matrix) { // decompose a matrix node (rare)
+        const m = nd.matrix; rT.set([m[12], m[13], m[14]], i * 3);
+        const sx = Math.hypot(m[0], m[1], m[2]), sy = Math.hypot(m[4], m[5], m[6]), sz = Math.hypot(m[8], m[9], m[10]); rS.set([sx, sy, sz], i * 3);
+        const r00 = m[0] / sx, r11 = m[5] / sy, r22 = m[10] / sz, tr = r00 + r11 + r22; let w = Math.sqrt(Math.max(0, 1 + tr)) / 2, x = Math.sqrt(Math.max(0, 1 + r00 - r11 - r22)) / 2, y = Math.sqrt(Math.max(0, 1 - r00 + r11 - r22)) / 2, z = Math.sqrt(Math.max(0, 1 - r00 - r11 + r22)) / 2;
+        x = m[6] / sy - m[9] / sz < 0 ? -x : x; y = m[8] / sx - m[2] / sz < 0 ? -y : y; z = m[1] / sx - m[4] / sy < 0 ? -z : z; rQ.set([x, y, z, w], i * 4);
+      } else { rT.set(nd.translation || [0, 0, 0], i * 3); rQ.set(nd.rotation || [0, 0, 0, 1], i * 4); rS.set(nd.scale || [1, 1, 1], i * 3); }
+    });
+    const skin = json.skins[0], joints = skin.joints, nj = joints.length, ibm = acc(skin.inverseBindMatrices);
+    if (nj * 4 > g.getParameter(g.MAX_TEXTURE_SIZE)) throw new Error('too many joints');
+
+    /* geometry: one shared vertex-buffer set per unique attribute set */
+    const mesh = json.meshes[0], bufs = [], vaos = [], tex = [], vsets = new Map(), imgTex = new Map();
+    const mkBuf = (target, data) => { const b = g.createBuffer(); bufs.push(b); g.bindBuffer(target, b); g.bufferData(target, data, g.STATIC_DRAW); return b; };
+    const vset = at => {
+      const key = [at.POSITION, at.TEXCOORD_0, at.JOINTS_0, at.WEIGHTS_0].join(',');
+      if (vsets.has(key)) return vsets.get(key);
+      const pos = acc(at.POSITION), nv = pos.length / 3;
+      const uv = at.TEXCOORD_0 !== undefined ? acc(at.TEXCOORD_0) : new Float32Array(nv * 2);
+      const jid = at.JOINTS_0 !== undefined ? acc(at.JOINTS_0) : new Uint16Array(nv * 4);
+      const wt = at.WEIGHTS_0 !== undefined ? acc(at.WEIGHTS_0) : new Float32Array(nv * 4);
+      const jType = jid instanceof Uint8Array ? g.UNSIGNED_BYTE : g.UNSIGNED_SHORT;
+      const o = { id: vsets.size, key, pos, nv, uv, jid, wt, jType, pb: mkBuf(g.ARRAY_BUFFER, pos), ub: mkBuf(g.ARRAY_BUFFER, uv), jb: mkBuf(g.ARRAY_BUFFER, jid), wb: mkBuf(g.ARRAY_BUFFER, wt) };
+      vsets.set(key, o); return o;
+    };
+    const loadTex = async imi => {
+      if (imgTex.has(imi)) return imgTex.get(imi);
+      const im = json.images[imi]; let blob;
+      if (im.bufferView !== undefined) { const bv = json.bufferViews[im.bufferView], o = bin + (bv.byteOffset || 0); blob = new Blob([ab.slice(o, o + bv.byteLength)], { type: im.mimeType || 'image/png' }); }
+      else { blob = await (await fetch(im.uri)).blob(); }
+      const bmp = await createImageBitmap(blob, { premultiplyAlpha: 'none', colorSpaceConversion: 'none' });
+      const t = g.createTexture(); tex.push(t); g.bindTexture(g.TEXTURE_2D, t);
+      g.pixelStorei(g.UNPACK_FLIP_Y_WEBGL, false); g.pixelStorei(g.UNPACK_PREMULTIPLY_ALPHA_WEBGL, false);
+      g.texImage2D(g.TEXTURE_2D, 0, g.RGBA, g.RGBA, g.UNSIGNED_BYTE, bmp); if (bmp.close) bmp.close();
+      g.generateMipmap(g.TEXTURE_2D);
+      g.texParameteri(g.TEXTURE_2D, g.TEXTURE_MIN_FILTER, g.LINEAR_MIPMAP_LINEAR); g.texParameteri(g.TEXTURE_2D, g.TEXTURE_MAG_FILTER, g.LINEAR);
+      g.texParameteri(g.TEXTURE_2D, g.TEXTURE_WRAP_S, g.REPEAT); g.texParameteri(g.TEXTURE_2D, g.TEXTURE_WRAP_T, g.REPEAT);
+      if (this.aniso) g.texParameterf(g.TEXTURE_2D, this.aniso.TEXTURE_MAX_ANISOTROPY_EXT, Math.min(8, g.getParameter(this.aniso.MAX_TEXTURE_MAX_ANISOTROPY_EXT)));
+      imgTex.set(imi, t); return t;
+    };
+    const prims = [];
+    for (let pi = 0; pi < mesh.primitives.length; pi++) {
+      const p = mesh.primitives[pi]; if (p.mode !== undefined && p.mode !== 4) continue;
+      const mat = (json.materials || [])[p.material] || {}, pb = mat.pbrMetallicRoughness || {}, ex = mat.extras || {};
+      const vs = vset(p.attributes);
+      let idx = p.indices !== undefined ? acc(p.indices) : Uint16Array.from({ length: vs.nv }, (_, i) => i);
+      let itype = g.UNSIGNED_SHORT; if (idx instanceof Uint8Array) idx = Uint16Array.from(idx); else if (idx instanceof Uint32Array) itype = g.UNSIGNED_INT;
+      const vao = g.createVertexArray(); vaos.push(vao); g.bindVertexArray(vao);
+      g.bindBuffer(g.ARRAY_BUFFER, vs.pb); g.enableVertexAttribArray(0); g.vertexAttribPointer(0, 3, g.FLOAT, false, 0, 0);
+      g.bindBuffer(g.ARRAY_BUFFER, vs.ub); g.enableVertexAttribArray(1); g.vertexAttribPointer(1, 2, g.FLOAT, false, 0, 0);
+      g.bindBuffer(g.ARRAY_BUFFER, vs.jb); g.enableVertexAttribArray(2); g.vertexAttribIPointer(2, 4, vs.jType, 0, 0);
+      g.bindBuffer(g.ARRAY_BUFFER, vs.wb); g.enableVertexAttribArray(3); g.vertexAttribPointer(3, 4, g.FLOAT, false, 0, 0);
+      mkBuf(g.ELEMENT_ARRAY_BUFFER, idx); g.bindVertexArray(null);
+      let t = null; const bt = pb.baseColorTexture;
+      if (bt !== undefined && json.textures && json.textures[bt.index] && json.textures[bt.index].source !== undefined) t = await loadTex(json.textures[bt.index].source);
+      if (id !== this.loadId || this.dead) { tex.forEach(x => g.deleteTexture(x)); throw new Error('cancelled'); }
+      const hasF = pb.baseColorFactor !== undefined, f = pb.baseColorFactor || [1, 1, 1, 1];
+      prims.push({ vs, vao, idx, n: idx.length, itype, tex: t, col: f, blend: mat.alphaMode === 'BLEND' || mat.alphaMode === 'MASK', add: ex.blendMode === 'Additive',
+        order: ex.renderOrder || 0, i: pi, hash: ex.hash, skip: !t && !hasF, def: ex.visible !== false && !(!t && !hasF), vis: ex.visible !== false, name: mat.name || '', hasTex: !!t });
+    }
+    // draw order: opaque first, then blended by renderOrder
+    const draw = prims.slice().sort((a, b) => (a.blend - b.blend) || (a.order - b.order) || (a.i - b.i));
+    const byHash = new Map(); prims.forEach(p => { if (p.hash !== undefined) { if (!byHash.has(p.hash)) byHash.set(p.hash, []); byHash.get(p.hash).push(p); } });
+    // submesh-visibility events live on a node's extras, keyed by animation name
+    let events = {}; nodes.forEach(nd => { if (nd.extras && nd.extras.submeshVisibilityEvents) events = nd.extras.submeshVisibilityEvents; });
+
+    /* animation */
+    const anims = json.animations || [], clipCache = new Map(), clipNames = anims.map(a => a.name || 'clip');
+    const clipDurCache = new Map();
+    const clip = name => {
+      if (clipCache.has(name)) return clipCache.get(name);
+      const an = anims.find(a => (a.name || 'clip') === name); if (!an) { clipCache.set(name, null); return null; }
+      let dur = 0; const ch = [];
+      for (const c of an.channels) {
+        if (c.target.node === undefined || !['translation', 'rotation', 'scale'].includes(c.target.path)) continue;
+        const s = an.samplers[c.sampler], ti = acc(s.input), v = acc(s.output); dur = Math.max(dur, ti[ti.length - 1]);
+        ch.push({ n: c.target.node, p: c.target.path, t: ti, v, step: s.interpolation === 'STEP' });
+      }
+      const r = { name, dur, ch, ev: (events[name] || []).map(e => ({ s: e.startFrame, e: e.endFrame, h: e.hideSubmeshList || [], w: e.showSubmeshList || [] })) };
+      clipCache.set(name, r); return r;
+    };
+    const clipDur = name => { if (clipDurCache.has(name)) return clipDurCache.get(name); const an = anims.find(a => (a.name || 'clip') === name); let d = 0; if (an) for (const s of an.samplers) { const a = json.accessors[s.input]; if (a.max) d = Math.max(d, a.max[0]); } if (!d) { const c = clip(name); d = c ? c.dur : 0; } clipDurCache.set(name, d); return d; };
+
+    const T = new Float32Array(N * 3), Q = new Float32Array(N * 4), S = new Float32Array(N * 3);
+    const T2 = new Float32Array(N * 3), Q2 = new Float32Array(N * 4), S2 = new Float32Array(N * 3);
+    const W = Array.from({ length: N }, () => new Float32Array(16)), loc = new Float32Array(16), J = new Float32Array(nj * 16);
+    const sample = (c, time, To, Qo, So) => {
+      To.set(rT); Qo.set(rQ); So.set(rS);
+      for (const h of c.ch) {
+        const ts = h.t, n = ts.length; let k = 0;
+        if (time >= ts[n - 1]) k = n - 1; else if (time > ts[0]) { let lo = 0, hi = n - 1; while (hi - lo > 1) { const mid = (lo + hi) >> 1; if (ts[mid] <= time) lo = mid; else hi = mid; } k = lo; }
+        const k2 = Math.min(k + 1, n - 1); let f = 0; if (k2 !== k && !h.step) f = (time - ts[k]) / (ts[k2] - ts[k]);
+        const v = h.v;
+        if (h.p === 'rotation') M.slerp(Qo, h.n * 4, v, k * 4, v, k2 * 4, f);
+        else { const d = h.p === 'translation' ? To : So, o = h.n * 3; for (let j = 0; j < 3; j++) d[o + j] = v[k * 3 + j] * (1 - f) + v[k2 * 3 + j] * f; }
+      }
+    };
+    /** fills J with joint matrices for clip `a`@ta, optionally blended from `b`@tb (w = weight of a) */
+    const pose = (a, ta, b, tb, w) => {
+      if (a) sample(a, ta, T, Q, S); else { T.set(rT); Q.set(rQ); S.set(rS); }
+      if (b && w < 1) {
+        sample(b, tb, T2, Q2, S2);
+        for (let i = 0; i < T.length; i++) { T[i] = T2[i] + (T[i] - T2[i]) * w; S[i] = S2[i] + (S[i] - S2[i]) * w; }
+        for (let n = 0; n < N; n++) M.slerp(Q, n * 4, Q2, n * 4, Q, n * 4, w);
+      }
+      for (const n of ord) { M.compose(loc, T, Q, S, n); if (parent[n] >= 0) M.mul(W[n], W[parent[n]], loc); else W[n].set(loc); }
+      for (let k = 0; k < nj; k++) M.mul(J.subarray(k * 16, k * 16 + 16), W[joints[k]], ibm.subarray(k * 16, k * 16 + 16));
+    };
+
+    /* bounds from a CPU-skinned rest/idle pose so the camera frames every model nicely */
+    const idleName = clipNames.find(n => /^idle_?base$/i.test(n)) || clipNames.find(n => /idle/i.test(n)) || clipNames[0];
+    const idleClip = idleName ? clip(idleName) : null;
+    pose(idleClip, 0, null, 0, 1);
+    // which sub-meshes are visible in the idle pose? (events can switch faces / props on and off)
+    const vis0 = new Map(prims.map(p => [p, p.def]));
+    if (idleClip) for (const e of idleClip.ev) { if (e.s !== undefined && e.s > 0) continue;
+      for (const hh of e.h) { const l = byHash.get(hh); if (l) l.forEach(p => vis0.set(p, false)); }
+      for (const hh of e.w) { const l = byHash.get(hh); if (l) l.forEach(p => vis0.set(p, true)); } }
+    let mn = [1e9, 1e9, 1e9], mx = [-1e9, -1e9, -1e9];
+    const doneV = new Set();
+    for (const p of prims) {
+      if (!vis0.get(p) || p.skip || (!p.hasTex && p.col[3] < 0.05)) continue;
+      const vs = p.vs, pos = vs.pos, jid = vs.jid, wt = vs.wt;
+      for (let q = 0; q < p.idx.length; q++) {
+        const v = p.idx[q], key = vs.id * 1e7 + v; if (doneV.has(key)) continue; doneV.add(key);
+        const px = pos[v * 3], py = pos[v * 3 + 1], pz = pos[v * 3 + 2]; let ox = 0, oy = 0, oz = 0, ws = 0;
+        for (let k = 0; k < 4; k++) { const wk = wt[v * 4 + k]; if (!wk) continue; const o = jid[v * 4 + k] * 16; ws += wk;
+          ox += wk * (J[o] * px + J[o + 4] * py + J[o + 8] * pz + J[o + 12]); oy += wk * (J[o + 1] * px + J[o + 5] * py + J[o + 9] * pz + J[o + 13]); oz += wk * (J[o + 2] * px + J[o + 6] * py + J[o + 10] * pz + J[o + 14]); }
+        if (!ws) { ox = px; oy = py; oz = pz; }
+        if (!isFinite(ox + oy + oz)) continue;
+        mn[0] = Math.min(mn[0], ox); mn[1] = Math.min(mn[1], oy); mn[2] = Math.min(mn[2], oz); mx[0] = Math.max(mx[0], ox); mx[1] = Math.max(mx[1], oy); mx[2] = Math.max(mx[2], oz);
+      }
+    }
+    if (mn[0] > mx[0]) { mn = [-0.5, 0, -0.5]; mx = [0.5, 1, 0.5]; }
+    const center = [(mn[0] + mx[0]) / 2, (mn[1] + mx[1]) / 2, (mn[2] + mx[2]) / 2], size = [mx[0] - mn[0], mx[1] - mn[1], mx[2] - mn[2]];
+    const r = Math.max(0.2, Math.hypot(size[0], size[1], size[2]) / 2);
+    const dist = r / Math.sin(this.o.fov / 2) * 1.45;
+    const untextured = !prims.some(p => p.hasTex);
+    return { untextured, prims, draw, byHash, nj, J, pose, clip, clipDur, clipNames, bufs, vaos, tex, center, size, minY: mn[1], r, dist, idle: idleName };
+  }
+
+  /* ---------- playback ---------- */
+  hasClip(n) { return !!(this.m && this.m.clipNames.includes(n)); }
+  play(name, o = {}) {
+    const m = this.m; if (!m) return false; const c = m.clip(name); if (!c) return false;
+    const fade = o.fade === undefined ? 0.25 : o.fade;
+    if (this.cur && fade > 0) { this.prev = this.cur; this.fadeT = 0; this.fadeD = fade; } else this.prev = null;
+    this.cur = { c, t: o.t || 0, loop: !!o.loop, name }; this.ended = false; this.dirty = true; return true;
+  }
+  seek(t) { if (this.cur) { this.cur.t = Math.max(0, Math.min(this.cur.c.dur, t)); this.prev = null; this.dirty = true; } }
+  get time() { return this.cur ? this.cur.t : 0; }
+  get duration() { return this.cur ? this.cur.c.dur : 0; }
+
+  /* ---------- render loop ---------- */
+  _frame(now) {
+    if (this.dead) return; requestAnimationFrame(t => this._frame(t));
+    const cv = this.cv, g = this.g, m = this.m;
+    if (!m || this.lost || document.hidden || !cv.isConnected || !cv.clientWidth || !cv.clientHeight) { this.last = 0; return; }
+    const dt = this.last ? Math.min((now - this.last) / 1000, 0.1) : 0; this.last = now;
+    // animation time
+    if (this.cur && !this.paused) {
+      const c = this.cur, d = dt * this.speed; c.t += d; if (this.prev) { this.prev.t += d; this.fadeT += dt; if (this.fadeT >= this.fadeD) this.prev = null; }
+      if (c.t >= c.c.dur) { if (c.loop && c.c.dur > 0) c.t %= c.c.dur; else { c.t = c.c.dur; if (!this.ended) { this.ended = true; if (this.o.onEnd) this.o.onEnd(c.name); } } }
+    }
+    // camera inertia / auto-rotate
+    const cam = this.cam;
+    if (!this.dragging) {
+      if (Math.abs(this.vel) > 0.01) { cam.yaw += this.vel * dt; this.vel *= Math.exp(-4 * dt); }
+      else if (this.auto && !reduce) cam.yaw += this.autoSpeed * dt;
+    }
+    // size
+    const dpr = Math.min(window.devicePixelRatio || 1, 2), w = Math.round(cv.clientWidth * dpr), h = Math.round(cv.clientHeight * dpr);
+    if (cv.width !== w || cv.height !== h) { cv.width = w; cv.height = h; }
+    // submesh visibility for this time
+    const c = this.cur; for (const p of m.prims) p.vis = p.def;
+    if (c) { const f = c.t * this.o.fps;
+      for (const e of c.c.ev) { if ((e.s !== undefined && f < e.s) || (e.e !== undefined && f >= e.e)) continue;
+        for (const hh of e.h) { const l = m.byHash.get(hh); if (l) for (const p of l) p.vis = false; }
+        for (const hh of e.w) { const l = m.byHash.get(hh); if (l) for (const p of l) p.vis = true; } } }
+    // pose -> joint texture
+    const wF = this.prev ? Math.min(1, this.fadeT / this.fadeD) : 1, e = wF * wF * (3 - 2 * wF);
+    m.pose(c ? c.c : null, c ? c.t : 0, this.prev ? this.prev.c : null, this.prev ? this.prev.t % (this.prev.c.dur || 1) : 0, e);
+    g.activeTexture(g.TEXTURE1); g.bindTexture(g.TEXTURE_2D, this.jt);
+    if (this.jtW !== m.nj * 4) { g.texImage2D(g.TEXTURE_2D, 0, g.RGBA32F, m.nj * 4, 1, 0, g.RGBA, g.FLOAT, m.J); this.jtW = m.nj * 4;
+      g.texParameteri(g.TEXTURE_2D, g.TEXTURE_MIN_FILTER, g.NEAREST); g.texParameteri(g.TEXTURE_2D, g.TEXTURE_MAG_FILTER, g.NEAREST); g.texParameteri(g.TEXTURE_2D, g.TEXTURE_WRAP_S, g.CLAMP_TO_EDGE); g.texParameteri(g.TEXTURE_2D, g.TEXTURE_WRAP_T, g.CLAMP_TO_EDGE); }
+    else g.texSubImage2D(g.TEXTURE_2D, 0, 0, 0, m.nj * 4, 1, g.RGBA, g.FLOAT, m.J);
+    // camera matrices
+    const cp = Math.cos(cam.pitch), eye = [cam.t[0] + cam.dist * Math.sin(cam.yaw) * cp, cam.t[1] + cam.dist * Math.sin(cam.pitch), cam.t[2] + cam.dist * Math.cos(cam.yaw) * cp];
+    const view = M.lookAt(eye, cam.t, [0, 1, 0]), proj = M.persp(this.o.fov, w / h, Math.max(0.02, cam.dist - cam.r * 2.5), cam.dist + cam.r * 4), vp = M.mul(new Float32Array(16), proj, view);
+    g.viewport(0, 0, w, h); g.clearColor(0, 0, 0, 0); g.clearDepth(1); g.clear(g.COLOR_BUFFER_BIT | g.DEPTH_BUFFER_BIT);
+    g.enable(g.DEPTH_TEST); g.depthFunc(g.LEQUAL); g.disable(g.CULL_FACE); g.enable(g.BLEND); g.blendFuncSeparate(g.ONE, g.ONE_MINUS_SRC_ALPHA, g.ONE, g.ONE_MINUS_SRC_ALPHA);
+    // ground shadow
+    if (this.o.shadow) {
+      g.useProgram(this.SP); g.uniformMatrix4fv(this.su.vp, false, vp); g.uniform3f(this.su.c, m.center[0], m.minY + 0.002, m.center[2]); g.uniform1f(this.su.r, Math.max(m.size[0], m.size[2]) * 0.62); g.uniform1f(this.su.a, 0.42);
+      g.depthMask(false); g.bindVertexArray(this.sVao); g.drawArrays(g.TRIANGLE_FAN, 0, 42); g.depthMask(true);
+    }
+    g.useProgram(this.P); g.uniformMatrix4fv(this.u.vp, false, vp); g.uniform1i(this.u.j, 1); g.uniform1i(this.u.tex, 0);
+    g.activeTexture(g.TEXTURE0);
+    for (const p of m.draw) {
+      if (!p.vis || p.skip) continue; if (p.blend && p.col[3] < 0.004) continue; if (!p.hasTex && p.col[3] === 0) continue;
+      g.bindTexture(g.TEXTURE_2D, p.tex || this.white); g.uniform4f(this.u.col, p.col[0], p.col[1], p.col[2], p.blend ? p.col[3] : 1); g.uniform1f(this.u.bl, p.blend ? 1 : 0);
+      if (p.blend) { g.blendFuncSeparate(g.ONE, p.add ? g.ONE : g.ONE_MINUS_SRC_ALPHA, g.ONE, g.ONE_MINUS_SRC_ALPHA); g.depthMask(!p.add); } else g.depthMask(true);
+      if (/eye|brow|mouth|blush|face/i.test(p.name) && p.blend) { g.enable(g.POLYGON_OFFSET_FILL); g.polygonOffset(-2, -2); g.depthMask(false); } else g.disable(g.POLYGON_OFFSET_FILL);
+      g.bindVertexArray(p.vao); g.drawElements(g.TRIANGLES, p.n, p.itype, 0);
+    }
+    g.disable(g.POLYGON_OFFSET_FILL); g.depthMask(true); g.bindVertexArray(null);
+    if (this.o.onTime && c) this.o.onTime(c.t, c.c.dur);
+  }
+
+  destroy() { this.dead = true; this.unload(); try { this._ro.disconnect(); this.cv.removeEventListener('webglcontextlost', this._ctxLost); const x = this.g.getExtension('WEBGL_lose_context'); if (x) x.loseContext(); } catch (e) {} }
+}
+
+GLBView.cache = new Map();
+GLBView.prefetch = url => { if (GLBView.cache.has(url)) return; fetch(url).then(r => r.ok ? r.arrayBuffer() : null).then(ab => { if (ab && !GLBView.cache.has(url)) { GLBView.cache.set(url, ab); if (GLBView.cache.size > 4) GLBView.cache.delete(GLBView.cache.keys().next().value); } }).catch(() => {}); };
+root.GLBView = GLBView;
+})(window);
+
+</script>
+<script id="tft3dJs">
+/* ===== TFT3D: matches collection items (Little Legends / Chibis) to the GLB files in models/ ===== */
+window.TFT3D = (function () {
+  let RAW = {}; try { RAW = JSON.parse(document.getElementById('tft3dModels').textContent); } catch (e) {}
+  const BASE = 'models/';
+  /* Manual fixes if a name ever differs between collections.json and the file name:  'Item name in the app': 'Model name from the file' */
+  const ALIAS = {};
+  const norm = s => String(s || '').normalize('NFKD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/&/g, 'and').replace(/[^a-z0-9]+/g, '');
+  const STOP = new Set(['little', 'legend', 'the', 'of']);
+  const toks = s => new Set(String(s || '').normalize('NFKD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/&/g, ' and ').split(/[^a-z0-9]+/).filter(t => t && !STOP.has(t)));
+  const models = [], byNorm = new Map(), byId = new Map();
+  for (const [folder, stems] of Object.entries(RAW)) for (const stem of stems) {
+    const k = stem.indexOf('__'), id = +stem.slice(0, k), name = stem.slice(k + 2);
+    const m = { folder, stem, id, name, n: norm(name), toks: toks(name), url: BASE + encodeURIComponent(folder) + '/' + encodeURIComponent(stem) + '.glb' };
+    models.push(m); if (!byNorm.has(m.n)) byNorm.set(m.n, []); byNorm.get(m.n).push(m); byId.set(id, m);
+  }
+  function fuzzy(name) {
+    const a = toks(name); if (!a.size) return null; let best = null, bs = 0, second = 0;
+    for (const m of models) { let i = 0; for (const t of a) if (m.toks.has(t)) i++; const s = i / (a.size + m.toks.size - i); if (s > bs) { second = bs; bs = s; best = m; } else if (s > second) second = s; }
+    return bs >= 0.75 && bs > second ? best : null;
+  }
+  function find(item) {
+    if (!item) return null; if (item._m !== undefined) return item._m;
+    let r = null; const name = item.name || '';
+    if (ALIAS[name]) { const c = byNorm.get(norm(ALIAS[name])); if (c) r = c[0]; }
+    if (!r) { const c = byNorm.get(norm(name)); if (c) r = c[0]; }
+    if (!r) for (const f of ['modelId', 'skinId', 'skinID']) { const m = byId.get(+item[f]); if (m) { r = m; break; } }
+    if (!r && item.type === 'Little Legend') r = fuzzy(name);
+    return (item._m = r);
+  }
+  function report(items) {
+    const ll = items.filter(i => i.type === 'Little Legend'), hit = ll.filter(i => find(i)), used = new Set(hit.map(i => find(i)));
+    const info = { littleLegends: ll.length, with3D: hit.length, missing3D: ll.filter(i => !find(i)).map(i => i.name), unusedModels: models.filter(m => !used.has(m)).map(m => m.stem) };
+    window.TFT3D.lastReport = info; console.info('[TFT3D] ' + info.with3D + '/' + info.littleLegends + ' Little Legends have a 3D model, ' + models.length + ' model files loaded. See TFT3D.lastReport for the mismatches.');
+    return info;
+  }
+  return { find, has: i => !!find(i), report, models, count: models.length, norm };
+})();
+
+</script>
 <script>try{if((JSON.parse(localStorage.getItem('tft.settings.v1')||'{}')).fx===false)document.documentElement.classList.add('fx-off')}catch(e){}</script>
 <div id="intro" aria-hidden="true">
   <div id="introBlur"></div>
@@ -2943,7 +3501,7 @@ html.pf-busy *,html.pf-busy *::before,html.pf-busy *::after{animation-play-state
     <div class="crow">
       <div class="sbox" id="sqbox"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input id="sq" type="text" placeholder="Search in this collection…" autocomplete="off" spellcheck="false" aria-label="Search in collection"><span class="scount" id="sqn"></span><button class="sclr" id="sqx" type="button" aria-label="Clear search">✕</button><kbd>/</kbd></div>
       <select id="ssort" class="cin" aria-label="Sort"><option value="default">Default order</option><option value="rarity">Rarest first</option><option value="name">A – Z</option><option value="missing">Missing first</option></select>
-      <button class="btn dbtn" type="button" title="Smaller cards, more on screen">Compact</button>
+      <button class="btn dbtn" type="button" title="Smaller cards, more on screen">Compact</button><button class="btn" id="s3d" type="button" hidden title="Only show the ones with a 3D model">3D only</button>
     </div>
     <div class="crow">
       <div class="seg" id="sstat"><button data-s="all" class="on">All</button><button data-s="owned">Owned</button><button data-s="missing">Missing</button></div>
@@ -2973,15 +3531,31 @@ html.pf-busy *,html.pf-busy *::before,html.pf-busy *::after{animation-play-state
 </div>
 <div id="viewer" hidden>
   <div class="vcard" id="vcard" role="dialog" aria-modal="true" aria-labelledby="vname">
+    <div class="vglow"></div>
     <div class="vmedia" id="vmedia"></div>
-    <div class="vinfo">
+    <div class="vstage3d" id="vstage3d" hidden>
+      <canvas id="v3d" tabindex="0" aria-label="3D model: drag to rotate, scroll to zoom"></canvas>
+      <div class="vload" id="vload"><i></i><span>Loading 3D model…</span></div>
+      <div class="vhint">Drag to rotate · Scroll to zoom · Double-click to reset</div>
+    </div>
+    <div class="vtop">
       <button class="vx" id="vx" aria-label="Close">&#10005;</button>
+      <div class="vmodes" id="vmode" role="group" aria-label="View mode"><button type="button" data-m="3d">3D</button><button type="button" data-m="2d">2D</button></div>
+      <div class="vwarn" id="vwarn" hidden></div>
+    </div>
+    <div class="vinfo">
       <span id="vrar"></span>
       <h3 id="vname"></h3>
       <dl id="vmeta"></dl>
       <div class="vact"><button class="vown" id="vown"></button><a id="vlink" class="btn" target="_blank" rel="noopener noreferrer"></a></div>
-      <div class="vnav"><button id="vprev" aria-label="Previous">&#8249;</button><span id="vcount"></span><button id="vnext" aria-label="Next">&#8250;</button></div>
     </div>
+    <aside class="vanim" id="vanim" hidden>
+      <div class="vah"><span>Animations</span><small id="vcn"></small></div>
+      <div class="vctl"><button type="button" id="vplay" aria-label="Play / pause">❚❚</button><input type="range" id="vseek" min="0" max="1" step="0.01" value="0" aria-label="Seek"><select id="vspeed" aria-label="Speed"><option value="0.25">0.25×</option><option value="0.5">0.5×</option><option value="1">1×</option><option value="1.5">1.5×</option><option value="2">2×</option></select></div>
+      <div class="vtoggles"><button type="button" id="vloop">Loop</button><button type="button" id="vcycle">Play all</button><button type="button" id="vauto">Auto-rotate</button><button type="button" id="vreset">Reset view</button></div>
+      <div id="vclips"></div>
+    </aside>
+    <div class="vnav"><button id="vprev" aria-label="Previous">&#8249;</button><span id="vcount"></span><button id="vnext" aria-label="Next">&#8250;</button></div>
   </div>
 </div>
 <section id="detail" hidden>
@@ -3021,17 +3595,21 @@ const GLYPH = {
 const glyph = (k, cls = '') => `<svg class="gl ${cls}" viewBox="0 0 24 24" aria-hidden="true">${GLYPH[k]}</svg>`;
 const CAT_SVG = Object.fromEntries(['legend', 'arena', 'boom', 'portal'].map(k => [k, `<svg class="ti" viewBox="0 0 96 96" aria-hidden="true"><defs><linearGradient id="cb-${k}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:var(--rc)" stop-opacity=".6"/><stop offset="1" style="stop-color:var(--rc)" stop-opacity=".1"/></linearGradient></defs><path d="M48 5 85 26.500v43L48 91 11 69.500v-43z" fill="#0d1117"/><path d="M48 5 85 26.500v43L48 91 11 69.500v-43z" fill="url(#cb-${k})" style="stroke:var(--rc)" stroke-width="3" stroke-linejoin="round"/><path d="M48 14 77 31v34L48 82 19 65V31z" fill="none" stroke="rgba(255,255,255,.2)" stroke-width="1.2"/><g transform="translate(24 24) scale(2)" style="color:#fff;--cut:#1a1f29"><g class="gg">${GLYPH[k]}</g></g></svg>`]));
 
-function render() {   // Collections: category cards (click = filter the list below, Browse = open the whole category)
+function render() {   // Collections hub: fullscreen category panels
   grid.innerHTML = '';
-  CATS.forEach(k => {
+  const KICK = { 'Little Legend': 'Tacticians & Chibis', Arena: 'Battle arenas', Boom: 'Boom effects', Portal: 'Portals' };
+  CATS.forEach((k, ix) => {
     const c = document.createElement('div');
-    c.className = 'tcat'; c.dataset.t = k.t; c.tabIndex = 0; c.setAttribute('role', 'button'); c.style.setProperty('--rc', k.c);
-    c.innerHTML = `${CAT_SVG[k.i]}<b>${k.n}</b><span class="tm"></span><div class="tp"><i></i></div><div class="tact"><button type="button" class="tb" data-a="browse">Browse</button><button type="button" class="tb pri" data-a="cols">Collections</button></div>`;
+    c.className = 'cpanel'; c.dataset.t = k.t; c.tabIndex = 0; c.setAttribute('role', 'button'); c.style.setProperty('--rc', k.c); c.style.setProperty('--i', ix);
+    c.innerHTML = `<div class="cp-bg"></div><div class="cp-shade"></div><div class="cp-hex">${CAT_SVG[k.i]}</div>
+      <div class="cp-body"><span class="cp-kick">${KICK[k.t] || ''}</span><h3>${k.n}</h3>
+        <div class="cp-nums"><span class="tm"></span><span class="cp-pct"></span></div><div class="tp"><i></i></div><div class="cp-rar"></div>
+        <span class="cp-3d"><b>3D</b><span class="n3"></span></span>
+        <div class="cp-act"><button type="button" class="tb pri" data-a="browse">Open category</button><button type="button" class="tb" data-a="cols">Collections</button></div></div>`;
     c.onclick = e => {
       const a = e.target.closest('[data-a]');
-      if (a && a.dataset.a === 'browse') window.openCat && window.openCat(k.t);
-      else if (a) window.filterCat && window.filterCat(k.t, true);
-      else window.filterCat && window.filterCat(k.t);
+      if (a && a.dataset.a === 'cols') window.filterCat && window.filterCat(k.t, true);
+      else window.openCat && window.openCat(k.t);
     };
     c.onkeydown = e => { if (e.key === 'Enter' && e.target === c) c.click(); };
     grid.append(c);
@@ -4636,6 +5214,7 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
       COLS.forEach(c => c.items.forEach(i => { const p = SER.get(i.id);
         if (!p || (isO(p) && !isO(c)) || (isO(p) === isO(c) && c.items.length < p.items.length)) SER.set(i.id, c); }));
       ALL = [...m.values()];
+      try { if (window.TFT3D) TFT3D.report(ALL); } catch (e) { console.warn(e); }
       ALLC = { id: '__all', name: 'All Cosmetics', blurb: 'Every Little Legend, Arena, Boom and Portal in one place.', items: ALL };
     })();
   }
@@ -4670,9 +5249,10 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
     else b = `<path d="M12 3 19 7v9l-7 5-7-5V7z" fill="${c}" ${st}/><path d="M12 3 19 7l-7 4-7-4z" fill="#fff" opacity=".38"/><path d="M12 11l7-4v9l-7 5z" fill="#000" opacity=".22"/>`;
     return `<svg class="gem ${cls}" viewBox="0 0 24 24" aria-hidden="true">${b}</svg>`;
   };
+  const CUBE = '<svg viewBox="0 0 24 24"><path d="M12 2.5 21 7.5v9L12 21.5 3 16.5v-9zM3 7.5l9 5 9-5M12 12.5v9"/></svg>';
   const LK = '<svg class="lk" viewBox="0 0 16 16"><rect x="3.5" y="7" width="9" height="6.5" rx="1.5"/><path d="M5.5 7V5.2a2.5 2.5 0 0 1 5 0V7"/></svg><svg class="ck" viewBox="0 0 16 16"><path d="M3.5 8.5l3 3 6-7"/></svg>';
   const tile = (i, idx) => { const on = owned.has(i.id);
-    return `<div class="tl${on ? ' own' : ''}" data-id="${esc(i.id)}" data-i="${idx}" style="--c:${rc(i.rarity)}" tabindex="0" role="button" aria-label="${esc(i.name)}" title="${esc(i.name)} \u00b7 ${esc(i.rarity)}">${gem(i.rarity, 'tgem')}<div class="timg">${i.img ? `<img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="${esc(i.img)}" alt="" onerror="this.style.visibility='hidden'">` : ''}</div><span class="tname">${esc(i.name)}</span><button class="ownb" type="button" aria-pressed="${on}" aria-label="Toggle owned">${LK}</button></div>`; };
+    return `<div class="tl${on ? ' own' : ''}" data-id="${esc(i.id)}" data-i="${idx}" style="--c:${rc(i.rarity)}" tabindex="0" role="button" aria-label="${esc(i.name)}" title="${esc(i.name)} \u00b7 ${esc(i.rarity)}">${gem(i.rarity, 'tgem')}${window.TFT3D && i.type === 'Little Legend' && TFT3D.find(i) ? `<i class="b3d">${CUBE}3D</i>` : ''}<div class="timg">${i.img ? `<img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="${esc(i.img)}" alt="" onerror="this.style.visibility='hidden'">` : ''}</div><span class="tname">${esc(i.name)}</span><button class="ownb" type="button" aria-pressed="${on}" aria-label="Toggle owned">${LK}</button></div>`; };
   const sec = x => `<section class="tsec">${x.name ? `<div class="thead"><b>${esc(x.name)}</b><span>${cnt(x.items)}/${x.items.length}</span></div>` : ''}<div class="tgrid">${x.items.map((i, k) => tile(i, x.start + k)).join('')}</div></section>`;
   function groupItems(a) {
     let gs;
@@ -4705,11 +5285,17 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
 
   /* ---------------- category cards + filters ---------------- */
   function paintCatCards() {
-    document.querySelectorAll('#grid .tcat').forEach(b => {
-      const v = ALL.filter(i => i.type === b.dataset.t), o = cnt(v), p = v.length ? Math.round(100 * o / v.length) : 0;
-      b.querySelector('.tm').textContent = `${o} / ${v.length} owned`;
-      b.querySelector('.tp i').style.width = p + '%';
-      b.classList.toggle('sel', F.type === b.dataset.t);
+    document.querySelectorAll('#grid .cpanel').forEach(b => {
+      const t = b.dataset.t, v = ALL.filter(i => i.type === t), o = cnt(v), p = v.length ? Math.round(100 * o / v.length) : 0;
+      b.querySelector('.tm').textContent = `${o} / ${v.length}`; b.querySelector('.cp-pct').textContent = p + '%';
+      b.querySelector('.tp i').style.width = p + '%'; b.classList.toggle('sel', F.type === t);
+      if (!b.dataset.bg && v.length) {
+        const im = [...v].filter(i => i.img).sort((x, y) => RW[y.rarity] - RW[x.rarity] || x.name.localeCompare(y.name)).slice(0, 9);
+        if (im.length) { b.querySelector('.cp-bg').innerHTML = im.map(i => `<img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="${esc(i.img)}" alt="" onerror="this.style.visibility='hidden'">`).join(''); b.dataset.bg = '1'; }
+      }
+      const cn = {}; v.forEach(i => cn[i.rarity] = (cn[i.rarity] || 0) + 1);
+      b.querySelector('.cp-rar').innerHTML = RARS.filter(r => cn[r]).map(r => `<em style="color:${RC[r]}">${gem(r)}${cn[r]} ${r}</em>`).join('');
+      if (t === 'Little Legend' && window.TFT3D) { const n3 = v.filter(i => TFT3D.find(i)).length; b.classList.toggle('has3d', n3 > 0); b.querySelector('.n3').textContent = `${n3} / ${v.length} in 3D`; }
     });
   }
   window.paintCats = async () => { await load(); paintList(); };
@@ -4884,6 +5470,7 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
     clearTimeout(dTimer); cur = c;
     DF = { q: '', type: F.type, rar: new Set(F.rar), status: 'all', sort: 'default' };
     const d = g('sdetail'), top = [...c.items].filter(i => i.img).sort((a, b) => RW[b.rarity] - RW[a.rarity])[0];
+    d.style.setProperty('--rc', String(c.id).startsWith('__type_') ? (CATC[c.id.slice(7)] || '#f8a900') : '#f8a900'); DF.only3d = false;
     g('stitle').textContent = c.name; g('ssub').textContent = c.blurb || `${c.items.length} cosmetics`;
     g('sbg').style.backgroundImage = top ? `url("${top.img.replace(/"/g, '%22')}")` : '';
     g('sq').value = ''; syncS(); g('ssort').value = 'default'; setSeg(g('sstat'), 'all'); paintFav();
@@ -4901,7 +5488,7 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
 
   function detailItems() {
     const k = DF.q.trim().toLowerCase();
-    let a = cur.items.filter(i => tOk(i, DF) && (!k || i._n.includes(k)) && (DF.status === 'all' || (DF.status === 'owned') === owned.has(i.id)));
+    let a = cur.items.filter(i => tOk(i, DF) && (!DF.only3d || (window.TFT3D && TFT3D.find(i))) && (!k || i._n.includes(k)) && (DF.status === 'all' || (DF.status === 'owned') === owned.has(i.id)));
     if (DF.sort === 'rarity') a = [...a].sort((x, y) => RW[y.rarity] - RW[x.rarity] || x.name.localeCompare(y.name));
     else if (DF.sort === 'name') a = [...a].sort((x, y) => x.name.localeCompare(y.name));
     else if (DF.sort === 'missing') a = [...a].sort((x, y) => owned.has(x.id) - owned.has(y.id) || x.name.localeCompare(y.name));
@@ -4912,12 +5499,14 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
     const pool = cur.items.filter(i => tOk(i, DF)), o = cnt(pool), p = pool.length ? Math.round(100 * o / pool.length) : 0;
     ring(g('sringfg'), g('sringt'), p, heroS);
     const rcn = {}; pool.forEach(i => rcn[i.rarity] = (rcn[i.rarity] || 0) + 1);
-    g('sstats').innerHTML = `<span>${o} / ${pool.length} owned</span>` + RARS.filter(r => rcn[r]).map(r => `<span style="color:${RC[r]}">${gem(r)}${rcn[r]} ${r}</span>`).join('');
+    const n3 = window.TFT3D ? pool.filter(i => i.type === 'Little Legend' && TFT3D.find(i)).length : 0;
+    g('sstats').innerHTML = `<span>${o} / ${pool.length} owned</span>` + (n3 ? `<span style="color:#fff"><b style="color:var(--rc)">3D</b> ${n3} models</span>` : '') + RARS.filter(r => rcn[r]).map(r => `<span style="color:${RC[r]}">${gem(r)}${rcn[r]} ${r}</span>`).join('');
   }
 
   function paintDetail() {
     const tc = {}, rcn = {}; cur.items.forEach(i => { tc[i.type] = (tc[i.type] || 0) + 1; rcn[i.rarity] = (rcn[i.rarity] || 0) + 1; });
     const types = Object.keys(tc);
+    const has3 = !!window.TFT3D && cur.items.some(i => i.type === 'Little Legend' && TFT3D.find(i)); g('s3d').hidden = !has3; g('s3d').classList.toggle('on', !!DF.only3d);
     g('stype').innerHTML = types.length > 1 ? ['All', ...types].map(t => `<button class="chip${DF.type === t ? ' on' : ''}" data-t="${esc(t)}">${t === 'All' ? 'All types' : glyph(ICO[t]) + esc(TL(t))}<em>${t === 'All' ? cur.items.length : tc[t]}</em></button>`).join('') : '';
     g('srar').innerHTML = Object.keys(rcn).length > 1 ? RARS.filter(r => rcn[r]).map(r => `<button class="chip${DF.rar.has(r) ? ' on' : ''}" style="--c:${RC[r]}" data-r="${r}">${gem(r)}${r}<em>${rcn[r]}</em></button>`).join('') : '';
     const groups = groupItems(detailItems()); curList = groups.flatMap(x => x.items); g('sqn').textContent = `${curList.length} / ${cur.items.length}`;
@@ -4954,13 +5543,88 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
   g('sstat').onclick = e => { const b = e.target.closest('button'); if (b) { DF.status = b.dataset.s; setSeg(g('sstat'), DF.status); paintDetail(); } };
   g('stype').onclick = e => { const b = e.target.closest('.chip'); if (b) { DF.type = b.dataset.t; paintDetail(); } };
   g('srar').onclick = e => { const b = e.target.closest('.chip'); if (!b) return; const r = b.dataset.r; DF.rar.has(r) ? DF.rar.delete(r) : DF.rar.add(r); paintDetail(); };
+  g('s3d').onclick = () => { DF.only3d = !DF.only3d; paintDetail(); };
   g('sall').onclick = () => { curList.forEach(i => mark(i.id, true)); save(); paintDetail(); };
   const paintFav = () => { const b = g('sfav'), ok = cur && !String(cur.id).startsWith('__'), on = ok && favs.has(cur.id); b.hidden = !ok; b.classList.toggle('on', !!on); b.textContent = on ? '\u2605 Favorited' : '\u2606 Favorite'; };
   g('sfav').onclick = () => { if (!cur) return; favs.has(cur.id) ? favs.delete(cur.id) : favs.add(cur.id); saveF(); paintFav(); };
   g('scopy').onclick = async () => { const m = cur.items.filter(i => !owned.has(i.id)).map(i => i.name); say(!m.length ? 'Nothing missing \u2013 complete!' : (await copyText(`${cur.name} \u2013 missing ${m.length}:\n` + m.join('\n')) ? `Copied ${m.length} missing cosmetics` : 'Could not copy')); };
   g('snone').onclick = () => { curList.forEach(i => mark(i.id, false)); save(); paintDetail(); };
 
-  /* ---------------- viewer (video for Little Legends & Arenas) ---------------- */
+  /* ---------------- viewer: fullscreen card, 3D (drag to rotate, every animation) or 2D ---------------- */
+  const KM = 'tftvault.vmode.v1', KA = 'tftvault.v3d.v1';
+  let vMode = '3d'; try { vMode = localStorage.getItem(KM) === '2d' ? '2d' : '3d'; } catch {}
+  const P3 = { auto: true, loop: true, speed: 1, cycle: false }; try { Object.assign(P3, JSON.parse(localStorage.getItem(KA) || '{}')); } catch {}
+  const saveP3 = () => { try { localStorage.setItem(KA, JSON.stringify(P3)); } catch {} };
+  let gv = null, g3tok = 0, clips3 = [], curClip = '', seeking = false;
+  const modelOf = i => (i && i.type === 'Little Legend' && window.TFT3D) ? TFT3D.find(i) : null;
+  const ORDER = [/^idle(_?base)?$/i, /^idle/i, /^run_?base|^runbase/i, /^run/i, /dance/i, /taunt/i, /joke/i, /laugh/i, /greet/i, /celebr/i, /interact/i, /reaction/i, /cast/i, /recall/i, /dive/i, /hurt|damage/i, /death/i];
+  const ALIASL = { idle_base: 'Idle', run_base: 'Run', run_haste: 'Sprint', cast_animation: 'Cast', cast_cycle: 'Cast loop', cast_damage: 'Cast attack', damage_hurt: 'Hurt', sg_classroom_intro: 'Classroom intro', recall_winddown: 'Recall end' };
+  function clipLabel(n) {
+    const k = n.toLowerCase(); if (ALIASL[k]) return ALIASL[k];
+    let s = n.split('.')[0].replace(/^Pet[A-Za-z0-9]*?_(Base_)?/, '').replace(/_/g, ' ').replace(/([a-z])([A-Z])/g, '$1 $2').trim();
+    return s ? s[0].toUpperCase() + s.slice(1) : n;
+  }
+  const isLoopy = n => /loop|^idle|^run|flight|^dance(_?loop)?$|cycle/i.test(n);
+  function chainOf(name) {
+    const base = name.replace(/\.anm$/i, '').replace(/[_ ]?(intro|in)$/i, ''); if (base === name.replace(/\.anm$/i, '')) return null;
+    const nb = TFT3D.norm(base), list = clips3.map(c => c.name);
+    return list.find(c => TFT3D.norm(c.replace(/\.anm$/i, '')) === nb + 'loop') || list.find(c => c !== name && TFT3D.norm(c.replace(/\.anm$/i, '')) === nb) || (/^idle/i.test(base) ? idleClip() : null);
+  }
+  const idleClip = () => { const l = clips3.map(c => c.name); return l.find(n => /^idle_?base$/i.test(n)) || l.find(n => /^idle/i.test(n)) || l[0]; };
+  function onClipEnd(name) {
+    if (P3.cycle) { const k = clips3.findIndex(c => c.name === name); playClip(clips3[(k + 1) % clips3.length].name); return; }
+    const nx = chainOf(name); playClip(nx || idleClip(), true);
+  }
+  function playClip(name, quiet) {
+    if (!gv || !name) return; curClip = name;
+    const ch = chainOf(name), loop = ch ? false : (P3.cycle ? false : (P3.loop || isLoopy(name)));
+    gv.play(name, { loop, fade: 0.22 }); gv.setPaused(false); updCtl();
+    g('vclips').querySelectorAll('button').forEach(b => b.classList.toggle('on', b.dataset.n === name));
+    const a = g('vclips').querySelector('button.on'); if (a && !quiet) a.scrollIntoView({ block: 'nearest' });
+  }
+  function updCtl() {
+    g('vplay').textContent = gv && gv.paused ? '\u25B6' : '\u275A\u275A';
+    g('vloop').classList.toggle('on', P3.loop); g('vauto').classList.toggle('on', P3.auto); g('vcycle').classList.toggle('on', P3.cycle); g('vspeed').value = String(P3.speed);
+  }
+  function buildClips(list) {
+    const used = {}, rows = list.map((c, k) => { let ix = ORDER.findIndex(r => r.test(c.name)); if (ix < 0) ix = 99; return { name: c.name, dur: c.dur, ix, k }; });
+    rows.sort((a, b) => a.ix - b.ix || a.k - b.k);
+    rows.forEach(r => { let l = clipLabel(r.name); used[l] = (used[l] || 0) + 1; r.label = used[l] > 1 ? `${l} ${used[l]}` : l; });
+    clips3 = rows;
+    g('vclips').innerHTML = rows.map(r => `<button type="button" data-n="${esc(r.name)}"><span>${esc(r.label)}</span><em>${r.dur.toFixed(1)}s</em></button>`).join('');
+    g('vcn').textContent = rows.length + ' clips';
+  }
+  function viewer3D() {
+    if (gv) return gv;
+    try { gv = new GLBView(g('v3d'), { onEnd: onClipEnd, onTime(t, d) { if (!seeking) { const s = g('vseek'); s.max = d; s.value = t; } } }); gv.setAuto(P3.auto); gv.setSpeed(P3.speed); } catch (e) { console.warn('3D unavailable', e); gv = null; }
+    return gv;
+  }
+  function stage(m) {
+    g('vmedia').hidden = m !== '3d' ? false : true; g('vstage3d').hidden = m !== '3d'; g('vanim').hidden = m !== '3d';
+    g('vload').classList.remove('on');
+  }
+  function warn(msg) { const w = g('vwarn'); w.hidden = !msg; w.textContent = msg || ''; }
+  async function show3D(i, mdl) {
+    const tok = ++g3tok; stage('3d'); warn(''); g('vload').classList.add('on'); g('vclips').innerHTML = ''; g('vcn').textContent = '';
+    const v = viewer3D(); if (!v) return fall(i, '3D needs WebGL 2, which is not available here.');
+    try {
+      const info = await v.load(mdl.url); if (tok !== g3tok) return;
+      if (info.untextured) { v.unload(); return fall(i, 'This 3D file has no textures in it, showing the 2D card instead.'); }
+      g('vload').classList.remove('on'); buildClips(info.clips); updCtl();
+      playClip(idleClip(), true);
+      const nb = vList[(vIdx + 1) % vList.length], m2 = modelOf(nb); if (m2 && nb !== i) GLBView.prefetch(m2.url);
+    } catch (e) { if (tok !== g3tok || /cancel/.test(e.message)) return; fall(i, `3D model not found: ${mdl.url}`); }
+  }
+  function fall(i, msg) { g3tok++; stage('2d'); show2D(i); warn(msg); }
+  function show2D(i) {
+    const m = g('vmedia'); m.innerHTML = '';
+    const img = () => { const im = new Image(); im.alt = i.name; im.referrerPolicy = 'no-referrer'; im.className = 'vimg'; im.src = i.img || ''; m.appendChild(im); };
+    const src = VIDEO_TYPES.has(i.type) ? (i.video || (VP ? VP.replace(/\{id\}/g, i.id).replace(/\{type\}/g, encodeURIComponent(i.type)) : '')) : '';
+    if (src) {
+      const vd = document.createElement('video'); vd.className = 'vvid'; vd.src = src; vd.autoplay = true; vd.loop = true; vd.muted = true; vd.playsInline = true; vd.controls = true;
+      vd.onerror = () => { vd.remove(); img(); g('vlink').textContent = '\u25B6 Watch preview \u2197'; }; m.appendChild(vd); const pr = vd.play?.(); if (pr) pr.catch(() => {});
+    } else img();
+  }
   function openViewer(list, idx) {
     clearTimeout(vTimer); vList = list; vIdx = idx;
     const v = g('viewer'); v.hidden = false; renderViewer();
@@ -4968,31 +5632,41 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
   }
   function closeViewer() {
     const v = g('viewer'); if (v.hidden) return;
-    v.classList.remove('on'); g('vmedia').innerHTML = '';
+    v.classList.remove('on'); g3tok++; if (gv) gv.unload(); g('vmedia').innerHTML = '';
     vTimer = setTimeout(() => { v.hidden = true; }, 260);
   }
-  function vOwn() { const i = vList[vIdx]; if (!i) return; const on = owned.has(i.id); const b = g('vown'); b.classList.toggle('on', on); b.textContent = on ? '✓ Owned' : 'Mark as owned'; }
+  function vOwn() { const i = vList[vIdx]; if (!i) return; const on = owned.has(i.id); const b = g('vown'); b.classList.toggle('on', on); b.textContent = on ? '\u2713 Owned' : 'Mark as owned'; }
   function renderViewer() {
     const i = vList[vIdx]; if (!i) return; const c = rc(i.rarity);
-    g('vcard').style.setProperty('--c', c);
-    const m = g('vmedia'); m.style.setProperty('--c', c); m.innerHTML = '';
-    const img = () => { const im = new Image(); im.alt = i.name; im.referrerPolicy = 'no-referrer'; im.className = 'vimg'; im.src = i.img || ''; m.appendChild(im); };
-    const src = VIDEO_TYPES.has(i.type) ? (i.video || (VP ? VP.replace(/\{id\}/g, i.id).replace(/\{type\}/g, encodeURIComponent(i.type)) : '')) : '';
-    if (src) {
-      const vd = document.createElement('video'); vd.className = 'vvid'; vd.src = src; vd.autoplay = true; vd.loop = true; vd.muted = true; vd.playsInline = true; vd.controls = true;
-      vd.onerror = () => { vd.remove(); img(); g('vlink').textContent = '▶ Watch preview ↗'; }; m.appendChild(vd); const pr = vd.play?.(); if (pr) pr.catch(() => {});
-    } else img();
-    const r = g('vrar'); r.innerHTML = gem(i.rarity) + esc(i.rarity); g('vname').textContent = i.name;
+    g('viewer').style.setProperty('--c', c); g('vcard').style.setProperty('--c', c);
+    const mdl = modelOf(i), isLL = i.type === 'Little Legend';
+    const seg = g('vmode'); seg.hidden = !isLL; seg.querySelector('[data-m="3d"]').disabled = !mdl;
+    const want3 = !!mdl && vMode === '3d';
+    seg.querySelector('[data-m="3d"]').classList.toggle('on', want3); seg.querySelector('[data-m="2d"]').classList.toggle('on', !want3);
+    seg.querySelector('[data-m="3d"]').title = mdl ? '3D model: drag to rotate, pick any animation' : 'No 3D model for this one';
+    warn('');
+    if (want3) show3D(i, mdl); else { g3tok++; if (gv) gv.unload(); stage('2d'); show2D(i); }
+    g('vrar').innerHTML = gem(i.rarity) + esc(i.rarity); g('vname').textContent = i.name;
     const s = SER.get(i.id);
-    g('vmeta').innerHTML = `<dt>Type</dt><dd>${esc(i.type)}</dd>` + (s ? `<dt>Collection</dt><dd>${esc(s.name)}</dd>` : '') + (i.source ? `<dt>Source</dt><dd>${esc(i.source)}</dd>` : '');
+    g('vmeta').innerHTML = `<dt>Type</dt><dd>${esc(i.type)}</dd>` + (s ? `<dt>Collection</dt><dd>${esc(s.name)}</dd>` : '') + (i.source ? `<dt>Source</dt><dd>${esc(i.source)}</dd>` : '') + (mdl ? `<dt>3D model</dt><dd>${esc(mdl.name)}</dd>` : '');
     const a = g('vlink'); a.href = i.url || 'https://tftskins.com/cosmetic/' + encodeURIComponent(i.id);
-    a.textContent = VIDEO_TYPES.has(i.type) && !src ? '▶ Watch preview ↗' : 'View on tftskins.com ↗';
+    a.textContent = VIDEO_TYPES.has(i.type) && !(i.video || VP) ? '\u25B6 Watch preview \u2197' : 'View on tftskins.com \u2197';
     g('vcount').textContent = `${vIdx + 1} / ${vList.length}`;
     vOwn();
   }
+  function setMode(m) { vMode = m; try { localStorage.setItem(KM, m); } catch {} renderViewer(); }
+  g('vmode').onclick = e => { const b = e.target.closest('button'); if (b && !b.disabled) setMode(b.dataset.m); };
+  g('vclips').onclick = e => { const b = e.target.closest('button'); if (b) { P3.cycle = false; saveP3(); playClip(b.dataset.n); } };
+  g('vplay').onclick = () => { if (gv) { gv.setPaused(!gv.paused); updCtl(); } };
+  g('vspeed').onchange = e => { P3.speed = +e.target.value; saveP3(); if (gv) gv.setSpeed(P3.speed); };
+  g('vloop').onclick = () => { P3.loop = !P3.loop; saveP3(); updCtl(); if (curClip) playClip(curClip, true); };
+  g('vauto').onclick = () => { P3.auto = !P3.auto; saveP3(); if (gv) gv.setAuto(P3.auto); updCtl(); };
+  g('vcycle').onclick = () => { P3.cycle = !P3.cycle; saveP3(); updCtl(); if (P3.cycle) playClip(curClip || idleClip(), true); else if (curClip) playClip(curClip, true); };
+  g('vreset').onclick = () => { if (gv) gv.resetView(); };
+  g('vseek').oninput = e => { seeking = true; if (gv) { gv.setPaused(true); gv.seek(+e.target.value); updCtl(); } };
+  g('vseek').onchange = () => { seeking = false; };
   const step = d => { if (!vList.length) return; vIdx = (vIdx + d + vList.length) % vList.length; renderViewer(); };
   g('vprev').onclick = () => step(-1); g('vnext').onclick = () => step(1); g('vx').onclick = closeViewer;
-  g('viewer').onclick = e => { if (e.target === g('viewer')) closeViewer(); };
   g('vown').onclick = () => { const i = vList[vIdx]; if (i) toggle(i.id); };
   g('vmedia').addEventListener('mousemove', e => {
     const im = g('vmedia').querySelector('.vimg'); if (!im || RM) return;
@@ -5006,6 +5680,9 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
     if (!g('viewer').hidden) {
       if (e.key === 'Escape') { e.stopPropagation(); closeViewer(); }
       else if (e.key === 'ArrowRight') step(1); else if (e.key === 'ArrowLeft') step(-1);
+      else if (e.key === '3' && modelOf(vList[vIdx])) setMode('3d'); else if (e.key === '2') setMode('2d');
+      else if (e.key === ' ' && gv && !g('vstage3d').hidden) { e.preventDefault(); g('vplay').click(); }
+      else if ((e.key === 'r' || e.key === 'R') && gv) gv.resetView(); else if (e.key === 'a' || e.key === 'A') g('vauto').click();
       return;
     }
     if (e.key === 'Escape' && !g('sdetail').hidden) { const ae = document.activeElement; if (ae && ae.id === 'sq' && ae.value) return; e.stopPropagation(); closeDetail(); }
@@ -5211,7 +5888,7 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
     else if (kind === 'star') { const f = [0, 659.25, 880, 1174.7][Math.max(1, Math.min(3, +arg || 1))]; for (let k = 0; k < 3; k++) tone('sine', f * (1 + k * .5), f * (1 + k * .5), .004, .09, .3, k * .07); tone('triangle', f / 2, f / 2, .004, .12, .25); }
   };
   /* Click sound on EVERYTHING clickable (home, all categories, popups, panels): real controls + anything that shows the pointer cursor */
-  const CLICK_SEL = 'button,a[href],summary,select,label[for],[role=button],[role=tab],[role=switch],[role=option],[role=menuitem],input[type=checkbox],input[type=radio],.nv,.tcat,.card,.st-line,[onclick]';
+  const CLICK_SEL = 'button,a[href],summary,select,label[for],[role=button],[role=tab],[role=switch],[role=option],[role=menuitem],input[type=checkbox],input[type=radio],.nv,.tcat,.cpanel,.card,.st-line,[onclick]';
   const NO_SEL = 'input[type=range],input[type=text],input[type=search],input[type=file],textarea,#intro';
   function clickable(t) {
     if (!t || t.nodeType !== 1 || t.closest(NO_SEL)) return false;
