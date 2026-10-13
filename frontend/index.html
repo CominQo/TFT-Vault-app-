@@ -2517,6 +2517,32 @@ html.pf-busy *,html.pf-busy *::before,html.pf-busy *::after{animation-play-state
 .cbp-none{padding:34px 10px;text-align:center;color:#8f99a8;grid-column:1/-1}
 @media (prefers-reduced-motion:reduce){.cbp-box,.cbp-card,#cb-compm,.cb3-st.n .sr{animation:none}}
 </style>
+<style id="cbHexV10">
+/* ===== Comp Builder v10: reworked top bar (fullscreen), champion cards use wallpapers ===== */
+#cbx.fs .cb-top{left:16px;right:170px;width:auto;height:58px;gap:10px;padding:0 14px;border-radius:16px;background:linear-gradient(180deg,rgba(22,30,50,.88),rgba(9,14,26,.88));border:1px solid rgba(200,162,74,.38);box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 10px 28px rgba(0,0,0,.45)}
+#cbx.fs .cb-top input{flex:0 1 230px;width:auto;min-width:110px;height:38px;padding:0 14px;border-radius:10px;background:rgba(0,0,0,.35);border:1px solid rgba(200,162,74,.3);color:#f3ead2;font:600 14px var(--body)}
+#cbx.fs .cb-top input::placeholder{color:#7d879a}
+#cbx.fs .cb-top input:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(248,169,0,.14)}
+#cbx.fs .cb-top .cb-btn{flex:none;height:38px;padding:0 14px;gap:8px;border-radius:10px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:#dfe5f0;font:700 12.5px var(--body);letter-spacing:.03em;white-space:nowrap;box-shadow:none}
+#cbx.fs .cb-top .cb-btn:hover{background:rgba(248,169,0,.12);border-color:var(--gold);color:#ffe3a0;transform:translateY(-1px);box-shadow:0 6px 16px rgba(0,0,0,.35)}
+#cbx.fs .cb-top .cb-btn.pri{background:linear-gradient(180deg,#f6dc9a,#c89a3e 55%,#a2751f);color:#2a1700;border-color:#f6dc9a;box-shadow:0 4px 14px rgba(248,169,0,.3)}
+#cbx.fs .cb-top .cb-btn.pri:hover{filter:brightness(1.08);color:#2a1700}
+#cbx.fs .cb-top .cb-btn.on{background:rgba(248,169,0,.16);border-color:var(--gold);color:var(--gold)}
+#cbx.fs .cb-top #cb-undo{margin-left:8px}
+#cbx.fs .cb-top .cb-bdg{margin-left:2px}
+#cbx.fs .cb-top .cb-n{margin-left:auto;display:flex;align-items:center;gap:6px;min-width:0;overflow:hidden}
+.cb-pill{display:inline-flex;align-items:center;gap:6px;height:30px;padding:0 11px;border-radius:99px;background:rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.1);color:#9aa4b2;font:600 11.5px var(--body);white-space:nowrap}
+.cb-pill i{font:800 14px/1 var(--body);font-style:normal;color:#f3ead2}.cb-pill.g i{color:#ffd27a}
+#cbx.fs>.cb-panel:nth-child(2){display:none}
+@media (max-width:1560px){
+  #cbx.fs .cb-top .cb-btn:not(.pri){font-size:0;gap:0;padding:0 12px}
+  #cbx.fs .cb-top .cb-btn:not(.pri) svg{width:17px;height:17px}
+  #cbx.fs .cb-top .cb-btn .cb-bdg{font-size:11px;margin-left:7px}
+}
+@media (max-width:1280px){.cb-pill{padding:0 8px}.cb-pill:nth-child(3){display:none}}
+/* champion cards: wallpaper art (falls back to the 3D portrait when no wallpaper file exists) */
+#cbx .cb-p.cd .cd-art{background-image:var(--wp,var(--im,none)),radial-gradient(circle at 50% 30%,color-mix(in srgb,var(--c) 34%,#1a2130),#0c1017 80%);background-size:cover;background-position:50% 20%;background-repeat:no-repeat}
+</style>
 <script src="lib/cb3d.js"></script>
 <script>try{if((JSON.parse(localStorage.getItem('tft.settings.v1')||'{}')).fx===false)document.documentElement.classList.add('fx-off')}catch(e){}</script>
 <div id="intro" aria-hidden="true">
@@ -3751,6 +3777,8 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
   const slug3 = n => (window.CB3D ? CB3D.slugOf(n) : '');
   const portrait = c => (MF3 && MF3[slug3(c.name)] ? 'models/portraits/' + slug3(c.name) + '.webp' : '');   // icons rendered from the 3D models
   const img = c => c.icon || c.img || c.image || c.portrait || portrait(c);
+  const WALL_DIR = 'wallpapers/';   // champion wallpapers: wallpapers/<champion>.jpg (.webp and .png are tried too); falls back to the 3D portrait
+  const wallLayers = c => { const sl = slug3(c.name), own = c.splash || c.wallpaper || c.loading || c.art || c.banner, L = []; if (own) L.push(own); ['jpg', 'webp', 'png'].forEach(x => L.push(WALL_DIR + sl + '.' + x)); const p = img(c); if (p) L.push(p); return L.map(u => `url('${u}')`).join(','); };
   const esc = s => String(s).replace(/[&<>"]/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[m]);
   const snap = () => ({ b: board.slice(), g: gear.map(x => x ? x.slice() : null), s: Object.assign({}, stars) });
   const push = () => { hist.push(snap()); if (hist.length > 50) hist.shift(); };
@@ -3837,7 +3865,7 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
     const used = new Set(board.filter(Boolean));
     document.querySelectorAll('.cb-p').forEach(p => p.classList.toggle('used', used.has(p.dataset.n)));
     const cs = D.champions.filter(c => used.has(c.name));
-    $('cb-count').textContent = `${cs.length} units · ${cs.reduce((a, c) => a + c.cost, 0)} gold · ${gear.reduce((a, g) => a + (g ? g.length : 0), 0)} items`;
+    $('cb-count').innerHTML = `<span class="cb-pill"><i>${cs.length}</i>units</span><span class="cb-pill g"><i>${cs.reduce((a, c) => a + c.cost, 0)}</i>gold</span><span class="cb-pill"><i>${gear.reduce((a, g) => a + (g ? g.length : 0), 0)}</i>items</span>`;
     const cnt = currentTraits();
     const rows = D.traits.filter(t => cnt[t.name] && t.kind !== 'hidden').map(t => {
       const bp = (t.kind === 'single' || !t.bp || !t.bp.length ? [1] : t.bp.map(x => parseInt(x))).filter(x => x > 0);
@@ -3871,7 +3899,7 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
   function paintPool() {
     const k = q.trim().toLowerCase();
     const list = D.champions.filter(c => (!costF || c.cost === costF) && (!traitF || c.traits.includes(traitF)) && (!k || c.name.toLowerCase().includes(k) || c.traits.some(t => t.toLowerCase().includes(k))));
-    $('cb-pl').innerHTML = list.length ? list.map(c => `<div class="cb-p cd" draggable="true" data-n="${esc(c.name)}" style="--c:${COST[c.cost]};${img(c) ? `--im:url(${img(c)})` : ''}"><span class="cd-art"></span>${CD_FR}<span class="cd-gem">${cgem(c.cost)}</span><b class="cd-nm">${esc(c.name)}</b><small>${c.cost}</small></div>`).join('') : '<span class="cb-none">No champions match.</span>';
+    $('cb-pl').innerHTML = list.length ? list.map(c => `<div class="cb-p cd" draggable="true" data-n="${esc(c.name)}" style="--c:${COST[c.cost]};${img(c) ? `--im:url(${img(c)})` : ''};--wp:${wallLayers(c)}"><span class="cd-art"></span>${CD_FR}<span class="cd-gem">${cgem(c.cost)}</span><b class="cd-nm">${esc(c.name)}</b><small>${c.cost}</small></div>`).join('') : '<span class="cb-none">No champions match.</span>';
     $('cb-pl').classList.toggle('hu', hideUsed); paintBoard();
   }
   function place(name, to, from) {
@@ -3930,7 +3958,6 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
       onUnitClick: i => { tagIdx = i; paintTag(); },
       onDragStart: () => { root.dataset.drag = 'unit'; tagIdx = -1; paintTag(); sfx('pick'); },
       onDragHover: i => { $('cb-rm').classList.toggle('over', i < 0); hovTick(i); },
-      onLand: (i, cost) => sfx('land', cost),
       onDragEnd: (from, to) => { hovLast = -2; root.dataset.drag = ''; $('cb-rm').classList.remove('over'); const n = board[from]; if (!n) return; if (to < 0) remove(from); else if (to !== from) place(n, to, from); },
     });
     window.__cb3 = B3;     // handy for debugging in the console
@@ -5043,12 +5070,6 @@ let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(syn
     if (kind === 'hover') tone('sine', 1250, 1650, .004, .12, .05);
     else if (kind === 'pick') { tone('triangle', 360, 640, .01, .22, .09); puff(2200, 1200, 1.2, .005, .15, .07); }
     else if (kind === 'remove') { puff(900, 200, .8, .005, .4, .16); tone('sine', 420, 160, .004, .25, .14); }
-    else if (kind === 'land') {                          // champion dropped: deep boom + dust rumble
-      tone('sine', 125, 30, .003, 1.0, .5);              // sub boom
-      tone('triangle', 230, 55, .002, .5, .2);           // body punch
-      puff(520, 110, .7, .004, .7, .45);                 // rumble / dust
-      puff(3600, 1500, 1.2, .002, .35, .06);             // impact crack
-    }
     else if (kind === 'star') { const f = [0, 659.25, 880, 1174.7][Math.max(1, Math.min(3, +arg || 1))]; for (let k = 0; k < 3; k++) tone('sine', f * (1 + k * .5), f * (1 + k * .5), .004, .09, .3, k * .07); tone('triangle', f / 2, f / 2, .004, .12, .25); }
   };
   /* Click sound on EVERYTHING clickable (home, all categories, popups, panels): real controls + anything that shows the pointer cursor */
