@@ -9,6 +9,9 @@ import (
 	"github.com/wailsapp/wails/v2/pkg/options/windows"
 )
 
+// frontend/models contains a go.mod marker file, so Go treats it as a separate module
+// and skips it here. The .glb models are never embedded; see models.go.
+//
 //go:embed all:frontend
 var assets embed.FS
 
@@ -22,10 +25,11 @@ func main() {
 		MinHeight:        600,
 		Frameless:        true, // custom title bar is drawn in frontend/index.html
 		BackgroundColour: &options.RGBA{R: 7, G: 10, B: 15, A: 255},
-		AssetServer:      &assetserver.Options{Assets: assets},
-		OnStartup:        app.startup,
-		Bind:             []interface{}{app},
-		Windows:          &windows.Options{Theme: windows.Dark},
+		// Embedded UI first; anything not found there (/models/*.glb) goes to the disk/remote handler.
+		AssetServer: &assetserver.Options{Assets: assets, Handler: newModelsHandler()},
+		OnStartup:   app.startup,
+		Bind:        []interface{}{app},
+		Windows:     &windows.Options{Theme: windows.Dark},
 	})
 	if err != nil {
 		println("error:", err.Error())

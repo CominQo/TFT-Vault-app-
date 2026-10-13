@@ -2,17 +2,39 @@ name: Build Windows exe
 on:
   push:
   workflow_dispatch:
+permissions:
+  contents: read
 jobs:
   build:
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-go@v5
+      - uses: actions/checkout@v5
+        with:
+          # don't even download the GBs of models; the exe never needs them
+          sparse-checkout: |
+            /*
+            !/frontend/models/
+          sparse-checkout-cone-mode: false
+      - uses: actions/setup-go@v6
         with:
           go-version: "1.22"
+          # go.sum is not committed (go mod tidy creates it later), so key the cache on go.mod
+          cache-dependency-path: go.mod
+      - name: Make sure models can never be embedded
+        shell: bash
+        run: |
+          mkdir -p frontend/models
+          printf 'module tftvault-models-ignore\n\ngo 1.22\n' > frontend/models/go.mod
       - run: go install github.com/wailsapp/wails/v2/cmd/wails@latest
       - run: go mod tidy
-      - run: wails build -platform windows/amd64
+      - name: Build
+        shell: bash
+        run: wails build -platform windows/amd64 -ldflags "-X main.modelsRemote=https://raw.githubusercontent.com/${{ github.repository }}/${{ github.ref_name }}/frontend/models/"
+      - name: Fail if models got embedded
+        shell: bash
+        run: |
+          ls -lh build/bin/tft-collection.exe
+          [ "$(stat -c%s build/bin/tft-collection.exe)" -lt 400000000 ] || { echo "exe too big, something large is embedded"; exit 1; }
       - uses: actions/upload-artifact@v4
         with:
           name: tft-collection-exe
